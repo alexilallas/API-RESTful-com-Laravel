@@ -4,11 +4,11 @@ declare var google: any;
 
 @Component({
     moduleId: module.id,
-    selector: 'maps-cmp',
-    templateUrl: 'maps.component.html'
+    selector: 'pesquisar-cmp',
+    templateUrl: 'pesquisar.component.html'
 })
 
-export class MapsComponent implements OnInit {
+export class PesquisarComponent implements OnInit {
     ngOnInit() {
         var myLatlng = new google.maps.LatLng(40.748817, -73.985428);
         var mapOptions = {

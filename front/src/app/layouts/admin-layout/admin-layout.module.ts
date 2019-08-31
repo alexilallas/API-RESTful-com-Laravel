@@ -5,14 +5,13 @@ import { FormsModule } from '@angular/forms';
 
 import { AdminLayoutRoutes } from './admin-layout.routing';
 
-import { DashboardComponent }       from '../../pages/dashboard/dashboard.component';
-import { UserComponent }            from '../../pages/user/user.component';
-import { TableComponent }           from '../../pages/table/table.component';
-import { TypographyComponent }      from '../../pages/typography/typography.component';
-import { IconsComponent }           from '../../pages/icons/icons.component';
-import { MapsComponent }            from '../../pages/maps/maps.component';
-import { NotificationsComponent }   from '../../pages/notifications/notifications.component';
-import { UpgradeComponent }         from '../../pages/upgrade/upgrade.component';
+import { InicioComponent } from '../../pages/inicio/inicio.component';
+import { PacienteComponent } from '../../pages/paciente/paciente.component';
+import { FichaAnamineseComponent } from '../../pages/ficha-anaminese/ficha-anaminese.component';
+import { ExameFisicoComponent } from '../../pages/exame-fisico/exame-fisico.component';
+import { ProntuarioComponent } from '../../pages/prontuario/prontuario.component';
+import { PesquisarComponent } from '../../pages/pesquisar/pesquisar.component';
+import { InventarioComponent } from '../../pages/inventario/inventario.component';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -24,14 +23,13 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     NgbModule
   ],
   declarations: [
-    DashboardComponent,
-    UserComponent,
-    TableComponent,
-    UpgradeComponent,
-    TypographyComponent,
-    IconsComponent,
-    MapsComponent,
-    NotificationsComponent,
+    InicioComponent,
+    PacienteComponent,
+    FichaAnamineseComponent,
+    ExameFisicoComponent,
+    ProntuarioComponent,
+    PesquisarComponent,
+    InventarioComponent,
   ]
 })
 

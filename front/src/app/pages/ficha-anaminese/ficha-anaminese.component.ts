@@ -6,12 +6,12 @@ declare interface TableData {
 }
 
 @Component({
-    selector: 'table-cmp',
+    selector: 'ficha-anaminese-cmp',
     moduleId: module.id,
-    templateUrl: 'table.component.html'
+    templateUrl: 'ficha-anaminese.component.html'
 })
 
-export class TableComponent implements OnInit{
+export class FichaAnamineseComponent implements OnInit{
     public tableData1: TableData;
     public tableData2: TableData;
     ngOnInit(){
