@@ -1,5 +1,9 @@
 export class Paciente{
-    id: number;
+
+    constructor(){
     nome: String;
     email: String;
+    
+    }
+    
 }

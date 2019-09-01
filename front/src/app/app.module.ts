@@ -8,6 +8,11 @@ import { FooterModule } from './shared/footer/footer.module';
 import { NavbarModule} from './shared/navbar/navbar.module';
 import { FixedPluginModule} from './shared/fixedplugin/fixedplugin.module';
 
+import { DataTablesModule } from 'angular-datatables';
+import { NgSelect2Module } from 'ng-select2';
+// import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
+
 import { AppComponent } from './app.component';
 import { AppRoutes } from './app.routing';
 
@@ -30,7 +35,11 @@ import { HttpClientModule }    from '@angular/common/http';
     ToastrModule.forRoot(),
     FooterModule,
     FixedPluginModule,
-    HttpClientModule
+    HttpClientModule,
+    DataTablesModule,
+    NgSelect2Module,
+    FormsModule,
+    // ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

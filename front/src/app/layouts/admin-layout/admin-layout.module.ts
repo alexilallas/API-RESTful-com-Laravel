@@ -3,6 +3,11 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
+import { DataTablesModule } from 'angular-datatables';
+import { NgSelect2Module } from 'ng-select2';
+// import { ReactiveFormsModule } from '@angular/forms';
+
+
 import { AdminLayoutRoutes } from './admin-layout.routing';
 
 import { InicioComponent } from '../../pages/inicio/inicio.component';
@@ -20,7 +25,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     CommonModule,
     RouterModule.forChild(AdminLayoutRoutes),
     FormsModule,
-    NgbModule
+    NgbModule,
+    DataTablesModule,
+    NgSelect2Module,
+    // ReactiveFormsModule
   ],
   declarations: [
     InicioComponent,
