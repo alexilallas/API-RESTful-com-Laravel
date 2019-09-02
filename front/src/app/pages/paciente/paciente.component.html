@@ -6,6 +6,14 @@
                 <h5 class="card-title">Novo Paciente</h5>
               </div>
               <div class="card-body">
+                  <ul class="heroes">
+                      {{ pacientes | json }}
+                      <li *ngFor="let hero of baseFields">
+                        
+                        <span class="badge">{{hero.id}}</span> {{hero.name}}
+                      
+                      </li>
+                    </ul>
                 <form #pacienteForm = "ngForm"  (ngSubmit)="onSubmit()">
                   <h6 class="card-title text-secondary">Dados Pessoais</h6>
                   <div class="row">

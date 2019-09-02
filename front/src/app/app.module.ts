@@ -19,11 +19,12 @@ import { AppRoutes } from './app.routing';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 
 import { HttpClientModule }    from '@angular/common/http';
+import { BaseFormFieldsService } from './pages/form/base-form-fields.service';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AdminLayoutComponent
+    AdminLayoutComponent,
   ],
   imports: [
     BrowserAnimationsModule,
@@ -41,7 +42,7 @@ import { HttpClientModule }    from '@angular/common/http';
     FormsModule,
     // ReactiveFormsModule
   ],
-  providers: [],
+  providers: [BaseFormFieldsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

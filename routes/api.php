@@ -18,3 +18,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('pacientes', 'PacienteController@getPacientes');
+Route::get('form', 'FormController@getBasefields');

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { PacienteService } from './paciente.service';
+import { BaseFormFields } from '../form/baseform-fields';
+import { BaseFormFieldsService } from '../form/base-form-fields.service';
 import { Paciente } from './paciente';
+import { PacienteService } from './paciente.service';
 
 @Component({
     selector: 'paciente-cmp',
@@ -9,29 +11,39 @@ import { Paciente } from './paciente';
 })
 
 export class PacienteComponent implements OnInit{
+    public baseFields: any []
     public pacientes: Paciente[]
-    estadoCivil:any = [ 'Solteiro(a)', 'Casado(a)', 'Viúvo(a)' ]
-    tipoSexo:any =  [ 'Masculino', 'Feminino' ]
-    tipoPaciente:any =  [ 'Aluno', 'Funcionário', 'Outro' ]
+    // estadoCivil:any = [ 'Solteiro(a)', 'Casado(a)', 'Viúvo(a)' ]
+    // tipoSexo:any =  [ 'Masculino', 'Feminino' ]
+    // tipoPaciente:any =  [ 'Aluno', 'Funcionário', 'Outro' ]
     submitted:boolean = false
     form = new Paciente()
 
-    constructor(private pacienteService: PacienteService) { }
+    constructor
+    (
+        private baseFieldsService: BaseFormFieldsService, 
+        private pacienteService:PacienteService
+    ) { }
 
     ngOnInit(){
-        this.getPacientes();
+        this.getFormFields()
+        this.getPacientes()
     }
     
 
     onSubmit() {
-        this.submitted = true;
-        console.log(this.form);
+        this.submitted = true
+        console.log(this.form)
         //alert(JSON.stringify(this.form))
     }
 
-  
-    getPacientes(): void {
+    getFormFields(): void {
+        this.baseFieldsService.getFields()
+        .subscribe(data => this.baseFields = data)
+    }
+
+    getPacientes(): void{
         this.pacienteService.getPacientes()
-        .subscribe(pacientes => this.pacientes = pacientes);
+        .subscribe(response => this.pacientes = response)
     }
 }
