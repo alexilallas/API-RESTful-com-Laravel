@@ -12,8 +12,8 @@ export class BaseFormFieldsService {
   baseUrl: string;
 
   constructor(private http: HttpClient) {
-    //this.baseUrl = environment.baseAPI + 'form'
-    this.baseUrl = "/assets/data/data.json"
+    this.baseUrl = environment.baseAPI + 'form'
+    //this.baseUrl = "/assets/data/data.json"
     
   }
 

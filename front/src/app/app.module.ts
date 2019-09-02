@@ -10,7 +10,7 @@ import { FixedPluginModule} from './shared/fixedplugin/fixedplugin.module';
 
 import { DataTablesModule } from 'angular-datatables';
 import { NgSelect2Module } from 'ng-select2';
-// import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
@@ -40,7 +40,7 @@ import { BaseFormFieldsService } from './pages/form/base-form-fields.service';
     DataTablesModule,
     NgSelect2Module,
     FormsModule,
-    // ReactiveFormsModule
+    ReactiveFormsModule
   ],
   providers: [BaseFormFieldsService],
   bootstrap: [AppComponent]

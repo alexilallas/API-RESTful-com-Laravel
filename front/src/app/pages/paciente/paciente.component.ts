@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { BaseFormFields } from '../form/baseform-fields';
 import { BaseFormFieldsService } from '../form/base-form-fields.service';
-import { Paciente } from './paciente';
-import { PacienteService } from './paciente.service';
+// import { Paciente } from './paciente';
+// import { PacienteService } from './paciente.service';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
     selector: 'paciente-cmp',
@@ -12,22 +12,26 @@ import { PacienteService } from './paciente.service';
 
 export class PacienteComponent implements OnInit{
     public baseFields: any []
-    public pacientes: Paciente[]
-    // estadoCivil:any = [ 'Solteiro(a)', 'Casado(a)', 'Viúvo(a)' ]
-    // tipoSexo:any =  [ 'Masculino', 'Feminino' ]
-    // tipoPaciente:any =  [ 'Aluno', 'Funcionário', 'Outro' ]
+    public fieldSexo: []
+    // public pacientes: Paciente[]
     submitted:boolean = false
-    form = new Paciente()
-
+    form = new FormGroup({
+        nome: new FormControl(''),
+        cpf_rg: new FormControl(''),
+        estado_civil: new FormControl(''),
+    })
+    
     constructor
     (
         private baseFieldsService: BaseFormFieldsService, 
-        private pacienteService:PacienteService
+        // private pacienteService:PacienteService
     ) { }
 
     ngOnInit(){
         this.getFormFields()
-        this.getPacientes()
+        // this.getPacientes()
+        this.fieldSexo =  this.baseFields['data']['result']['sexo']
+        console.log(this.fieldSexo)
     }
     
 
@@ -39,11 +43,11 @@ export class PacienteComponent implements OnInit{
 
     getFormFields(): void {
         this.baseFieldsService.getFields()
-        .subscribe(data => this.baseFields = data)
+        .subscribe(response => this.baseFields = response)
     }
 
-    getPacientes(): void{
-        this.pacienteService.getPacientes()
-        .subscribe(response => this.pacientes = response)
-    }
+    // getPacientes(): void{
+    //     this.pacienteService.getPacientes()
+    //     .subscribe(response => this.pacientes = response)
+    // }
 }

@@ -14,12 +14,12 @@ class FormController extends Controller
         $estado_civil = ['Solteiro(a)', 'Casado(a)', 'Viúvo(a)'];
         $tipo_de_paciente = ['Aluno', 'Funcionário','Outro'];
 
-        $baseFields = [
+        $result = [
             'sexo' => $sexo,
             'estado_civil' => $estado_civil,
-            'tipo_de_paciente' => $tipo_de_paciente
+            'tipo_paciente' => $tipo_de_paciente
         ];
 
-        return response()->success(compact('estado_civil'));
+        return response()->success(compact('result'));
     }
 }

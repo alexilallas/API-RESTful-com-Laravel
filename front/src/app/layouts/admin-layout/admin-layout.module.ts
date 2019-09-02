@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 
 import { DataTablesModule } from 'angular-datatables';
 import { NgSelect2Module } from 'ng-select2';
-// import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 import { AdminLayoutRoutes } from './admin-layout.routing';
@@ -28,7 +28,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     NgbModule,
     DataTablesModule,
     NgSelect2Module,
-    // ReactiveFormsModule
+    ReactiveFormsModule
   ],
   declarations: [
     InicioComponent,
