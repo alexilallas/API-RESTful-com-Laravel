@@ -13,7 +13,7 @@ export class PesquisarComponent implements OnInit {
     ngOnInit() {
         this.dtOptions = {
             pagingType: 'full_numbers',
-            pageLength: 10,
+            pageLength: 2,
             dom: 'Bfrtip',
             responsive: true,
             language: {
