@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseFormFieldsService } from '../form/base-form-fields.service';
-// import { Paciente } from './paciente';
+import { Paciente } from './paciente';
 // import { PacienteService } from './paciente.service';
-import { FormGroup, FormControl } from '@angular/forms';
+// import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
     selector: 'paciente-cmp',
@@ -11,39 +11,37 @@ import { FormGroup, FormControl } from '@angular/forms';
 })
 
 export class PacienteComponent implements OnInit{
-    public baseFields: any []
-    public fieldSexo: []
-    // public pacientes: Paciente[]
-    submitted:boolean = false
-    form = new FormGroup({
-        nome: new FormControl(''),
-        cpf_rg: new FormControl(''),
-        estado_civil: new FormControl(''),
-    })
+    public _sexo: any [] = []
+    public _estado_civil: any [] = []
+    public _tipo_paciente : any [] = []
+    public submitted:boolean = false
+
+    public form = new  Paciente()
     
     constructor
     (
-        private baseFieldsService: BaseFormFieldsService, 
+        private formService: BaseFormFieldsService, 
+        
         // private pacienteService:PacienteService
     ) { }
 
     ngOnInit(){
         this.getFormFields()
-        // this.getPacientes()
-        this.fieldSexo =  this.baseFields['data']['result']['sexo']
-        console.log(this.fieldSexo)
     }
     
 
     onSubmit() {
         this.submitted = true
         console.log(this.form)
-        //alert(JSON.stringify(this.form))
     }
 
     getFormFields(): void {
-        this.baseFieldsService.getFields()
-        .subscribe(response => this.baseFields = response)
+        this.formService.getFields()
+        .subscribe(response => {
+            this._sexo = response['data']['result']['sexo'],
+            this._estado_civil = response['data']['result']['estado_civil'],
+            this._tipo_paciente = response['data']['result']['tipo_paciente']
+        })
     }
 
     // getPacientes(): void{

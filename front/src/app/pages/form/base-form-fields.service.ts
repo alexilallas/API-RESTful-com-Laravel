@@ -24,8 +24,8 @@ export class BaseFormFieldsService {
     })
   }
 
-  getFields (): Observable<BaseFormFields[]> {
-    return this.http.get<BaseFormFields[]>(this.baseUrl)
+  getFields (): Observable<any[]> {
+    return this.http.get<any[]>(this.baseUrl)
     .pipe(
       retry(1),
       catchError(this.errorHandl)
