@@ -9,9 +9,9 @@ import { NavbarModule} from './shared/navbar/navbar.module';
 import { FixedPluginModule} from './shared/fixedplugin/fixedplugin.module';
 
 import { DataTablesModule } from 'angular-datatables';
-import { NgSelect2Module } from 'ng-select2';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 import { AppComponent } from './app.component';
 import { AppRoutes } from './app.routing';
@@ -38,9 +38,9 @@ import { BaseFormFieldsService } from './pages/form/base-form-fields.service';
     FixedPluginModule,
     HttpClientModule,
     DataTablesModule,
-    NgSelect2Module,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgSelectModule
   ],
   providers: [BaseFormFieldsService],
   bootstrap: [AppComponent]

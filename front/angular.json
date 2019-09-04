@@ -26,12 +26,11 @@
               "src/assets/scss/paper-dashboard.scss",
               "node_modules/ngx-toastr/toastr.css",
               "node_modules/datatables.net-dt/css/jquery.dataTables.css",
-              "node_modules/select2/dist/css/select2.min.css"
+              "node_modules/@ng-select/ng-select/themes/default.theme.css"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.js",
-              "node_modules/datatables.net/js/jquery.dataTables.js",
-              "node_modules/select2/dist/js/select2.min.js"
+              "node_modules/datatables.net/js/jquery.dataTables.js"
             ]
           },
           "configurations": {
@@ -85,14 +84,13 @@
               "node_modules/moment/moment.js",
               "node_modules/chartist/dist/chartist.js",
               "node_modules/bootstrap-notify/bootstrap-notify.js",
-              "node_modules/datatables.net/js/jquery.dataTables.js",
-              "node_modules/select2/dist/js/select2.min.js"
+              "node_modules/datatables.net/js/jquery.dataTables.js"
             ],
             "styles": [
               "src/styles.css",
               "src/assets/sass/paper-dashboard.scss",
               "node_modules/datatables.net-dt/css/jquery.dataTables.css",
-              "node_modules/select2/dist/css/select2.min.css"
+              "node_modules/@ng-select/ng-select/themes/default.theme.css"
             ],
             "assets": [
               "src/assets",

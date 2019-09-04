@@ -8,7 +8,7 @@
               </div>
               <div class="card-body">
                 <form #pacienteForm = "ngForm"  (ngSubmit)="onSubmit()">
-                  {{ nome.errors | json }}
+                  <!-- {{ nome.errors | json }} -->
                   <h6 class="card-title text-secondary">Dados Pessoais</h6>
                   <div class="row">
                     <div class="col-md-5 pr-1">
@@ -45,16 +45,16 @@
                       </div>
                     </div>
                     <div class="col-md-4 pl-1">
-                      <div class="form-group" [ngClass]="(estado_civil.invalid && !estado_civil.untouched) ? 'has-danger' : ''">
+                      <!-- {{form.estado_civil}} -->
+                      <div class="form-group">
                         <label for="estado_civil">Estado Civil</label>
-                        <select  class="form-control" 
-                        [(ngModel)] = "form.estado_civil"
+                        <ng-select [multiple]="false" 
+                        [(ngModel)]="form.estado_civil" 
                         required
                         name="estado_civil"
                         #estado_civil="ngModel">
-                          <option></option>
-                            <option *ngFor="let ec of _estado_civil" [value] ="ec" >{{ec}}</option>
-                        </select>
+                          <ng-option *ngFor="let ec of _estado_civil" [value]="ec">{{ ec }}</ng-option>
+                        </ng-select>
                         <div class="text-danger" role="alert" [hidden] = "estado_civil.valid || estado_civil.untouched">
                             Campo obrigatório!
                         </div>
@@ -76,32 +76,30 @@
                         </div>
                     </div>
                     <div class="col-md-4 pl-1">
-                      <div class="form-group" [ngClass]="(sexo.invalid && !sexo.untouched) ? 'has-danger' : ''">
+                      <div class="form-group">
                         <label for="sexo">Sexo</label>
-                        <select  class="form-control"
-                        [(ngModel)] = "form.sexo"
+                        <ng-select [multiple]="false" 
+                        [(ngModel)]="form.sexo" 
                         required
                         name="sexo"
                         #sexo="ngModel">
-                          <option></option>
-                            <option *ngFor="let se of _sexo" [value] = "se">{{se}}</option>
-                          </select>
+                          <ng-option *ngFor="let sexo of _sexo" [value]="sexo">{{ sexo }}</ng-option>
+                        </ng-select>
                           <div class="text-danger" role="alert" [hidden] = "sexo.valid || sexo.untouched">
                               Campo obrigatório!
                           </div>
                       </div>
                     </div>
                     <div class="col-md-4 pr-1">
-                      <div class="form-group" [ngClass]="(tipo_paciente.invalid && !tipo_paciente.untouched) ? 'has-danger' : ''">
+                      <div class="form-group">
                           <label for="tipo_paciente">Tipo de Paciente</label>
-                          <select  class="form-control"
-                          [(ngModel)] = "form.tipo_paciente"
+                          <ng-select [multiple]="false" 
+                          [(ngModel)]="form.tipo_paciente" 
                           required
                           name="tipo_paciente"
                           #tipo_paciente="ngModel">
-                            <option></option>
-                              <option *ngFor="let tp of _tipo_paciente" [value] = "tp">{{tp}}</option>
-                          </select>
+                            <ng-option *ngFor="let tp of _tipo_paciente" [value]="tp">{{ tp }}</ng-option>
+                          </ng-select>
                           <div class="text-danger" role="alert" [hidden] = "tipo_paciente.valid || tipo_paciente.untouched">
                               Campo obrigatório!
                           </div>
@@ -223,7 +221,7 @@
                   </div>
                   <div class="row">
                     <div class="update ml-auto mr-auto">
-                      <button type="submit" [disabled] = "!pacienteForm.form.valid" class="btn btn-primary btn-round">Cadastrar</button>
+                      <button type="submit" [disabled] = "pacienteForm.form.valid" class="btn btn-primary btn-round">Cadastrar</button>
                     </div>
                   </div>
                 </form>
