@@ -30,13 +30,33 @@ table{ border-radius: 4px!important}
 .paginate_button{
     border-radius: 50px!important;
     background: transparent !important;
-    border: 0px!important;
-    color: black!important;
+    border: 0!important;
+    text-transform: uppercase;
 }
-.paginate_button:hover{
-    color: black!important;
-}
-.paginate_button.current {
+
+.current  {
     color: white!important;
     background-color: #51cbce!important;
 }
+
+.current:hover  {
+    color: black!important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button{
+    color:black!important;
+    box-shadow: 0 2px 2px rgba(204,197,185,.5);
+    padding: 0.2em 0.7em!important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover{
+    color:black!important
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current{
+    color: white!important;
+}
+
+.c-btn{border: 1px #e6e6e6 solid!important}
+
+.pading-inside-checkbox { padding-left: 5px!important }
