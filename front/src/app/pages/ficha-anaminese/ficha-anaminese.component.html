@@ -194,8 +194,17 @@
             </div>
             <div class="row">
                 <div class="col-sm-4 col-lg-4">
+                  <label [hidden]="form.alergico == 0">Nome da Alergia*</label>
+                  <div class="col-sm-6 col-lg-8 pading-inside-checkbox" *ngIf="form.alergico == 1">
+                      <input type="text" class="form-control"
+                      name="nome_alergia"
+                      maxlength="50"
+                      required
+                      [(ngModel)] ="form.nome_alergia"
+                      #nome_alergia="ngModel"/>
+                  </div>
                   <label>Alérgico</label>
-                    <div class="form-check-radio">
+                    <div class="form-check-radio" *ngIf="form.alergico == 0">
                       <label class="form-check-label">
                         <input class="form-check-input" type="radio" name="alergico" id="alergico1" value="1"
                         [(ngModel)] = "form.alergico"
