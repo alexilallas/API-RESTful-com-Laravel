@@ -278,6 +278,146 @@
                       </div>
                   </div>
             </div>
+            <div class="row">
+                <div class="col-sm-4 col-lg-4">
+                  <label [hidden]="form.medicamento == 0">Nome do Medicamento*</label>
+                  <div class="col-sm-6 col-lg-8 pading-inside-checkbox" *ngIf="form.medicamento == 1">
+                      <input type="text" class="form-control"
+                      name="nome_medicamento"
+                      maxlength="50"
+                      required
+                      [(ngModel)] ="form.nome_medicamento"
+                      #nome_medicamento="ngModel"/>
+                  </div>
+                  <label>Usa Medicamento</label>
+                    <div class="form-check-radio" *ngIf="form.medicamento == 0">
+                      <label class="form-check-label">
+                        <input class="form-check-input" type="radio" name="medicamento" id="medicamento1" value="1"
+                        [(ngModel)] = "form.medicamento"
+                        #medicamento="ngModel">Sim
+                        <span class="form-check-sign"></span>
+                      </label>
+                    </div>
+                    <div class="form-check-radio">
+                      <label class="form-check-label">
+                        <input class="form-check-input" type="radio" name="medicamento" id="medicamento2" value="0" checked=""
+                        [(ngModel)] = "form.medicamento"
+                        #medicamento="ngModel">Não
+                        <span class="form-check-sign"></span>
+                      </label>
+                    </div>
+                </div>
+                <div class="col-sm-4 col-lg-4">
+                    <label>Diabetes</label>
+                      <div class="form-check-radio">
+                        <label class="form-check-label">
+                          <input class="form-check-input" type="radio" name="diabetes" id="diabetes1" value="1"
+                          [(ngModel)] = "form.diabetes"
+                          #diabetes="ngModel">Sim
+                          <span class="form-check-sign"></span>
+                        </label>
+                      </div>
+                      <div class="form-check-radio">
+                        <label class="form-check-label">
+                          <input class="form-check-input" type="radio" name="diabetes" id="diabetes2" value="0" checked=""
+                          [(ngModel)] = "form.diabetes"
+                          #diabetes="ngModel">Não
+                          <span class="form-check-sign"></span>
+                        </label>
+                      </div>
+                  </div>
+                  <div class="col-sm-4 col-lg-4">
+                    <label for="fator_rh">Fator RH</label>
+                    <ng-select [multiple]="false" 
+                    [(ngModel)]="form.fator_rh" 
+                    required
+                    name="fator_rh"
+                    #fator_rh="ngModel">
+                      <ng-option *ngFor="let f_rh of _fator_rh" [value]="f_rh">{{ f_rh }}</ng-option>
+                    </ng-select>
+                    <div class="text-danger" role="alert" [hidden] = "fator_rh.valid || fator_rh.untouched">
+                        Campo obrigatório!
+                    </div>
+                  </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4 col-lg-4">
+                    <div class="form-group">
+                    <label>Último preventivo</label>
+                      <input class="form-control" type="date" name="ultimo_preventivo"
+                      [(ngModel)] = "form.ultimo_preventivo"
+                      #ultimo_preventivo="ngModel"/>
+                    </div>
+                </div>
+            </div>
+
+            <br>
+            <h6> Estado Vacinal </h6>
+            <div class="row">
+              <div class="col-sm-4 col-sm-offset-1 checkbox-radios">
+                <div class="form-check">
+                  <label class="form-check-label">
+                    dt
+                    <input class="form-check-input" type="checkbox" name="dt"
+                    [(ngModel)]="form.dt"
+                    #dt="ngModel">
+                    <span class="form-check-sign"></span>
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-4 col-sm-offset-1 checkbox-radios">
+                <div class="form-check">
+                  <label class="form-check-label">
+                    HB
+                    <input class="form-check-input" type="checkbox" name="hb"
+                    [(ngModel)]="form.hb"
+                    #hb="ngModel">
+                    <span class="form-check-sign"></span>
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-4 col-sm-offset-1 checkbox-radios">
+                <div class="form-check">
+                  <label class="form-check-label">
+                    FA
+                    <input class="form-check-input" type="checkbox" name="fa"
+                    [(ngModel)]="form.fa"
+                    #fa="ngModel">
+                    <span class="form-check-sign"></span>
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-4 col-sm-offset-1 checkbox-radios">
+                <div class="form-check">
+                  <label class="form-check-label">
+                    Influenza
+                    <input class="form-check-input" type="checkbox" name="influenza"
+                    [(ngModel)]="form.influenza"
+                    #influenza="ngModel">
+                    <span class="form-check-sign"></span>
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-4 col-sm-offset-1 checkbox-radios">
+                <div class="form-check">
+                  <label class="form-check-label">
+                    Antirrábica
+                    <input class="form-check-input" type="checkbox" name="antirrabica"
+                    [(ngModel)]="form.antirrabica"
+                    #antirrabica="ngModel">
+                    <span class="form-check-sign"></span>
+                  </label>
+                </div>
+              </div>
+            </div>
           <div class="row">
             <div class="update ml-auto mr-auto">
               <button type="submit" class="btn btn-primary btn-round">Salvar</button>

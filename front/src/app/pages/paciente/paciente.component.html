@@ -7,11 +7,11 @@
                 <h5 class="card-title">Novo Paciente</h5>
               </div>
               <div class="card-body">
-                <form #pacienteForm = "ngForm"  (ngSubmit)="onSubmit()">
+                <form #pacienteForm = "ngForm"  (ngSubmit)="postPaciente(form)">
                   <!-- {{ nome.errors | json }} -->
                   <h6 class="card-title text-secondary">Dados Pessoais</h6>
                   <div class="row">
-                    <div class="col-md-5 pr-1">
+                    <div class="col-md-5">
                       <div class="form-group" [ngClass]="(nome.invalid && nome.touched) ? 'has-danger' : 'has-success'">
                         <label for="nome">Nome</label>
                         <input type="text" class="form-control" 
@@ -31,7 +31,7 @@
                         </div>
                       </div> 
                     </div>
-                    <div class="col-md-3 px-1">
+                    <div class="col-md-3">
                       <div class="form-group" [ngClass]="(cpf_rg.invalid && !cpf_rg.untouched) ? 'has-danger' : ''">
                         <label for="cpf_rg">CPF/RG</label>
                         <input type="text" class="form-control"
@@ -44,7 +44,7 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-md-4 pl-1">
+                    <div class="col-md-4">
                       <!-- {{form.estado_civil}} -->
                       <div class="form-group">
                         <label for="estado_civil">Estado Civil</label>
@@ -62,7 +62,7 @@
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-md-4 pr-1" >
+                    <div class="col-md-4" >
                         <div class="form-group" [ngClass]="(telefone_celular.invalid && !telefone_celular.untouched) ? 'has-danger' : ''">
                           <label for="">Telefone/Celular</label>
                           <input type="text" class="form-control"
@@ -75,7 +75,7 @@
                           </div>
                         </div>
                     </div>
-                    <div class="col-md-4 pl-1">
+                    <div class="col-md-4">
                       <div class="form-group">
                         <label for="sexo">Sexo</label>
                         <ng-select [multiple]="false" 
@@ -90,7 +90,7 @@
                           </div>
                       </div>
                     </div>
-                    <div class="col-md-4 pr-1">
+                    <div class="col-md-4">
                       <div class="form-group">
                           <label for="tipo_paciente">Tipo de Paciente</label>
                           <ng-select [multiple]="false" 
@@ -107,7 +107,7 @@
                       </div>
                   </div>
                   <div class="row">
-                    <div class="col-md-4 pr-1" *ngIf= "form.tipo_paciente == 'Aluno'  || form.tipo_paciente == 'Funcionário'">
+                    <div class="col-md-4" *ngIf= "form.tipo_paciente == 'Aluno'  || form.tipo_paciente == 'Funcionário'">
                         <div class="form-group" [ngClass]="(matricula.invalid && !matricula.untouched) ? 'has-danger' : ''">
                           <label for="matricula">Matrícula</label>
                           <input type="text" class="form-control"
@@ -120,13 +120,13 @@
                           </div>
                         </div>
                     </div>
-                    <div class="col-md-8 pr-1" *ngIf= "form.tipo_paciente == 'Aluno'">
+                    <div class="col-md-8" *ngIf= "form.tipo_paciente == 'Aluno'">
                       <div class="form-group" [ngClass]="(curso.invalid && !curso.untouched) ? 'has-danger' : ''">
                         <label for="curso">Curso</label>
                         <input type="text" class="form-control" />
                       </div>
                     </div>
-                    <div class="col-md-8 pr-1" *ngIf= "form.tipo_paciente == 'Funcionário'">
+                    <div class="col-md-8" *ngIf= "form.tipo_paciente == 'Funcionário'">
                         <div class="form-group">
                           <label for="setor">Setor</label>
                           <input type="text" class="form-control" />
@@ -134,22 +134,34 @@
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-md-4 pr-1">
+                    <div class="col-md-4">
                       <div class="form-group">
                         <label>Estado de naturalidade</label>
-                        <input type="text" class="form-control">
+                        <input type="text" class="form-control"
+                        name="estado_naturalidade"
+                        [(ngModel)] = "form.estado_naturalidade"
+                        required
+                        #estado_naturalidade = "ngModel">
                       </div>
                     </div>
-                    <div class="col-md-4 pl-1">
+                    <div class="col-md-4">
                       <div class="form-group">
                         <label>Cidade de naturalidade</label>
-                        <input  type="text" class="form-control">
+                        <input  type="text" class="form-control"
+                        name="cidade_naturalidade"
+                        [(ngModel)] = "form.cidade_naturalidade"
+                        required
+                        #cidade_naturalidade = "ngModel">
                       </div>
                     </div>
-                    <div class="col-md-4 pl-1">
+                    <div class="col-md-4">
                         <div class="form-group">
                           <label>Data de Nascimento</label>
-                          <input  type="date" class="form-control">
+                          <input  type="date" class="form-control"
+                          name="data_nascimento"
+                          [(ngModel)] = "form.data_nascimento"
+                          required
+                          #data_nascimento = "ngModel">
                         </div>
                       </div>
                   </div>
@@ -159,7 +171,10 @@
                     <div class="col-md-4">
                       <div class="form-group">
                         <label>CEP</label>
-                        <input type="text" class="form-control">
+                        <input type="text" class="form-control"
+                        name="cep"
+                        [(ngModel)] = "form.cep"
+                        #cep = "ngModel">
                       </div>
                     </div>
                     <div class="col-md-4">
@@ -176,19 +191,19 @@
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-md-5 pr-1">
+                    <div class="col-md-5">
                       <div class="form-group">
                         <label>Bairro</label>
                         <input type="text" class="form-control">
                       </div>
                     </div>
-                    <div class="col-md-5 px-1">
+                    <div class="col-md-5">
                       <div class="form-group">
                         <label>Logradouro</label>
                         <input type="text" class="form-control">
                       </div>
                     </div>
-                    <div class="col-md-2 pl-1">
+                    <div class="col-md-2">
                       <div class="form-group">
                         <label>Número</label>
                         <input type="text" class="form-control">
@@ -215,13 +230,14 @@
                     <div class="col-md-12">
                         <div class="form-group">
                           <label>Observações</label>
-                          <textarea class="form-control textarea"> Loren ipsum dolor sit ameb, esta é uma observação </textarea>
+                          <textarea class="form-control textarea"></textarea>
                         </div>
                     </div>
                   </div>
                   <div class="row">
                     <div class="update ml-auto mr-auto">
-                      <button type="submit" [disabled] = "pacienteForm.form.valid" class="btn btn-primary btn-round">Cadastrar</button>
+                      <button type="submit" class="btn btn-primary btn-round"
+                      [disabled] = "pacienteForm.form.valid">Cadastrar</button>
                     </div>
                   </div>
                 </form>

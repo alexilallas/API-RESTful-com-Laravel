@@ -10,6 +10,7 @@ import { FichaAnaminese } from './ficha-anaminese';
 export class FichaAnamineseComponent implements OnInit{
 
     public form = new FichaAnaminese()
+    public _fator_rh = ['Positivo', 'Negativo']
 
     ngOnInit(){
         this.form['diabetes'] = "0"
@@ -23,6 +24,12 @@ export class FichaAnamineseComponent implements OnInit{
         this.form['alergico'] = "0"
         this.form['atividade_fisica'] = "0"
         this.form['cirurgia'] = "0"
+        this.form['medicamento'] = "0"
+        this.form['dt'] = false
+        this.form['hb'] = false
+        this.form['fa'] = false
+        this.form['influenza'] = false
+        this.form['antirrabica'] = false
     }
 
 

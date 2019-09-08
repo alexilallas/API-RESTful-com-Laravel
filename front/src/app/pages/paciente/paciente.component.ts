@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseFormFieldsService } from '../form/base-form-fields.service';
 import { Paciente } from './paciente';
-// import { PacienteService } from './paciente.service';
+import { PacienteService } from './paciente.service';
 // import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
@@ -14,15 +14,13 @@ export class PacienteComponent implements OnInit{
     public _sexo: any [] = []
     public _estado_civil: any [] = []
     public _tipo_paciente : any [] = []
-    public submitted:boolean = false
-
+    
     public form = new  Paciente()
     
     constructor
     (
         private formService: BaseFormFieldsService, 
-        
-        // private pacienteService:PacienteService
+        private pacienteService:PacienteService
     ) { }
 
     ngOnInit(){
@@ -31,8 +29,11 @@ export class PacienteComponent implements OnInit{
     
 
     onSubmit() {
-        this.submitted = true
         console.log(this.form)
+    }
+
+    postPaciente(paciente: Paciente):void{
+        this.pacienteService.postPaciente(paciente)
     }
 
     getFormFields(): void {
