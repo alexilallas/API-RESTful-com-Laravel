@@ -28,23 +28,19 @@ class PacienteController extends Controller
 
     public function postPaciente()
     {
-        //captura dados do front-end
         $paciente = $this->jsonDecode();
 
-        //salva dados em cada tabela apropriada
         try {
-            //$responsePaciente = $this->customSave($paciente);
-            $responseContato = $this->contato->customSave($paciente);
-        } catch (\Throwable $th) {
-            //throw $th;
-        }
-        
-        if($responseContato == true){
+            \DB::beginTransaction();
+            //$this->customSave($paciente);
+            $this->doSave($paciente);
+            //$this->contato->customSave($paciente);
             return $this->jsonMessage('Paciente adicionado com sucesso!', 200);
+            \BD::commit();
+        } catch (\Throwable $th) {
+            \DB::rollback();
+            return $this->jsonMessage($th->getMessage(), 400);
         }
-        return response()->json(['message' => 'Falha ao adicionar o paciente!', 'status' => 400], 400);
-        
-        
     }
 
     public function customSave($modelData)

@@ -36,11 +36,17 @@ abstract class Controller extends BaseController
 
     public function jsonMessage($message, $code)
     {
-        return response()->json(['message' => $message, 'status' => $code], $code);
+        return response()->json(['message' => $message, 'status' => $code]);
     }
 
+    public function doSave($dataModel){
+        //fazer a verificação de permissões
+        return $this->customSave($dataModel);
+    }
+    
     public function save($table, $data)
     {
+        //fazer a auditoria
        return DB::table($table)->insert($data);
         
     }
