@@ -39,7 +39,7 @@ abstract class Controller extends BaseController
         return response()->json(['message' => $message, 'status' => $code]);
     }
 
-    public function doSave($dataModel){
+    public function doSave($dataModel, $permissao){
         //fazer a verificação de permissões
         return $this->customSave($dataModel);
     }

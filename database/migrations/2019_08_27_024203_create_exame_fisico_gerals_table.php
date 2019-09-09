@@ -15,6 +15,8 @@ class CreateExameFisicoGeralsTable extends Migration
     {
         Schema::create('exame_fisico_gerals', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('paciente_id');
+            $table->foreign('paciente_id')->references('id')->on('pacientes');
             $table->date('data');
             $table->string('pressao');
             $table->float('altura');

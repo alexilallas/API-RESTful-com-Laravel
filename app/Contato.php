@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Contato extends BaseModel
 {
     protected $fillable = [ 
-        'nome','numero'
+        'nome','numero','paciente_id'
     ];
 }

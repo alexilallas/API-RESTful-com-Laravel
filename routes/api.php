@@ -18,7 +18,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::namespace('Admin')->group(function () {
-    Route::get('paciente', 'PacienteController@getPacientes');
+    Route::get('paciente', 'PacienteController@find');
     Route::post('paciente', 'PacienteController@postPaciente');
     
     Route::get('form', 'FormController@getBasefields');

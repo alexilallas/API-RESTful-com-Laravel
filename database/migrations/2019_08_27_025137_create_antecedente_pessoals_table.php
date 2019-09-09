@@ -15,6 +15,8 @@ class CreateAntecedentePessoalsTable extends Migration
     {
         Schema::create('antecedente_pessoals', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('paciente_id');
+            $table->foreign('paciente_id')->references('id')->on('pacientes');
             $table->boolean('fumante');
             $table->integer('quantidade_cigarros');
             $table->boolean('alcool');

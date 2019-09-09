@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class EvolucaoPaciente extends BaseModel
 {
-    protected $fillable = ['data', 'descricao'];
+    protected $fillable = ['paciente_id','data', 'descricao'];
 }

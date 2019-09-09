@@ -15,6 +15,8 @@ class CreateAntecedentesFamiliaresTable extends Migration
     {
         Schema::create('antecedentes_familiares', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('paciente_id');
+            $table->foreign('paciente_id')->references('id')->on('pacientes');
             $table->boolean('diabetes');
             $table->boolean('hipertensao');
             $table->boolean('infarto');
