@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { BaseFormFieldsService } from '../form/base-form-fields.service';
 import { Paciente } from './paciente';
 import { PacienteService } from './paciente.service';
-// import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
     selector: 'paciente-cmp',
@@ -39,9 +38,9 @@ export class PacienteComponent implements OnInit{
     getFormFields(): void {
         this.formService.getFields()
         .subscribe(response => {
-            this._sexo = response['data']['result']['sexo'],
-            this._estado_civil = response['data']['result']['estado_civil'],
-            this._tipo_paciente = response['data']['result']['tipo_paciente']
+            this._sexo = response['sexo'],
+            this._estado_civil = response['estado_civil'],
+            this._tipo_paciente = response['tipo_paciente']
         })
     }
 

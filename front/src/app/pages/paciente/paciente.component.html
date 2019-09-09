@@ -215,14 +215,20 @@
                   <div class="row">
                     <div class="col-md-6">
                       <div class="form-group">
-                        <label>Nome</label>
-                        <input class="form-control"/>
+                        <label for="nome_contato">Nome</label>
+                        <input class="form-control"
+                        name="nome_contato"
+                        [(ngModel)] = "form.nome_contato"
+                        #nome_contato = "ngModel"/>
                       </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                          <label>Contato</label>
-                          <input class="form-control"/>
+                          <label for="numero_contato">Contato</label>
+                          <input class="form-control"
+                          name="numero_contato"
+                          [(ngModel)] ="form.numero_contato"
+                          #numero_contato = "ngModel"/>
                         </div>
                     </div>
                   </div>

@@ -20,6 +20,7 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 
 import { HttpClientModule }    from '@angular/common/http';
 import { BaseFormFieldsService } from './pages/form/base-form-fields.service';
+import { MessageService } from './services/messages/message.service';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,7 @@ import { BaseFormFieldsService } from './pages/form/base-form-fields.service';
     ReactiveFormsModule,
     NgSelectModule
   ],
-  providers: [BaseFormFieldsService],
+  providers: [BaseFormFieldsService,MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { Paciente } from './paciente';
 import { environment } from '../../../environments/environment';
+import { MessageService } from '../../services/messages/message.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +14,8 @@ export class PacienteService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
-  constructor(private http: HttpClient) {
-    this.pacientesUrl = environment.baseAPI + 'paciente';
+  constructor(private http: HttpClient, private MessageService:MessageService,) {
+    this.pacientesUrl = environment.baseAPI + 'paciente'
   }
 
   /** GET: Retorna todos os pacientes */
@@ -30,6 +31,7 @@ export class PacienteService {
       .subscribe(
         (data) => {
           console.log(data)
+          this.MessageService.message(data)
         }
         )
   }

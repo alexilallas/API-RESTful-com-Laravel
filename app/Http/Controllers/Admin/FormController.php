@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class FormController extends Controller
 {
@@ -20,6 +21,12 @@ class FormController extends Controller
             'tipo_paciente' => $tipo_de_paciente
         ];
 
-        return response()->success(compact('result'));
+        //return response()->success(compact('result'));
+        return response()->json($result);
+    }
+
+    public function customSave($modelData)
+    {
+        # code...
     }
 }
