@@ -123,45 +123,68 @@
                     <div class="col-md-8" *ngIf= "form.tipo_paciente == 'Aluno'">
                       <div class="form-group" [ngClass]="(curso.invalid && !curso.untouched) ? 'has-danger' : ''">
                         <label for="curso">Curso</label>
-                        <input type="text" class="form-control" />
+                        <input type="text" class="form-control"
+                        [(ngModel)] = "form.curso"
+                        required
+                        name="curso"
+                        #curso = "ngModel"/>
+                         <div class="text-danger" role="alert" [hidden] = "curso.valid || curso.untouched">
+                          Campo obrigatório!
+                        </div>
                       </div>
                     </div>
                     <div class="col-md-8" *ngIf= "form.tipo_paciente == 'Funcionário'">
                         <div class="form-group">
                           <label for="setor">Setor</label>
-                          <input type="text" class="form-control" />
+                          <input type="text" class="form-control" 
+                          [(ngModel)] ="form.setor"
+                          required
+                          name="setor"
+                          #setor = "ngModel"/>
+                          <div class="text-danger" role="alert" [hidden] = "setor.valid || setor.untouched">
+                            Campo obrigatório!
+                          </div>
                         </div>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-md-4">
-                      <div class="form-group">
+                      <div class="form-group" [ngClass]="(estado_naturalidade.invalid && estado_naturalidade.touched) ? 'has-danger' : 'has-success'">
                         <label>Estado de naturalidade</label>
                         <input type="text" class="form-control"
                         name="estado_naturalidade"
                         [(ngModel)] = "form.estado_naturalidade"
                         required
                         #estado_naturalidade = "ngModel">
+                        <div class="text-danger" role="alert" [hidden] = "estado_naturalidade.valid || estado_naturalidade.untouched">
+                          Campo obrigatório!
+                        </div>
                       </div>
                     </div>
                     <div class="col-md-4">
-                      <div class="form-group">
+                      <div class="form-group" [ngClass]="(cidade_naturalidade.invalid && cidade_naturalidade.touched) ? 'has-danger' : 'has-success'">
                         <label>Cidade de naturalidade</label>
                         <input  type="text" class="form-control"
                         name="cidade_naturalidade"
                         [(ngModel)] = "form.cidade_naturalidade"
                         required
                         #cidade_naturalidade = "ngModel">
+                        <div class="text-danger" role="alert" [hidden] = "cidade_naturalidade.valid || cidade_naturalidade.untouched">
+                          Campo obrigatório!
+                        </div>
                       </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                           <label>Data de Nascimento</label>
                           <input  type="date" class="form-control"
-                          name="data_nascimento"
-                          [(ngModel)] = "form.data_nascimento"
                           required
+                          [(ngModel)] = "form.data_nascimento"
+                          name = "data_nascimento"
                           #data_nascimento = "ngModel">
+                          <div class="text-danger" role="alert" [hidden] = "data_nascimento.valid || data_nascimento.untouched">
+                            Campo obrigatório!
+                          </div>
                         </div>
                       </div>
                   </div>
@@ -169,44 +192,83 @@
                   <h6 class="card-title text-secondary">Endereço</h6>
                   <div class="row">
                     <div class="col-md-4">
-                      <div class="form-group">
+                      <div class="form-group" [ngClass]="(cep.invalid && cep.touched) ? 'has-danger' : 'has-success'">
                         <label>CEP</label>
                         <input type="text" class="form-control"
-                        name="cep"
+                        required
                         [(ngModel)] = "form.cep"
+                        name = "cep"
                         #cep = "ngModel">
+                        <div class="text-danger" role="alert" [hidden] = "cep.valid || cep.untouched">
+                          Campo obrigatório!
+                        </div>
                       </div>
                     </div>
                     <div class="col-md-4">
-                      <div class="form-group">
+                      <div class="form-group" [ngClass]="(estado.invalid && estado.touched) ? 'has-danger' : 'has-success'">
                         <label>Estado</label>
-                        <input type="text" class="form-control">
+                        <input type="text" class="form-control"
+                        required
+                        [(ngModel)] = "form.estado"
+                        name = "estado"
+                        #estado = "ngModel">
+                        <div class="text-danger" role="alert" [hidden] = "estado.valid || estado.untouched">
+                          Campo obrigatório!
+                        </div>
                       </div>
                     </div>
                     <div class="col-md-4">
-                      <div class="form-group">
+                      <div class="form-group" [ngClass]="(cidade.invalid && cidade.touched) ? 'has-danger' : 'has-success'">
                         <label>Cidade</label>
-                        <input type="text" class="form-control">
+                        <input type="text" class="form-control"
+                        required
+                        [(ngModel)] = "form.cidade"
+                        name = "cidade"
+                        #cidade = "ngModel">
+                        <div class="text-danger" role="alert" [hidden] = "cidade.valid || cidade.untouched">
+                          Campo obrigatório!
+                        </div>
                       </div>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-md-5">
-                      <div class="form-group">
+                      <div class="form-group" [ngClass]="(bairro.invalid && bairro.touched) ? 'has-danger' : 'has-success'">
                         <label>Bairro</label>
-                        <input type="text" class="form-control">
+                        <input type="text" class="form-control"
+                        required
+                        [(ngModel)] = "form.bairro"
+                        name = "bairro"
+                        #bairro = "ngModel">
+                        <div class="text-danger" role="alert" [hidden] = "bairro.valid || bairro.untouched">
+                          Campo obrigatório!
+                        </div>
                       </div>
                     </div>
                     <div class="col-md-5">
-                      <div class="form-group">
+                      <div class="form-group" [ngClass]="(logradouro.invalid && logradouro.touched) ? 'has-danger' : 'has-success'">
                         <label>Logradouro</label>
-                        <input type="text" class="form-control">
+                        <input type="text" class="form-control"
+                        required
+                        [(ngModel)] = "form.Logradouro"
+                        name = "logradouro"
+                        #logradouro = "ngModel">
+                        <div class="text-danger" role="alert" [hidden] = "logradouro.valid || logradouro.untouched">
+                          Campo obrigatório!
+                        </div>
                       </div>
                     </div>
                     <div class="col-md-2">
-                      <div class="form-group">
+                      <div class="form-group" [ngClass]="(numero.invalid && numero.touched) ? 'has-danger' : 'has-success'">
                         <label>Número</label>
-                        <input type="text" class="form-control">
+                        <input type="text" class="form-control"
+                        required
+                        [(ngModel)] = "form.numero"
+                        name="numero"
+                        #numero = "ngModel">
+                        <div class="text-danger" role="alert" [hidden] = "numero.valid || numero.untouched">
+                          Campo obrigatório!
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -243,7 +305,7 @@
                   <div class="row">
                     <div class="update ml-auto mr-auto">
                       <button type="submit" class="btn btn-primary btn-round"
-                      [disabled] = "pacienteForm.form.valid">Cadastrar</button>
+                      [disabled] = "!pacienteForm.form.valid">Cadastrar</button>
                     </div>
                   </div>
                 </form>

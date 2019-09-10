@@ -7,6 +7,7 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\DB;
+use App\Paciente;
 
 abstract class Controller extends BaseController
 {
@@ -34,20 +35,42 @@ abstract class Controller extends BaseController
         return $data;
     }
 
-    public function jsonMessage($message, $code)
+    public function jsonSuccess($message)
     {
-        return response()->json(['message' => $message, 'status' => $code]);
+        return response()->json(['message' => $message, 'status' => 200]);
     }
 
-    public function doSave($dataModel, $permissao){
-        //fazer a verificação de permissões
-        return $this->customSave($dataModel);
+    public function jsonError($message)
+    {
+        return response()->json(['message' => $message, 'status' => 400]);
+    }
+
+    public function doSave($modelData, $permission){
+        $this->verifyPermission($permission);
+        return $this->customSave($modelData);
     }
     
     public function save($table, $data)
     {
         //fazer a auditoria
-       return DB::table($table)->insert($data);
+        $this->coreSave($table, 'Criação', $id = NULL);
+        return DB::table($table)->insert($data);
         
+    }
+
+    //Salvar dados na tabela de Auditoria
+    public function coreSave($table, $action , $idLine)
+    {
+        //incrementa a versão e salva na tabela de auditoria
+        //DB::table($table)->increment('versao', 1, ['id' => $idLine]);
+        //salva registro para auditoria
+        //$data['usuario']
+        //Auditoria::create($data)
+    }
+
+
+    public function verifyPermission($permissao)
+    {
+        //verification
     }
 }
