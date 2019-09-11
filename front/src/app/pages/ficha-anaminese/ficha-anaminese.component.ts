@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FichaAnaminese } from './ficha-anaminese';
+import { PacienteService } from '../paciente/paciente.service';
 import { environment } from '../../../environments/environment';
 
 @Component({
@@ -12,7 +13,12 @@ export class FichaAnamineseComponent implements OnInit{
 
     public form = new FichaAnaminese()
     public _fator_rh = ['Positivo', 'Negativo']
-    dtOptions: DataTables.Settings = {};
+    private dtOptions: DataTables.Settings = {};
+    
+    constructor
+    (
+        private pacienteService:PacienteService,
+    ){}
 
     ngOnInit(){
         this.form['dt'] = false

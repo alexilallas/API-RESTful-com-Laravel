@@ -13,7 +13,8 @@ export const environment = {
     responsive: true,
     language: {
       processing: "Processando...",
-      search: "Pesquisar:",
+      search: "",
+      searchPlaceholder: "Buscar",
       lengthMenu: "Mostrar _MENU_ &eacute;l&eacute;ments",
       info: "Mostrando _START_ / _END_ de _TOTAL_ registro(s)",
       infoEmpty: "Mostrando 0 / 0 de 0 registros",

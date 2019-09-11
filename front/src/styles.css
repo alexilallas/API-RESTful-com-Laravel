@@ -56,6 +56,10 @@ table{ border-radius: 4px!important}
 
 .c-btn{border: 1px #e6e6e6 solid!important}
 
+.text-primary, a.text-primary:focus, a.text-primary:hover {color:#343a40!important;}
+.table.dataTable.no-footer{ border-bottom: 2px solid #dee2e6}
+table.dataTable thead th, table.dataTable thead td{border-bottom: 1px solid #dee2e6!important}
+.table>tbody>tr>td{ padding: 12px 7px}
 
 /* form */
 .pading-inside-checkbox { padding-left: 5px!important }
