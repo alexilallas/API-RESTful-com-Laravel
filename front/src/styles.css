@@ -1,3 +1,4 @@
+@import "~ngx-smart-modal/ngx-smart-modal";
 /* datatables */
 .table-responsive { 
     overflow: hidden!important;

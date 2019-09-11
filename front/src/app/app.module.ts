@@ -22,6 +22,7 @@ import { HttpClientModule }    from '@angular/common/http';
 import { BaseFormFieldsService } from './pages/form/base-form-fields.service';
 import { MessageService } from './services/messages/message.service';
 import { NgxViacepModule } from '@brunoc/ngx-viacep';
+import { NgxSmartModalModule } from 'ngx-smart-modal';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { NgxViacepModule } from '@brunoc/ngx-viacep';
     FormsModule,
     ReactiveFormsModule,
     NgSelectModule,
-    NgxViacepModule
+    NgxViacepModule,
+    NgxSmartModalModule.forRoot()
   ],
   providers: [BaseFormFieldsService,MessageService],
   bootstrap: [AppComponent]

@@ -10,7 +10,7 @@ export interface RouteInfo {
 
 export const ROUTES: RouteInfo[] = [
     { path: '/inicio',          title: 'Início',              icon:'nc-bank',             class: '' },
-    { path: '/pacientes',       title: 'Cadastro',            icon:'nc-single-02',        class: '' },
+    { path: '/paciente',        title: 'Paciente',            icon:'nc-single-02',        class: '' },
     { path: '/ficha-anaminese', title: 'Ficha de Anaminese',  icon:'nc-bullet-list-67',   class: '' },
     { path: '/exame-fisico',    title: 'Exame Físico',        icon:'nc-favourite-28',     class: '' },
     { path: '/prontuario',      title: 'Prontuário',          icon:'nc-paper',            class: '' },

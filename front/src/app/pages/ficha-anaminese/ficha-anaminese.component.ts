@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FichaAnaminese } from './ficha-anaminese';
+import { FichaAnamineseService } from './ficha-anaminese.service';
 import { PacienteService } from '../paciente/paciente.service';
 import { environment } from '../../../environments/environment';
+import { NgxSmartModalService } from 'ngx-smart-modal';
 
 @Component({
     selector: 'ficha-anaminese-cmp',
@@ -18,6 +20,8 @@ export class FichaAnamineseComponent implements OnInit{
     constructor
     (
         private pacienteService:PacienteService,
+        public ngxSmartModalService: NgxSmartModalService,
+        private anamineseService: FichaAnamineseService,
     ){}
 
     ngOnInit(){
@@ -27,7 +31,7 @@ export class FichaAnamineseComponent implements OnInit{
         this.form['influenza'] = false
         this.form['antirrabica'] = false
         this.dtOptions = environment.dtOptions
-        
+        // this.anamineseService.getModal()
     }
 
 

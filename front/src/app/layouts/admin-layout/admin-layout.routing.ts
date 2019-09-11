@@ -10,7 +10,7 @@ import { InventarioComponent } from '../../pages/inventario/inventario.component
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'inicio',           component: InicioComponent },
-    { path: 'pacientes',        component: PacienteComponent },
+    { path: 'paciente',         component: PacienteComponent },
     { path: 'ficha-anaminese',  component: FichaAnamineseComponent },
     { path: 'exame-fisico',     component: ExameFisicoComponent },
     { path: 'prontuario',       component: ProntuarioComponent },

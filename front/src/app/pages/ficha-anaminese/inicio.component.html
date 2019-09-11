@@ -1,3 +1,12 @@
+<ngx-smart-modal #myModal identifier="myModal">
+  <h3>Novo Paciente</h3>
+  
+  <p>Some stuff...</p>
+  
+  <button class="btn btn-default" (click)="myModal.close()">Cancelar</button>
+  <button class="btn btn-info pull-right" (ngSubmit) = "onSubmit()">Salvar</button>
+</ngx-smart-modal>
+
 <div class="row">
     <div class="col-md-12">
       <div class="card">
@@ -5,7 +14,7 @@
           <h4 class="card-title pull-left">
             Pacientes
           </h4>
-          <button class="btn btn-info btn-round pull-right" type="submit">
+          <button class="btn btn-info btn-round pull-right" type="submit" (click)="ngxSmartModalService.getModal('myModal').open()">
             Novo
           </button>
         </div>
@@ -14,166 +23,19 @@
             <table datatable [dtOptions]="dtOptions" cellspacing="0" class="table table-striped table-bordered dataTable">
               <thead class=" text-primary">
                 <tr>
-                <th>Name</th>
-                <th>Country</th>
-                <th>City</th>
-                <th class="text-right">Salary</th>
+                <th>Nome</th>
+                <th>CPF/RG</th>
+                <th>Data Nascimento</th>
+                <th>Sexo</th>
                 </tr>
               </thead>
               <tbody>
-                <tr><td>
-                    Dakota Rice
-                  </td>
-                  <td>
-                    Niger
-                  </td>
-                  <td>
-                    Oud-Turnhout
-                  </td>
-                  <td class="text-right">
-                    $36,738
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Minerva Hooper
-                  </td>
-                  <td>
-                    Curaçao
-                  </td>
-                  <td>
-                    Sinaai-Waas
-                  </td>
-                  <td class="text-right">
-                    $23,789
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Sage Rodriguez
-                  </td>
-                  <td>
-                    Netherlands
-                  </td>
-                  <td>
-                    Baileux
-                  </td>
-                  <td class="text-right">
-                    $56,142
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Philip Chaney
-                  </td>
-                  <td>
-                    Korea, South
-                  </td>
-                  <td>
-                    Overland Park
-                  </td>
-                  <td class="text-right">
-                    $38,735
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Doris Greene
-                  </td>
-                  <td>
-                    Malawi
-                  </td>
-                  <td>
-                    Feldkirchen in Kärnten
-                  </td>
-                  <td class="text-right">
-                    $63,542
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Mason Porter
-                  </td>
-                  <td>
-                    Chile
-                  </td>
-                  <td>
-                    Gloucester
-                  </td>
-                  <td class="text-right">
-                    $78,615
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Jon Porter
-                  </td>
-                  <td>
-                    Portugal
-                  </td>
-                  <td>
-                    Gloucester
-                  </td>
-                  <td class="text-right">
-                    $98,615
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Jon Porter
-                  </td>
-                  <td>
-                    Portugal
-                  </td>
-                  <td>
-                    Gloucester
-                  </td>
-                  <td class="text-right">
-                    $98,615
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Jon Porter
-                  </td>
-                  <td>
-                    Portugal
-                  </td>
-                  <td>
-                    Gloucester
-                  </td>
-                  <td class="text-right">
-                    $98,615
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Jon Porter
-                  </td>
-                  <td>
-                    Portugal
-                  </td>
-                  <td>
-                    Gloucester
-                  </td>
-                  <td class="text-right">
-                    $98,615
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Jon Porter
-                  </td>
-                  <td>
-                    Portugal
-                  </td>
-                  <td>
-                    Gloucester
-                  </td>
-                  <td class="text-right">
-                    $98,615
-                  </td>
-                </tr>
+                <!-- <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr> -->
               </tbody>
             </table>
           </div>
