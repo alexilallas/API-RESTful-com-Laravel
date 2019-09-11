@@ -127,7 +127,7 @@
                       #numero_cigarro="ngModel"/>
                   </div>
                   <label>Fuma</label>
-                    <div class="form-check-radio" *ngIf="form.fuma == 0">
+                    <div class="form-check-radio" *ngIf="form.fuma != 1">
                       <label class="form-check-label">
                         <input class="form-check-input" type="radio" name="fuma" id="fuma1" value="1"
                         [(ngModel)] = "form.fuma"
@@ -155,7 +155,7 @@
                         #frequencia_alcool="ngModel"/>
                     </div>
                     <label>Consome álcool</label>
-                      <div class="form-check-radio" *ngIf="form.alcool == 0">
+                      <div class="form-check-radio" *ngIf="form.alcool != 1">
                         <label class="form-check-label">
                           <input class="form-check-input" type="radio" name="alcool" id="alcool1" value="1"
                           [(ngModel)] = "form.alcool"
@@ -194,7 +194,7 @@
             </div>
             <div class="row">
                 <div class="col-sm-4 col-lg-4">
-                  <label [hidden]="form.alergico == 0">Nome da Alergia*</label>
+                  <label [hidden]="form.alergico != 1">Nome da Alergia*</label>
                   <div class="col-sm-6 col-lg-8 pading-inside-checkbox" *ngIf="form.alergico == 1">
                       <input type="text" class="form-control"
                       name="nome_alergia"
@@ -204,7 +204,7 @@
                       #nome_alergia="ngModel"/>
                   </div>
                   <label>Alérgico</label>
-                    <div class="form-check-radio" *ngIf="form.alergico == 0">
+                    <div class="form-check-radio" *ngIf="form.alergico != 1">
                       <label class="form-check-label">
                         <input class="form-check-input" type="radio" name="alergico" id="alergico1" value="1"
                         [(ngModel)] = "form.alergico"
@@ -232,7 +232,7 @@
                         #nome_atividade="ngModel"/>
                     </div>
                     <label>Atividade física (3x / semana)</label>
-                      <div class="form-check-radio" *ngIf="form.atividade_fisica == 0">
+                      <div class="form-check-radio" *ngIf="form.atividade_fisica != 1">
                         <label class="form-check-label">
                           <input class="form-check-input" type="radio" name="atividade_fisica" id="atividade_fisica1" value="1"
                           [(ngModel)] = "form.atividade_fisica"
@@ -260,7 +260,7 @@
                           #nome_cirurgia="ngModel"/>
                       </div>
                     <label>Cirurgia</label>
-                      <div class="form-check-radio" *ngIf="form.cirurgia == 0">
+                      <div class="form-check-radio" *ngIf="form.cirurgia != 1">
                         <label class="form-check-label">
                           <input class="form-check-input" type="radio" name="cirurgia" id="cirurgia1" value="1"
                           [(ngModel)] = "form.cirurgia"
@@ -280,7 +280,7 @@
             </div>
             <div class="row">
                 <div class="col-sm-4 col-lg-4">
-                  <label [hidden]="form.medicamento == 0">Nome do Medicamento*</label>
+                  <label [hidden]="form.medicamento != 1">Nome do Medicamento*</label>
                   <div class="col-sm-6 col-lg-8 pading-inside-checkbox" *ngIf="form.medicamento == 1">
                       <input type="text" class="form-control"
                       name="nome_medicamento"
@@ -290,7 +290,7 @@
                       #nome_medicamento="ngModel"/>
                   </div>
                   <label>Usa Medicamento</label>
-                    <div class="form-check-radio" *ngIf="form.medicamento == 0">
+                    <div class="form-check-radio" *ngIf="form.medicamento != 1">
                       <label class="form-check-label">
                         <input class="form-check-input" type="radio" name="medicamento" id="medicamento1" value="1"
                         [(ngModel)] = "form.medicamento"
@@ -311,17 +311,17 @@
                     <label>Diabetes</label>
                       <div class="form-check-radio">
                         <label class="form-check-label">
-                          <input class="form-check-input" type="radio" name="diabetes" id="diabetes1" value="1"
-                          [(ngModel)] = "form.diabetes"
-                          #diabetes="ngModel">Sim
+                          <input class="form-check-input" type="radio" name="diabetico" id="diabetico1" value="1"
+                          [(ngModel)] = "form.diabetico"
+                          #diabetico="ngModel">Sim
                           <span class="form-check-sign"></span>
                         </label>
                       </div>
                       <div class="form-check-radio">
                         <label class="form-check-label">
-                          <input class="form-check-input" type="radio" name="diabetes" id="diabetes2" value="0" checked=""
-                          [(ngModel)] = "form.diabetes"
-                          #diabetes="ngModel">Não
+                          <input class="form-check-input" type="radio" name="diabetico" id="diabetico2" value="0" checked=""
+                          [(ngModel)] = "form.diabetico"
+                          #diabetico="ngModel">Não
                           <span class="form-check-sign"></span>
                         </label>
                       </div>
@@ -418,9 +418,53 @@
                 </div>
               </div>
             </div>
+            <br>
+            <h6>Risco Social</h6>
+            <div class="row">
+              <div class="col-sm-4 col-lg-4">
+                <label>Mora Sozinho?</label>
+                  <div class="form-check-radio">
+                    <label class="form-check-label">
+                      <input class="form-check-input" type="radio" name="mora_sozinho" id="mora_sozinho1" value="1"
+                      [(ngModel)] = "form.mora_sozinho"
+                      #mora_sozinho="ngModel">Sim
+                      <span class="form-check-sign"></span>
+                    </label>
+                  </div>
+                  <div class="form-check-radio">
+                    <label class="form-check-label">
+                      <input class="form-check-input" type="radio" name="mora_sozinho" id="mora_sozinho2" value="0" checked=""
+                      [(ngModel)] = "form.mora_sozinho"
+                      #mora_sozinho="ngModel">Não
+                      <span class="form-check-sign"></span>
+                    </label>
+                  </div>
+              </div>
+              <div class="col-sm-4 col-lg-4">
+                <label>Está passando por problema familiar?</label>
+                  <div class="form-check-radio">
+                    <label class="form-check-label">
+                      <input class="form-check-input" type="radio" name="problema_familiar" id="problema_familiar1" value="1"
+                      [(ngModel)] = "form.problema_familiar"
+                      #problema_familiar="ngModel">Sim
+                      <span class="form-check-sign"></span>
+                    </label>
+                  </div>
+                  <div class="form-check-radio">
+                    <label class="form-check-label">
+                      <input class="form-check-input" type="radio" name="problema_familiar" id="problema_familiar2" value="0" checked=""
+                      [(ngModel)] = "form.problema_familiar"
+                      #problema_familiar="ngModel">Não
+                      <span class="form-check-sign"></span>
+                    </label>
+                  </div>
+              </div>
+          </div>
+          <br>
           <div class="row">
             <div class="update ml-auto mr-auto">
-              <button type="submit" class="btn btn-primary btn-round">Salvar</button>
+              <button type="submit" class="btn btn-primary btn-round"
+              [disabled] = "anamineseForm.form.invalid">Salvar</button>
             </div>
           </div>
         </form>

@@ -21,6 +21,7 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 import { HttpClientModule }    from '@angular/common/http';
 import { BaseFormFieldsService } from './pages/form/base-form-fields.service';
 import { MessageService } from './services/messages/message.service';
+import { NgxViacepModule } from '@brunoc/ngx-viacep';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { MessageService } from './services/messages/message.service';
     DataTablesModule,
     FormsModule,
     ReactiveFormsModule,
-    NgSelectModule
+    NgSelectModule,
+    NgxViacepModule
   ],
   providers: [BaseFormFieldsService,MessageService],
   bootstrap: [AppComponent]

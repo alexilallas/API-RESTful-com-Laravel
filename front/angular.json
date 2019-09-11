@@ -21,12 +21,12 @@
               "src/favicon.ico"
             ],
             "styles": [
-              "src/styles.css",
               "node_modules/bootstrap/scss/bootstrap.scss",
               "src/assets/scss/paper-dashboard.scss",
               "node_modules/ngx-toastr/toastr.css",
               "node_modules/datatables.net-dt/css/jquery.dataTables.css",
-              "node_modules/@ng-select/ng-select/themes/default.theme.css"
+              "node_modules/@ng-select/ng-select/themes/default.theme.css",
+              "src/styles.css"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.js",
@@ -87,10 +87,10 @@
               "node_modules/datatables.net/js/jquery.dataTables.js"
             ],
             "styles": [
-              "src/styles.css",
               "src/assets/sass/paper-dashboard.scss",
               "node_modules/datatables.net-dt/css/jquery.dataTables.css",
-              "node_modules/@ng-select/ng-select/themes/default.theme.css"
+              "node_modules/@ng-select/ng-select/themes/default.theme.css",
+              "src/styles.css"
             ],
             "assets": [
               "src/assets",

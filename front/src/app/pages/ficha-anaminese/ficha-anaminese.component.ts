@@ -1,35 +1,27 @@
 import { Component, OnInit } from '@angular/core';
 import { FichaAnaminese } from './ficha-anaminese';
+import { environment } from '../../../environments/environment';
 
 @Component({
     selector: 'ficha-anaminese-cmp',
     moduleId: module.id,
-    templateUrl: 'ficha-anaminese.component.html'
+    templateUrl: 'inicio.component.html'
 })
 
 export class FichaAnamineseComponent implements OnInit{
 
     public form = new FichaAnaminese()
     public _fator_rh = ['Positivo', 'Negativo']
+    dtOptions: DataTables.Settings = {};
 
     ngOnInit(){
-        this.form['diabetes'] = "0"
-        this.form['hipertensao'] = "0"
-        this.form['infarto'] = "0"
-        this.form['morte_subita'] = "0"
-        this.form['cancer'] = "0"
-        this.form['fuma'] = "0"
-        this.form['alcool'] = "0"
-        this.form['hipertenso'] = "0"
-        this.form['alergico'] = "0"
-        this.form['atividade_fisica'] = "0"
-        this.form['cirurgia'] = "0"
-        this.form['medicamento'] = "0"
         this.form['dt'] = false
         this.form['hb'] = false
         this.form['fa'] = false
         this.form['influenza'] = false
         this.form['antirrabica'] = false
+        this.dtOptions = environment.dtOptions
+        
     }
 
 

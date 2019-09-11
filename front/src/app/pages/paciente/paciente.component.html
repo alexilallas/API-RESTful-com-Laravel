@@ -195,6 +195,7 @@
                       <div class="form-group" [ngClass]="(cep.invalid && cep.touched) ? 'has-danger' : 'has-success'">
                         <label>CEP</label>
                         <input type="text" class="form-control"
+                        (change) = "getEnderecoViaCep($event, form.cep)"
                         required
                         [(ngModel)] = "form.cep"
                         name = "cep"
@@ -250,7 +251,7 @@
                         <label>Logradouro</label>
                         <input type="text" class="form-control"
                         required
-                        [(ngModel)] = "form.Logradouro"
+                        [(ngModel)] = "form.logradouro"
                         name = "logradouro"
                         #logradouro = "ngModel">
                         <div class="text-danger" role="alert" [hidden] = "logradouro.valid || logradouro.untouched">
@@ -298,14 +299,17 @@
                     <div class="col-md-12">
                         <div class="form-group">
                           <label>Observações</label>
-                          <textarea class="form-control textarea"></textarea>
+                          <textarea class="form-control textarea"
+                          name="observacao"
+                          [(ngModel)] = "form.observacao"
+                          #observacao = "ngModel"></textarea>
                         </div>
                     </div>
                   </div>
                   <div class="row">
                     <div class="update ml-auto mr-auto">
                       <button type="submit" class="btn btn-primary btn-round"
-                      [disabled] = "!pacienteForm.form.valid">Cadastrar</button>
+                      [disabled] = "pacienteForm.form.invalid">Cadastrar</button>
                     </div>
                   </div>
                 </form>

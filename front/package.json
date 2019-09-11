@@ -21,6 +21,7 @@
     "@angular/platform-browser": "8.0.2",
     "@angular/platform-browser-dynamic": "8.0.2",
     "@angular/router": "8.0.2",
+    "@brunoc/ngx-viacep": "^2.1.2",
     "@ng-bootstrap/ng-bootstrap": "5.0.0",
     "@ng-select/ng-select": "^3.0.7",
     "@ngui/map": "0.30.3",

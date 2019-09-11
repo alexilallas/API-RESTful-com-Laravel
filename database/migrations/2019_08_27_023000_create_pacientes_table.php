@@ -22,6 +22,7 @@ class CreatePacientesTable extends Migration
             $table->string('estado_naturalidade');
             $table->string('cidade_naturalidade');
             $table->date('data_nascimento');
+            $table->string('observacao');
             $table->string('sexo');
             $table->integer('cep');
             $table->string('estado');

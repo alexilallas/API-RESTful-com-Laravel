@@ -18,12 +18,10 @@ export class PacienteService {
     this.pacientesUrl = environment.baseAPI + 'paciente'
   }
 
-  /** GET: Retorna todos os pacientes */
   getPacientes (): Observable<Paciente[]> {
     return this.http.get<Paciente[]>(this.pacientesUrl);
   }
 
-  /** POST: Adiciona um novo paciente */
   postPaciente (paciente: Paciente){
     return this.http.post(
       this.pacientesUrl,

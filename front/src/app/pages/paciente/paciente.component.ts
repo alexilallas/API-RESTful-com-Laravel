@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BaseFormFieldsService } from '../form/base-form-fields.service';
 import { Paciente } from './paciente';
 import { PacienteService } from './paciente.service';
+import { NgxViacepService, Endereco, ErroCep } from '@brunoc/ngx-viacep';
 
 @Component({
     selector: 'paciente-cmp',
@@ -19,23 +20,35 @@ export class PacienteComponent implements OnInit{
     constructor
     (
         private formService: BaseFormFieldsService, 
-        private pacienteService:PacienteService
+        private pacienteService:PacienteService,
+        private viacep: NgxViacepService
     ) { }
 
     ngOnInit(){
-        this.getFormFields()
+        this.getBaseFields()
     }
-    
 
     onSubmit() {
         console.log(this.form)
+    }
+
+    getEnderecoViaCep($event, cep): any {
+        this.viacep.buscarPorCep(cep).then( ( endereco: Endereco ) => {
+        console.log(endereco);
+        this.form['estado'] = endereco.uf
+        this.form['cidade'] = endereco.localidade
+        this.form['bairro'] = endereco.bairro
+        this.form['logradouro'] = endereco.logradouro
+        }).catch( (error: ErroCep) => {
+        console.log(error.message);
+        });
     }
 
     postPaciente(paciente: Paciente):void{
         this.pacienteService.postPaciente(paciente)
     }
 
-    getFormFields(): void {
+    getBaseFields(): void {
         this.formService.getFields()
         .subscribe(response => {
             this._sexo = response['sexo'],
