@@ -4,7 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
-export class FichaAnamineseService {
+export class FichaAnamneseService {
 
   constructor
   (
@@ -16,7 +16,7 @@ export class FichaAnamineseService {
   }
 
   // getModal(){
-  //   this.http.get('ficha-anaminese.component.html', {responseType: 'text'})
+  //   this.http.get('ficha-anamnese.component.html', {responseType: 'text'})
   //     .subscribe(data => console.log(data));
   // }
 }

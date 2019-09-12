@@ -1,4 +1,4 @@
-export class FichaAnaminese {
+export class FichaAnamnese {
    
    constructor(){
        id: Number;

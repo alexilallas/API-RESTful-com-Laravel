@@ -1,19 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { FichaAnaminese } from './ficha-anaminese';
-import { FichaAnamineseService } from './ficha-anaminese.service';
+import { FichaAnamnese } from './ficha-anamnese';
+import { FichaAnamneseService } from './ficha-anamnese.service';
 import { PacienteService } from '../paciente/paciente.service';
 import { environment } from '../../../environments/environment';
 import { NgxSmartModalService } from 'ngx-smart-modal';
 
 @Component({
-    selector: 'ficha-anaminese-cmp',
+    selector: 'ficha-anamnese-cmp',
     moduleId: module.id,
-    templateUrl: 'inicio.component.html'
+    templateUrl: 'ficha-anamnese.component.html'
 })
 
-export class FichaAnamineseComponent implements OnInit{
+export class FichaAnamneseComponent implements OnInit{
 
-    public form = new FichaAnaminese()
+    public form = new FichaAnamnese()
     public _fator_rh = ['Positivo', 'Negativo']
     private dtOptions: DataTables.Settings = {};
     
@@ -21,7 +21,7 @@ export class FichaAnamineseComponent implements OnInit{
     (
         private pacienteService:PacienteService,
         public ngxSmartModalService: NgxSmartModalService,
-        private anamineseService: FichaAnamineseService,
+        private anamineseService: FichaAnamneseService,
     ){}
 
     ngOnInit(){

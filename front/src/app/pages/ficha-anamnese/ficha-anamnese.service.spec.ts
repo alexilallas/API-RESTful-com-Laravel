@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { FichaAnamineseService } from './ficha-anaminese.service';
+import { FichaAnamneseService } from './ficha-anamnese.service';
 
 describe('FichaAnamineseService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: FichaAnamineseService = TestBed.get(FichaAnamineseService);
+    const service: FichaAnamneseService = TestBed.get(FichaAnamneseService);
     expect(service).toBeTruthy();
   });
 });

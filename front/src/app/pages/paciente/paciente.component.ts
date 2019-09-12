@@ -3,6 +3,8 @@ import { BaseFormFieldsService } from '../form/base-form-fields.service';
 import { Paciente } from './paciente';
 import { PacienteService } from './paciente.service';
 import { NgxViacepService, Endereco, ErroCep } from '@brunoc/ngx-viacep';
+import { environment } from '../../../environments/environment';
+import { NgxSmartModalService } from 'ngx-smart-modal';
 
 @Component({
     selector: 'paciente-cmp',
@@ -16,16 +18,19 @@ export class PacienteComponent implements OnInit{
     public _tipo_paciente : any [] = []
     
     public form = new  Paciente()
+    private dtOptions: DataTables.Settings = {};
     
     constructor
     (
         private formService: BaseFormFieldsService, 
         private pacienteService:PacienteService,
-        private viacep: NgxViacepService
+        private viacep: NgxViacepService,
+        public ngxSmartModalService: NgxSmartModalService,
     ) { }
 
     ngOnInit(){
         this.getBaseFields()
+        this.dtOptions = environment.dtOptions
     }
 
     onSubmit() {
