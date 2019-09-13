@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { BaseFormFieldsService } from '../form/base-form-fields.service';
 import { Paciente } from './paciente';
 import { PacienteService } from './paciente.service';
 import { NgxViacepService, Endereco, ErroCep } from '@brunoc/ngx-viacep';
 import { environment } from '../../../environments/environment';
 import { NgxSmartModalService } from 'ngx-smart-modal';
+import { ThrowStmt } from '@angular/compiler';
+import { Subject } from 'rxjs';
 
 @Component({
     selector: 'paciente-cmp',
@@ -12,14 +14,16 @@ import { NgxSmartModalService } from 'ngx-smart-modal';
     templateUrl: 'paciente.component.html'
 })
 
-export class PacienteComponent implements OnInit{
+export class PacienteComponent implements OnDestroy, OnInit{
     public _sexo: any [] = []
     public _estado_civil: any [] = []
     public _tipo_paciente : any [] = []
     
     public form = new  Paciente()
+    public pacientes: any []
     private dtOptions: DataTables.Settings = {};
-    
+    dtTrigger: Subject = new Subject();
+
     constructor
     (
         private formService: BaseFormFieldsService, 
@@ -30,7 +34,12 @@ export class PacienteComponent implements OnInit{
 
     ngOnInit(){
         this.getBaseFields()
+        this.getPacientes()
         this.dtOptions = environment.dtOptions
+    }
+
+    ngOnDestroy(): void {
+        this.dtTrigger.unsubscribe();
     }
 
     onSubmit() {
@@ -51,6 +60,7 @@ export class PacienteComponent implements OnInit{
 
     postPaciente(paciente: Paciente):void{
         this.pacienteService.postPaciente(paciente)
+        this.form = null
     }
 
     getBaseFields(): void {
@@ -62,8 +72,12 @@ export class PacienteComponent implements OnInit{
         })
     }
 
-    // getPacientes(): void{
-    //     this.pacienteService.getPacientes()
-    //     .subscribe(response => this.pacientes = response)
-    // }
+    getPacientes(): any {
+        this.pacienteService.getPacientes()
+        .subscribe(response => { 
+            console.log(response), 
+            this.pacientes = response['data']['pacientes'], 
+            this.dtTrigger.next()
+        })
+    }
 }

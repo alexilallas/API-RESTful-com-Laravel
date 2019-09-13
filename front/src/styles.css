@@ -68,3 +68,8 @@ table.dataTable thead th, table.dataTable thead td{border-bottom: 1px solid #dee
     background-color: #ffc0a46b!important;
     border: 1px solid #ef815773!important;
 }
+
+
+/* modal */
+
+.nsm-dialog{max-width: 860px;}

@@ -17,12 +17,12 @@ class CreatePacientesTable extends Migration
             $table->increments('id');
             $table->string('nome');
             $table->string('telefone_celular');
-            $table->integer('cpf_rg');
+            $table->bigInteger('cpf_rg')->unique();
             $table->string('estado_civil');
             $table->string('estado_naturalidade');
             $table->string('cidade_naturalidade');
             $table->date('data_nascimento');
-            $table->string('observacao');
+            $table->string('observacao')->nullable();
             $table->string('sexo');
             $table->integer('cep');
             $table->string('estado');

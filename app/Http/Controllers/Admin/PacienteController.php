@@ -14,7 +14,8 @@ class PacienteController extends Controller
     private $table = 'pacientes';
     private $contato;
     
-    public function __construct(){
+    public function __construct()
+    {
         $this->contato = new ContatoController();
     }
 
