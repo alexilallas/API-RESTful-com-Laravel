@@ -14,7 +14,7 @@ abstract class Controller extends BaseController
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     abstract public function customSave($data);
-    
+
     protected function formatValidationErrors(\Illuminate\Contracts\Validation\Validator $validator)
     {
         $status = 422;
@@ -35,9 +35,9 @@ abstract class Controller extends BaseController
         return $data;
     }
 
-    public function jsonSuccess($message)
+    public function jsonSuccess($message, $data = null)
     {
-        return response()->json(['message' => $message, 'status' => 200]);
+        return response()->json(['message' => $message, 'status' => 200, 'data' => $data]);
     }
 
     public function jsonError($message)
@@ -49,13 +49,13 @@ abstract class Controller extends BaseController
         $this->verifyPermission($permission);
         return $this->customSave($modelData);
     }
-    
+
     public function save($table, $data)
     {
         //fazer a auditoria
         $this->coreSave($table, 'Criação', $id = NULL);
         return DB::table($table)->insert($data);
-        
+
     }
 
     //Salvar dados na tabela de Auditoria

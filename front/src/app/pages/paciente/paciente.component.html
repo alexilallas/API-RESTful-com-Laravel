@@ -1,5 +1,5 @@
 <ngx-smart-modal #pacienteModal identifier="pacienteModal" customClass="medium-modal">
-  <!-- <div class="row"> 
+  <!-- <div class="row">
     <div class="card-body"> -->
         <div class="">
             <div class="card card-user">
@@ -7,17 +7,17 @@
                 <h5 class="card-title">Novo Paciente</h5>
               </div>
               <div class="card-body">
-                <form #pacienteForm = "ngForm">
+                <form #pacienteForm = "ngForm" (ngSubmit) = "savePaciente()">
                   <!-- {{ nome.errors | json }} -->
                   <h6 class="card-title text-secondary">Dados Pessoais</h6>
                   <div class="row">
                     <div class="col-md-5">
                       <div class="form-group" [ngClass]="(nome.invalid && nome.touched) ? 'has-danger' : 'has-success'">
                         <label for="nome">Nome</label>
-                        <input type="text" class="form-control" 
+                        <input type="text" class="form-control"
                         required
                         minlength="5"
-                        maxlength="80" 
+                        maxlength="80"
                         [(ngModel)] = "form.nome"
                         name="nome"
                         #nome="ngModel">
@@ -29,7 +29,7 @@
                               O nome deve contar no mínimo 5 caracteres
                             </div>
                         </div>
-                      </div> 
+                      </div>
                     </div>
                     <div class="col-md-3">
                       <div class="form-group" [ngClass]="(cpf_rg.invalid && !cpf_rg.untouched) ? 'has-danger' : ''">
@@ -48,8 +48,8 @@
                       <!-- {{form.estado_civil}} -->
                       <div class="form-group">
                         <label for="estado_civil">Estado Civil</label>
-                        <ng-select [multiple]="false" 
-                        [(ngModel)]="form.estado_civil" 
+                        <ng-select [multiple]="false"
+                        [(ngModel)]="form.estado_civil"
                         required
                         name="estado_civil"
                         #estado_civil="ngModel">
@@ -78,8 +78,8 @@
                     <div class="col-md-4">
                       <div class="form-group">
                         <label for="sexo">Sexo</label>
-                        <ng-select [multiple]="false" 
-                        [(ngModel)]="form.sexo" 
+                        <ng-select [multiple]="false"
+                        [(ngModel)]="form.sexo"
                         required
                         name="sexo"
                         #sexo="ngModel">
@@ -93,8 +93,8 @@
                     <div class="col-md-4">
                       <div class="form-group">
                           <label for="tipo_paciente">Tipo de Paciente</label>
-                          <ng-select [multiple]="false" 
-                          [(ngModel)]="form.tipo_paciente" 
+                          <ng-select [multiple]="false"
+                          [(ngModel)]="form.tipo_paciente"
                           required
                           name="tipo_paciente"
                           #tipo_paciente="ngModel">
@@ -136,7 +136,7 @@
                     <div class="col-md-8" *ngIf= "form.tipo_paciente == 'Funcionário'">
                         <div class="form-group">
                           <label for="setor">Setor</label>
-                          <input type="text" class="form-control" 
+                          <input type="text" class="form-control"
                           [(ngModel)] ="form.setor"
                           required
                           name="setor"
@@ -312,8 +312,8 @@
                       [disabled] = "pacienteForm.form.invalid">Cadastrar</button>
                     </div>
                   </div> -->
-                  <button class="btn btn-default" (click)="pacienteModal.close()">Cancelar</button>
-                  <button class="btn btn-info pull-right" (ngSubmit) = "onSubmit()" [disabled] = "pacienteForm.form.invalid">Salvar</button>
+                  <div class="btn btn-default" (click)="pacienteModal.close()">Cancelar</div>
+                  <button class="btn btn-info pull-right" (click)="pacienteModal.close()" [disabled] = "pacienteForm.form.invalid">Salvar</button>
                 </form>
               </div>
             </div>
@@ -322,7 +322,7 @@
   </div> -->
 
   </ngx-smart-modal>
-  
+
   <div class="row">
       <div class="col-md-12">
         <div class="card">
@@ -336,12 +336,11 @@
           </div>
           <div class="card-body">
             <div class="table">
-              <table datatable [dtOptions]="dtOptions" cellspacing="0" class="table table-striped table-bordered dataTable">
+              <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" cellspacing="0" class="table table-striped table-bordered dataTable">
                 <thead class=" text-primary">
                   <tr>
                   <th>Nome</th>
                   <th>CPF/RG</th>
-                  <th>Data Nascimento</th>
                   <th>Sexo</th>
                   </tr>
                 </thead>
@@ -349,7 +348,6 @@
                   <tr *ngFor="let paciente of pacientes">
                     <td>{{ paciente['nome'] }}</td>
                     <td>{{ paciente['cpf_rg'] }}</td>
-                    <td>{{ paciente['data_nascimento'] }}</td>
                     <td>{{ paciente['sexo'] }}</td>
                   </tr>
                 </tbody>
@@ -359,4 +357,3 @@
         </div>
       </div>
     </div>
-    

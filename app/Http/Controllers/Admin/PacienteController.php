@@ -13,7 +13,7 @@ class PacienteController extends Controller
 {
     private $table = 'pacientes';
     private $contato;
-    
+
     public function __construct()
     {
         $this->contato = new ContatoController();
@@ -22,7 +22,7 @@ class PacienteController extends Controller
     public function find()
     {
         $pacientes = Paciente::all();
-        return response()->success(compact('pacientes'));
+        return $this->jsonSuccess('Pacientes do sistema', compact('pacientes'));
     }
 
     public function postPaciente()
@@ -48,7 +48,7 @@ class PacienteController extends Controller
         unset($data['nome_contato']);
         unset($data['numero_contato']);
         unset($data['tipo_paciente']);
-        
+
         return $this->save($this->table, $data);
     }
 

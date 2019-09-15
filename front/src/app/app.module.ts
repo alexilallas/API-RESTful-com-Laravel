@@ -23,11 +23,13 @@ import { BaseFormFieldsService } from './pages/form/base-form-fields.service';
 import { MessageService } from './services/messages/message.service';
 import { NgxViacepModule } from '@brunoc/ngx-viacep';
 import { NgxSmartModalModule } from 'ngx-smart-modal';
+import { DatatablesComponent } from './shared/datatables/datatables.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AdminLayoutComponent,
+    DatatablesComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -47,7 +49,7 @@ import { NgxSmartModalModule } from 'ngx-smart-modal';
     NgxViacepModule,
     NgxSmartModalModule.forRoot()
   ],
-  providers: [BaseFormFieldsService,MessageService],
+  providers: [BaseFormFieldsService, MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

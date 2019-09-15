@@ -1,6 +1,6 @@
 @import "~ngx-smart-modal/ngx-smart-modal";
 /* datatables */
-.table-responsive { 
+.table-responsive {
     overflow: hidden!important;
 }
 
@@ -73,3 +73,7 @@ table.dataTable thead th, table.dataTable thead td{border-bottom: 1px solid #dee
 /* modal */
 
 .nsm-dialog{max-width: 860px;}
+
+
+/* card */
+.card{box-shadow: none}
