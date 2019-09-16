@@ -20,6 +20,7 @@ export class PacienteComponent extends DatatablesComponent implements OnInit {
     public _tipo_paciente : any [] = []
 
     public form = new  Paciente()
+    public modal = 'pacienteModal'
     public pacientes: any []
 
     constructor
@@ -30,6 +31,7 @@ export class PacienteComponent extends DatatablesComponent implements OnInit {
       public ngxSmartModalService: NgxSmartModalService
     ) {
       super();
+      console.log('PacienteComponent')
     }
 
     ngOnInit(){
@@ -51,10 +53,25 @@ export class PacienteComponent extends DatatablesComponent implements OnInit {
       });
     }
 
-    savePaciente():void{
-      this.pacienteService.postPaciente(this.form)
-      this.getPacientes()
-      //this.form = {}
+    save(){
+      console.log(this.form)
+      this.savePaciente()
+      PacienteService.pacienteCriado.subscribe(
+        () => {
+          this.form = {},
+          this.getPacientes(),
+          this.close()
+        }
+      )
+    }
+
+    close(){
+      this.form = {}
+      this.ngxSmartModalService.close(this.modal)
+    }
+
+    savePaciente() {
+      return this.pacienteService.postPaciente(this.form)
     }
 
     getBaseFields(): void {
@@ -69,8 +86,8 @@ export class PacienteComponent extends DatatablesComponent implements OnInit {
     getPacientes(): any {
       this.pacienteService.getPacientes()
       .subscribe(response => {
-        console.log(response),
-        this.pacientes = response['data']['pacientes'],
+        console.log(response)
+        this.pacientes = response['pacientes'],
         this.rerenderTable()
       })
     }

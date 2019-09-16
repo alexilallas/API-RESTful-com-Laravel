@@ -19,22 +19,31 @@ class PacienteController extends Controller
         $this->contato = new ContatoController();
     }
 
+    public function checkBusinessLogic($data)
+    {
+        $result = DB::table($this->table)->where('cpf_rg', $data['cpf_rg'])->count();
+        if($result > 0)
+        {
+            $this->cancel('Este paciente já está cadastrado!');
+        }
+    }
+
     public function find()
     {
         $pacientes = Paciente::all();
-        return $this->jsonSuccess('Pacientes do sistema', compact('pacientes'));
+        return $this->jsonSuccess('Pacientes cadastrados', compact('pacientes'));
     }
 
     public function postPaciente()
     {
-        $modelData = $this->jsonDecode();
+        $data = $this->jsonDecode();
 
         try {
             \DB::beginTransaction();
-            $this->doSave($modelData, 'criarPaciente');
+            $this->doSave($data, 'criarPaciente');
             $idPaciente = DB::getPdo()->lastInsertId();
-            $modelData['paciente_id'] = $idPaciente;
-            $this->contato->customSave($modelData);
+            $data['paciente_id'] = $idPaciente;
+            $this->contato->customSave($data);
             \DB::commit();
             return $this->jsonSuccess('Paciente adicionado com sucesso!');
         } catch (\Throwable $th) {

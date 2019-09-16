@@ -14,6 +14,7 @@ abstract class Controller extends BaseController
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     abstract public function customSave($data);
+    abstract public function checkBusinessLogic($data);
 
     protected function formatValidationErrors(\Illuminate\Contracts\Validation\Validator $validator)
     {
@@ -45,9 +46,15 @@ abstract class Controller extends BaseController
         return response()->json(['message' => $message, 'status' => 400]);
     }
 
-    public function doSave($modelData, $permission){
+    public function cancel($message = null)
+    {
+        abort(400, $message);
+    }
+
+    public function doSave($data, $permission){
         $this->verifyPermission($permission);
-        return $this->customSave($modelData);
+        $this->checkBusinessLogic($data);
+        return $this->customSave($data);
     }
 
     public function save($table, $data)

@@ -25,6 +25,10 @@ class FormController extends Controller
         return response()->json($result);
     }
 
+    public function checkBusinessLogic($data){
+        # code...
+    }
+
     public function customSave($modelData)
     {
         # code...

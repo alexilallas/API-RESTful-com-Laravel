@@ -14,7 +14,7 @@ export class MessageService {
         '<span data-notify="icon" class="nc-icon nc-bell-55"></span><span data-notify="message">'+ message['message'] +'</span>',
         "",
         {
-          timeOut: 4000,
+          timeOut: 5000,
           closeButton: true,
           enableHtml: true,
           toastClass: "alert alert-success alert-with-icon",
@@ -26,7 +26,7 @@ export class MessageService {
         '<span data-notify="icon" class="nc-icon nc-bell-55"></span><span data-notify="message">'+ message['message'] +'</span>',
         "",
         {
-          timeOut: 4000,
+          timeOut: 5000,
           closeButton: true,
           enableHtml: true,
           toastClass: "alert alert-danger alert-with-icon",
@@ -34,6 +34,6 @@ export class MessageService {
         }
       );
     }
-    
+
   }
 }
