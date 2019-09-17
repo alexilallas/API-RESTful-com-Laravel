@@ -13,10 +13,12 @@ import { NgxSmartModalService } from 'ngx-smart-modal';
 
 export class FichaAnamneseComponent implements OnInit{
 
-    public form = new FichaAnamnese()
-    public _fator_rh = ['Positivo', 'Negativo']
+    public form = new FichaAnamnese();
+    public _fator_rh = ['Positivo', 'Negativo'];
     private dtOptions: DataTables.Settings = {};
-    
+    public PacientesAguardandoAtendimento:any;
+    public showTitle:boolean = false;
+
     constructor
     (
         private pacienteService:PacienteService,
@@ -31,11 +33,22 @@ export class FichaAnamneseComponent implements OnInit{
         this.form['influenza'] = false
         this.form['antirrabica'] = false
         this.dtOptions = environment.dtOptions
-        // this.anamineseService.getModal()
+        this.aguardandoAtendimento()
     }
 
 
     onSubmit() {
-        console.log(this.form)
+      console.log(this.form)
+    }
+
+    aguardandoAtendimento() : any{
+      this.anamineseService.getPacientes()
+      .subscribe(response => {
+        console.log(response)
+        this.PacientesAguardandoAtendimento = response['pacientes']
+        if(response['pacientes'].length > 0){
+          this.showTitle = true;
+        }
+      })
     }
 }

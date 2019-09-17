@@ -11,9 +11,10 @@ import { MessageService } from '../../services/messages/message.service';
   providedIn: 'root'
 })
 export class PacienteService {
-  static pacienteCriado = new EventEmitter<any>()
-  pacientesUrl: string;
-  httpOptions = {
+
+  static pacienteCriado = new EventEmitter<any>();
+  private pacientesUrl: string;
+  private httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 

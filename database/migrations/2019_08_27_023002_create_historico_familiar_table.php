@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAntecedentesFamiliaresTable extends Migration
+class CreateHistoricoFamiliarTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateAntecedentesFamiliaresTable extends Migration
      */
     public function up()
     {
-        Schema::create('antecedentes_familiares', function (Blueprint $table) {
+        Schema::create('historico_familiar', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('paciente_id');
             $table->foreign('paciente_id')->references('id')->on('pacientes');
@@ -38,6 +38,6 @@ class CreateAntecedentesFamiliaresTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('antecedentes_familiares');
+        Schema::dropIfExists('historico_familiar');
     }
 }

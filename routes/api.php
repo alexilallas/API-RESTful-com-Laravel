@@ -20,7 +20,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::namespace('Admin')->group(function () {
     Route::get('paciente', 'PacienteController@find');
     Route::post('paciente', 'PacienteController@postPaciente');
-    
+
+    Route::get('anamnese', 'AnamneseController@find');
+
     Route::get('form', 'FormController@getBasefields');
 });
 

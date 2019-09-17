@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class AntecedentePessoal extends BaseModel
+class HistoricoPessoal extends BaseModel
 {
     protected $fillable = [
         'paciente_id','fumante','quantidade_cigarros','alcool','frequencia_alcool','atividade_fisica','nome_atividade',

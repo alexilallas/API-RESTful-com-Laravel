@@ -15,13 +15,13 @@ import { DatatablesComponent } from '../../shared/datatables/datatables.componen
 })
 
 export class PacienteComponent extends DatatablesComponent implements OnInit {
-    public _sexo: any [] = []
-    public _estado_civil: any [] = []
-    public _tipo_paciente : any [] = []
+    public _sexo: any [] = [];
+    public _estado_civil: any [] = [];
+    public _tipo_paciente : any [] = [];
 
-    public form = new  Paciente()
-    public modal = 'pacienteModal'
-    public pacientes: any []
+    public form = new  Paciente();
+    public modal = 'pacienteModal';
+    public pacientes: any [];
 
     constructor
     (

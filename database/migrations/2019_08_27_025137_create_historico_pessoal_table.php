@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAntecedentePessoalsTable extends Migration
+class CreateHistoricoPessoalTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateAntecedentePessoalsTable extends Migration
      */
     public function up()
     {
-        Schema::create('antecedente_pessoals', function (Blueprint $table) {
+        Schema::create('historico_pessoal', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('paciente_id');
             $table->foreign('paciente_id')->references('id')->on('pacientes');
@@ -55,6 +55,6 @@ class CreateAntecedentePessoalsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('antecedente_pessoals');
+        Schema::dropIfExists('historico_pessoal');
     }
 }
