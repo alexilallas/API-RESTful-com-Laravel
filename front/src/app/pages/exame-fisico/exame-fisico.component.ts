@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { DatatablesComponent } from '../../shared/datatables/datatables.component';
+import { environment } from 'environments/environment';
 
 @Component({
     selector: 'exame-fisico-cmp',
@@ -6,4 +8,15 @@ import { Component } from '@angular/core';
     templateUrl: 'exame-fisico.component.html'
 })
 
-export class ExameFisicoComponent{}
+export class ExameFisicoComponent extends DatatablesComponent implements OnInit{
+
+    public dtOptions: DataTables.Settings = {};
+
+    constructor(){
+        super();
+    }
+
+    ngOnInit(){
+        this.dtOptions = environment.dtOptions
+    }
+}

@@ -19,7 +19,6 @@ import { AppRoutes } from './app.routing';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 
 import { HttpClientModule }    from '@angular/common/http';
-import { BaseFormFieldsService } from './pages/form/base-form-fields.service';
 import { MessageService } from './services/messages/message.service';
 import { NgxViacepModule } from '@brunoc/ngx-viacep';
 import { NgxSmartModalModule } from 'ngx-smart-modal';
@@ -49,7 +48,7 @@ import { DatatablesComponent } from './shared/datatables/datatables.component';
     NgxViacepModule,
     NgxSmartModalModule.forRoot()
   ],
-  providers: [BaseFormFieldsService, MessageService],
+  providers: [MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -30,7 +30,8 @@ class PacienteController extends Controller
 
     public function find()
     {
-        $pacientes = Paciente::all();
+        $pacientes = DB::table($this->table)->get();
+        
         return $this->jsonSuccess('Pacientes cadastrados', compact('pacientes'));
     }
 

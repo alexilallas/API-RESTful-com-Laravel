@@ -4,6 +4,7 @@ import { FichaAnamneseService } from './ficha-anamnese.service';
 import { PacienteService } from '../paciente/paciente.service';
 import { environment } from '../../../environments/environment';
 import { NgxSmartModalService } from 'ngx-smart-modal';
+import { DatatablesComponent } from '../../shared/datatables/datatables.component';
 
 @Component({
     selector: 'ficha-anamnese-cmp',
@@ -11,20 +12,24 @@ import { NgxSmartModalService } from 'ngx-smart-modal';
     templateUrl: 'ficha-anamnese.component.html'
 })
 
-export class FichaAnamneseComponent implements OnInit{
+export class FichaAnamneseComponent extends DatatablesComponent implements OnInit{
 
-    public form = new FichaAnamnese();
     public _fator_rh = ['Positivo', 'Negativo'];
-    private dtOptions: DataTables.Settings = {};
-    public PacientesAguardandoAtendimento:any;
-    public showTitle:boolean = false;
+    public dtOptions: DataTables.Settings = {};
+    
+    public form = new FichaAnamnese();
+    public modal = 'fichaAnamneseModal';
+    public pacientes: any;
+    public isNewAnamnese:boolean = false;
 
     constructor
     (
         private pacienteService:PacienteService,
         public ngxSmartModalService: NgxSmartModalService,
         private anamineseService: FichaAnamneseService,
-    ){}
+    ){
+        super();
+    }
 
     ngOnInit(){
         this.form['dt'] = false
@@ -33,22 +38,42 @@ export class FichaAnamneseComponent implements OnInit{
         this.form['influenza'] = false
         this.form['antirrabica'] = false
         this.dtOptions = environment.dtOptions
-        this.aguardandoAtendimento()
+        this.getPacientes()
     }
 
 
-    onSubmit() {
-      console.log(this.form)
+    getPacientes(): any {
+        this.anamineseService.getPacientes()
+        .subscribe(response => {
+            console.log(response)
+            this.pacientes = response,
+            this.rerenderTable()
+        })
     }
 
-    aguardandoAtendimento() : any{
-      this.anamineseService.getPacientes()
-      .subscribe(response => {
-        console.log(response)
-        this.PacientesAguardandoAtendimento = response['pacientes']
-        if(response['pacientes'].length > 0){
-          this.showTitle = true;
-        }
-      })
+    save(){
+        console.log(this.form)
+        this.anamineseService.postAnamnese(this.form)
     }
+
+    openFormEdit(id){
+        this.isNewAnamnese = false
+        console.log(id)
+        this.anamineseService.getPacienteById(id)
+        .subscribe(response => {
+            console.log(response)
+        })
+        this.ngxSmartModalService.open(this.modal)
+    }
+
+    openFormNew(){
+        this.isNewAnamnese = true
+        this.ngxSmartModalService.open(this.modal)
+    }
+
+    close(){
+        this.form = {}
+        this.ngxSmartModalService.close(this.modal)
+      }
+
 }

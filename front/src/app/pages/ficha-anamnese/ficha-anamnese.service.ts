@@ -30,8 +30,26 @@ export class FichaAnamneseService {
 
   getPacientes (): Observable<Paciente[]> {
     return this.http.get<Paciente[]>(this.anamneseUrl)
-    .pipe(map((response: any) => response['data']));
+    .pipe(map((response: any) => response['data']['pacientes']));
 
+  }
+
+  getPacienteById (id): Observable<Paciente[]> {
+    return this.http.get<Paciente[]>(this.anamneseUrl+'/'+id)
+    .pipe(map((response: any) => response['data']['pacientes']));
+
+  }
+
+  postAnamnese (data: any){
+    return this.http.post(
+      this.anamneseUrl,
+      data,this.httpOptions)
+      .subscribe(
+        (response) => {
+          console.log(response)
+          this.MessageService.message(response)
+        }
+        )
   }
 
 }

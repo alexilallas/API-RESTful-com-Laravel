@@ -1,8 +1,5 @@
 @import "~ngx-smart-modal/ngx-smart-modal";
 
-/* body */
-
-body{font-size: 12px}
 
 /* datatables */
 .table-responsive {
@@ -63,9 +60,14 @@ table{ border-radius: 4px!important}
 .c-btn{border: 1px #e6e6e6 solid!important}
 
 .text-primary, a.text-primary:focus, a.text-primary:hover {color:#343a40!important;}
+
 .table.dataTable.no-footer{ border-bottom: 2px solid #dee2e6}
+
 table.dataTable thead th, table.dataTable thead td{border-bottom: 1px solid #dee2e6!important}
+
 .table>tbody>tr>td{ padding: 5px}
+
+tbody{font-size: 12px}
 
 /* form */
 .pading-inside-checkbox { padding-left: 5px!important }
@@ -120,3 +122,5 @@ table.dataTable thead th, table.dataTable thead td{border-bottom: 1px solid #dee
 .row .nc-icon{
   font-size:34px;
 }
+
+.row li p{font-size: 12px}

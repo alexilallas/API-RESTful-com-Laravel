@@ -29,7 +29,7 @@ export class PacienteService {
 
   getPacientes (): Observable<Paciente[]> {
     return this.http.get<Paciente[]>(this.pacientesUrl)
-    .pipe(map((response: any) => response['data']));
+    .pipe(map((response: any) => response['data']['pacientes']));
 
   }
 
@@ -40,8 +40,9 @@ export class PacienteService {
       .subscribe(
         (data) => {
           console.log(data)
-          PacienteService.pacienteCriado.emit(data)
           this.MessageService.message(data)
+          if(data['status'] == 200)
+          PacienteService.pacienteCriado.emit(data)
         }
         )
   }

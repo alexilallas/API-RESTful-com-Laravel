@@ -17,12 +17,12 @@ class CreateHistoricoFamiliarTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('paciente_id');
             $table->foreign('paciente_id')->references('id')->on('pacientes');
-            $table->boolean('diabetes');
-            $table->boolean('hipertensao');
-            $table->boolean('infarto');
-            $table->boolean('morte_subita');
-            $table->boolean('cancer');
-            $table->string('outro');
+            $table->boolean('diabetes')->nullable();
+            $table->boolean('hipertensao')->nullable();
+            $table->boolean('infarto')->nullable();
+            $table->boolean('morte_subita')->nullable();
+            $table->boolean('cancer')->nullable();
+            $table->string('outro')->nullable();
 
             $table->boolean('ativo')->default(true);
             $table->integer('versao')->default(1);
