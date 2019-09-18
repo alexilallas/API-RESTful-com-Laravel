@@ -19,6 +19,18 @@ class PacienteController extends Controller
         $this->contato = new ContatoController();
     }
 
+
+    public function customSave($modelData)
+    {
+        unset($modelData['nome_contato']);
+        unset($modelData['numero_contato']);
+        unset($modelData['tipo_paciente']);
+        $data = $modelData;
+
+        return $this->save($this->table, $data);
+    }
+
+
     public function checkBusinessLogic($data)
     {
         $result = DB::table($this->table)->where('cpf_rg', $data['cpf_rg'])->count();
@@ -31,8 +43,20 @@ class PacienteController extends Controller
     public function find()
     {
         $pacientes = DB::table($this->table)->get();
-        
+
         return $this->jsonSuccess('Pacientes cadastrados', compact('pacientes'));
+    }
+
+    public function findById(Request $req)
+    {
+        $id = $req->route('id');
+        $paciente = DB::table($this->table)
+        ->join('contatos', 'contatos.paciente_id','=','pacientes.id')
+        ->where('pacientes.id', $id)
+        ->select('pacientes.*','contatos.nome as nome_contato', 'contatos.numero as numero_contato')
+        ->get();
+
+        return $this->jsonSuccess('Pacientes cadastrados', compact('paciente'));
     }
 
     public function postPaciente()
@@ -53,13 +77,5 @@ class PacienteController extends Controller
         }
     }
 
-    public function customSave($data)
-    {
-        unset($data['nome_contato']);
-        unset($data['numero_contato']);
-        unset($data['tipo_paciente']);
-
-        return $this->save($this->table, $data);
-    }
 
 }

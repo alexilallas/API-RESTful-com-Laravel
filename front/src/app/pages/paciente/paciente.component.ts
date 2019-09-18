@@ -21,6 +21,7 @@ export class PacienteComponent extends DatatablesComponent implements OnInit {
     public form = new  Paciente();
     public modal = 'pacienteModal';
     public pacientes: any [];
+    public isNewPaciente:boolean = false;
 
     constructor
     (
@@ -71,6 +72,17 @@ export class PacienteComponent extends DatatablesComponent implements OnInit {
       return this.pacienteService.postPaciente(this.form)
     }
 
+    openFormEdit(id){
+      this.isNewPaciente = false
+      this.form['paciente_id'] = id
+      this.pacienteService.getPacienteById(id)
+      .subscribe(response => {
+        console.log(response)
+        this.form = response
+      })
+      this.ngxSmartModalService.open(this.modal)
+    }
+
     getPacientes(): any {
       this.pacienteService.getPacientes()
       .subscribe(response => {
@@ -78,5 +90,9 @@ export class PacienteComponent extends DatatablesComponent implements OnInit {
         this.pacientes = response,
         this.rerenderTable()
       })
+    }
+
+    eraseForm(){
+      this.form = {}
     }
 }

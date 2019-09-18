@@ -1,11 +1,15 @@
-<ngx-smart-modal #pacienteModal identifier="pacienteModal" customClass="medium-modal">
+<ngx-smart-modal #pacienteModal
+identifier="pacienteModal"
+customClass="medium-modal"
+[dismissable] = "false"
+(onCloseFinished) ="eraseForm()">
   <div class="">
     <div class="card card-user">
       <div class="card-header">
         <h5 class="card-title">Novo Paciente</h5>
       </div>
       <div class="card-body">
-        <form #pacienteForm = "ngForm" (ngSubmit) = "save()">
+        <form #pacienteForm = "ngForm" (ngSubmit) = "isNewPaciente ? save() : update()">
           <!-- {{ nome.value | json }} -->
           <h6 class="card-title text-secondary">Dados Pessoais</h6>
           <div class="row">
@@ -283,7 +287,10 @@
                     <td>{{ paciente['cpf_rg'] }}</td>
                     <td>{{ paciente['sexo'] }}</td>
                     <td class="text-right">
-                      <a title="Editar" class="btn btn-warning btn-link btn-icon btn-sm edit" href="#paciente">
+                      <a title="Editar"
+                      class="btn btn-warning btn-link btn-icon btn-sm edit"
+                      href="#paciente"
+                      (click)="openFormEdit(paciente['id'])">
                         <i class="fa fa-edit fa-2x"></i>
                       </a>
                       <a title="Excluir" class="btn btn-danger btn-link btn-icon btn-sm remove" href="#paciente">

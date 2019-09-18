@@ -33,16 +33,22 @@ export class PacienteService {
 
   }
 
+  getPacienteById (id): Observable<Paciente[]> {
+    return this.http.get<Paciente[]>(this.pacientesUrl +'/'+ id)
+    .pipe(map((response: any) => response['data']['paciente'][0]));
+
+  }
+
   postPaciente (paciente: Paciente){
     return this.http.post(
       this.pacientesUrl,
       paciente,this.httpOptions)
       .subscribe(
-        (data) => {
-          console.log(data)
-          this.MessageService.message(data)
-          if(data['status'] == 200)
-          PacienteService.pacienteCriado.emit(data)
+        (response) => {
+          console.log(response)
+          this.MessageService.message(response)
+          if(response['status'] == 200)
+          PacienteService.pacienteCriado.emit(response)
         }
         )
   }

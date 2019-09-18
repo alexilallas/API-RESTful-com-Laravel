@@ -26,7 +26,7 @@ class CreateHistoricoPessoalTable extends Migration
             $table->boolean('hipertenso');
             $table->boolean('diabetico');
             $table->string('fator_rh')->nullable();;
-            $table->boolean('alergia');
+            $table->boolean('alergico');
             $table->string('nome_alergia')->nullable();
             $table->boolean('cirurgia');
             $table->string('nome_cirurgia')->nullable();
@@ -37,7 +37,7 @@ class CreateHistoricoPessoalTable extends Migration
             $table->boolean('vacina_hb');
             $table->boolean('vacina_fa');
             $table->boolean('vacina_influenza');
-            $table->boolean('vacina_antirabica');
+            $table->boolean('vacina_antirrabica');
             $table->boolean('mora_sozinho');
             $table->boolean('problema_familiar');
 

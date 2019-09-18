@@ -13,7 +13,7 @@ abstract class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    abstract public function customSave($data);
+    abstract public function customSave($modelData);
     abstract public function checkBusinessLogic($data);
 
     protected function formatValidationErrors(\Illuminate\Contracts\Validation\Validator $validator)

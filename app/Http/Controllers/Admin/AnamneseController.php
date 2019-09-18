@@ -17,14 +17,21 @@ class AnamneseController extends Controller
 
     public function __construct()
     {
-        // $this->historicoPessoal = new HistoricoPessoalController();
-        // $this->historicoFamiliar = new HistoricoFamiliarController();
+        $this->historicoPessoal = new HistoricoPessoalController();
+        $this->historicoFamiliar = new HistoricoFamiliarController();
         $this->paciente = new PacienteController();
     }
 
-    public function customSave($data)
+    /**
+     * @param Array com todos os dados da ficha de Anamnese
+     * @return Array com os dados que foram adicionados
+    **/
+    public function customSave($modelData)
     {
-        # code...
+        if($this->historicoFamiliar->customSave($modelData))
+        return $this->historicoPessoal->customSave($modelData);
+
+        //return $this->save($this->table, $data);
     }
 
     public function checkBusinessLogic($data)
@@ -40,7 +47,7 @@ class AnamneseController extends Controller
     {
         $pacientes = $this->paciente->find()->original['data']['pacientes'];
         $pacientes = $this->hasFichaAnamnese($pacientes);
-        
+
         return $this->jsonSuccess('Pacientes com ficha de Anamnese', compact('pacientes'));
     }
 
@@ -51,34 +58,35 @@ class AnamneseController extends Controller
     public function findById(Request $req)
     {
         $id = $req->route('id');
+        if(!$id)
+        $id = $req->request->get('id');
+
         $paciente = DB::table('pacientes')
-        ->join('historico_pessoal', 'pacientes.id','=','historico_pessoal.paciente_id','inner')
-        ->join('historico_familiar', 'pacientes.id','=','historico_familiar.paciente_id','inner')
+        ->join('historico_pessoal', 'pacientes.id','=','historico_pessoal.paciente_id')
+        ->join('historico_familiar', 'pacientes.id','=','historico_familiar.paciente_id')
         ->where('pacientes.id','=', $id)
-        ->select('pacientes.*','historico_pessoal.*','historico_familiar.*')
+        ->select('pacientes.*','pacientes.id as id_paciente','historico_pessoal.*',
+        'historico_pessoal.id as id_historico_pessoal','historico_familiar.*',
+        'historico_familiar.id as id_historico_familiar')
         ->get();
 
         return $this->jsonSuccess('Ficha do Paciente com id: '.$id, compact('paciente'));
     }
-    
+
 
     /**
      * @param Json com os dados que serão salvos
      * @return Json com mensagem de sucesso ou falha
-     */
+    **/
     public function postAnamnese()
     {
         $data = $this->jsonDecode();
-        dd($data);
 
         try {
             \DB::beginTransaction();
             $this->doSave($data, 'criarFichaAnamnese');
-            $idPaciente = DB::getPdo()->lastInsertId();
-            $data['paciente_id'] = $idPaciente;
-            $this->contato->customSave($data);
             \DB::commit();
-            return $this->jsonSuccess('Paciente adicionado com sucesso!');
+            return $this->jsonSuccess('Ficha de Anamnese adicionada com sucesso!');
         } catch (\Throwable $th) {
             \DB::rollback();
             return $this->jsonError($th->getMessage());
@@ -88,13 +96,13 @@ class AnamneseController extends Controller
     /**
      * @param Object com dados de todos os pacientes da tabela Pacientes
      * @return Object com uma chave adicional indicando se tem ficha de Anamnese ou não
-     */
+    **/
     public function hasFichaAnamnese($pacientes)
     {
         $req = new Request();
-        foreach ($pacientes as $key => $paciente) 
+        foreach ($pacientes as $key => $paciente)
         {
-            $req->input('id',$paciente->id);
+            $req->request->add(['id' => $paciente->id]);
             if(count($this->findById($req)->original['data']['paciente']) > 0)
             {
                 $pacientes[$key]->hasAnamnese = true;

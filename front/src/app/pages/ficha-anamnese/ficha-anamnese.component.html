@@ -1,4 +1,8 @@
-<ngx-smart-modal #fichaAnamneseModal identifier="fichaAnamneseModal" customClass="medium-modal">
+<ngx-smart-modal #fichaAnamneseModal
+identifier="fichaAnamneseModal"
+customClass="medium-modal"
+[dismissable] = "false"
+(onCloseFinished) ="eraseForm()">
   <div class="card-body">
     <form #anamineseForm = "ngForm" (ngSubmit)="isNewAnamnese ? save() : update()">
       <h6> Antecedentes Familiares (pai, mãe, irmãos, tios, avós e filhos) </h6>
@@ -122,8 +126,8 @@
         <h6> Antecedentes Pessoais </h6>
         <div class="row">
           <div class="col-sm-4 col-lg-4">
-              <label *ngIf="form.fuma == 1">Quantidade semanal*</label>
-              <div class="col-sm-4 col-lg-4 pading-inside-checkbox" *ngIf="form.fuma == 1">
+              <label *ngIf="form.fumante == 1">Quantidade semanal*</label>
+              <div class="col-sm-4 col-lg-4 pading-inside-checkbox" *ngIf="form.fumante == 1">
                   <input type="number" class="form-control"
                   name="numero_cigarro"
                   required
@@ -132,20 +136,20 @@
                   #numero_cigarro="ngModel"/>
               </div>
               <label>Fuma</label>
-                <div class="form-check-radio" *ngIf="form.fuma != 1">
+                <div class="form-check-radio" *ngIf="form.fumante != 1">
                   <label class="form-check-label">
-                    <input class="form-check-input" type="radio" name="fuma" id="fuma1" value="1"
-                    [(ngModel)] = "form.fuma"
-                    #fuma="ngModel"
+                    <input class="form-check-input" type="radio" name="fumante" id="fumante1" value="1"
+                    [(ngModel)] = "form.fumante"
+                    #fumante="ngModel"
                     required>Sim
                     <span class="form-check-sign"></span>
                   </label>
                 </div>
                 <div class="form-check-radio">
                   <label class="form-check-label">
-                    <input class="form-check-input" type="radio" name="fuma" id="fuma2" value="0" checked=""
-                    [(ngModel)] = "form.fuma"
-                    #fuma="ngModel"
+                    <input class="form-check-input" type="radio" name="fumante" id="fumante2" value="0" checked=""
+                    [(ngModel)] = "form.fumante"
+                    #fumante="ngModel"
                     required>Não
                     <span class="form-check-sign"></span>
                   </label>
@@ -297,8 +301,8 @@
         </div>
         <div class="row">
             <div class="col-sm-4 col-lg-4">
-              <label [hidden]="form.medicamento != 1">Nome do Medicamento*</label>
-              <div class="col-sm-6 col-lg-8 pading-inside-checkbox" *ngIf="form.medicamento == 1">
+              <label [hidden]="form.usa_medicamento != 1">Nome do Medicamento*</label>
+              <div class="col-sm-6 col-lg-8 pading-inside-checkbox" *ngIf="form.usa_medicamento == 1">
                   <input type="text" class="form-control"
                   name="nome_medicamento"
                   maxlength="50"
@@ -307,20 +311,20 @@
                   #nome_medicamento="ngModel"/>
               </div>
               <label>Usa Medicamento</label>
-                <div class="form-check-radio" *ngIf="form.medicamento != 1">
+                <div class="form-check-radio" *ngIf="form.usa_medicamento != 1">
                   <label class="form-check-label">
-                    <input class="form-check-input" type="radio" name="medicamento" id="medicamento1" value="1"
-                    [(ngModel)] = "form.medicamento"
-                    #medicamento="ngModel"
+                    <input class="form-check-input" type="radio" name="usa_medicamento" id="usa_medicamento1" value="1"
+                    [(ngModel)] = "form.usa_medicamento"
+                    #usa_medicamento="ngModel"
                     required>Sim
                     <span class="form-check-sign"></span>
                   </label>
                 </div>
                 <div class="form-check-radio">
                   <label class="form-check-label">
-                    <input class="form-check-input" type="radio" name="medicamento" id="medicamento2" value="0" checked=""
-                    [(ngModel)] = "form.medicamento"
-                    #medicamento="ngModel"
+                    <input class="form-check-input" type="radio" name="usa_medicamento" id="usa_medicamento2" value="0" checked=""
+                    [(ngModel)] = "form.usa_medicamento"
+                    #usa_medicamento="ngModel"
                     required>Não
                     <span class="form-check-sign"></span>
                   </label>
@@ -349,8 +353,8 @@
               </div>
               <div class="col-sm-4 col-lg-4">
                 <label for="fator_rh">Fator RH</label>
-                <ng-select [multiple]="false" 
-                [(ngModel)]="form.fator_rh" 
+                <ng-select [multiple]="false"
+                [(ngModel)]="form.fator_rh"
                 required
                 name="fator_rh"
                 #fator_rh="ngModel">
@@ -376,9 +380,9 @@
             <div class="form-check">
               <label class="form-check-label">
                 dt
-                <input class="form-check-input" type="checkbox" name="dt"
-                [(ngModel)]="form.dt"
-                #dt="ngModel">
+                <input class="form-check-input" type="checkbox" name="vacina_dt"
+                [(ngModel)]="form.vacina_dt"
+                #vacina_dt="ngModel">
                 <span class="form-check-sign"></span>
               </label>
             </div>
@@ -389,9 +393,9 @@
             <div class="form-check">
               <label class="form-check-label">
                 HB
-                <input class="form-check-input" type="checkbox" name="hb"
-                [(ngModel)]="form.hb"
-                #hb="ngModel">
+                <input class="form-check-input" type="checkbox" name="vacina_hb"
+                [(ngModel)]="form.vacina_hb"
+                #vacina_hb="ngModel">
                 <span class="form-check-sign"></span>
               </label>
             </div>
@@ -402,9 +406,9 @@
             <div class="form-check">
               <label class="form-check-label">
                 FA
-                <input class="form-check-input" type="checkbox" name="fa"
-                [(ngModel)]="form.fa"
-                #fa="ngModel">
+                <input class="form-check-input" type="checkbox" name="vacina_fa"
+                [(ngModel)]="form.vacina_fa"
+                #vacina_fa="ngModel">
                 <span class="form-check-sign"></span>
               </label>
             </div>
@@ -415,9 +419,9 @@
             <div class="form-check">
               <label class="form-check-label">
                 Influenza
-                <input class="form-check-input" type="checkbox" name="influenza"
-                [(ngModel)]="form.influenza"
-                #influenza="ngModel">
+                <input class="form-check-input" type="checkbox" name="vacina_influenza"
+                [(ngModel)]="form.vacina_influenza"
+                #vacina_influenza="ngModel">
                 <span class="form-check-sign"></span>
               </label>
             </div>
@@ -428,9 +432,9 @@
             <div class="form-check">
               <label class="form-check-label">
                 Antirrábica
-                <input class="form-check-input" type="checkbox" name="antirrabica"
-                [(ngModel)]="form.antirrabica"
-                #antirrabica="ngModel">
+                <input class="form-check-input" type="checkbox" name="vacina_antirrabica"
+                [(ngModel)]="form.vacina_antirrabica"
+                #vacina_antirrabica="ngModel">
                 <span class="form-check-sign"></span>
               </label>
             </div>
@@ -439,7 +443,7 @@
         <br>
         <h6>Risco Social</h6>
         <div class="row">
-          <div class="col-sm-4 col-lg-6">
+          <div class="col-sm-6 col-lg-6">
             <label>Mora Sozinho?</label>
               <div class="form-check-radio">
                 <label class="form-check-label">
@@ -460,7 +464,7 @@
                 </label>
               </div>
           </div>
-          <div class="col-sm-4 col-lg-6">
+          <div class="col-sm-6 col-lg-6">
             <label>Está passando por problema familiar?</label>
               <div class="form-check-radio">
                 <label class="form-check-label">
@@ -516,15 +520,15 @@
                   <td class="text-right">
                     <a title="Adicionar Ficha"
                     *ngIf="!paciente['hasAnamnese']"
-                    class="btn btn-primary btn-link btn-icon btn-sm plus" 
+                    class="btn btn-primary btn-link btn-icon btn-sm plus"
                     href="#ficha-anamnese"
                     (click)="openFormNew(paciente['id'])">
                       <i class="fa fa-plus-square fa-2x"></i>
                     </a>
-                    <a title="Editar" 
+                    <a title="Editar"
                     *ngIf="paciente['hasAnamnese']"
-                    class="btn btn-warning btn-link btn-icon btn-sm edit" 
-                    href="#ficha-anamnese" 
+                    class="btn btn-warning btn-link btn-icon btn-sm edit"
+                    href="#ficha-anamnese"
                     (click)="openFormEdit(paciente['id'])">
                       <i class="fa fa-edit fa-2x"></i>
                     </a>

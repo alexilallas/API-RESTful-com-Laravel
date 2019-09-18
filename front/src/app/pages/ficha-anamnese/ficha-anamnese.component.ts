@@ -16,7 +16,7 @@ export class FichaAnamneseComponent extends DatatablesComponent implements OnIni
 
     public _fator_rh = ['Positivo', 'Negativo'];
     public dtOptions: DataTables.Settings = {};
-    
+
     public form = new FichaAnamnese();
     public modal = 'fichaAnamneseModal';
     public pacientes: any;
@@ -32,11 +32,12 @@ export class FichaAnamneseComponent extends DatatablesComponent implements OnIni
     }
 
     ngOnInit(){
-        this.form['dt'] = false
-        this.form['hb'] = false
-        this.form['fa'] = false
-        this.form['influenza'] = false
-        this.form['antirrabica'] = false
+        this.form['outro'] = ""
+        this.form['vacina_dt'] = false
+        this.form['vacina_hb'] = false
+        this.form['vacina_fa'] = false
+        this.form['vacina_influenza'] = false
+        this.form['vacina_antirrabica'] = false
         this.dtOptions = environment.dtOptions
         this.getPacientes()
     }
@@ -52,28 +53,45 @@ export class FichaAnamneseComponent extends DatatablesComponent implements OnIni
     }
 
     save(){
-        console.log(this.form)
-        this.anamineseService.postAnamnese(this.form)
-    }
-
-    openFormEdit(id){
-        this.isNewAnamnese = false
-        console.log(id)
-        this.anamineseService.getPacienteById(id)
-        .subscribe(response => {
-            console.log(response)
-        })
-        this.ngxSmartModalService.open(this.modal)
-    }
-
-    openFormNew(){
-        this.isNewAnamnese = true
-        this.ngxSmartModalService.open(this.modal)
+      console.log(this.form)
+      this.saveFichaAnamnese()
+      FichaAnamneseService.fichaAnamneseAlert.subscribe(
+        () =>{
+          this.form = {},
+          this.getPacientes(),
+          this.close()
+        }
+      )
     }
 
     close(){
-        this.form = {}
-        this.ngxSmartModalService.close(this.modal)
-      }
+      this.form = {}
+      this.ngxSmartModalService.close(this.modal)
+    }
+
+    saveFichaAnamnese(){
+      this.anamineseService.postAnamnese(this.form)
+    }
+
+    openFormEdit(id){
+      this.isNewAnamnese = false
+      this.form['paciente_id'] = id
+      this.anamineseService.getPacienteById(id)
+      .subscribe(response => {
+        console.log(response)
+        this.form = response
+      })
+      this.ngxSmartModalService.open(this.modal)
+    }
+
+    openFormNew(id){
+      this.isNewAnamnese = true
+      this.form['paciente_id'] = id
+      this.ngxSmartModalService.open(this.modal)
+    }
+
+    eraseForm(){
+      this.form = {}
+    }
 
 }
