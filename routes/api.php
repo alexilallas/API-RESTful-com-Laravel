@@ -24,6 +24,7 @@ Route::namespace('Admin')->group(function () {
     Route::get('paciente', 'PacienteController@find');
     Route::get('paciente/{id}', 'PacienteController@findById');
     Route::post('paciente', 'PacienteController@postPaciente');
+    Route::put('paciente', 'PacienteController@updatePaciente');
 
     /**
      * Rotas para Anamnese
@@ -31,6 +32,7 @@ Route::namespace('Admin')->group(function () {
     Route::get('anamnese', 'AnamneseController@find');
     Route::get('anamnese/{id}', 'AnamneseController@findById');
     Route::post('anamnese', 'AnamneseController@postAnamnese');
+    Route::put('anamnese', 'AnamneseController@updateAnamnese');
 
 });
 

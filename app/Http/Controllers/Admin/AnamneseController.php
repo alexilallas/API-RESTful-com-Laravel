@@ -114,4 +114,9 @@ class AnamneseController extends Controller
 
         return $pacientes;
     }
+
+    public function updateAnamnese()
+    {
+        # code...
+    }
 }

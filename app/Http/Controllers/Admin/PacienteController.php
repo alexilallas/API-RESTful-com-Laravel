@@ -34,8 +34,7 @@ class PacienteController extends Controller
     public function checkBusinessLogic($data)
     {
         $result = DB::table($this->table)->where('cpf_rg', $data['cpf_rg'])->count();
-        if($result > 0)
-        {
+        if ($result > 0) {
             $this->cancel('Este paciente já está cadastrado!');
         }
     }
@@ -53,7 +52,7 @@ class PacienteController extends Controller
         $paciente = DB::table($this->table)
         ->join('contatos', 'contatos.paciente_id','=','pacientes.id')
         ->where('pacientes.id', $id)
-        ->select('pacientes.*','contatos.nome as nome_contato', 'contatos.numero as numero_contato')
+        ->select('pacientes.*','contatos.nome as nome_contato', 'contatos.numero as numero_contato','contatos.id as id_contato')
         ->get();
 
         return $this->jsonSuccess('Pacientes cadastrados', compact('paciente'));
@@ -65,6 +64,7 @@ class PacienteController extends Controller
 
         try {
             \DB::beginTransaction();
+            $this->checkBusinessLogic($data);
             $this->doSave($data, 'criarPaciente');
             $idPaciente = DB::getPdo()->lastInsertId();
             $data['paciente_id'] = $idPaciente;
@@ -75,6 +75,33 @@ class PacienteController extends Controller
             \DB::rollback();
             return $this->jsonError($th->getMessage());
         }
+    }
+
+    public function updatePaciente()
+    {
+        $data = $this->jsonDecode();
+        
+        try {
+            \DB::beginTransaction();
+            $this->doUpdate($data, 'criarPaciente');
+            $this->contato->customUpdate($data);
+            \DB::commit();
+            return $this->jsonSuccess('Paciente atualizado com sucesso!');
+        } catch (\Throwable $th) {
+            \DB::rollback();
+            return $this->jsonError($th->getMessage());
+        }
+    }
+
+    public function customUpdate($modelData)
+    {
+        unset($modelData['nome_contato']);
+        unset($modelData['numero_contato']);
+        unset($modelData['tipo_paciente']);
+        unset($modelData['id_contato']);
+        $data = $modelData;
+
+        return $this->update($this->table, $data);
     }
 
 

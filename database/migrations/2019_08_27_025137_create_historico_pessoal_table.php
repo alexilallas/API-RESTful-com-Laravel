@@ -33,11 +33,11 @@ class CreateHistoricoPessoalTable extends Migration
             $table->boolean('usa_medicamento');
             $table->string('nome_medicamento')->nullable();
             $table->boolean('preventivo_psa')->nullable();
-            $table->boolean('vacina_dt');
-            $table->boolean('vacina_hb');
-            $table->boolean('vacina_fa');
-            $table->boolean('vacina_influenza');
-            $table->boolean('vacina_antirrabica');
+            $table->boolean('vacina_dt')->nullable();
+            $table->boolean('vacina_hb')->nullable();
+            $table->boolean('vacina_fa')->nullable();
+            $table->boolean('vacina_influenza')->nullable();
+            $table->boolean('vacina_antirrabica')->nullable();
             $table->boolean('mora_sozinho');
             $table->boolean('problema_familiar');
 

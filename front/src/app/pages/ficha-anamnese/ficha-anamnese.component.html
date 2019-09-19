@@ -9,111 +9,73 @@ customClass="medium-modal"
       <div class="row">
         <div class="col-sm-4 col-lg-4">
           <label>Diabetes</label>
-            <div class="form-check-radio">
-              <label class="form-check-label">
-                <input class="form-check-input" type="radio" name="diabetes" id="diabetes1" value="1"
-                [(ngModel)] = "form.diabetes"
-                #diabetes="ngModel"
-                required>Sim
-                <span class="form-check-sign"></span>
+            <div class="form-conrtrol">
+              <label class="switch">
+                <input type="checkbox" 
+                  checked
+                  name="diabetes" 
+                  [(ngModel)] = "form.diabetes"
+                  #diabetes="ngModel"
+                   >
+                <span class="slider round"></span>
               </label>
-            </div>
-            <div class="form-check-radio">
-              <label class="form-check-label">
-                <input class="form-check-input" type="radio" name="diabetes" id="diabetes2" value="0" checked=""
-                [(ngModel)] = "form.diabetes"
-                #diabetes="ngModel"
-                required>Não
-                <span class="form-check-sign"></span>
-              </label>
+              <!-- {{diabetes.value ? 'Sim' : 'Não'}} -->
             </div>
         </div>
         <div class="col-sm-4 col-lg-4">
             <label>Hipertensão</label>
-              <div class="form-check-radio">
-                <label class="form-check-label">
-                  <input class="form-check-input" type="radio" name="hipertensao" id="hipertensao1" value="1"
-                  [(ngModel)] = "form.hipertensao"
-                  #hipertensao="ngModel"
-                  required>Sim
-                  <span class="form-check-sign"></span>
-                </label>
-              </div>
-              <div class="form-check-radio">
-                <label class="form-check-label">
-                  <input class="form-check-input" type="radio" name="hipertensao" id="hipertensao2" value="0" checked=""
-                  [(ngModel)] = "form.hipertensao"
-                  #hipertensao="ngModel"
-                  required>Não
-                  <span class="form-check-sign"></span>
-                </label>
-              </div>
+            <div class="form-conrtrol">
+              <label class="switch">
+                <input type="checkbox" 
+                name="hipertensao"
+                [(ngModel)] = "form.hipertensao"
+                #hipertensao="ngModel"
+                 >
+                <span class="slider round"></span>
+              </label>
+            </div>
           </div>
           <div class="col-sm-4 col-lg-4">
               <label>Infarto</label>
-                <div class="form-check-radio">
-                  <label class="form-check-label">
-                    <input class="form-check-input" type="radio" name="infarto" id="infarto1" value="1"
-                    [(ngModel)] = "form.infarto"
-                    #infarto="ngModel"
-                    required>Sim
-                    <span class="form-check-sign"></span>
-                  </label>
-                </div>
-                <div class="form-check-radio">
-                  <label class="form-check-label">
-                    <input class="form-check-input" type="radio" name="infarto" id="infarto2" value="0" checked=""
-                    [(ngModel)] = "form.infarto"
-                    #infarto="ngModel"
-                    required>Não
-                    <span class="form-check-sign"></span>
-                  </label>
-                </div>
+              <div class="form-conrtrol">
+                <label class="switch">
+                  <input type="checkbox" 
+                  name="infarto"
+                  [(ngModel)] = "form.infarto"
+                  #infarto="ngModel"
+                   >
+                  <span class="slider round"></span>
+                </label>
+              </div>
           </div>
       </div>
 
       <div class="row">
           <div class="col-sm-4 col-lg-4">
             <label>Morte Súbita</label>
-              <div class="form-check-radio">
-                <label class="form-check-label">
-                  <input class="form-check-input" type="radio" name="morte_subita" id="morte_subita1" value="1"
+            <div class="form-conrtrol">
+              <label class="switch">
+                <input type="checkbox" 
+                  name="morte_subita"
                   [(ngModel)] = "form.morte_subita"
                   #morte_subita="ngModel"
-                  required>Sim
-                  <span class="form-check-sign"></span>
-                </label>
-              </div>
-              <div class="form-check-radio">
-                <label class="form-check-label">
-                  <input class="form-check-input" type="radio" name="morte_subita" id="morte_subita2" value="0" checked=""
-                  [(ngModel)] = "form.morte_subita"
-                  #morte_subita="ngModel"
-                  required>Não
-                  <span class="form-check-sign"></span>
-                </label>
-              </div>
+                   >
+                <span class="slider round"></span>
+              </label>
+            </div>
           </div>
           <div class="col-sm-4 col-lg-4">
               <label>Câncer</label>
-                <div class="form-check-radio">
-                  <label class="form-check-label">
-                    <input class="form-check-input" type="radio" name="cancer" id="cancer1" value="1"
+              <div class="form-conrtrol">
+                <label class="switch">
+                  <input type="checkbox" 
+                    name="cancer"
                     [(ngModel)] = "form.cancer"
                     #cancer="ngModel"
-                    required>Sim
-                    <span class="form-check-sign"></span>
-                  </label>
-                </div>
-                <div class="form-check-radio">
-                  <label class="form-check-label">
-                    <input class="form-check-input" type="radio" name="cancer" id="cancer2" value="0" checked=""
-                    [(ngModel)] = "form.cancer"
-                    #cancer="ngModel"
-                    required>Não
-                    <span class="form-check-sign"></span>
-                  </label>
-                </div>
+                     >
+                  <span class="slider round"></span>
+                </label>
+              </div>
             </div>
             <div class="col-sm-4 col-lg-4">
                 <label>Outro</label>
@@ -126,253 +88,210 @@ customClass="medium-modal"
         <h6> Antecedentes Pessoais </h6>
         <div class="row">
           <div class="col-sm-4 col-lg-4">
-              <label *ngIf="form.fumante == 1">Quantidade semanal*</label>
-              <div class="col-sm-4 col-lg-4 pading-inside-checkbox" *ngIf="form.fumante == 1">
+              <label>Fuma</label>
+              <div class="form-conrtrol">
+                <label class="switch">
+                  <input type="checkbox" 
+                  name="fumante"
+                  [(ngModel)] = "form.fumante"
+                  #fumante="ngModel"
+                   >
+                  <span class="slider round"></span>
+                </label>
+              </div>
+            </div>
+            <div class="col-sm-6 col-lg-6"  *ngIf="form.fumante == 1">
+              <label>Quantidade semanal*</label>
+              <div class="col-sm-6 col-lg-8 pading-inside-checkbox">
                   <input type="number" class="form-control"
                   name="numero_cigarro"
-                  required
+                   
                   maxlength="3"
                   [(ngModel)] ="form.numero_cigarro"
                   #numero_cigarro="ngModel"/>
               </div>
-              <label>Fuma</label>
-                <div class="form-check-radio" *ngIf="form.fumante != 1">
-                  <label class="form-check-label">
-                    <input class="form-check-input" type="radio" name="fumante" id="fumante1" value="1"
-                    [(ngModel)] = "form.fumante"
-                    #fumante="ngModel"
-                    required>Sim
-                    <span class="form-check-sign"></span>
-                  </label>
-                </div>
-                <div class="form-check-radio">
-                  <label class="form-check-label">
-                    <input class="form-check-input" type="radio" name="fumante" id="fumante2" value="0" checked=""
-                    [(ngModel)] = "form.fumante"
-                    #fumante="ngModel"
-                    required>Não
-                    <span class="form-check-sign"></span>
-                  </label>
-                </div>
             </div>
-            <div class="col-sm-4 col-lg-4">
-                <label *ngIf="form.alcool == 1">Frequência semanal*</label>
-                <div class="col-sm-4 col-lg-4 pading-inside-checkbox" *ngIf="form.alcool == 1">
-                    <input type="number" class="form-control"
-                    name="frequencia_alcool"
-                    required
-                    maxlength="3"
-                    [(ngModel)] ="form.frequencia_alcool"
-                    #frequencia_alcool="ngModel"/>
-                </div>
-                <label>Consome álcool</label>
-                  <div class="form-check-radio" *ngIf="form.alcool != 1">
-                    <label class="form-check-label">
-                      <input class="form-check-input" type="radio" name="alcool" id="alcool1" value="1"
-                      [(ngModel)] = "form.alcool"
-                      #alcool="ngModel"
-                      required>Sim
-                      <span class="form-check-sign"></span>
-                    </label>
-                  </div>
-                  <div class="form-check-radio">
-                    <label class="form-check-label">
-                      <input class="form-check-input" type="radio" name="alcool" id="alcool2" value="0" checked=""
-                      [(ngModel)] = "form.alcool"
-                      #alcool="ngModel"
-                      required>Não
-                      <span class="form-check-sign"></span>
-                    </label>
-                  </div>
-              </div>
-              <div class="col-sm-4 col-lg-4">
-                <label>Hipertenso</label>
-                  <div class="form-check-radio">
-                    <label class="form-check-label">
-                      <input class="form-check-input" type="radio" name="hipertenso" id="hipertenso1" value="1"
-                      [(ngModel)] = "form.hipertenso"
-                      #hipertenso="ngModel"
-                      required>Sim
-                      <span class="form-check-sign"></span>
-                    </label>
-                  </div>
-                  <div class="form-check-radio">
-                    <label class="form-check-label">
-                      <input class="form-check-input" type="radio" name="hipertenso" id="hipertenso2" value="0" checked=""
-                      [(ngModel)] = "form.hipertenso"
-                      #hipertenso="ngModel"
-                      required>Não
-                      <span class="form-check-sign"></span>
-                    </label>
-                  </div>
-              </div>
         </div>
         <div class="row">
-            <div class="col-sm-4 col-lg-4">
-              <label [hidden]="form.alergico != 1">Nome da Alergia*</label>
-              <div class="col-sm-6 col-lg-8 pading-inside-checkbox" *ngIf="form.alergico == 1">
-                  <input type="text" class="form-control"
-                  name="nome_alergia"
-                  maxlength="50"
-                  required
-                  [(ngModel)] ="form.nome_alergia"
-                  #nome_alergia="ngModel"/>
-              </div>
-              <label>Alérgico</label>
-                <div class="form-check-radio" *ngIf="form.alergico != 1">
-                  <label class="form-check-label">
-                    <input class="form-check-input" type="radio" name="alergico" id="alergico1" value="1"
-                    [(ngModel)] = "form.alergico"
-                    #alergico="ngModel"
-                    required>Sim
-                    <span class="form-check-sign"></span>
-                  </label>
-                </div>
-                <div class="form-check-radio">
-                  <label class="form-check-label">
-                    <input class="form-check-input" type="radio" name="alergico" id="alergico2" value="0" checked=""
-                    [(ngModel)] = "form.alergico"
-                    #alergico="ngModel"
-                    required>Não
-                    <span class="form-check-sign"></span>
-                  </label>
-                </div>
+          <div class="col-sm-4 col-lg-4">
+            <label>Consome álcool</label>
+            <div class="form-conrtrol">
+              <label class="switch">
+                <input type="checkbox" 
+                name="alcool"
+                  [(ngModel)] = "form.alcool"
+                  #alcool="ngModel"
+                   >
+                <span class="slider round"></span>
+              </label>
             </div>
-            <div class="col-sm-4 col-lg-4">
-                <label *ngIf="form.atividade_fisica == 1">Nome da Atividade*</label>
-                <div class="col-sm-6 col-lg-8 pading-inside-checkbox" *ngIf="form.atividade_fisica == 1">
-                    <input type="text" class="form-control"
-                    name="nome_atividade"
-                    maxlength="20"
-                    required
-                    [(ngModel)] ="form.nome_atividade"
-                    #nome_atividade="ngModel"/>
-                </div>
-                <label>Atividade física (3x / semana)</label>
-                  <div class="form-check-radio" *ngIf="form.atividade_fisica != 1">
-                    <label class="form-check-label">
-                      <input class="form-check-input" type="radio" name="atividade_fisica" id="atividade_fisica1" value="1"
-                      [(ngModel)] = "form.atividade_fisica"
-                      #atividade_fisica="ngModel"
-                      required>Sim
-                      <span class="form-check-sign"></span>
-                    </label>
-                  </div>
-                  <div class="form-check-radio">
-                    <label class="form-check-label">
-                      <input class="form-check-input" type="radio" name="atividade_fisica" id="atividade_fisica2" value="0" checked=""
-                      [(ngModel)] = "form.atividade_fisica"
-                      #atividade_fisica="ngModel"
-                      required>Não
-                      <span class="form-check-sign"></span>
-                    </label>
-                  </div>
-              </div>
-              <div class="col-sm-4 col-lg-4">
-                  <label *ngIf="form.cirurgia == 1">Nome da Cirurgia*</label>
-                  <div class="col-sm-6 col-lg-8 pading-inside-checkbox" *ngIf="form.cirurgia == 1">
-                      <input type="text" class="form-control"
-                      name="nome_cirurgia"
-                      maxlength="50"
-                      required
-                      [(ngModel)] ="form.nome_cirurgia"
-                      #nome_cirurgia="ngModel"/>
-                  </div>
-                <label>Cirurgia</label>
-                  <div class="form-check-radio" *ngIf="form.cirurgia != 1">
-                    <label class="form-check-label">
-                      <input class="form-check-input" type="radio" name="cirurgia" id="cirurgia1" value="1"
-                      [(ngModel)] = "form.cirurgia"
-                      #cirurgia="ngModel"
-                      required>Sim
-                      <span class="form-check-sign"></span>
-                    </label>
-                  </div>
-                  <div class="form-check-radio">
-                    <label class="form-check-label">
-                      <input class="form-check-input" type="radio" name="cirurgia" id="cirurgia2" value="0" checked=""
-                      [(ngModel)] = "form.cirurgia"
-                      #cirurgia="ngModel"
-                      required>Não
-                      <span class="form-check-sign"></span>
-                    </label>
-                  </div>
-              </div>
+          </div>
+          <div class="col-sm-6 col-lg-6" *ngIf="form.alcool == 1">
+            <label *ngIf="form.alcool == 1">Frequência semanal*</label>
+            <div class="col-sm-6 col-lg-8 pading-inside-checkbox">
+              <input type="number" class="form-control"
+              name="frequencia_alcool"
+               
+              maxlength="3"
+              [(ngModel)] ="form.frequencia_alcool"
+              #frequencia_alcool="ngModel"/>
+            </div>
+          </div>
         </div>
         <div class="row">
-            <div class="col-sm-4 col-lg-4">
-              <label [hidden]="form.usa_medicamento != 1">Nome do Medicamento*</label>
-              <div class="col-sm-6 col-lg-8 pading-inside-checkbox" *ngIf="form.usa_medicamento == 1">
-                  <input type="text" class="form-control"
-                  name="nome_medicamento"
-                  maxlength="50"
-                  required
-                  [(ngModel)] ="form.nome_medicamento"
-                  #nome_medicamento="ngModel"/>
-              </div>
-              <label>Usa Medicamento</label>
-                <div class="form-check-radio" *ngIf="form.usa_medicamento != 1">
-                  <label class="form-check-label">
-                    <input class="form-check-input" type="radio" name="usa_medicamento" id="usa_medicamento1" value="1"
-                    [(ngModel)] = "form.usa_medicamento"
-                    #usa_medicamento="ngModel"
-                    required>Sim
-                    <span class="form-check-sign"></span>
-                  </label>
-                </div>
-                <div class="form-check-radio">
-                  <label class="form-check-label">
-                    <input class="form-check-input" type="radio" name="usa_medicamento" id="usa_medicamento2" value="0" checked=""
-                    [(ngModel)] = "form.usa_medicamento"
-                    #usa_medicamento="ngModel"
-                    required>Não
-                    <span class="form-check-sign"></span>
-                  </label>
-                </div>
+          <div class="col-sm-4 col-lg-4">
+            <label>Alérgico</label>
+            <div class="form-conrtrol">
+              <label class="switch">
+                <input type="checkbox" 
+                name="alergico"
+                [(ngModel)] = "form.alergico"
+                #alergico="ngModel"
+                 >
+                <span class="slider round"></span>
+              </label>
             </div>
-            <div class="col-sm-4 col-lg-4">
-                <label>Diabetes</label>
-                  <div class="form-check-radio">
-                    <label class="form-check-label">
-                      <input class="form-check-input" type="radio" name="diabetico" id="diabetico1" value="1"
-                      [(ngModel)] = "form.diabetico"
-                      #diabetico="ngModel"
-                      required>Sim
-                      <span class="form-check-sign"></span>
-                    </label>
-                  </div>
-                  <div class="form-check-radio">
-                    <label class="form-check-label">
-                      <input class="form-check-input" type="radio" name="diabetico" id="diabetico2" value="0" checked=""
-                      [(ngModel)] = "form.diabetico"
-                      #diabetico="ngModel"
-                      required>Não
-                      <span class="form-check-sign"></span>
-                    </label>
-                  </div>
-              </div>
-              <div class="col-sm-4 col-lg-4">
-                <label for="fator_rh">Fator RH</label>
-                <ng-select [multiple]="false"
+          </div>
+          <div class="col-sm-6 col-lg-6"  *ngIf="form.alergico == 1">
+            <label [hidden]="form.alergico != 1">Nome da Alergia*</label>
+            <div class="col-sm-6 col-lg-8 pading-inside-checkbox">
+                <input type="text" class="form-control"
+                name="nome_alergia"
+                maxlength="50"
+                 
+                [(ngModel)] ="form.nome_alergia"
+                #nome_alergia="ngModel"/>
+            </div>
+          </div>
+        </div>     
+        <div class="row">
+          <div class="col-sm-4 col-lg-4">
+            <label>Atividade física (3x / semana)</label>
+            <div class="form-conrtrol">
+              <label class="switch">
+                <input type="checkbox" 
+                name="atividade_fisica"
+                [(ngModel)] = "form.atividade_fisica"
+                #atividade_fisica="ngModel"
+                 >
+                <span class="slider round"></span>
+              </label>
+            </div>
+          </div>
+          <div class="col-sm-6 col-lg-6"  *ngIf="form.atividade_fisica == 1">
+            <label>Nome da Atividade*</label>
+            <div class="col-sm-6 col-lg-8 pading-inside-checkbox">
+              <input type="text" class="form-control"
+              name="nome_atividade"
+              maxlength="20"
+               
+              [(ngModel)] ="form.nome_atividade"
+              #nome_atividade="ngModel"/>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4 col-lg-4">
+            <label>Cirurgia</label>
+            <div class="form-conrtrol">
+              <label class="switch">
+                <input type="checkbox" 
+                  name="cirurgia"
+                  [(ngModel)] = "form.cirurgia"
+                  #cirurgia="ngModel"
+                   >
+                <span class="slider round"></span>
+              </label>
+            </div>
+          </div>
+          <div class="col-sm-6 col-lg-6"  *ngIf="form.cirurgia == 1">
+            <label>Nome da Cirurgia*</label>
+            <div class="col-sm-6 col-lg-8 pading-inside-checkbox">
+                <input type="text" class="form-control"
+                name="nome_cirurgia"
+                maxlength="50"
+                 
+                [(ngModel)] ="form.nome_cirurgia"
+                #nome_cirurgia="ngModel"/>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4 col-lg-4">
+            <label>Usa Medicamento</label>
+            <div class="form-conrtrol">
+              <label class="switch">
+                <input type="checkbox" 
+                  name="usa_medicamento"
+                  [(ngModel)] = "form.usa_medicamento"
+                  #usa_medicamento="ngModel"
+                   >
+                <span class="slider round"></span>
+              </label>
+            </div>
+          </div>
+          <div class="col-sm-6 col-lg-6" *ngIf="form.usa_medicamento == 1">
+            <label>Nome do Medicamento*</label>
+            <div class="col-sm-6 col-lg-8 pading-inside-checkbox">
+              <input type="text" class="form-control"
+              name="nome_medicamento"
+              maxlength="50"
+               
+              [(ngModel)] ="form.nome_medicamento"
+              #nome_medicamento="ngModel"/>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4 col-lg-4">
+            <label>Hipertenso</label>
+            <div class="form-conrtrol">
+              <label class="switch">
+                <input type="checkbox" 
+                  name="hipertenso"
+                  [(ngModel)] = "form.hipertenso"
+                  #hipertenso="ngModel"
+                   >
+                <span class="slider round"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4 col-lg-4">
+            <label>Diabetes</label>
+            <div class="form-conrtrol">
+              <label class="switch">
+                <input type="checkbox" 
+                  name="diabetico"
+                  [(ngModel)] = "form.diabetico"
+                  #diabetico="ngModel"
+                   >
+                <span class="slider round"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 col-lg-6">
+              <label for="fator_rh">Fator RH</label>
+              <ng-select [multiple]="false"
                 [(ngModel)]="form.fator_rh"
-                required
+                 
                 name="fator_rh"
                 #fator_rh="ngModel">
-                  <ng-option *ngFor="let f_rh of _fator_rh" [value]="f_rh">{{ f_rh }}</ng-option>
-                </ng-select>
-              </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-4 col-lg-4">
+                <ng-option *ngFor="let f_rh of _fator_rh" [value]="f_rh">{{ f_rh }}</ng-option>
+              </ng-select>
+            </div>
+            <div class="col-sm-6 col-lg-6">
                 <div class="form-group">
                 <label>Último preventivo</label>
                   <input class="form-control" type="date" name="ultimo_preventivo"
-                  [(ngModel)] = "form.ultimo_preventivo"
-                  #ultimo_preventivo="ngModel"/>
+                    [(ngModel)] = "form.ultimo_preventivo"
+                    #ultimo_preventivo="ngModel"/>
                 </div>
             </div>
         </div>
-
         <br>
         <h6> Estado Vacinal </h6>
         <div class="row">
@@ -445,45 +364,30 @@ customClass="medium-modal"
         <div class="row">
           <div class="col-sm-6 col-lg-6">
             <label>Mora Sozinho?</label>
-              <div class="form-check-radio">
-                <label class="form-check-label">
-                  <input class="form-check-input" type="radio" name="mora_sozinho" id="mora_sozinho1" value="1"
-                  [(ngModel)] = "form.mora_sozinho"
-                  #mora_sozinho="ngModel"
-                  required>Sim
-                  <span class="form-check-sign"></span>
-                </label>
-              </div>
-              <div class="form-check-radio">
-                <label class="form-check-label">
-                  <input class="form-check-input" type="radio" name="mora_sozinho" id="mora_sozinho2" value="0" checked=""
-                  [(ngModel)] = "form.mora_sozinho"
-                  #mora_sozinho="ngModel"
-                  required>Não
-                  <span class="form-check-sign"></span>
-                </label>
-              </div>
+            <div class="form-conrtrol">
+              <label class="switch">
+                <input type="checkbox" 
+                name="mora_sozinho"
+                [(ngModel)] = "form.mora_sozinho"
+                #mora_sozinho="ngModel"
+                 >
+                <span class="slider round"></span>
+              </label>
+            </div>
           </div>
+          
           <div class="col-sm-6 col-lg-6">
             <label>Está passando por problema familiar?</label>
-              <div class="form-check-radio">
-                <label class="form-check-label">
-                  <input class="form-check-input" type="radio" name="problema_familiar" id="problema_familiar1" value="1"
+            <div class="form-conrtrol">
+              <label class="switch">
+                <input type="checkbox" 
+                  name="problema_familiar"
                   [(ngModel)] = "form.problema_familiar"
                   #problema_familiar="ngModel"
-                  required>Sim
-                  <span class="form-check-sign"></span>
-                </label>
-              </div>
-              <div class="form-check-radio">
-                <label class="form-check-label">
-                  <input class="form-check-input" type="radio" name="problema_familiar" id="problema_familiar2" value="0" checked=""
-                  [(ngModel)] = "form.problema_familiar"
-                  #problema_familiar="ngModel"
-                  required>Não
-                  <span class="form-check-sign"></span>
-                </label>
-              </div>
+                   >
+                <span class="slider round"></span>
+              </label>
+            </div>
           </div>
       </div>
       <br/>

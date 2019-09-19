@@ -10,7 +10,8 @@ import { MessageService } from '../../services/messages/message.service';
   providedIn: 'root'
 })
 export class FichaAnamneseService {
-  static fichaAnamneseAlert = new EventEmitter<any>();
+  static fichaAnamneseCreatedAlert = new EventEmitter<any>();
+  static fichaAnamneseUpdatedAlert = new EventEmitter<any>();
   private anamneseUrl: string;
   private httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -24,10 +25,6 @@ export class FichaAnamneseService {
     console.log('AnamneseService')
     this.anamneseUrl = environment.baseAPI + 'anamnese'
    }
-
-  ngOnInit(){
-
-  }
 
   getPacientes (): Observable<Paciente[]> {
     return this.http.get<Paciente[]>(this.anamneseUrl)
@@ -50,9 +47,23 @@ export class FichaAnamneseService {
           console.log(response)
           this.MessageService.message(response)
           if(response['status'] == 200)
-          FichaAnamneseService.fichaAnamneseAlert.emit(response)
+          FichaAnamneseService.fichaAnamneseCreatedAlert.emit(response)
         }
-        )
+      )
   }
 
+  updateAnamnese (data: any){
+    return this.http.put(
+      this.anamneseUrl,
+      data,this.httpOptions)
+      .subscribe(
+        (response) => {
+          console.log(response)
+          this.MessageService.message(response)
+          if(response['status'] == 200)
+          FichaAnamneseService.fichaAnamneseUpdatedAlert.emit(response)
+        }
+      )
+  }
+  
 }

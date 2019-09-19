@@ -12,7 +12,8 @@ import { MessageService } from '../../services/messages/message.service';
 })
 export class PacienteService {
 
-  static pacienteCriado = new EventEmitter<any>();
+  static pacienteCreatedAlert = new EventEmitter<any>();
+  static pacienteUpdatedAlert = new EventEmitter<any>();
   private pacientesUrl: string;
   private httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -48,9 +49,23 @@ export class PacienteService {
           console.log(response)
           this.MessageService.message(response)
           if(response['status'] == 200)
-          PacienteService.pacienteCriado.emit(response)
+          PacienteService.pacienteCreatedAlert.emit(response)
         }
-        )
+      )
+  }
+
+  updatePaciente (paciente: Paciente){
+    return this.http.put(
+      this.pacientesUrl,
+      paciente,this.httpOptions)
+      .subscribe(
+        (response) => {
+          console.log(response)
+          this.MessageService.message(response)
+          if(response['status'] == 200)
+          PacienteService.pacienteUpdatedAlert.emit(response)
+        }
+      )
   }
 
 }

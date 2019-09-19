@@ -32,12 +32,6 @@ export class FichaAnamneseComponent extends DatatablesComponent implements OnIni
     }
 
     ngOnInit(){
-        this.form['outro'] = ""
-        this.form['vacina_dt'] = false
-        this.form['vacina_hb'] = false
-        this.form['vacina_fa'] = false
-        this.form['vacina_influenza'] = false
-        this.form['vacina_antirrabica'] = false
         this.dtOptions = environment.dtOptions
         this.getPacientes()
     }
@@ -57,7 +51,7 @@ export class FichaAnamneseComponent extends DatatablesComponent implements OnIni
       this.saveFichaAnamnese()
       FichaAnamneseService.fichaAnamneseAlert.subscribe(
         () =>{
-          this.form = {},
+          this.eraseForm(),
           this.getPacientes(),
           this.close()
         }
@@ -65,7 +59,7 @@ export class FichaAnamneseComponent extends DatatablesComponent implements OnIni
     }
 
     close(){
-      this.form = {}
+      this.eraseForm()
       this.ngxSmartModalService.close(this.modal)
     }
 
@@ -88,6 +82,22 @@ export class FichaAnamneseComponent extends DatatablesComponent implements OnIni
       this.isNewAnamnese = true
       this.form['paciente_id'] = id
       this.ngxSmartModalService.open(this.modal)
+    }
+
+    update(){
+      console.log(this.form)
+      this.updateFichaAnamnese()
+      FichaAnamneseService.fichaAnamneseAlert.subscribe(
+        () =>{
+          this.eraseForm(),
+          this.getPacientes(),
+          this.close()
+        }
+      )
+    }
+
+    updateFichaAnamnese(){
+      this.anamineseService.updateAnamnese(this.form)
     }
 
     eraseForm(){

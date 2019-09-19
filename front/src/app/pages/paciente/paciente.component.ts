@@ -21,7 +21,7 @@ export class PacienteComponent extends DatatablesComponent implements OnInit {
     public form = new  Paciente();
     public modal = 'pacienteModal';
     public pacientes: any [];
-    public isNewPaciente:boolean = false;
+    public isNewPaciente:boolean = true;
 
     constructor
     (
@@ -52,11 +52,11 @@ export class PacienteComponent extends DatatablesComponent implements OnInit {
     }
 
     save(){
-      console.log(this.form)
+      console.log('Save: ',this.form)
       this.savePaciente()
-      PacienteService.pacienteCriado.subscribe(
+      PacienteService.pacienteCreatedAlert.subscribe(
         () => {
-          this.form = {},
+          this.eraseForm(),
           this.getPacientes(),
           this.close()
         }
@@ -64,12 +64,12 @@ export class PacienteComponent extends DatatablesComponent implements OnInit {
     }
 
     close(){
-      this.form = {}
+      this.eraseForm()
       this.ngxSmartModalService.close(this.modal)
     }
 
     savePaciente() {
-      return this.pacienteService.postPaciente(this.form)
+      this.pacienteService.postPaciente(this.form)
     }
 
     openFormEdit(id){
@@ -77,8 +77,9 @@ export class PacienteComponent extends DatatablesComponent implements OnInit {
       this.form['paciente_id'] = id
       this.pacienteService.getPacienteById(id)
       .subscribe(response => {
-        console.log(response)
+        console.log('Form-Edit: ',response)
         this.form = response
+        this.form['tipo_paciente'] = 'Outro'
       })
       this.ngxSmartModalService.open(this.modal)
     }
@@ -86,10 +87,27 @@ export class PacienteComponent extends DatatablesComponent implements OnInit {
     getPacientes(): any {
       this.pacienteService.getPacientes()
       .subscribe(response => {
-        console.log(response)
+        console.log('GetPacientes',response)
         this.pacientes = response,
         this.rerenderTable()
       })
+    }
+
+    update(){
+      console.log('update: ',this.form)
+      this.updatePaciente()
+      PacienteService.pacienteUpdatedAlert.subscribe(
+        () => {
+          this.eraseForm(),
+          this.getPacientes(),
+          this.close()
+        }
+      )
+
+    }
+
+    updatePaciente(){
+      this.pacienteService.updatePaciente(this.form)
     }
 
     eraseForm(){
