@@ -1,152 +1,110 @@
-<ngx-smart-modal #pacienteModal
-identifier="pacienteModal"
-customClass="medium-modal"
-[dismissable] = "false"
-(onCloseFinished) ="eraseForm()">
+<ngx-smart-modal #pacienteModal identifier="pacienteModal" customClass="medium-modal" [dismissable]="false"
+  (onCloseFinished)="eraseForm()">
   <div class="">
     <div class="card card-user">
       <div class="card-header">
         <h5 class="card-title">Novo Paciente</h5>
       </div>
       <div class="card-body">
-        <form #pacienteForm = "ngForm" (ngSubmit) = "isNewPaciente ? save() : update()">
+        <form #pacienteForm="ngForm" (ngSubmit)="isNewPaciente ? save() : update()">
           <!-- {{ nome.value | json }} -->
           <h6 class="card-title text-secondary">Dados Pessoais</h6>
           <div class="row">
             <div class="col-md-5">
               <div class="form-group">
                 <label for="nome">Nome</label>
-                <input type="text" class="form-control"
-                required
-                minlength="5"
-                maxlength="80"
-                [(ngModel)] = "form.nome"
-                name="nome"
-                #nome="ngModel">
+                <input type="text" class="form-control" required minlength="5" maxlength="80" [(ngModel)]="form.nome"
+                  name="nome" #nome="ngModel">
               </div>
             </div>
             <div class="col-md-3">
               <div class="form-group">
                 <label for="cpf_rg">CPF/RG</label>
-                <input type="text" class="form-control"
-                required
-                [(ngModel)] = "form.cpf_rg"
-                name="cpf_rg"
-                #cpf_rg="ngModel">
+                <input type="text" class="form-control" required [(ngModel)]="form.cpf_rg" name="cpf_rg"
+                  #cpf_rg="ngModel">
               </div>
             </div>
             <div class="col-md-4">
               <div class="form-group">
                 <label for="estado_civil">Estado Civil</label>
-                <ng-select [multiple]="false"
-                [(ngModel)]="form.estado_civil"
-                required
-                name="estado_civil"
-                #estado_civil="ngModel">
+                <ng-select [multiple]="false" [(ngModel)]="form.estado_civil" required name="estado_civil"
+                  #estado_civil="ngModel">
                   <ng-option *ngFor="let ec of _estado_civil" [value]="ec">{{ ec }}</ng-option>
                 </ng-select>
               </div>
             </div>
           </div>
           <div class="row">
-            <div class="col-md-4" >
-                <div class="form-group">
-                  <label for="">Telefone/Celular</label>
-                  <input type="text" class="form-control"
-                  [(ngModel)] = "form.telefone_celular"
-                  required
-                  name="telefone_celular"
-                  #telefone_celular="ngModel"/>
-                </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="">Telefone/Celular</label>
+                <input type="text" class="form-control" [(ngModel)]="form.telefone_celular" required
+                  name="telefone_celular" #telefone_celular="ngModel" />
+              </div>
             </div>
             <div class="col-md-4">
               <div class="form-group">
                 <label for="sexo">Sexo</label>
-                <ng-select [multiple]="false"
-                [(ngModel)]="form.sexo"
-                required
-                name="sexo"
-                #sexo="ngModel">
+                <ng-select [multiple]="false" [(ngModel)]="form.sexo" required name="sexo" #sexo="ngModel">
                   <ng-option *ngFor="let sexo of _sexo" [value]="sexo">{{ sexo }}</ng-option>
                 </ng-select>
               </div>
             </div>
             <div class="col-md-4">
               <div class="form-group">
-                  <label for="tipo_paciente">Tipo de Paciente</label>
-                  <ng-select [multiple]="false"
-                  [(ngModel)]="form.tipo_paciente"
-                  required
-                  name="tipo_paciente"
+                <label for="tipo_paciente">Tipo de Paciente</label>
+                <ng-select [multiple]="false" [(ngModel)]="form.tipo_paciente" required name="tipo_paciente"
                   #tipo_paciente="ngModel">
-                    <ng-option *ngFor="let tp of _tipo_paciente" [value]="tp">{{ tp }}</ng-option>
-                  </ng-select>
-                </div>
+                  <ng-option *ngFor="let tp of _tipo_paciente" [value]="tp">{{ tp }}</ng-option>
+                </ng-select>
               </div>
+            </div>
           </div>
           <div class="row">
-            <div class="col-md-4" *ngIf= "form.tipo_paciente == 'Aluno'  || form.tipo_paciente == 'Funcionário'">
-                <div class="form-group">
-                  <label for="matricula">Matrícula</label>
-                  <input type="text" class="form-control"
-                  [(ngModel)] = "form.matricula"
-                  required
-                  name="matricula"
-                  #matricula="ngModel"/>
-                </div>
-            </div>
-            <div class="col-md-8" *ngIf= "form.tipo_paciente == 'Aluno'">
+            <div class="col-md-4" *ngIf="form.tipo_paciente == 'Aluno'  || form.tipo_paciente == 'Funcionário'">
               <div class="form-group">
-                <label for="curso">Curso</label>
-                <input type="text" class="form-control"
-                [(ngModel)] = "form.curso"
-                required
-                name="curso"
-                #curso = "ngModel"/>
+                <label for="matricula">Matrícula</label>
+                <input type="text" class="form-control" [(ngModel)]="form.matricula" required name="matricula"
+                  #matricula="ngModel" />
               </div>
             </div>
-            <div class="col-md-8" *ngIf= "form.tipo_paciente == 'Funcionário'">
-                <div class="form-group">
-                  <label for="setor">Setor</label>
-                  <input type="text" class="form-control"
-                  [(ngModel)] ="form.setor"
-                  required
-                  name="setor"
-                  #setor = "ngModel"/>
-                </div>
+            <div class="col-md-8" *ngIf="form.tipo_paciente == 'Aluno'">
+              <div class="form-group">
+                <label for="curso">Curso</label>
+                <input type="text" class="form-control" [(ngModel)]="form.curso" required name="curso"
+                  #curso="ngModel" />
+              </div>
+            </div>
+            <div class="col-md-8" *ngIf="form.tipo_paciente == 'Funcionário'">
+              <div class="form-group">
+                <label for="setor">Setor</label>
+                <input type="text" class="form-control" [(ngModel)]="form.setor" required name="setor"
+                  #setor="ngModel" />
+              </div>
             </div>
           </div>
           <div class="row">
             <div class="col-md-4">
               <div class="form-group">
                 <label>Estado de naturalidade</label>
-                <input type="text" class="form-control"
-                name="estado_naturalidade"
-                [(ngModel)] = "form.estado_naturalidade"
-                required
-                #estado_naturalidade = "ngModel">
+                <input type="text" class="form-control" name="estado_naturalidade"
+                  [(ngModel)]="form.estado_naturalidade" required #estado_naturalidade="ngModel">
               </div>
             </div>
             <div class="col-md-4">
               <div class="form-group">
                 <label>Cidade de naturalidade</label>
-                <input  type="text" class="form-control"
-                name="cidade_naturalidade"
-                [(ngModel)] = "form.cidade_naturalidade"
-                required
-                #cidade_naturalidade = "ngModel">
+                <input type="text" class="form-control" name="cidade_naturalidade"
+                  [(ngModel)]="form.cidade_naturalidade" required #cidade_naturalidade="ngModel">
               </div>
             </div>
             <div class="col-md-4">
-                <div class="form-group">
-                  <label>Data de Nascimento</label>
-                  <input  type="date" class="form-control"
-                  required
-                  [(ngModel)] = "form.data_nascimento"
-                  name = "data_nascimento"
-                  #data_nascimento = "ngModel">
-                </div>
+              <div class="form-group">
+                <label>Data de Nascimento</label>
+                <input type="date" class="form-control" required [(ngModel)]="form.data_nascimento"
+                  name="data_nascimento" #data_nascimento="ngModel">
               </div>
+            </div>
           </div>
 
           <h6 class="card-title text-secondary">Endereço</h6>
@@ -154,32 +112,22 @@ customClass="medium-modal"
             <div class="col-md-4">
               <div class="form-group">
                 <label>CEP</label>
-                <input type="text" class="form-control"
-                (change) = "getEnderecoViaCep($event, form.cep)"
-                required
-                [(ngModel)] = "form.cep"
-                name = "cep"
-                #cep = "ngModel">
+                <input type="text" class="form-control" (change)="getEnderecoViaCep($event, form.cep)" required
+                  [(ngModel)]="form.cep" name="cep" #cep="ngModel">
               </div>
             </div>
             <div class="col-md-4">
               <div class="form-group">
                 <label>Estado</label>
-                <input type="text" class="form-control"
-                required
-                [(ngModel)] = "form.estado"
-                name = "estado"
-                #estado = "ngModel">
+                <input type="text" class="form-control" required [(ngModel)]="form.estado" name="estado"
+                  #estado="ngModel">
               </div>
             </div>
             <div class="col-md-4">
               <div class="form-group">
                 <label>Cidade</label>
-                <input type="text" class="form-control"
-                required
-                [(ngModel)] = "form.cidade"
-                name = "cidade"
-                #cidade = "ngModel">
+                <input type="text" class="form-control" required [(ngModel)]="form.cidade" name="cidade"
+                  #cidade="ngModel">
               </div>
             </div>
           </div>
@@ -187,31 +135,22 @@ customClass="medium-modal"
             <div class="col-md-5">
               <div class="form-group">
                 <label>Bairro</label>
-                <input type="text" class="form-control"
-                required
-                [(ngModel)] = "form.bairro"
-                name = "bairro"
-                #bairro = "ngModel">
+                <input type="text" class="form-control" required [(ngModel)]="form.bairro" name="bairro"
+                  #bairro="ngModel">
               </div>
             </div>
             <div class="col-md-5">
               <div class="form-group">
                 <label>Logradouro</label>
-                <input type="text" class="form-control"
-                required
-                [(ngModel)] = "form.logradouro"
-                name = "logradouro"
-                #logradouro = "ngModel">
+                <input type="text" class="form-control" required [(ngModel)]="form.logradouro" name="logradouro"
+                  #logradouro="ngModel">
               </div>
             </div>
             <div class="col-md-2">
               <div class="form-group">
                 <label>Número</label>
-                <input type="text" class="form-control"
-                required
-                [(ngModel)] = "form.numero"
-                name="numero"
-                #numero = "ngModel">
+                <input type="text" class="form-control" required [(ngModel)]="form.numero" name="numero"
+                  #numero="ngModel">
               </div>
             </div>
           </div>
@@ -221,87 +160,79 @@ customClass="medium-modal"
             <div class="col-md-6">
               <div class="form-group">
                 <label for="nome_contato">Nome</label>
-                <input class="form-control"
-                required
-                name="nome_contato"
-                [(ngModel)] = "form.nome_contato"
-                #nome_contato = "ngModel"/>
+                <input class="form-control" required name="nome_contato" [(ngModel)]="form.nome_contato"
+                  #nome_contato="ngModel" />
               </div>
             </div>
             <div class="col-md-6">
-                <div class="form-group">
-                  <label for="numero_contato">Contato</label>
-                  <input class="form-control"
-                  required
-                  name="numero_contato"
-                  [(ngModel)] ="form.numero_contato"
-                  #numero_contato = "ngModel"/>
-                </div>
+              <div class="form-group">
+                <label for="numero_contato">Contato</label>
+                <input class="form-control" required name="numero_contato" [(ngModel)]="form.numero_contato"
+                  #numero_contato="ngModel" />
+              </div>
             </div>
           </div>
           <div class="row">
             <div class="col-md-12">
-                <div class="form-group">
-                  <label>Observações</label>
-                  <textarea class="form-control textarea"
-                  name="observacao"
-                  [(ngModel)] = "form.observacao"
-                  #observacao = "ngModel"></textarea>
-                </div>
+              <div class="form-group">
+                <label>Observações</label>
+                <textarea class="form-control textarea" name="observacao" [(ngModel)]="form.observacao"
+                  #observacao="ngModel"></textarea>
+              </div>
             </div>
           </div>
           <div class="btn btn-default" (click)="close()">Cancelar</div>
-          <button class="btn btn-info pull-right" [disabled] = "pacienteForm.form.invalid">Salvar</button>
+          <button class="btn btn-info pull-right" [disabled]="pacienteForm.form.invalid">Salvar</button>
         </form>
       </div>
     </div>
   </div>
 
-  </ngx-smart-modal>
+</ngx-smart-modal>
 
-  <div class="row">
-      <div class="col-md-12">
-        <div class="card">
-          <div class="card-header">
-            <h4 class="card-title pull-left">
-              Pacientes
-            </h4>
-            <button class="btn btn-info btn-round pull-right" type="submit" (click)="ngxSmartModalService.getModal('pacienteModal').open()">
-              Novo
-            </button>
-          </div>
-          <div class="card-body">
-            <div class="table">
-              <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" cellspacing="0" class="table table-striped table-bordered dataTable">
-                <thead class=" text-primary">
-                  <tr>
-                  <th>Nome</th>
-                  <th>CPF/RG</th>
-                  <th>Sexo</th>
-                  <th>Ações</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let paciente of pacientes">
-                    <td>{{ paciente['nome'] }}</td>
-                    <td>{{ paciente['cpf_rg'] }}</td>
-                    <td>{{ paciente['sexo'] }}</td>
-                    <td class="text-right">
-                      <a title="Editar"
-                      class="btn btn-warning btn-link btn-icon btn-sm edit"
-                      href="#paciente"
-                      (click)="openFormEdit(paciente['id'])">
-                        <i class="fa fa-edit fa-2x"></i>
-                      </a>
-                      <a title="Excluir" class="btn btn-danger btn-link btn-icon btn-sm remove" href="#paciente">
-                        <i class="fa fa-times fa-2x"></i>
-                      </a>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title pull-left">
+          Pacientes
+        </h4>
+        <button class="btn btn-info btn-round pull-right" type="submit"
+          (click)="ngxSmartModalService.getModal('pacienteModal').open()">
+          Novo
+        </button>
+      </div>
+      <div class="card-body">
+        <div class="table">
+          <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" cellspacing="0"
+            class="table table-striped table-bordered dataTable">
+            <thead class=" text-primary">
+              <tr>
+                <th>Nome</th>
+                <th>CPF/RG</th>
+                <th>Sexo</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let paciente of pacientes">
+                <td>{{ paciente['nome'] }}</td>
+                <td>{{ paciente['cpf_rg'] }}</td>
+                <td>{{ paciente['sexo'] }}</td>
+                <td class="text-right">
+                  <a title="Editar" class="btn btn-warning btn-link btn-icon btn-sm edit" href="#paciente"
+                    (click)="openFormEdit(paciente['id'])">
+                    <i class="fa fa-edit fa-2x"></i>
+                  </a>
+                  <a title="Excluir" class="btn btn-danger btn-link btn-icon btn-sm remove" href="#paciente">
+                    <i class="fa fa-times fa-2x"></i>
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
+  </div>
+</div>

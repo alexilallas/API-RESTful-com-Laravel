@@ -27,12 +27,12 @@ Route::namespace('Admin')->group(function () {
     Route::put('paciente', 'PacienteController@updatePaciente');
 
     /**
-     * Rotas para Anamnese
+     * Rotas para Histórico
      */
-    Route::get('anamnese', 'AnamneseController@find');
-    Route::get('anamnese/{id}', 'AnamneseController@findById');
-    Route::post('anamnese', 'AnamneseController@postAnamnese');
-    Route::put('anamnese', 'AnamneseController@updateAnamnese');
+    Route::get('historico', 'HistoricoController@find');
+    Route::get('historico/{id}', 'HistoricoController@findById');
+    Route::post('historico', 'HistoricoController@postHistorico');
+    Route::put('historico', 'HistoricoController@updateHistorico');
 
 });
 

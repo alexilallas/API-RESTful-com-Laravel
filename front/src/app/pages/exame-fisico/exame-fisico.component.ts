@@ -8,15 +8,15 @@ import { environment } from 'environments/environment';
     templateUrl: 'exame-fisico.component.html'
 })
 
-export class ExameFisicoComponent extends DatatablesComponent implements OnInit{
+export class ExameFisicoComponent extends DatatablesComponent implements OnInit {
 
     public dtOptions: DataTables.Settings = {};
 
-    constructor(){
+    constructor() {
         super();
     }
 
-    ngOnInit(){
+    ngOnInit() {
         this.dtOptions = environment.dtOptions
     }
 }

@@ -50,9 +50,9 @@ class PacienteController extends Controller
     {
         $id = $req->route('id');
         $paciente = DB::table($this->table)
-        ->join('contatos', 'contatos.paciente_id','=','pacientes.id')
+        ->join('contatos', 'contatos.paciente_id', '=', 'pacientes.id')
         ->where('pacientes.id', $id)
-        ->select('pacientes.*','contatos.nome as nome_contato', 'contatos.numero as numero_contato','contatos.id as id_contato')
+        ->select('pacientes.*', 'contatos.nome as nome_contato', 'contatos.numero as numero_contato', 'contatos.id as id_contato')
         ->get();
 
         return $this->jsonSuccess('Pacientes cadastrados', compact('paciente'));
@@ -83,7 +83,7 @@ class PacienteController extends Controller
         
         try {
             \DB::beginTransaction();
-            $this->doUpdate($data, 'criarPaciente');
+            $this->doUpdate($data, 'editarPaciente');
             $this->contato->customUpdate($data);
             \DB::commit();
             return $this->jsonSuccess('Paciente atualizado com sucesso!');
@@ -103,6 +103,4 @@ class PacienteController extends Controller
 
         return $this->update($this->table, $data);
     }
-
-
 }

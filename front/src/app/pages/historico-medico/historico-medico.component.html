@@ -1,0 +1,350 @@
+<ngx-smart-modal #historicoMedicoModal identifier="historicoMedicoModal" customClass="medium-modal" [dismissable]="false"
+  (onCloseFinished)="eraseForm()">
+  <div class="card-body">
+    <form #historicoForm="ngForm" (ngSubmit)="isNewHistorico ? save() : update()">
+      <h6 [hidden]="isNewHistorico">{{form.nome | uppercase}}</h6>
+      <br />
+      <h6> Antecedentes Familiares (pai, mãe, irmãos, tios, avós e filhos) </h6>
+      <div class="row">
+        <div class="col-sm-4 col-lg-4">
+          <label>Diabetes</label>
+          <div class="form-conrtrol">
+            <label class="switch">
+              <input type="checkbox" checked name="diabetes" [(ngModel)]="form.diabetes" #diabetes="ngModel">
+              <span class="slider round"></span>
+            </label>
+            <!-- {{diabetes.value ? 'Sim' : 'Não'}} -->
+          </div>
+        </div>
+        <div class="col-sm-4 col-lg-4">
+          <label>Hipertensão</label>
+          <div class="form-conrtrol">
+            <label class="switch">
+              <input type="checkbox" name="hipertensao" [(ngModel)]="form.hipertensao" #hipertensao="ngModel">
+              <span class="slider round"></span>
+            </label>
+          </div>
+        </div>
+        <div class="col-sm-4 col-lg-4">
+          <label>Infarto</label>
+          <div class="form-conrtrol">
+            <label class="switch">
+              <input type="checkbox" name="infarto" [(ngModel)]="form.infarto" #infarto="ngModel">
+              <span class="slider round"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4 col-lg-4">
+          <label>Morte Súbita</label>
+          <div class="form-conrtrol">
+            <label class="switch">
+              <input type="checkbox" name="morte_subita" [(ngModel)]="form.morte_subita" #morte_subita="ngModel">
+              <span class="slider round"></span>
+            </label>
+          </div>
+        </div>
+        <div class="col-sm-4 col-lg-4">
+          <label>Câncer</label>
+          <div class="form-conrtrol">
+            <label class="switch">
+              <input type="checkbox" name="cancer" [(ngModel)]="form.cancer" #cancer="ngModel">
+              <span class="slider round"></span>
+            </label>
+          </div>
+        </div>
+        <div class="col-sm-4 col-lg-4">
+          <label>Outro</label>
+          <textarea class="form-control" name="outro" [(ngModel)]="form.outro" #outro="ngModel"></textarea>
+        </div>
+      </div>
+      <br>
+      <h6> Antecedentes Pessoais </h6>
+      <div class="row">
+        <div class="col-sm-4 col-lg-4">
+          <label>Fuma</label>
+          <div class="form-conrtrol">
+            <label class="switch">
+              <input type="checkbox" name="fumante" [(ngModel)]="form.fumante" #fumante="ngModel">
+              <span class="slider round"></span>
+            </label>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-6" *ngIf="form.fumante == 1">
+          <label>Quantidade semanal*</label>
+          <div class="col-sm-6 col-lg-8 pading-inside-checkbox">
+            <input type="number" class="form-control" name="numero_cigarro" required maxlength="3"
+              [(ngModel)]="form.numero_cigarro" #numero_cigarro="ngModel">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4 col-lg-4">
+          <label>Consome álcool</label>
+          <div class="form-conrtrol">
+            <label class="switch">
+              <input type="checkbox" name="alcool" [(ngModel)]="form.alcool" #alcool="ngModel">
+              <span class="slider round"></span>
+            </label>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-6" *ngIf="form.alcool == 1">
+          <label *ngIf="form.alcool == 1">Frequência semanal*</label>
+          <div class="col-sm-6 col-lg-8 pading-inside-checkbox">
+            <input type="number" class="form-control" name="frequencia_alcool" required maxlength="3"
+              [(ngModel)]="form.frequencia_alcool" #frequencia_alcool="ngModel" />
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4 col-lg-4">
+          <label>Alérgico</label>
+          <div class="form-conrtrol">
+            <label class="switch">
+              <input type="checkbox" name="alergico" [(ngModel)]="form.alergico" #alergico="ngModel">
+              <span class="slider round"></span>
+            </label>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-6" *ngIf="form.alergico == 1">
+          <label [hidden]="form.alergico != 1">Nome da Alergia*</label>
+          <div class="col-sm-6 col-lg-8 pading-inside-checkbox">
+            <input type="text" class="form-control" name="nome_alergia" maxlength="50" required
+              [(ngModel)]="form.nome_alergia" #nome_alergia="ngModel">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4 col-lg-4">
+          <label>Atividade física (3x / semana)</label>
+          <div class="form-conrtrol">
+            <label class="switch">
+              <input type="checkbox" name="atividade_fisica" [(ngModel)]="form.atividade_fisica"
+                #atividade_fisica="ngModel">
+              <span class="slider round"></span>
+            </label>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-6" *ngIf="form.atividade_fisica == 1">
+          <label>Nome da Atividade*</label>
+          <div class="col-sm-6 col-lg-8 pading-inside-checkbox">
+            <input type="text" class="form-control" name="nome_atividade" maxlength="20" required
+              [(ngModel)]="form.nome_atividade" #nome_atividade="ngModel">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4 col-lg-4">
+          <label>Cirurgia</label>
+          <div class="form-conrtrol">
+            <label class="switch">
+              <input type="checkbox" name="cirurgia" [(ngModel)]="form.cirurgia" #cirurgia="ngModel">
+              <span class="slider round"></span>
+            </label>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-6" *ngIf="form.cirurgia == 1">
+          <label>Nome da Cirurgia*</label>
+          <div class="col-sm-6 col-lg-8 pading-inside-checkbox">
+            <input type="text" class="form-control" name="nome_cirurgia" maxlength="50" required
+              [(ngModel)]="form.nome_cirurgia" #nome_cirurgia="ngModel">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4 col-lg-4">
+          <label>Usa Medicamento</label>
+          <div class="form-conrtrol">
+            <label class="switch">
+              <input type="checkbox" name="usa_medicamento" [(ngModel)]="form.usa_medicamento"
+                #usa_medicamento="ngModel">
+              <span class="slider round"></span>
+            </label>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-6" *ngIf="form.usa_medicamento == 1">
+          <label>Nome do Medicamento*</label>
+          <div class="col-sm-6 col-lg-8 pading-inside-checkbox">
+            <input type="text" class="form-control" name="nome_medicamento" maxlength="50" required
+              [(ngModel)]="form.nome_medicamento" #nome_medicamento="ngModel">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4 col-lg-4">
+          <label>Hipertenso</label>
+          <div class="form-conrtrol">
+            <label class="switch">
+              <input type="checkbox" name="hipertenso" [(ngModel)]="form.hipertenso" #hipertenso="ngModel">
+              <span class="slider round"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4 col-lg-4">
+          <label>Diabetes</label>
+          <div class="form-conrtrol">
+            <label class="switch">
+              <input type="checkbox" name="diabetico" [(ngModel)]="form.diabetico" #diabetico="ngModel">
+              <span class="slider round"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6 col-lg-6">
+          <label for="fator_rh">Fator RH</label>
+          <ng-select [multiple]="false" [(ngModel)]="form.fator_rh" required name="fator_rh" #fator_rh="ngModel">
+            <ng-option *ngFor="let f_rh of _fator_rh" [value]="f_rh">{{ f_rh }}</ng-option>
+          </ng-select>
+        </div>
+        <div class="col-sm-6 col-lg-6">
+          <div class="form-group">
+            <label>Último preventivo</label>
+            <input class="form-control" type="date" name="ultimo_preventivo" [(ngModel)]="form.ultimo_preventivo"
+              #ultimo_preventivo="ngModel" />
+          </div>
+        </div>
+      </div>
+      <br>
+      <h6> Estado Vacinal </h6>
+      <div class="row">
+        <div class="col-sm-4 col-sm-offset-1 checkbox-radios">
+          <div class="form-check">
+            <label class="form-check-label">
+              dt
+              <input class="form-check-input" type="checkbox" name="vacina_dt" [(ngModel)]="form.vacina_dt"
+                #vacina_dt="ngModel">
+              <span class="form-check-sign"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4 col-sm-offset-1 checkbox-radios">
+          <div class="form-check">
+            <label class="form-check-label">
+              HB
+              <input class="form-check-input" type="checkbox" name="vacina_hb" [(ngModel)]="form.vacina_hb"
+                #vacina_hb="ngModel">
+              <span class="form-check-sign"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4 col-sm-offset-1 checkbox-radios">
+          <div class="form-check">
+            <label class="form-check-label">
+              FA
+              <input class="form-check-input" type="checkbox" name="vacina_fa" [(ngModel)]="form.vacina_fa"
+                #vacina_fa="ngModel">
+              <span class="form-check-sign"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4 col-sm-offset-1 checkbox-radios">
+          <div class="form-check">
+            <label class="form-check-label">
+              Influenza
+              <input class="form-check-input" type="checkbox" name="vacina_influenza"
+                [(ngModel)]="form.vacina_influenza" #vacina_influenza="ngModel">
+              <span class="form-check-sign"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4 col-sm-offset-1 checkbox-radios">
+          <div class="form-check">
+            <label class="form-check-label">
+              Antirrábica
+              <input class="form-check-input" type="checkbox" name="vacina_antirrabica"
+                [(ngModel)]="form.vacina_antirrabica" #vacina_antirrabica="ngModel">
+              <span class="form-check-sign"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+      <br>
+      <h6>Risco Social</h6>
+      <div class="row">
+        <div class="col-sm-6 col-lg-6">
+          <label>Mora Sozinho?</label>
+          <div class="form-conrtrol">
+            <label class="switch">
+              <input type="checkbox" name="mora_sozinho" [(ngModel)]="form.mora_sozinho" #mora_sozinho="ngModel">
+              <span class="slider round"></span>
+            </label>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-6">
+          <label>Está passando por problema familiar?</label>
+          <div class="form-conrtrol">
+            <label class="switch">
+              <input type="checkbox" name="problema_familiar" [(ngModel)]="form.problema_familiar"
+                #problema_familiar="ngModel">
+              <span class="slider round"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+      <br />
+      <div class="btn btn-default" (click)="close()">Cancelar</div>
+      <button class="btn btn-info pull-right" [disabled]="historicoForm.form.invalid">Salvar</button>
+    </form>
+  </div>
+</ngx-smart-modal>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title pull-left">
+          Pacientes
+        </h4>
+      </div>
+      <div class="card-body">
+        <div class="table">
+          <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" cellspacing="0"
+            class="table table-striped table-bordered dataTable">
+            <thead class=" text-primary">
+              <tr>
+                <th>Nome</th>
+                <th>CPF/RG</th>
+                <th>Sexo</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let paciente of pacientes">
+                <td>{{ paciente['nome'] }}</td>
+                <td>{{ paciente['cpf_rg'] }}</td>
+                <td>{{ paciente['sexo'] }}</td>
+                <td class="text-right">
+                  <a title="Adicionar Histórico" *ngIf="!paciente['hasHistorico']"
+                    class="btn btn-primary btn-link btn-icon btn-sm plus" href="#historico-medico"
+                    (click)="openFormNew(paciente['id'])">
+                    <i class="fa fa-plus-square fa-2x"></i>
+                  </a>
+                  <a title="Editar" *ngIf="paciente['hasHistorico']"
+                    class="btn btn-warning btn-link btn-icon btn-sm edit" href="#historico-medico"
+                    (click)="openFormEdit(paciente['id'])">
+                    <i class="fa fa-edit fa-2x"></i>
+                  </a>
+                  <a title="Excluir" class="btn btn-danger btn-link btn-icon btn-sm remove" href="#historico-medico">
+                    <i class="fa fa-times fa-2x"></i>
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

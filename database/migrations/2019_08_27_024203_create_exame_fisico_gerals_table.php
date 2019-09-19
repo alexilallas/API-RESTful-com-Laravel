@@ -13,7 +13,7 @@ class CreateExameFisicoGeralsTable extends Migration
      */
     public function up()
     {
-        Schema::create('exame_fisico_gerals', function (Blueprint $table) {
+        Schema::create('exame_fisico_geral', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('paciente_id');
             $table->foreign('paciente_id')->references('id')->on('pacientes');
@@ -40,6 +40,6 @@ class CreateExameFisicoGeralsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('exame_fisico_gerals');
+        Schema::dropIfExists('exame_fisico_geral');
     }
 }

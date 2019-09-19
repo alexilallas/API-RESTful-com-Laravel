@@ -12,7 +12,7 @@ import { AdminLayoutRoutes } from './admin-layout.routing';
 
 import { InicioComponent } from '../../pages/inicio/inicio.component';
 import { PacienteComponent } from '../../pages/paciente/paciente.component';
-import { FichaAnamneseComponent } from '../../pages/ficha-anamnese/ficha-anamnese.component';
+import { HistoricoMedicoComponent } from '../../pages/historico-medico/historico-medico.component';
 import { ExameFisicoComponent } from '../../pages/exame-fisico/exame-fisico.component';
 import { ProntuarioComponent } from '../../pages/prontuario/prontuario.component';
 import { PesquisarComponent } from '../../pages/pesquisar/pesquisar.component';
@@ -34,7 +34,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
   declarations: [
     InicioComponent,
     PacienteComponent,
-    FichaAnamneseComponent,
+    HistoricoMedicoComponent,
     ExameFisicoComponent,
     ProntuarioComponent,
     PesquisarComponent,

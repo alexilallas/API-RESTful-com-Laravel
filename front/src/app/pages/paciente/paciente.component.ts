@@ -8,109 +8,109 @@ import { DatatablesComponent } from '../../shared/datatables/datatables.componen
 
 
 @Component({
-    selector: 'paciente-cmp',
-    moduleId: module.id,
-    templateUrl: 'paciente.component.html'
+  selector: 'paciente-cmp',
+  moduleId: module.id,
+  templateUrl: 'paciente.component.html'
 })
 
 export class PacienteComponent extends DatatablesComponent implements OnInit {
-    public _sexo = ['Masculino', 'Feminino'];
-    public _estado_civil = ['Solteiro(a)', 'Casado(a)', 'Viúvo(a)'];
-    public _tipo_paciente = ['Aluno', 'Funcionário','Outro'];
+  public _sexo = ['Masculino', 'Feminino'];
+  public _estado_civil = ['Solteiro(a)', 'Casado(a)', 'Viúvo(a)'];
+  public _tipo_paciente = ['Aluno', 'Funcionário', 'Outro'];
 
-    public form = new  Paciente();
-    public modal = 'pacienteModal';
-    public pacientes: any [];
-    public isNewPaciente:boolean = true;
+  public form = new Paciente();
+  public modal = 'pacienteModal';
+  public pacientes: any[];
+  public isNewPaciente: boolean = true;
 
-    constructor
+  constructor
     (
-      private pacienteService:PacienteService,
+      private pacienteService: PacienteService,
       private viacep: NgxViacepService,
       public ngxSmartModalService: NgxSmartModalService
     ) {
-      super();
-      console.log('PacienteComponent')
-    }
+    super();
+    console.log('PacienteComponent')
+  }
 
-    ngOnInit(){
-      this.getPacientes()
-      this.dtOptions = environment.dtOptions
-    }
+  ngOnInit() {
+    this.dtOptions = environment.dtOptions
+    this.getPacientes()
+  }
 
-    getEnderecoViaCep($event, cep): any {
-      this.viacep.buscarPorCep(cep)
-      .then( ( endereco: Endereco ) => {
+  getEnderecoViaCep($event, cep): any {
+    this.viacep.buscarPorCep(cep)
+      .then((endereco: Endereco) => {
         this.form['estado'] = endereco.uf
         this.form['cidade'] = endereco.localidade
         this.form['bairro'] = endereco.bairro
         this.form['logradouro'] = endereco.logradouro
       })
-      .catch( (error: ErroCep) => {
+      .catch((error: ErroCep) => {
         console.log(error.message);
       });
-    }
+  }
 
-    save(){
-      console.log('Save: ',this.form)
-      this.savePaciente()
-      PacienteService.pacienteCreatedAlert.subscribe(
-        () => {
-          this.eraseForm(),
+  save() {
+    console.log('Save: ', this.form)
+    this.savePaciente()
+    PacienteService.pacienteCreatedAlert.subscribe(
+      () => {
+        this.eraseForm(),
           this.getPacientes(),
           this.close()
-        }
-      )
-    }
+      }
+    )
+  }
 
-    close(){
-      this.eraseForm()
-      this.ngxSmartModalService.close(this.modal)
-    }
+  close() {
+    this.eraseForm()
+    this.ngxSmartModalService.close(this.modal)
+  }
 
-    savePaciente() {
-      this.pacienteService.postPaciente(this.form)
-    }
+  savePaciente() {
+    this.pacienteService.postPaciente(this.form)
+  }
 
-    openFormEdit(id){
-      this.isNewPaciente = false
-      this.form['paciente_id'] = id
-      this.pacienteService.getPacienteById(id)
+  openFormEdit(id) {
+    this.isNewPaciente = false
+    this.form['paciente_id'] = id
+    this.pacienteService.getPacienteById(id)
       .subscribe(response => {
-        console.log('Form-Edit: ',response)
+        console.log('Form-Edit: ', response)
         this.form = response
         this.form['tipo_paciente'] = 'Outro'
       })
-      this.ngxSmartModalService.open(this.modal)
-    }
+    this.ngxSmartModalService.open(this.modal)
+  }
 
-    getPacientes(): any {
-      this.pacienteService.getPacientes()
+  getPacientes(): any {
+    this.pacienteService.getPacientes()
       .subscribe(response => {
-        console.log('GetPacientes',response)
+        console.log('GetPacientes', response)
         this.pacientes = response,
-        this.rerenderTable()
+          this.rerenderTable()
       })
-    }
+  }
 
-    update(){
-      console.log('update: ',this.form)
-      this.updatePaciente()
-      PacienteService.pacienteUpdatedAlert.subscribe(
-        () => {
-          this.eraseForm(),
+  update() {
+    console.log('update: ', this.form)
+    this.updatePaciente()
+    PacienteService.pacienteUpdatedAlert.subscribe(
+      () => {
+        this.eraseForm(),
           this.getPacientes(),
           this.close()
-        }
-      )
+      }
+    )
 
-    }
+  }
 
-    updatePaciente(){
-      this.pacienteService.updatePaciente(this.form)
-    }
+  updatePaciente() {
+    this.pacienteService.updatePaciente(this.form)
+  }
 
-    eraseForm(){
-      this.form = {}
-    }
+  eraseForm() {
+    this.form = {}
+  }
 }

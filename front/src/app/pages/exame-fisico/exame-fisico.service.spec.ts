@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { FichaAnamneseService } from './ficha-anamnese.service';
+import { ExameFisicoService } from './exame-fisico.service';
 
-describe('FichaAnamineseService', () => {
+describe('ExameFisicoService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: FichaAnamneseService = TestBed.get(FichaAnamneseService);
+    const service: ExameFisicoService = TestBed.get(ExameFisicoService);
     expect(service).toBeTruthy();
   });
 });

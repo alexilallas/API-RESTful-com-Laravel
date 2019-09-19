@@ -9,13 +9,14 @@ export interface RouteInfo {
 }
 
 export const ROUTES: RouteInfo[] = [
-    { path: '/inicio',          title: 'Início',              icon:'nc-bank',             class: '' },
-    { path: '/paciente',        title: 'Paciente',            icon:'nc-single-02',        class: '' },
-    { path: '/ficha-anamnese',  title: 'Ficha de Anamnese',   icon:'nc-bullet-list-67',   class: '' },
-    { path: '/exame-fisico',    title: 'Exame Físico',        icon:'nc-favourite-28',     class: '' },
-    { path: '/prontuario',      title: 'Prontuário',          icon:'nc-paper',            class: '' },
-    { path: '/pesquisar',       title: 'Pesquisar',           icon:'nc-zoom-split',       class: '' },
-    { path: '/inventario',      title: 'Inventário',          icon:'nc-app',              class: '' },
+    { path: '/inicio',           title: 'Início',              icon:'nc-bank',             class: '' },
+    { path: '/paciente',         title: 'Paciente',            icon:'nc-single-02',        class: '' },
+    { path: '/historico-medico', title: 'Histórico Médico',    icon:'nc-bullet-list-67',   class: '' },
+    { path: '/exame-fisico',     title: 'Exame Físico',        icon:'nc-favourite-28',     class: '' },
+    { path: '/evolucao',         title: 'Evolução',            icon:'nc-sound-wave',       class: '' },
+    { path: '/prontuario',       title: 'Prontuário',          icon:'nc-paper',            class: '' },
+    { path: '/pesquisar',        title: 'Pesquisar',           icon:'nc-zoom-split',       class: '' },
+    { path: '/inventario',       title: 'Inventário',          icon:'nc-app',              class: '' },
 ];
 
 @Component({

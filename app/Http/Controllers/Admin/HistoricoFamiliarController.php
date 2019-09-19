@@ -11,7 +11,6 @@ class HistoricoFamiliarController extends Controller
 
     public function __construct()
     {
-
     }
 
     /**
@@ -34,5 +33,18 @@ class HistoricoFamiliarController extends Controller
     public function checkBusinessLogic($data)
     {
         # code...
+    }
+
+    public function customUpdate($modelData)
+    {
+        $data['diabetes']      = $modelData['diabetes'];
+        $data['hipertensao']   = $modelData['hipertensao'];
+        $data['infarto']       = $modelData['infarto'];
+        $data['morte_subita']  = $modelData['morte_subita'];
+        $data['cancer']        = $modelData['cancer'];
+        $data['outro']         = $modelData['outro'];
+        $data['id']            = $modelData['id_historico_familiar'];
+
+        return $this->update($this->table, $data);
     }
 }
