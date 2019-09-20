@@ -5,8 +5,8 @@ import { ToastrModule } from "ngx-toastr";
 
 import { SidebarModule } from './sidebar/sidebar.module';
 import { FooterModule } from './shared/footer/footer.module';
-import { NavbarModule} from './shared/navbar/navbar.module';
-import { FixedPluginModule} from './shared/fixedplugin/fixedplugin.module';
+import { NavbarModule } from './shared/navbar/navbar.module';
+import { FixedPluginModule } from './shared/fixedplugin/fixedplugin.module';
 
 import { DataTablesModule } from 'angular-datatables';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -18,11 +18,12 @@ import { AppRoutes } from './app.routing';
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 
-import { HttpClientModule }    from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { MessageService } from './services/messages/message.service';
 import { NgxViacepModule } from '@brunoc/ngx-viacep';
 import { NgxSmartModalModule } from 'ngx-smart-modal';
 import { DatatablesComponent } from './shared/datatables/datatables.component';
+import { NgxMaskModule } from 'ngx-mask'
 
 @NgModule({
   declarations: [
@@ -32,7 +33,7 @@ import { DatatablesComponent } from './shared/datatables/datatables.component';
   ],
   imports: [
     BrowserAnimationsModule,
-    RouterModule.forRoot(AppRoutes,{
+    RouterModule.forRoot(AppRoutes, {
       useHash: true
     }),
     SidebarModule,
@@ -46,7 +47,8 @@ import { DatatablesComponent } from './shared/datatables/datatables.component';
     ReactiveFormsModule,
     NgSelectModule,
     NgxViacepModule,
-    NgxSmartModalModule.forRoot()
+    NgxSmartModalModule.forRoot(),
+    NgxMaskModule.forRoot()
   ],
   providers: [MessageService],
   bootstrap: [AppComponent]

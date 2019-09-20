@@ -19,12 +19,15 @@ class ExameFisicoController extends Controller
 
     public function customSave($modelData)
     {
-        #code
+        unset($modelData['nome']);
+        return $this->save($this->table, $modelData);
     }
 
     public function customUpdate($modelData)
     {
-        #code
+        unset($modelData['nome']);
+        unset($modelData['paciente_id']);
+        return $this->update($this->table, $modelData);
     }
 
     public function checkBusinessLogic($data)
@@ -47,15 +50,9 @@ class ExameFisicoController extends Controller
             $id = $req->request->get('id');
         }
 
-        $paciente = DB::table('pacientes')
-        ->join('exame_fisico_geral', 'pacientes.id', '=', 'exame_fisico_geral.paciente_id')
-        ->where('pacientes.id', '=', $id)
-        ->select(
-            'pacientes.*',
-            'pacientes.id as id_paciente',
-            'exame_fisico_geral.*',
-            'exame_fisico_geral.id as id_exame'
-        )
+        $paciente = DB::table($this->table)
+        ->where('paciente_id', '=', $id)
+        ->select($this->table.'.*')
         ->get();
 
         return $this->jsonSuccess('Exame físico do Paciente com id: '.$id, compact('paciente'));
@@ -74,5 +71,36 @@ class ExameFisicoController extends Controller
         }
 
         return $pacientes;
+    }
+
+    public function postExame()
+    {
+        $data = $this->jsonDecode();
+
+        try {
+            \DB::beginTransaction();
+            $this->checkBusinessLogic($data);
+            $this->doSave($data, 'criarExameFisico');
+            \DB::commit();
+            return $this->jsonSuccess('Exame Físico adicionado com sucesso!');
+        } catch (\Throwable $th) {
+            \DB::rollback();
+            return $this->jsonError($th->getMessage());
+        }
+    }
+
+    public function updateExame()
+    {
+        $data = $this->jsonDecode();
+
+        try {
+            \DB::beginTransaction();
+            $this->doUpdate($data, 'editarExameFisico');
+            \DB::commit();
+            return $this->jsonSuccess('Exame físico atualizado com sucesso!', $data);
+        } catch (\Throwable $th) {
+            \DB::rollback();
+            return $this->jsonError($th->getMessage());
+        }
     }
 }

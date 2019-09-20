@@ -38,9 +38,9 @@ Route::namespace('Admin')->group(function () {
      * Rotas para Exame
      */
     Route::get('exame', 'ExameFisicoController@find');
-    //Route::get('exame/{id}', 'ExameFisicoController@findById');
-    //Route::post('exame', 'ExameFisicoController@postExame');
-    //Route::put('exame', 'ExameFisicoController@updateExame');
+    Route::get('exame/{id}', 'ExameFisicoController@findById');
+    Route::post('exame', 'ExameFisicoController@postExame');
+    Route::put('exame', 'ExameFisicoController@updateExame');
 
 });
 

@@ -7,6 +7,7 @@ import { DataTablesModule } from 'angular-datatables';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NgxSmartModalModule } from 'ngx-smart-modal';
+import { NgxMaskModule } from 'ngx-mask'
 
 import { AdminLayoutRoutes } from './admin-layout.routing';
 
@@ -29,7 +30,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     DataTablesModule,
     ReactiveFormsModule,
     NgSelectModule,
-    NgxSmartModalModule
+    NgxSmartModalModule,
+    NgxMaskModule
   ],
   declarations: [
     InicioComponent,
@@ -42,4 +44,4 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
   ]
 })
 
-export class AdminLayoutModule {}
+export class AdminLayoutModule { }

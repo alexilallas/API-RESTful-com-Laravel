@@ -5,33 +5,68 @@
       <h5 class="card-title">Exame Físico</h5>
       <p><strong>PACIENTE: </strong> {{form.nome | uppercase}}</p>
       <div class="row">
-        <div class="col-md-5">
+        <div class="col-md-4">
           <div class="form-group">
             <label for="data">Data do atendimento</label>
-            <input type="date" class="form-control" required disabled [(ngModel)]="form.data"
-              name="data" #data="ngModel">
+            <input type="date" class="form-control" required [(ngModel)]="form.data" name="data" #data="ngModel">
           </div>
         </div>
-        <div class="col-sm-4 col-lg-4">
-          <label>Hipertensão</label>
-          <div class="form-conrtrol">
-            <label class="switch">
-              <input type="checkbox" name="hipertensao" [(ngModel)]="form.hipertensao" #hipertensao="ngModel">
-              <span class="slider round"></span>
-            </label>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="pressao">Pressão Arterial</label>
+            <input type="text" class="form-control" required [(ngModel)]="form.pressao" name="pressao"
+              #pressao="ngModel" [specialCharacters]="[ '/' ]" suffix=" mmHg" mask="00/09">
           </div>
         </div>
-        <div class="col-sm-4 col-lg-4">
-          <label>Infarto</label>
-          <div class="form-conrtrol">
-            <label class="switch">
-              <input type="checkbox" name="infarto" [(ngModel)]="form.infarto" #infarto="ngModel">
-              <span class="slider round"></span>
-            </label>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="pressao">Altura</label>
+            <input type="text" class="form-control" required [(ngModel)]="form.altura" name="altura" #altura="ngModel"
+              suffix=" cm" mask="000">
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="form-group">
+            <label for="pressao">Peso</label>
+            <input type="text" class="form-control" required [(ngModel)]="form.peso" name="peso" #peso="ngModel"
+              suffix=" Kg" mask="009">
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="pressao">Glicemia</label>
+            <input type="text" class="form-control" required [(ngModel)]="form.glicemia" name="glicemia"
+              #glicemia="ngModel" suffix=" mg/dL" mask="009">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="pressao">Temperatura</label>
+            <input type="text" class="form-control" required [(ngModel)]="form.temperatura" name="temperatura"
+              #temperatura="ngModel" suffix=" °C" mask="00">
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="pressao">Frequência Cardíaca</label>
+            <input type="text" class="form-control" required [(ngModel)]="form.frequencia_cardiaca"
+              name="frequencia_cardiaca" #frequencia_cardiaca="ngModel" suffix=" bpm" mask="009">
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="pressao">Frequência Respiratória</label>
+            <input type="text" class="form-control" required [(ngModel)]="form.frequencia_respiratoria"
+              name="frequencia_respiratoria" #frequencia_respiratoria="ngModel" suffix=" rpm" mask="009">
           </div>
         </div>
       </div>
       <br />
+      {{exameForm.errors}}
       <div class="btn btn-default" (click)="close()">Cancelar</div>
       <button class="btn btn-info pull-right" [disabled]="exameForm.form.invalid">Salvar</button>
     </form>

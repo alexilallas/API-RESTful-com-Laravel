@@ -4,6 +4,7 @@ import { ExameFisicoService } from './exame-fisico.service';
 import { environment } from '../../../environments/environment';
 import { NgxSmartModalService } from 'ngx-smart-modal';
 import { DatatablesComponent } from '../../shared/datatables/datatables.component';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'exame-fisico-cmp',
@@ -30,7 +31,6 @@ export class ExameFisicoComponent extends DatatablesComponent implements OnInit 
   ngOnInit() {
     this.dtOptions = environment.dtOptions
     this.getPacientes()
-    this.getTodayDate()
   }
 
   getPacientes(): any {
@@ -97,18 +97,12 @@ export class ExameFisicoComponent extends DatatablesComponent implements OnInit 
     this.isNewExame = true
     this.form['paciente_id'] = id
     this.form['nome'] = nome
+    this.getTodayDate()
     this.ngxSmartModalService.open(this.modal)
   }
 
   getTodayDate() {
-    let date: Date = new Date();
-    date.setUTCDate(-3)
-    console.log(date.getDate())
-    date.toLocaleTimeString()
-    let dia = date.getDay();
-    let mes = date.getMonth();
-    let ano = date.getFullYear();
-    this.form['data'] = date// dia + '/' + mes + '/' + ano
-    console.log(this.form['data'])
+    this.form['data'] = formatDate(new Date(), 'yyy-MM-dd', 'en');
+    console.log(this.form)
   }
 }
