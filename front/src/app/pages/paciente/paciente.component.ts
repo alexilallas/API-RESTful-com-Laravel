@@ -14,6 +14,7 @@ import { DatatablesComponent } from '../../shared/datatables/datatables.componen
 })
 
 export class PacienteComponent extends DatatablesComponent implements OnInit {
+
   public _sexo = ['Masculino', 'Feminino'];
   public _estado_civil = ['Solteiro(a)', 'Casado(a)', 'Viúvo(a)'];
   public _tipo_paciente = ['Aluno', 'Funcionário', 'Outro'];
@@ -52,13 +53,13 @@ export class PacienteComponent extends DatatablesComponent implements OnInit {
   }
 
   save() {
-    console.log('Save: ', this.form)
     this.savePaciente()
     PacienteService.pacienteCreatedAlert.subscribe(
       () => {
-        this.eraseForm(),
-          this.getPacientes(),
-          this.close()
+        this.eraseForm()
+        this.getPacientes()
+        this.close()
+        PacienteService.pacienteCreatedAlert.isStopped = true
       }
     )
   }
@@ -77,7 +78,6 @@ export class PacienteComponent extends DatatablesComponent implements OnInit {
     this.form['paciente_id'] = id
     this.pacienteService.getPacienteById(id)
       .subscribe(response => {
-        console.log('Form-Edit: ', response)
         this.form = response
         this.form['tipo_paciente'] = 'Outro'
       })
@@ -87,20 +87,19 @@ export class PacienteComponent extends DatatablesComponent implements OnInit {
   getPacientes(): any {
     this.pacienteService.getPacientes()
       .subscribe(response => {
-        console.log('GetPacientes', response)
-        this.pacientes = response,
-          this.rerenderTable()
+        this.pacientes = response
+        this.rerenderTable()
       })
   }
 
   update() {
-    console.log('update: ', this.form)
     this.updatePaciente()
     PacienteService.pacienteUpdatedAlert.subscribe(
       () => {
-        this.eraseForm(),
-          this.getPacientes(),
-          this.close()
+        this.eraseForm()
+        this.getPacientes()
+        this.close()
+        PacienteService.pacienteUpdatedAlert.isStopped = true
       }
     )
 

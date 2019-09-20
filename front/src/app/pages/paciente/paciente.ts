@@ -1,8 +1,8 @@
-export class Paciente{
+export class Paciente {
 
-    constructor(){
+  constructor() {
     nome: String;
     estado_civil: String;
-    }
-    
+  }
+
 }

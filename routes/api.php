@@ -34,6 +34,14 @@ Route::namespace('Admin')->group(function () {
     Route::post('historico', 'HistoricoController@postHistorico');
     Route::put('historico', 'HistoricoController@updateHistorico');
 
+    /**
+     * Rotas para Exame
+     */
+    Route::get('exame', 'ExameFisicoController@find');
+    //Route::get('exame/{id}', 'ExameFisicoController@findById');
+    //Route::post('exame', 'ExameFisicoController@postExame');
+    //Route::put('exame', 'ExameFisicoController@updateExame');
+
 });
 
 

@@ -5,9 +5,6 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
-use App\User;
-use App\Paciente;
-use App\Contato;
 
 class PacienteController extends Controller
 {
@@ -80,13 +77,13 @@ class PacienteController extends Controller
     public function updatePaciente()
     {
         $data = $this->jsonDecode();
-        
+
         try {
             \DB::beginTransaction();
             $this->doUpdate($data, 'editarPaciente');
             $this->contato->customUpdate($data);
             \DB::commit();
-            return $this->jsonSuccess('Paciente atualizado com sucesso!');
+            return $this->jsonSuccess('Paciente atualizado com sucesso!', $data);
         } catch (\Throwable $th) {
             \DB::rollback();
             return $this->jsonError($th->getMessage());

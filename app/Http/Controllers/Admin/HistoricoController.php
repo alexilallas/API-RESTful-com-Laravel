@@ -42,7 +42,7 @@ class HistoricoController extends Controller
         # code...
     }
 
-    
+
     /**
      * @param Void
      * @return Array com todos os pacientes que possuem histórico médico
@@ -52,7 +52,7 @@ class HistoricoController extends Controller
         $pacientes = $this->paciente->find()->original['data']['pacientes'];
         $pacientes = $this->hasHistoricoMedico($pacientes);
 
-        return $this->jsonSuccess('Pacientes com histórico médico', compact('pacientes'));
+        return $this->jsonSuccess('Pacientes cadastrados', compact('pacientes'));
     }
 
 

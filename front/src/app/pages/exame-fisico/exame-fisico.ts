@@ -1,6 +1,7 @@
-export class HistoricoMedico {
+export class ExameFisico {
 
   constructor() {
     id: Number;
   }
+
 }

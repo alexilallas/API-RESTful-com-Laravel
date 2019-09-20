@@ -6,14 +6,13 @@ import { Paciente } from './paciente';
 import { environment } from '../../../environments/environment';
 import { MessageService } from '../../services/messages/message.service';
 
-
 @Injectable({
   providedIn: 'root'
 })
 export class PacienteService {
 
-  static pacienteCreatedAlert = new EventEmitter<any>();
-  static pacienteUpdatedAlert = new EventEmitter<any>();
+  static pacienteCreatedAlert;
+  static pacienteUpdatedAlert;
   private pacientesUrl: string;
   private httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -41,27 +40,31 @@ export class PacienteService {
   }
 
   postPaciente(paciente: Paciente) {
+    PacienteService.pacienteCreatedAlert = new EventEmitter<any>()
     return this.http.post(
       this.pacientesUrl,
       paciente, this.httpOptions)
       .subscribe(
         (response) => {
           this.MessageService.message(response)
-          if (response['status'] == 200)
+          if (response['status'] == 200) {
             PacienteService.pacienteCreatedAlert.emit(response)
+          }
         }
       )
   }
 
   updatePaciente(paciente: Paciente) {
+    PacienteService.pacienteUpdatedAlert = new EventEmitter<any>()
     return this.http.put(
       this.pacientesUrl,
       paciente, this.httpOptions)
       .subscribe(
         (response) => {
           this.MessageService.message(response)
-          if (response['status'] == 200)
+          if (response['status'] == 200) {
             PacienteService.pacienteUpdatedAlert.emit(response)
+          }
         }
       )
   }

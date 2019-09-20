@@ -13,17 +13,31 @@
               <tr>
                 <th>Nome</th>
                 <th>CPF/RG</th>
-                <th>Data Nascimento</th>
                 <th>Sexo</th>
+                <th>Ações</th>
               </tr>
             </thead>
             <tbody>
-              <!-- <tr>
+              <tr *ngFor = "let paciente of pacientes">
                 <td>{{ paciente['nome'] }}</td>
                 <td>{{ paciente['cpf_rg'] }}</td>
-                <td>{{ paciente['data_nascimento'] }}</td>
                 <td>{{ paciente['sexo'] }}</td>
-              </tr> -->
+                <td class="text-right">
+                  <a title="Adicionar Exame" *ngIf="!paciente['hasExame']"
+                    class="btn btn-primary btn-link btn-icon btn-sm plus" href="#exame-medico"
+                    (click)="openFormNew(paciente['id'])">
+                    <i class="fa fa-plus-square fa-2x"></i>
+                  </a>
+                  <a title="Editar" *ngIf="paciente['hasExame']"
+                    class="btn btn-warning btn-link btn-icon btn-sm edit" href="#exame-medico"
+                    (click)="openFormEdit(paciente['id'])">
+                    <i class="fa fa-edit fa-2x"></i>
+                  </a>
+                  <a title="Excluir" class="btn btn-danger btn-link btn-icon btn-sm remove" href="#exane-medico">
+                    <i class="fa fa-times fa-2x"></i>
+                  </a>
+                </td>
+              </tr>
             </tbody>
           </table>
         </div>

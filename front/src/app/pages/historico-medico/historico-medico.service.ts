@@ -10,8 +10,9 @@ import { MessageService } from '../../services/messages/message.service';
   providedIn: 'root'
 })
 export class HistoricoMedicoService {
-  static historicoMedicoCreatedAlert = new EventEmitter<any>();
-  static historicoMedicoUpdatedAlert = new EventEmitter<any>();
+
+  static historicoMedicoCreatedAlert;
+  static historicoMedicoUpdatedAlert;
   private historicoMedicoUrl: string;
   private httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -39,27 +40,31 @@ export class HistoricoMedicoService {
   }
 
   postHistorico(data: any) {
+    HistoricoMedicoService.historicoMedicoCreatedAlert = new EventEmitter<any>()
     return this.http.post(
       this.historicoMedicoUrl,
       data, this.httpOptions)
       .subscribe(
         (response) => {
           this.MessageService.message(response)
-          if (response['status'] == 200)
-          HistoricoMedicoService.historicoMedicoCreatedAlert.emit(response)
+          if (response['status'] == 200) {
+            HistoricoMedicoService.historicoMedicoCreatedAlert.emit(response)
+          }
         }
       )
   }
 
   updateHistorico(data: any) {
+    HistoricoMedicoService.historicoMedicoUpdatedAlert = new EventEmitter<any>()
     return this.http.put(
       this.historicoMedicoUrl,
       data, this.httpOptions)
       .subscribe(
         (response) => {
           this.MessageService.message(response)
-          if (response['status'] == 200)
-          HistoricoMedicoService.historicoMedicoUpdatedAlert.emit(response)
+          if (response['status'] == 200) {
+            HistoricoMedicoService.historicoMedicoUpdatedAlert.emit(response)
+          }
         }
       )
   }

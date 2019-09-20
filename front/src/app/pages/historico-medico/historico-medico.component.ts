@@ -15,7 +15,6 @@ import { DatatablesComponent } from '../../shared/datatables/datatables.componen
 export class HistoricoMedicoComponent extends DatatablesComponent implements OnInit {
 
   public _fator_rh = ['Positivo', 'Negativo'];
-  public dtOptions: DataTables.Settings = {};
 
   public form = new HistoricoMedico();
   public modal = 'historicoMedicoModal';
@@ -37,13 +36,11 @@ export class HistoricoMedicoComponent extends DatatablesComponent implements OnI
     this.getPacientes()
   }
 
-
   getPacientes(): any {
     this.historicoMedicoService.getPacientes()
       .subscribe(response => {
-        console.log('getPacientes',response),
-          this.pacientes = response,
-          this.rerenderTable()
+        this.pacientes = response
+        this.rerenderTable()
       })
   }
 
@@ -54,6 +51,7 @@ export class HistoricoMedicoComponent extends DatatablesComponent implements OnI
         this.eraseForm(),
           this.getPacientes(),
           this.close()
+        HistoricoMedicoService.historicoMedicoCreatedAlert.isStopped = true
       }
     )
   }
@@ -90,6 +88,7 @@ export class HistoricoMedicoComponent extends DatatablesComponent implements OnI
         this.eraseForm(),
           this.getPacientes(),
           this.close()
+        HistoricoMedicoService.historicoMedicoUpdatedAlert = true
       }
     )
   }
