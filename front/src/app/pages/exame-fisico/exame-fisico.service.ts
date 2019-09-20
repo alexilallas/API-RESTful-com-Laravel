@@ -32,4 +32,40 @@ export class ExameFisicoService {
       .pipe(map((response: any) => response['data']['pacientes']));
 
   }
+
+  getPacienteById(id): Observable<ExameFisico[]> {
+    return this.http.get<ExameFisico[]>(this.exameFisicoUrl + '/' + id)
+      .pipe(map((response: any) => response['data']['paciente'][0]));
+
+  }
+
+  postExame(data: any) {
+    ExameFisicoService.exameFisicoCreatedAlert = new EventEmitter<any>()
+    return this.http.post(
+      this.exameFisicoUrl,
+      data, this.httpOptions)
+      .subscribe(
+        (response) => {
+          this.MessageService.message(response)
+          if (response['status'] == 200) {
+            ExameFisicoService.exameFisicoCreatedAlert.emit(response)
+          }
+        }
+      )
+  }
+
+  updateExame(data: any) {
+    ExameFisicoService.exameFisicoUpdatedAlert = new EventEmitter<any>()
+    return this.http.put(
+      this.exameFisicoUrl,
+      data, this.httpOptions)
+      .subscribe(
+        (response) => {
+          this.MessageService.message(response)
+          if (response['status'] == 200) {
+            ExameFisicoService.exameFisicoUpdatedAlert.emit(response)
+          }
+        }
+      )
+  }
 }

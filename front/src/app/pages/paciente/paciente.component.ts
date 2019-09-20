@@ -39,17 +39,12 @@ export class PacienteComponent extends DatatablesComponent implements OnInit {
     this.getPacientes()
   }
 
-  getEnderecoViaCep($event, cep): any {
-    this.viacep.buscarPorCep(cep)
-      .then((endereco: Endereco) => {
-        this.form['estado'] = endereco.uf
-        this.form['cidade'] = endereco.localidade
-        this.form['bairro'] = endereco.bairro
-        this.form['logradouro'] = endereco.logradouro
+  getPacientes(): any {
+    this.pacienteService.getPacientes()
+      .subscribe(response => {
+        this.pacientes = response
+        this.rerenderTable()
       })
-      .catch((error: ErroCep) => {
-        console.log(error.message);
-      });
   }
 
   save() {
@@ -62,11 +57,6 @@ export class PacienteComponent extends DatatablesComponent implements OnInit {
         PacienteService.pacienteCreatedAlert.isStopped = true
       }
     )
-  }
-
-  close() {
-    this.eraseForm()
-    this.ngxSmartModalService.close(this.modal)
   }
 
   savePaciente() {
@@ -84,13 +74,6 @@ export class PacienteComponent extends DatatablesComponent implements OnInit {
     this.ngxSmartModalService.open(this.modal)
   }
 
-  getPacientes(): any {
-    this.pacienteService.getPacientes()
-      .subscribe(response => {
-        this.pacientes = response
-        this.rerenderTable()
-      })
-  }
 
   update() {
     this.updatePaciente()
@@ -109,7 +92,25 @@ export class PacienteComponent extends DatatablesComponent implements OnInit {
     this.pacienteService.updatePaciente(this.form)
   }
 
+  close() {
+    this.eraseForm()
+    this.ngxSmartModalService.close(this.modal)
+  }
+
   eraseForm() {
     this.form = {}
+  }
+
+  getEnderecoViaCep($event, cep): any {
+    this.viacep.buscarPorCep(cep)
+      .then((endereco: Endereco) => {
+        this.form['estado'] = endereco.uf
+        this.form['cidade'] = endereco.localidade
+        this.form['bairro'] = endereco.bairro
+        this.form['logradouro'] = endereco.logradouro
+      })
+      .catch((error: ErroCep) => {
+        console.log(error.message);
+      });
   }
 }

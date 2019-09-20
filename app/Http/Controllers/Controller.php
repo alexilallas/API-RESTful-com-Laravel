@@ -112,7 +112,6 @@ abstract class Controller extends BaseController
      */
     public function save($table, $data)
     {
-        //fazer a auditoria
         $this->coreSave($table, 'Criação', $id = null);
         return DB::table($table)->insert($data);
     }

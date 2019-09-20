@@ -48,17 +48,12 @@ export class HistoricoMedicoComponent extends DatatablesComponent implements OnI
     this.saveHistoricoMedico()
     HistoricoMedicoService.historicoMedicoCreatedAlert.subscribe(
       () => {
-        this.eraseForm(),
-          this.getPacientes(),
-          this.close()
+        this.eraseForm()
+        this.getPacientes()
+        this.close()
         HistoricoMedicoService.historicoMedicoCreatedAlert.isStopped = true
       }
     )
-  }
-
-  close() {
-    this.eraseForm()
-    this.ngxSmartModalService.close(this.modal)
   }
 
   saveHistoricoMedico() {
@@ -75,19 +70,13 @@ export class HistoricoMedicoComponent extends DatatablesComponent implements OnI
     this.ngxSmartModalService.open(this.modal)
   }
 
-  openFormNew(id) {
-    this.isNewHistorico = true
-    this.form['paciente_id'] = id
-    this.ngxSmartModalService.open(this.modal)
-  }
-
   update() {
     this.updateHistoricoMedico()
     HistoricoMedicoService.historicoMedicoUpdatedAlert.subscribe(
       () => {
-        this.eraseForm(),
-          this.getPacientes(),
-          this.close()
+        this.eraseForm()
+        this.getPacientes()
+        this.close()
         HistoricoMedicoService.historicoMedicoUpdatedAlert = true
       }
     )
@@ -97,8 +86,20 @@ export class HistoricoMedicoComponent extends DatatablesComponent implements OnI
     this.historicoMedicoService.updateHistorico(this.form)
   }
 
+  close() {
+    this.eraseForm()
+    this.ngxSmartModalService.close(this.modal)
+  }
+
   eraseForm() {
     this.form = {}
+  }
+
+  openFormNew(id, nome) {
+    this.isNewHistorico = true
+    this.form['paciente_id'] = id
+    this.form['nome'] = nome
+    this.ngxSmartModalService.open(this.modal)
   }
 
 }

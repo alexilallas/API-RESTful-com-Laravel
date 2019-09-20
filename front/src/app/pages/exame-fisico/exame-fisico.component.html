@@ -1,3 +1,42 @@
+<ngx-smart-modal #exameFisicoModal identifier="exameFisicoModal" customClass="medium-modal" [dismissable]="false"
+  (onCloseFinished)="eraseForm()">
+  <div class="card-body">
+    <form #exameForm="ngForm" (ngSubmit)="isNewExame ? save() : update()">
+      <h5 class="card-title">Exame Físico</h5>
+      <p><strong>PACIENTE: </strong> {{form.nome | uppercase}}</p>
+      <div class="row">
+        <div class="col-md-5">
+          <div class="form-group">
+            <label for="data">Data do atendimento</label>
+            <input type="date" class="form-control" required disabled [(ngModel)]="form.data"
+              name="data" #data="ngModel">
+          </div>
+        </div>
+        <div class="col-sm-4 col-lg-4">
+          <label>Hipertensão</label>
+          <div class="form-conrtrol">
+            <label class="switch">
+              <input type="checkbox" name="hipertensao" [(ngModel)]="form.hipertensao" #hipertensao="ngModel">
+              <span class="slider round"></span>
+            </label>
+          </div>
+        </div>
+        <div class="col-sm-4 col-lg-4">
+          <label>Infarto</label>
+          <div class="form-conrtrol">
+            <label class="switch">
+              <input type="checkbox" name="infarto" [(ngModel)]="form.infarto" #infarto="ngModel">
+              <span class="slider round"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+      <br />
+      <div class="btn btn-default" (click)="close()">Cancelar</div>
+      <button class="btn btn-info pull-right" [disabled]="exameForm.form.invalid">Salvar</button>
+    </form>
+  </div>
+</ngx-smart-modal>
 <div class="row">
   <div class="col-md-12">
     <div class="card">
@@ -18,22 +57,20 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor = "let paciente of pacientes">
+              <tr *ngFor="let paciente of pacientes">
                 <td>{{ paciente['nome'] }}</td>
                 <td>{{ paciente['cpf_rg'] }}</td>
                 <td>{{ paciente['sexo'] }}</td>
                 <td class="text-right">
-                  <a title="Adicionar Exame" *ngIf="!paciente['hasExame']"
-                    class="btn btn-primary btn-link btn-icon btn-sm plus" href="#exame-medico"
-                    (click)="openFormNew(paciente['id'])">
+                  <a title="Adicionar Exame" class="btn btn-primary btn-link btn-icon btn-sm plus" href="#exame-fisico"
+                    (click)="openFormNew(paciente['id'], paciente['nome'])">
                     <i class="fa fa-plus-square fa-2x"></i>
                   </a>
-                  <a title="Editar" *ngIf="paciente['hasExame']"
-                    class="btn btn-warning btn-link btn-icon btn-sm edit" href="#exame-medico"
-                    (click)="openFormEdit(paciente['id'])">
+                  <a title="Editar" *ngIf="paciente['hasExame']" class="btn btn-warning btn-link btn-icon btn-sm edit"
+                    href="#exame-fisico" (click)="openFormEdit(paciente['id'])">
                     <i class="fa fa-edit fa-2x"></i>
                   </a>
-                  <a title="Excluir" class="btn btn-danger btn-link btn-icon btn-sm remove" href="#exane-medico">
+                  <a title="Excluir" class="btn btn-danger btn-link btn-icon btn-sm remove" href="#exane-fisico">
                     <i class="fa fa-times fa-2x"></i>
                   </a>
                 </td>

@@ -1,9 +1,10 @@
-<ngx-smart-modal #historicoMedicoModal identifier="historicoMedicoModal" customClass="medium-modal" [dismissable]="false"
-  (onCloseFinished)="eraseForm()">
+<ngx-smart-modal #historicoMedicoModal identifier="historicoMedicoModal" customClass="medium-modal"
+  [dismissable]="false" (onCloseFinished)="eraseForm()">
   <div class="card-body">
     <form #historicoForm="ngForm" (ngSubmit)="isNewHistorico ? save() : update()">
-      <h6 [hidden]="isNewHistorico">{{form.nome | uppercase}}</h6>
-      <br />
+      <h5 class="card-title">Histórico Médico</h5>
+      <p><strong>PACIENTE: </strong> {{form.nome | uppercase}}</p>
+      <br/>
       <h6> Antecedentes Familiares (pai, mãe, irmãos, tios, avós e filhos) </h6>
       <div class="row">
         <div class="col-sm-4 col-lg-4">
@@ -328,7 +329,7 @@
                 <td class="text-right">
                   <a title="Adicionar Histórico" *ngIf="!paciente['hasHistorico']"
                     class="btn btn-primary btn-link btn-icon btn-sm plus" href="#historico-medico"
-                    (click)="openFormNew(paciente['id'])">
+                    (click)="openFormNew(paciente['id'], paciente['nome'])">
                     <i class="fa fa-plus-square fa-2x"></i>
                   </a>
                   <a title="Editar" *ngIf="paciente['hasHistorico']"
