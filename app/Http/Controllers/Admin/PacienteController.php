@@ -61,7 +61,6 @@ class PacienteController extends Controller
 
         try {
             \DB::beginTransaction();
-            $this->checkBusinessLogic($data);
             $this->doSave($data, 'criarPaciente');
             $idPaciente = DB::getPdo()->lastInsertId();
             $data['paciente_id'] = $idPaciente;

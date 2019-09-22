@@ -1,33 +1,32 @@
 import { Component, OnInit } from '@angular/core';
-import { ExameFisico } from './exame-fisico';
-import { ExameFisicoService } from './exame-fisico.service';
+import { Evolucao } from './evolucao';
+import { EvolucaoService } from './evolucao.service';
 import { environment } from '../../../environments/environment';
 import { NgxSmartModalService } from 'ngx-smart-modal';
 import { DatatablesComponent } from '../../shared/datatables/datatables.component';
 import { formatDate } from '@angular/common';
 
 @Component({
-  selector: 'exame-fisico-cmp',
-  moduleId: module.id,
-  templateUrl: 'exame-fisico.component.html'
+  selector: 'app-evolucao',
+  templateUrl: './evolucao.component.html',
+  styleUrls: ['./evolucao.component.scss']
 })
+export class EvolucaoComponent extends DatatablesComponent implements OnInit {
 
-export class ExameFisicoComponent extends DatatablesComponent implements OnInit {
+  public _data_evolucoes: any;
 
-  public _data_exames: any;
-
-  public form = new ExameFisico();
-  public modal = 'exameFisicoModal';
+  public form = new Evolucao();
+  public modal = 'evolucaoModal';
   public pacientes: any[];
-  public isNewExame: boolean = true;
+  public isNewEvolucao: boolean = true;
 
   constructor
     (
       public ngxSmartModalService: NgxSmartModalService,
-      private exameFisicoService: ExameFisicoService
+      private evolucaoService: EvolucaoService
     ) {
     super();
-    console.log('ExameFisicoComponent')
+    console.log('EvolucaoComponent')
   }
 
   ngOnInit() {
@@ -36,7 +35,7 @@ export class ExameFisicoComponent extends DatatablesComponent implements OnInit 
   }
 
   getPacientes() {
-    this.exameFisicoService.getPacientes()
+    this.evolucaoService.getPacientes()
       .subscribe(response => {
         this.pacientes = response
         this.rerenderTable()
@@ -44,47 +43,47 @@ export class ExameFisicoComponent extends DatatablesComponent implements OnInit 
   }
 
   save() {
-    this.saveExameFisico()
-    ExameFisicoService.exameFisicoCreatedAlert.subscribe(
+    this.saveEvolucao()
+    EvolucaoService.evolucaoCreatedAlert.subscribe(
       () => {
         this.eraseForm()
         this.getPacientes()
         this.close()
-        ExameFisicoService.exameFisicoCreatedAlert.isStopped = true
+        EvolucaoService.evolucaoCreatedAlert.isStopped = true
       }
     )
   }
 
-  saveExameFisico() {
-    this.exameFisicoService.postExame(this.form)
+  saveEvolucao() {
+    this.evolucaoService.postEvolucao(this.form)
   }
 
   openFormEdit(id: number, nome: string) {
-    this.isNewExame = false
-    this.exameFisicoService.getPacienteById(id)
+    this.isNewEvolucao = false
+    this.evolucaoService.getPacienteById(id)
       .subscribe(response => {
-        this._data_exames = this.formatDate(response)
+        this._data_evolucoes = this.formatDate(response)
         this.form = response[0]
         this.form['nome'] = nome
-        this.form['data_exame'] = ExameFisicoComponent.formatSingleDate(this.form['data'])
+        this.form['data_evolucao'] = EvolucaoComponent.formatSingleDate(this.form['data'])
       })
     this.ngxSmartModalService.open(this.modal)
   }
 
   update() {
-    this.updateHistoricoMedico()
-    ExameFisicoService.exameFisicoUpdatedAlert.subscribe(
+    this.updateEvolucao()
+    EvolucaoService.evolucaoUpdatedAlert.subscribe(
       () => {
         this.eraseForm()
         this.getPacientes()
         this.close()
-        ExameFisicoService.exameFisicoUpdatedAlert = true
+        EvolucaoService.evolucaoUpdatedAlert = true
       }
     )
   }
 
-  updateHistoricoMedico() {
-    this.exameFisicoService.updateExame(this.form)
+  updateEvolucao() {
+    this.evolucaoService.updateEvolucao(this.form)
   }
 
   close() {
@@ -97,7 +96,7 @@ export class ExameFisicoComponent extends DatatablesComponent implements OnInit 
   }
 
   openFormNew(id: number, nome: string) {
-    this.isNewExame = true
+    this.isNewEvolucao = true
     this.form['paciente_id'] = id
     this.form['nome'] = nome
     this.getTodayDate()
@@ -108,9 +107,9 @@ export class ExameFisicoComponent extends DatatablesComponent implements OnInit 
     this.form['data'] = formatDate(new Date(), 'yyy-MM-dd', 'en');
   }
 
-  formatDate(dateModel: ExameFisico[]) {
+  formatDate(dateModel: Evolucao[]) {
     return dateModel.map(function (paciente: { [x: string]: any; }) {
-      return ExameFisicoComponent.formatSingleDate(paciente['data'])
+      return EvolucaoComponent.formatSingleDate(paciente['data'])
     })
   }
 
@@ -119,24 +118,26 @@ export class ExameFisicoComponent extends DatatablesComponent implements OnInit 
     return formatDate(date, 'dd/MM/yyyy', 'en')
   }
 
-  filterPacienteByDate(Pacientes: ExameFisico[]) {
-    let dateCompare = this.form['data_exame']
+  filterPacienteByDate(Pacientes: Evolucao[]) {
+    let dateCompare = this.form['data_evolucao']
     let examePaciente = Pacientes.map(function (paciente) {
-      if (dateCompare == ExameFisicoComponent.formatSingleDate(paciente['data'])) {
+      if (dateCompare == EvolucaoComponent.formatSingleDate(paciente['data'])) {
         return paciente
       }
     })
     this.form = examePaciente.filter(Boolean)[0]
-    this.form['data_exame'] = ExameFisicoComponent.formatSingleDate(this.form['data'])
+    this.form['data_evolucao'] = EvolucaoComponent.formatSingleDate(this.form['data'])
   }
 
   changeDate() {
     let id = this.form['paciente_id']
     let nome = this.form['nome']
-    this.exameFisicoService.getPacienteById(id)
+    this.evolucaoService.getPacienteById(id)
       .subscribe(response => {
         this.filterPacienteByDate(response)
         this.form['nome'] = nome
       })
   }
+
+
 }

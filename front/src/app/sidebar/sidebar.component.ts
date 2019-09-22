@@ -15,7 +15,7 @@ export const ROUTES: RouteInfo[] = [
     { path: '/exame-fisico',     title: 'Exame Físico',        icon:'nc-favourite-28',     class: '' },
     { path: '/evolucao',         title: 'Evolução',            icon:'nc-sound-wave',       class: '' },
     { path: '/prontuario',       title: 'Prontuário',          icon:'nc-paper',            class: '' },
-    { path: '/pesquisar',        title: 'Pesquisar',           icon:'nc-zoom-split',       class: '' },
+    // { path: '/pesquisar',        title: 'Pesquisar',           icon:'nc-zoom-split',       class: '' },
     { path: '/inventario',       title: 'Inventário',          icon:'nc-app',              class: '' },
 ];
 

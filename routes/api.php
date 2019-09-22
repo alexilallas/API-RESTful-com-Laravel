@@ -42,6 +42,20 @@ Route::namespace('Admin')->group(function () {
     Route::post('exame', 'ExameFisicoController@postExame');
     Route::put('exame', 'ExameFisicoController@updateExame');
 
+    /**
+     * Rotas para Evolução
+     */
+    Route::get('evolucao', 'EvolucaoController@find');
+    Route::get('evolucao/{id}', 'EvolucaoController@findById');
+    Route::post('evolucao', 'EvolucaoController@postEvolucao');
+    Route::put('evolucao', 'EvolucaoController@updateEvolucao');
+
+    /**
+     * Rotas para Prontuário
+     */
+    Route::get('prontuario', 'ProntuarioController@find');
+    Route::get('prontuario/{id}', 'ProntuarioController@findById');
+
 });
 
 

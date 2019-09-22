@@ -220,13 +220,20 @@
                 <td>{{ paciente['cpf_rg'] }}</td>
                 <td>{{ paciente['sexo'] }}</td>
                 <td class="text-right">
-                  <a title="Editar" class="btn btn-warning btn-link btn-icon btn-sm edit" href="#paciente"
+                  <button class="btn btn-warning btn-icon btn-sm " type="button" title="Editar"
+                    (click)="openFormEdit(paciente['id'])">
+                    <i class="fa fa-edit fa-2x"></i>
+                  </button>
+                  <button class="btn btn-danger btn-icon btn-sm " type="button" title="Excluir">
+                    <i class="fa fa-times fa-2x"></i>
+                  </button>
+                  <!-- <a title="Editar" class="btn btn-warning btn-link btn-icon btn-sm edit" href="#paciente"
                     (click)="openFormEdit(paciente['id'])">
                     <i class="fa fa-edit fa-2x"></i>
                   </a>
                   <a title="Excluir" class="btn btn-danger btn-link btn-icon btn-sm remove" href="#paciente">
                     <i class="fa fa-times fa-2x"></i>
-                  </a>
+                  </a> -->
                 </td>
               </tr>
             </tbody>

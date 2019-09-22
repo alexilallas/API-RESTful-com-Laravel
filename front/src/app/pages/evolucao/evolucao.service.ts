@@ -2,18 +2,18 @@ import { Injectable, EventEmitter } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map, filter, switchMap } from 'rxjs/operators';
-import { ExameFisico } from './exame-fisico';
+import { Evolucao } from './evolucao';
 import { environment } from '../../../environments/environment';
 import { MessageService } from '../../services/messages/message.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ExameFisicoService {
+export class EvolucaoService {
 
-  static exameFisicoCreatedAlert;
-  static exameFisicoUpdatedAlert;
-  private exameFisicoUrl: string;
+  static evolucaoCreatedAlert;
+  static evolucaoUpdatedAlert;
+  private evolucaoUrl: string;
   private httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
@@ -23,47 +23,47 @@ export class ExameFisicoService {
       private http: HttpClient,
       private MessageService: MessageService,
   ) {
-    console.log('ExameFisicoService')
-    this.exameFisicoUrl = environment.baseAPI + 'exame'
+    console.log('EvolucaoService')
+    this.evolucaoUrl = environment.baseAPI + 'evolucao'
   }
 
-  getPacientes(): Observable<ExameFisico[]> {
-    return this.http.get<ExameFisico[]>(this.exameFisicoUrl)
+  getPacientes(): Observable<Evolucao[]> {
+    return this.http.get<Evolucao[]>(this.evolucaoUrl)
       .pipe(map((response: any) => response['data']['pacientes']));
 
   }
 
-  getPacienteById(id): Observable<ExameFisico[]> {
-    return this.http.get<ExameFisico[]>(this.exameFisicoUrl + '/' + id)
+  getPacienteById(id): Observable<Evolucao[]> {
+    return this.http.get<Evolucao[]>(this.evolucaoUrl + '/' + id)
       .pipe(map((response: any) => response['data']['paciente']));
 
   }
 
-  postExame(data: any) {
-    ExameFisicoService.exameFisicoCreatedAlert = new EventEmitter<any>()
+  postEvolucao(data: any) {
+    EvolucaoService.evolucaoCreatedAlert = new EventEmitter<any>()
     return this.http.post(
-      this.exameFisicoUrl,
+      this.evolucaoUrl,
       data, this.httpOptions)
       .subscribe(
         (response) => {
           this.MessageService.message(response)
           if (response['status'] == 200) {
-            ExameFisicoService.exameFisicoCreatedAlert.emit(response)
+            EvolucaoService.evolucaoCreatedAlert.emit(response)
           }
         }
       )
   }
 
-  updateExame(data: any) {
-    ExameFisicoService.exameFisicoUpdatedAlert = new EventEmitter<any>()
+  updateEvolucao(data: any) {
+    EvolucaoService.evolucaoUpdatedAlert = new EventEmitter<any>()
     return this.http.put(
-      this.exameFisicoUrl,
+      this.evolucaoUrl,
       data, this.httpOptions)
       .subscribe(
         (response) => {
           this.MessageService.message(response)
           if (response['status'] == 200) {
-            ExameFisicoService.exameFisicoUpdatedAlert.emit(response)
+            EvolucaoService.evolucaoUpdatedAlert.emit(response)
           }
         }
       )

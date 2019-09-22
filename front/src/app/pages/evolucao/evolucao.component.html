@@ -1,15 +1,15 @@
-<ngx-smart-modal #prontuarioModal identifier="prontuarioModal" customClass="medium-modal" [dismissable]="false"
+<ngx-smart-modal #evolucaoModal identifier="evolucaoModal" customClass="medium-modal" [dismissable]="false"
   (onCloseFinished)="eraseForm()">
   <div class="card-body">
-    <form #evolucaoForm="ngForm">
+    <form #evolucaoForm="ngForm" (ngSubmit)="isNewEvolucao ? save() : update()">
       <h5 class="card-title">Evolução do Paciente</h5>
       <p><strong>PACIENTE: </strong> {{form.nome | uppercase}}</p>
       <div class="row" [hidden]="isNewEvolucao">
         <div class="col-md-4">
           <div class="form-group">
             <label>Evoluções Cadastradas</label>
-            <ng-select [clearable]="false" [multiple]="false" [(ngModel)]="form.data_evolucao" name="data_evolucao"
-              #data_evolucao="ngModel" (change)="changeDate()">
+            <ng-select [clearable]="false" [multiple]="false" [(ngModel)]="form.data_evolucao"
+              name="data_evolucao" #data_evolucao="ngModel" (change)="changeDate()">
               <ng-option *ngFor="let data of _data_evolucoes" [value]="data">{{ data }}</ng-option>
             </ng-select>
           </div>
@@ -27,7 +27,8 @@
         <div class="col-md-12">
           <div class="form-group">
             <label for="descricao">Descrição</label>
-            <textarea class="form-control" required [(ngModel)]="form.descricao" name="descricao" #descricao="ngModel">{{descricao.value}}
+            <textarea  class="form-control" required [(ngModel)]="form.descricao" name="descricao"
+              #descricao="ngModel">{{descricao.value}}
             </textarea>
           </div>
         </div>
@@ -65,12 +66,17 @@
                 <td>{{ paciente['cpf_rg'] }}</td>
                 <td>{{ paciente['sexo'] }}</td>
                 <td class="text-right">
-                  <a title="Visualizar" class="btn btn-primary btn-link btn-icon btn-sm plus" href="#prontuario"
+                  <a title="Novo" class="btn btn-primary btn-link btn-icon btn-sm plus" href="#evolucao"
                     (click)="openFormNew(paciente['id'], paciente['nome'])">
-                    <i class="fa fa-eye fa-3x"></i>
+                    <i class="fa fa-plus-square fa-2x"></i>
                   </a>
-                  <a title="Salvar" class="btn btn-danger btn-link btn-icon btn-sm plus" href="#prontuario">
-                    <i class="fa fa-file-pdf-o fa-3x"></i>
+                  <a title="Editar" *ngIf="paciente['hasEvolucao']"
+                    class="btn btn-warning btn-link btn-icon btn-sm edit" href="#evolucao"
+                    (click)="openFormEdit(paciente['id'], paciente['nome'])">
+                    <i class="fa fa-edit fa-2x"></i>
+                  </a>
+                  <a title="Excluir" class="btn btn-danger btn-link btn-icon btn-sm remove" href="#evolucao">
+                    <i class="fa fa-times fa-2x"></i>
                   </a>
                 </td>
               </tr>

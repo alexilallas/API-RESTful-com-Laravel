@@ -23,7 +23,7 @@ import { MessageService } from './services/messages/message.service';
 import { NgxViacepModule } from '@brunoc/ngx-viacep';
 import { NgxSmartModalModule } from 'ngx-smart-modal';
 import { DatatablesComponent } from './shared/datatables/datatables.component';
-import { NgxMaskModule } from 'ngx-mask'
+import { NgxMaskModule } from 'ngx-mask';
 
 @NgModule({
   declarations: [

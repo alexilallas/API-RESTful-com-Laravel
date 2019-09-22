@@ -18,6 +18,7 @@ import { ExameFisicoComponent } from '../../pages/exame-fisico/exame-fisico.comp
 import { ProntuarioComponent } from '../../pages/prontuario/prontuario.component';
 import { PesquisarComponent } from '../../pages/pesquisar/pesquisar.component';
 import { InventarioComponent } from '../../pages/inventario/inventario.component';
+import { EvolucaoComponent } from '../../pages/evolucao/evolucao.component';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -41,6 +42,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     ProntuarioComponent,
     PesquisarComponent,
     InventarioComponent,
+    EvolucaoComponent,
   ]
 })
 

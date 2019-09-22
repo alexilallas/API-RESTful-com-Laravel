@@ -4,6 +4,17 @@
     <form #exameForm="ngForm" (ngSubmit)="isNewExame ? save() : update()">
       <h5 class="card-title">Exame Físico</h5>
       <p><strong>PACIENTE: </strong> {{form.nome | uppercase}}</p>
+      <div class="row" [hidden]="isNewExame">
+        <div class="col-md-4">
+          <div class="form-group">
+            <label>Exames Realizados</label>
+            <ng-select [clearable]="false" [multiple]="false" [(ngModel)]="form.data_exame" name="data_exame"
+              #data_exame="ngModel" (change)="changeDate()">
+              <ng-option *ngFor="let data of _data_exames" [value]="data">{{ data }}</ng-option>
+            </ng-select>
+          </div>
+        </div>
+      </div>
       <div class="row">
         <div class="col-md-4">
           <div class="form-group">
@@ -66,7 +77,6 @@
         </div>
       </div>
       <br />
-      {{exameForm.errors}}
       <div class="btn btn-default" (click)="close()">Cancelar</div>
       <button class="btn btn-info pull-right" [disabled]="exameForm.form.invalid">Salvar</button>
     </form>
@@ -76,7 +86,9 @@
   <div class="col-md-12">
     <div class="card">
       <div class="card-header">
-        <h5 class="title">Pacientes</h5>
+        <h4 class="card-title pull-left">
+          Pacientes
+        </h4>
         <!-- <p class="category">Created using Montserrat Font Family</p> -->
       </div>
       <div class="card-body">
@@ -97,12 +109,12 @@
                 <td>{{ paciente['cpf_rg'] }}</td>
                 <td>{{ paciente['sexo'] }}</td>
                 <td class="text-right">
-                  <a title="Adicionar Exame" class="btn btn-primary btn-link btn-icon btn-sm plus" href="#exame-fisico"
+                  <a title="Novo Exame" class="btn btn-primary btn-link btn-icon btn-sm plus" href="#exame-fisico"
                     (click)="openFormNew(paciente['id'], paciente['nome'])">
                     <i class="fa fa-plus-square fa-2x"></i>
                   </a>
                   <a title="Editar" *ngIf="paciente['hasExame']" class="btn btn-warning btn-link btn-icon btn-sm edit"
-                    href="#exame-fisico" (click)="openFormEdit(paciente['id'])">
+                    href="#exame-fisico" (click)="openFormEdit(paciente['id'], paciente['nome'])">
                     <i class="fa fa-edit fa-2x"></i>
                   </a>
                   <a title="Excluir" class="btn btn-danger btn-link btn-icon btn-sm remove" href="#exane-fisico">

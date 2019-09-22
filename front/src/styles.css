@@ -135,7 +135,7 @@ tbody{font-size: 12px}
   height: 34px;
 }
 
-.switch input { 
+.switch input {
   opacity: 0;
   width: 0;
   height: 0;
@@ -187,4 +187,19 @@ input:checked + .slider:before {
 
 .slider.round:before {
   border-radius: 50%;
+}
+
+/* TextArea */
+
+textarea {
+  margin: 0!important;
+  font-family: inherit!important;
+  font-size: inherit!important;
+  line-height: inherit!important;
+  overflow: auto!important;
+  resize: vertical!important;
+}
+
+textarea.form-control {
+  max-height: unset!important;
 }
