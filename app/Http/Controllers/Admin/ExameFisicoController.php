@@ -33,7 +33,10 @@ class ExameFisicoController extends Controller
 
     public function checkBusinessLogic($data)
     {
-        #code
+        $result = DB::table($this->table)->where(['data' => $data['data'], 'paciente_id' => $data['paciente_id']])->count();
+        if ($result > 0) {
+            $this->cancel('O paciente '.$data['nome'].' já realizou um exame físico nessa data!');
+        }
     }
 
     public function find()

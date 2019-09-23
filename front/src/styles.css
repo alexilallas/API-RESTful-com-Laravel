@@ -203,3 +203,16 @@ textarea {
 textarea.form-control {
   max-height: unset!important;
 }
+
+/* Modal Tela de Prontuário */
+
+.modal-xl .nsm-content {
+  width: auto!important;
+  margin: 1.75rem 0rem 1.75rem -1.75rem!important;
+}
+
+/* Fix Form Tela de Prontuário */
+.fix-row {
+  margin-right: unset;
+  margin-left: unset;
+}

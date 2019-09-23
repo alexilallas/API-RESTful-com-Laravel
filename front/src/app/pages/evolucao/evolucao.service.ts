@@ -29,25 +29,25 @@ export class EvolucaoService {
 
   getPacientes(): Observable<Evolucao[]> {
     return this.http.get<Evolucao[]>(this.evolucaoUrl)
-      .pipe(map((response: any) => response['data']['pacientes']));
+      .pipe(map((response: any) => response.data.pacientes));
 
   }
 
   getPacienteById(id): Observable<Evolucao[]> {
     return this.http.get<Evolucao[]>(this.evolucaoUrl + '/' + id)
-      .pipe(map((response: any) => response['data']['paciente']));
+      .pipe(map((response: any) => response.data.paciente));
 
   }
 
   postEvolucao(data: any) {
     EvolucaoService.evolucaoCreatedAlert = new EventEmitter<any>()
-    return this.http.post(
+    return this.http.post<any>(
       this.evolucaoUrl,
       data, this.httpOptions)
       .subscribe(
         (response) => {
           this.MessageService.message(response)
-          if (response['status'] == 200) {
+          if (response.status == 200) {
             EvolucaoService.evolucaoCreatedAlert.emit(response)
           }
         }
@@ -56,13 +56,13 @@ export class EvolucaoService {
 
   updateEvolucao(data: any) {
     EvolucaoService.evolucaoUpdatedAlert = new EventEmitter<any>()
-    return this.http.put(
+    return this.http.put<any>(
       this.evolucaoUrl,
       data, this.httpOptions)
       .subscribe(
         (response) => {
           this.MessageService.message(response)
-          if (response['status'] == 200) {
+          if (response.status == 200) {
             EvolucaoService.evolucaoUpdatedAlert.emit(response)
           }
         }

@@ -61,12 +61,12 @@
             </thead>
             <tbody>
               <tr *ngFor="let paciente of pacientes">
-                <td>{{ paciente['nome'] }}</td>
-                <td>{{ paciente['cpf_rg'] }}</td>
-                <td>{{ paciente['sexo'] }}</td>
+                <td>{{ paciente.nome }}</td>
+                <td>{{ paciente.cpf_rg }}</td>
+                <td>{{ paciente.sexo }}</td>
                 <td class="text-right">
                   <a title="Visualizar" class="btn btn-primary btn-link btn-icon btn-sm plus" href="#prontuario"
-                    (click)="openFormNew(paciente['id'], paciente['nome'])">
+                    (click)="openFormNew(paciente.id, paciente.nome)">
                     <i class="fa fa-eye fa-3x"></i>
                   </a>
                   <a title="Salvar" class="btn btn-danger btn-link btn-icon btn-sm plus" href="#prontuario">

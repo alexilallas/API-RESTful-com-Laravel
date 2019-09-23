@@ -29,25 +29,25 @@ export class ExameFisicoService {
 
   getPacientes(): Observable<ExameFisico[]> {
     return this.http.get<ExameFisico[]>(this.exameFisicoUrl)
-      .pipe(map((response: any) => response['data']['pacientes']));
+      .pipe(map((response: any) => response.data.pacientes));
 
   }
 
   getPacienteById(id): Observable<ExameFisico[]> {
     return this.http.get<ExameFisico[]>(this.exameFisicoUrl + '/' + id)
-      .pipe(map((response: any) => response['data']['paciente']));
+      .pipe(map((response: any) => response.data.paciente));
 
   }
 
   postExame(data: any) {
     ExameFisicoService.exameFisicoCreatedAlert = new EventEmitter<any>()
-    return this.http.post(
+    return this.http.post<any>(
       this.exameFisicoUrl,
       data, this.httpOptions)
       .subscribe(
         (response) => {
           this.MessageService.message(response)
-          if (response['status'] == 200) {
+          if (response.status == 200) {
             ExameFisicoService.exameFisicoCreatedAlert.emit(response)
           }
         }
@@ -56,13 +56,13 @@ export class ExameFisicoService {
 
   updateExame(data: any) {
     ExameFisicoService.exameFisicoUpdatedAlert = new EventEmitter<any>()
-    return this.http.put(
+    return this.http.put<any>(
       this.exameFisicoUrl,
       data, this.httpOptions)
       .subscribe(
         (response) => {
           this.MessageService.message(response)
-          if (response['status'] == 200) {
+          if (response.status == 200) {
             ExameFisicoService.exameFisicoUpdatedAlert.emit(response)
           }
         }

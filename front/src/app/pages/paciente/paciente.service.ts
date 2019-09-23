@@ -29,25 +29,25 @@ export class PacienteService {
 
   getPacientes(): Observable<Paciente[]> {
     return this.http.get<Paciente[]>(this.pacientesUrl)
-      .pipe(map((response: any) => response['data']['pacientes']));
+      .pipe(map((response: any) => response.data.pacientes));
 
   }
 
   getPacienteById(id): Observable<Paciente[]> {
     return this.http.get<Paciente[]>(this.pacientesUrl + '/' + id)
-      .pipe(map((response: any) => response['data']['paciente'][0]));
+      .pipe(map((response: any) => response.data.paciente[0]));
 
   }
 
   postPaciente(paciente: Paciente) {
     PacienteService.pacienteCreatedAlert = new EventEmitter<any>()
-    return this.http.post(
+    return this.http.post<any>(
       this.pacientesUrl,
       paciente, this.httpOptions)
       .subscribe(
         (response) => {
           this.MessageService.message(response)
-          if (response['status'] == 200) {
+          if (response.status == 200) {
             PacienteService.pacienteCreatedAlert.emit(response)
           }
         }
@@ -56,13 +56,13 @@ export class PacienteService {
 
   updatePaciente(paciente: Paciente) {
     PacienteService.pacienteUpdatedAlert = new EventEmitter<any>()
-    return this.http.put(
+    return this.http.put<any>(
       this.pacientesUrl,
       paciente, this.httpOptions)
       .subscribe(
         (response) => {
           this.MessageService.message(response)
-          if (response['status'] == 200) {
+          if (response.status == 200) {
             PacienteService.pacienteUpdatedAlert.emit(response)
           }
         }

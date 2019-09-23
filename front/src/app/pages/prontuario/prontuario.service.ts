@@ -26,13 +26,13 @@ export class ProntuarioService {
 
   getPacientes(): Observable<any[]> {
     return this.http.get<any[]>(this.prontuarioUrl)
-      .pipe(map((response: any) => response['data']['pacientes']));
+      .pipe(map((response: any) => response.data.pacientes));
 
   }
 
   getPacienteById(id): Observable<any[]> {
     return this.http.get<any[]>(this.prontuarioUrl + '/' + id)
-      .pipe(map((response: any) => response['data']['prontuario']));
+      .pipe(map((response: any) => response.data.prontuario));
 
   }
 }

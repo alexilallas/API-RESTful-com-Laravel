@@ -19,7 +19,7 @@ export class PacienteComponent extends DatatablesComponent implements OnInit {
   public _estado_civil = ['Solteiro(a)', 'Casado(a)', 'Viúvo(a)'];
   public _tipo_paciente = ['Aluno', 'Funcionário', 'Outro'];
 
-  public form = new Paciente();
+  public form: any = new Paciente();
   public modal = 'pacienteModal';
   public pacientes: any[];
   public isNewPaciente: boolean = true;
@@ -65,11 +65,11 @@ export class PacienteComponent extends DatatablesComponent implements OnInit {
 
   openFormEdit(id) {
     this.isNewPaciente = false
-    this.form['paciente_id'] = id
+    this.form.paciente_id = id
     this.pacienteService.getPacienteById(id)
       .subscribe(response => {
         this.form = response
-        this.form['tipo_paciente'] = 'Outro'
+        this.form.tipo_paciente = 'Outro'
       })
     this.ngxSmartModalService.open(this.modal)
   }
@@ -104,10 +104,10 @@ export class PacienteComponent extends DatatablesComponent implements OnInit {
   getEnderecoViaCep($event, cep): any {
     this.viacep.buscarPorCep(cep)
       .then((endereco: Endereco) => {
-        this.form['estado'] = endereco.uf
-        this.form['cidade'] = endereco.localidade
-        this.form['bairro'] = endereco.bairro
-        this.form['logradouro'] = endereco.logradouro
+        this.form.estado = endereco.uf
+        this.form.cidade = endereco.localidade
+        this.form.bairro = endereco.bairro
+        this.form.logradouro = endereco.logradouro
       })
       .catch((error: ErroCep) => {
         console.log(error.message);

@@ -29,25 +29,25 @@ export class HistoricoMedicoService {
 
   getPacientes(): Observable<Paciente[]> {
     return this.http.get<Paciente[]>(this.historicoMedicoUrl)
-      .pipe(map((response: any) => response['data']['pacientes']));
+      .pipe(map((response: any) => response.data.pacientes));
 
   }
 
   getPacienteById(id): Observable<Paciente[]> {
     return this.http.get<Paciente[]>(this.historicoMedicoUrl + '/' + id)
-      .pipe(map((response: any) => response['data']['paciente'][0]));
+      .pipe(map((response: any) => response.data.paciente[0]));
 
   }
 
   postHistorico(data: any) {
     HistoricoMedicoService.historicoMedicoCreatedAlert = new EventEmitter<any>()
-    return this.http.post(
+    return this.http.post<any>(
       this.historicoMedicoUrl,
       data, this.httpOptions)
       .subscribe(
         (response) => {
           this.MessageService.message(response)
-          if (response['status'] == 200) {
+          if (response.status == 200) {
             HistoricoMedicoService.historicoMedicoCreatedAlert.emit(response)
           }
         }
@@ -56,13 +56,13 @@ export class HistoricoMedicoService {
 
   updateHistorico(data: any) {
     HistoricoMedicoService.historicoMedicoUpdatedAlert = new EventEmitter<any>()
-    return this.http.put(
+    return this.http.put<any>(
       this.historicoMedicoUrl,
       data, this.httpOptions)
       .subscribe(
         (response) => {
           this.MessageService.message(response)
-          if (response['status'] == 200) {
+          if (response.status == 200) {
             HistoricoMedicoService.historicoMedicoUpdatedAlert.emit(response)
           }
         }

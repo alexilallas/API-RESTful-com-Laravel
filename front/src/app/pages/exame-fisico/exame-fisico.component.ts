@@ -16,7 +16,7 @@ export class ExameFisicoComponent extends DatatablesComponent implements OnInit 
 
   public _data_exames: any;
 
-  public form = new ExameFisico();
+  public form: any = new ExameFisico();
   public modal = 'exameFisicoModal';
   public pacientes: any[];
   public isNewExame: boolean = true;
@@ -65,8 +65,8 @@ export class ExameFisicoComponent extends DatatablesComponent implements OnInit 
       .subscribe(response => {
         this._data_exames = this.formatDate(response)
         this.form = response[0]
-        this.form['nome'] = nome
-        this.form['data_exame'] = ExameFisicoComponent.formatSingleDate(this.form['data'])
+        this.form.nome = nome
+        this.form.data_exame = ExameFisicoComponent.formatSingleDate(this.form.data)
       })
     this.ngxSmartModalService.open(this.modal)
   }
@@ -98,19 +98,19 @@ export class ExameFisicoComponent extends DatatablesComponent implements OnInit 
 
   openFormNew(id: number, nome: string) {
     this.isNewExame = true
-    this.form['paciente_id'] = id
-    this.form['nome'] = nome
+    this.form.paciente_id = id
+    this.form.nome = nome
     this.getTodayDate()
     this.ngxSmartModalService.open(this.modal)
   }
 
   getTodayDate() {
-    this.form['data'] = formatDate(new Date(), 'yyy-MM-dd', 'en');
+    this.form.data = formatDate(new Date(), 'yyy-MM-dd', 'en');
   }
 
   formatDate(dateModel: ExameFisico[]) {
-    return dateModel.map(function (paciente: { [x: string]: any; }) {
-      return ExameFisicoComponent.formatSingleDate(paciente['data'])
+    return dateModel.map(function (paciente: any) {
+      return ExameFisicoComponent.formatSingleDate(paciente.data)
     })
   }
 
@@ -120,23 +120,23 @@ export class ExameFisicoComponent extends DatatablesComponent implements OnInit 
   }
 
   filterPacienteByDate(Pacientes: ExameFisico[]) {
-    let dateCompare = this.form['data_exame']
-    let examePaciente = Pacientes.map(function (paciente) {
-      if (dateCompare == ExameFisicoComponent.formatSingleDate(paciente['data'])) {
+    let dateCompare = this.form.data_exame
+    let examePaciente = Pacientes.map(function (paciente: any) {
+      if (dateCompare == ExameFisicoComponent.formatSingleDate(paciente.data)) {
         return paciente
       }
     })
     this.form = examePaciente.filter(Boolean)[0]
-    this.form['data_exame'] = ExameFisicoComponent.formatSingleDate(this.form['data'])
+    this.form.data_exame = ExameFisicoComponent.formatSingleDate(this.form.data)
   }
 
   changeDate() {
-    let id = this.form['paciente_id']
-    let nome = this.form['nome']
+    let id = this.form.paciente_id
+    let nome = this.form.nome
     this.exameFisicoService.getPacienteById(id)
       .subscribe(response => {
         this.filterPacienteByDate(response)
-        this.form['nome'] = nome
+        this.form.nome = nome
       })
   }
 }

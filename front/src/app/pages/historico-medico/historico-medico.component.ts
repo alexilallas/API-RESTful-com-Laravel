@@ -16,7 +16,7 @@ export class HistoricoMedicoComponent extends DatatablesComponent implements OnI
 
   public _fator_rh = ['Positivo', 'Negativo'];
 
-  public form = new HistoricoMedico();
+  public form: any = new HistoricoMedico();
   public modal = 'historicoMedicoModal';
   public pacientes: any;
   public isNewHistorico: boolean = false;
@@ -62,7 +62,7 @@ export class HistoricoMedicoComponent extends DatatablesComponent implements OnI
 
   openFormEdit(id) {
     this.isNewHistorico = false
-    this.form['paciente_id'] = id
+    this.form.paciente_id = id
     this.historicoMedicoService.getPacienteById(id)
       .subscribe(response => {
         this.form = response
@@ -97,8 +97,8 @@ export class HistoricoMedicoComponent extends DatatablesComponent implements OnI
 
   openFormNew(id, nome) {
     this.isNewHistorico = true
-    this.form['paciente_id'] = id
-    this.form['nome'] = nome
+    this.form.paciente_id = id
+    this.form.nome = nome
     this.ngxSmartModalService.open(this.modal)
   }
 
