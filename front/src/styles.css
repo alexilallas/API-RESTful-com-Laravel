@@ -2,8 +2,60 @@
 
 
 /* datatables */
+/* Estas classes torna o datatables responsivo e lindo  */
+/* --------------------- INICIO ----------------------- */
+@media only screen and (max-width: 600px) {
+  table.dataTable thead th, table.dataTable thead td{
+    font-size: 10px;
+  }
+  .dataTables_wrapper .dataTables_paginate .paginate_button{
+    font-size: 11px;
+  }
+  .table > thead > tr > th, 
+  .table > tbody > tr > th, 
+  .table > tfoot > tr > th, 
+  .table > thead > tr > td, 
+  .table > tbody > tr > td, 
+  .table > tfoot > tr > td{
+    padding: unset!important;
+  }
+  div.dataTables_wrapper div.dataTables_info{
+    font-size: 12px;
+  }
+  .paginate_button{
+    text-transform: none!important;
+  }
+}
+.table.dataTable thead th{
+  padding-top: 10px!important;
+  padding-bottom: 10px!important;
+}
+.sorting_asc, .sorting_desc {
+  padding-left: 10px!important;
+}
+
+table.dataTable thead th, table.dataTable thead td{
+  padding: unset;
+}
+table.dataTable thead>tr>td.sorting, 
+table.dataTable thead>tr>td.sorting_asc, 
+table.dataTable thead>tr>td.sorting_desc, 
+table.dataTable thead>tr>th.sorting, 
+table.dataTable thead>tr>th.sorting_asc, 
+table.dataTable thead>tr>th.sorting_desc{
+padding-right: unset;
+}
+.table > thead > tr > th, 
+.table > tbody > tr > th, 
+.table > tfoot > tr > th, 
+.table > thead > tr > td, 
+.table > tbody > tr > td, 
+.table > tfoot > tr > td{
+  padding: unset;
+}
+/* --------------------- FIM -------------------------- */
 .table-responsive {
-    overflow: hidden!important;
+  overflow: hidden!important;
 }
 
 table{ border-radius: 4px!important}
@@ -46,7 +98,7 @@ table{ border-radius: 4px!important}
 .dataTables_wrapper .dataTables_paginate .paginate_button{
     color:black!important;
     box-shadow: 0 2px 2px rgba(204,197,185,.5);
-    padding: 0.2em 0.7em!important;
+    padding: 0.2em 0.7em;
 }
 
 .dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover{
