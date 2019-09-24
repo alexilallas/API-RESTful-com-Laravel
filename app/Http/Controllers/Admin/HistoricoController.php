@@ -72,8 +72,6 @@ class HistoricoController extends Controller
         ->join('historico_familiar', 'pacientes.id', '=', 'historico_familiar.paciente_id')
         ->where('pacientes.id', '=', $id)
         ->select(
-            'pacientes.*',
-            'pacientes.id as id_paciente',
             'historico_pessoal.*',
             'historico_pessoal.id as id_historico_pessoal',
             'historico_familiar.*',

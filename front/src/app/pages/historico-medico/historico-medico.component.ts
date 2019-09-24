@@ -60,12 +60,13 @@ export class HistoricoMedicoComponent extends DatatablesComponent implements OnI
     this.historicoMedicoService.postHistorico(this.form)
   }
 
-  openFormEdit(id) {
+  openFormEdit(id, nome) {
     this.isNewHistorico = false
     this.form.paciente_id = id
     this.historicoMedicoService.getPacienteById(id)
       .subscribe(response => {
         this.form = response
+        this.form.nome = nome
       })
     this.ngxSmartModalService.open(this.modal)
   }

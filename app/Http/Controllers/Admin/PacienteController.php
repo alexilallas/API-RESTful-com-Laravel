@@ -32,7 +32,7 @@ class PacienteController extends Controller
     {
         $result = DB::table($this->table)->where('cpf_rg', $data['cpf_rg'])->count();
         if ($result > 0) {
-            $this->cancel('Este paciente já está cadastrado!');
+            $this->cancel('Já existem um paciente cadastrado com o CPF/RG: '.$data['cpf_rg']);
         }
     }
 

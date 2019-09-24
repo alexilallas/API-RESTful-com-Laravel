@@ -93,6 +93,7 @@ export class PacienteComponent extends DatatablesComponent implements OnInit {
   }
 
   close() {
+    this.isNewPaciente = true
     this.eraseForm()
     this.ngxSmartModalService.close(this.modal)
   }

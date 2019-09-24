@@ -194,7 +194,7 @@
                 <td>{{ historico.infarto > 0 ? 'Sim' : 'Não' }}</td>
                 <td>{{ historico.morte_subita > 0 ? 'Sim' : 'Não' }}</td>
                 <td>{{ historico.cancer > 0 ? 'Sim' : 'Não' }}</td>
-                <td>{{ historico.outro }}</td>
+                <td>{{ (historico.outro != null && historico.outro != '' ) ? historico.outro : 'Não'}}</td>
               </tr>
             </tbody>
           </table>

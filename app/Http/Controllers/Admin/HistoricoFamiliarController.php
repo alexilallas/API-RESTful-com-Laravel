@@ -20,12 +20,12 @@ class HistoricoFamiliarController extends Controller
     public function customSave($modelData)
     {
         $data['paciente_id']   = $modelData['paciente_id'];
-        $data['diabetes']      = $modelData['diabetes'];
-        $data['hipertensao']   = $modelData['hipertensao'];
-        $data['infarto']       = $modelData['infarto'];
-        $data['morte_subita']  = $modelData['morte_subita'];
-        $data['cancer']        = $modelData['cancer'];
-        $data['outro']         = $modelData['outro'];
+        $data['diabetes']      = isset($modelData['diabetes'])  ? true : false;
+        $data['hipertensao']   = isset($modelData['hipertensao'])  ? true : false;
+        $data['infarto']       = isset($modelData['infarto'])  ? true : false;
+        $data['morte_subita']  = isset($modelData['morte_subita'])  ? true : false;
+        $data['cancer']        = isset($modelData['cancer'])  ? true : false;
+        $data['outro']         = isset($modelData['outro']) ? $modelData['outro'] : null;
 
         return $this->save($this->table, $data);
     }
