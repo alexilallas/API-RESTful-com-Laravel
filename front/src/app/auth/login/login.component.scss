@@ -1,0 +1,26 @@
+.navbar.navbar-transparent a:not(.dropdown-item):not(.btn) {
+    color: white;
+  }
+  .navbar.navbar-transparent{
+    border-bottom: none;
+  }
+  
+  .input-group-prepend .input-group-text{
+    border-right: unset;
+  }
+  
+  .input-group-append .input-group-text, .input-group-prepend .input-group-text{
+    background-color: transparent;
+    border: 1px solid #E3E3E3;
+    color: #66615B;
+    transition: color 0.3s ease-in-out, border-color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+    padding-right: 10px;
+  }
+  
+  .navbar .navbar-wrapper{
+    padding-left: 10px;
+  }
+
+  .form-control:focus {
+    border-left: 1px solid #9A9A9A!important;
+  }

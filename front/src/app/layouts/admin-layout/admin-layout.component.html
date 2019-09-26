@@ -1,4 +1,4 @@
-<div class="wrapper">
+<div class="wrapper" *ngIf="islogged">
     <div class="sidebar" data-color="white" data-active-color="danger">
         <sidebar-cmp></sidebar-cmp>
     </div>
@@ -11,3 +11,5 @@
     </div>
 </div>
 <fixedplugin-cmp></fixedplugin-cmp>
+
+<router-outlet *ngIf="!islogged"></router-outlet>

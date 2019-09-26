@@ -19,6 +19,7 @@ import { ProntuarioComponent } from '../../pages/prontuario/prontuario.component
 import { PesquisarComponent } from '../../pages/pesquisar/pesquisar.component';
 import { InventarioComponent } from '../../pages/inventario/inventario.component';
 import { EvolucaoComponent } from '../../pages/evolucao/evolucao.component';
+import { LoginComponent } from '../../auth/login/login.component';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -43,6 +44,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     PesquisarComponent,
     InventarioComponent,
     EvolucaoComponent,
+    LoginComponent,
   ]
 })
 

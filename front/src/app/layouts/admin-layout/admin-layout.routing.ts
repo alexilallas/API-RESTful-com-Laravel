@@ -8,6 +8,7 @@ import { ProntuarioComponent } from '../../pages/prontuario/prontuario.component
 import { PesquisarComponent } from '../../pages/pesquisar/pesquisar.component';
 import { InventarioComponent } from '../../pages/inventario/inventario.component';
 import { EvolucaoComponent } from '../../pages/evolucao/evolucao.component';
+import { LoginComponent } from '../../auth/login/login.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'inicio',           component: InicioComponent },
@@ -18,4 +19,5 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'prontuario',       component: ProntuarioComponent },
     { path: 'pesquisar',        component: PesquisarComponent },
     { path: 'inventario',       component: InventarioComponent },
+    { path: 'login',            component: LoginComponent },
 ];

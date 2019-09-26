@@ -8,5 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminLayoutComponent implements OnInit {
 
+  public islogged: boolean = false;
+  
   ngOnInit() { }
 }
