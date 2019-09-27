@@ -268,3 +268,9 @@ textarea.form-control {
   margin-right: unset;
   margin-left: unset;
 }
+
+
+/* sidebar */
+.sidebar .logo .simple-text, .off-canvas-sidebar .logo .simple-text{
+  font-size: 0.9rem;
+}

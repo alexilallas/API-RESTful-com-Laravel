@@ -20,6 +20,7 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 
 import { HttpClientModule } from '@angular/common/http';
 import { MessageService } from './services/messages/message.service';
+import { LoginService } from './auth/login/login.service';
 import { NgxViacepModule } from '@brunoc/ngx-viacep';
 import { NgxSmartModalModule } from 'ngx-smart-modal';
 import { DatatablesComponent } from './shared/datatables/datatables.component';
@@ -50,7 +51,7 @@ import { NgxMaskModule } from 'ngx-mask';
     NgxSmartModalModule.forRoot(),
     NgxMaskModule.forRoot()
   ],
-  providers: [MessageService],
+  providers: [MessageService, LoginService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
