@@ -30,7 +30,6 @@ export class LoginComponent implements OnInit {
     this.loading = true
     this.loginService.login(this.form).subscribe(
       response => {
-        console.log(response)
         if (response.error) {
           this.loading = false
         }

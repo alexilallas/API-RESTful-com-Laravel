@@ -18,16 +18,18 @@ import { AppRoutes } from './app.routing';
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { LoginComponent } from './auth/login/login.component';
+import { DatatablesComponent } from './shared/datatables/datatables.component';
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { MessageService } from './services/messages/message.service';
-import { LoginService } from './auth/login/login.service';
 import { NgxViacepModule } from '@brunoc/ngx-viacep';
 import { NgxSmartModalModule } from 'ngx-smart-modal';
-import { DatatablesComponent } from './shared/datatables/datatables.component';
 import { NgxMaskModule } from 'ngx-mask';
-import { AuthGuard } from './auth/guard/auth.guard';
+
+import { MessageService } from './services/messages/message.service';
+import { LoginService } from './auth/login/login.service';
+
 import { JwtInterceptor } from './services/interceptors/jwt.interceptor';
+import { ErrorInterceptor } from './services/interceptors/error.interceptor';
 
 @NgModule({
   declarations: [
@@ -55,8 +57,10 @@ import { JwtInterceptor } from './services/interceptors/jwt.interceptor';
     NgxSmartModalModule.forRoot(),
     NgxMaskModule.forRoot()
   ],
-  providers: [MessageService, LoginService, AuthGuard,
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }],
+  providers: [MessageService, LoginService,
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

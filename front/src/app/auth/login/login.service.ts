@@ -51,16 +51,9 @@ export class LoginService {
     return { 'user': user, 'token': token ? token : null }
   }
 
-  logout() : any {
-    console.log('service logout')
-    return this.http.get<any>(this.urlLogin + 'logout')
-      .pipe(map(response => {
-        this.messageService.message(response)
-        if (response.status == 200) {
-          localStorage.clear()
-          this.router.navigate(['/login'])
-        }
-      }));
+  logout(): any {
+    localStorage.clear()
+    this.router.navigate(['/login'])
   }
 
 }

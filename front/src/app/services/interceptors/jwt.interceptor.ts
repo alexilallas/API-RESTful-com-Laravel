@@ -13,7 +13,7 @@ export class JwtInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const requestUrl = request.url.split('/')
     const urlbase = environment.baseAPI.split('/')
-    let userData = this.loginService.getUser(); console.log(userData)
+    let userData = this.loginService.getUser()
 
     if (userData.user && userData.token && (requestUrl[2] === urlbase[2])) {
       request = request.clone({
@@ -22,7 +22,7 @@ export class JwtInterceptor implements HttpInterceptor {
         }
       });
     }
-    console.log(request)
+
     return next.handle(request);
   }
 }
