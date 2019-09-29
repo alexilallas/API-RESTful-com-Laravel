@@ -29,8 +29,8 @@ export class AuthGuard implements CanActivate {
     this.router.navigate(['/login'])
     this.helperService.delay(1500)
       .then(() => {
-        location.reload(true);
-      });
+        location.reload(true)
+      })
 
     return false
   }

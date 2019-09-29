@@ -10,9 +10,6 @@
     <footer-cmp></footer-cmp>
   </div>
 </div>
-
-<div [hidden]="userLoged()">
-<router-outlet></router-outlet>
-</div>
-
 <fixedplugin-cmp></fixedplugin-cmp>
+
+<router-outlet *ngIf="!userLoged()"></router-outlet>

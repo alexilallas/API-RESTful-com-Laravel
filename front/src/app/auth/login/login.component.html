@@ -15,7 +15,8 @@
             <div class="card card-login">
               <div class="card-header ">
                 <div class="card-header ">
-                  <h3 class="header text-center">sisMED</h3>
+                  <!-- <h3 class="header text-center">SisMED</h3> -->
+                  <img class="logo-sismed" src="./assets/img/sismed-logo2.png" />
                 </div>
               </div>
               <div class="card-body ">
@@ -40,7 +41,7 @@
                 <br>
               </div>
               <div class="card-footer ">
-                <button class="btn btn-warning btn-round btn-block mb-3" type="submit" [disabled]="loginForm.invalid">
+                <button class="btn btn-warning btn-round btn-block mb-3" type="submit" [disabled]="loginForm.invalid || loading">
                   Entrar
                   <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                   <span *ngIf="loading" class="sr-only">Loading...</span>
