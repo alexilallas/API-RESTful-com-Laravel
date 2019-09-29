@@ -32,7 +32,7 @@ class HistoricoFamiliarController extends Controller
 
     public function checkBusinessLogic($data)
     {
-        # code...
+        # checar se já existem histórico pra aquele paciente
     }
 
     public function customUpdate($modelData)

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { LoginService } from './login.service';
 import { Login } from './login';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-auth',
@@ -9,21 +11,38 @@ import { Login } from './login';
 })
 export class LoginComponent implements OnInit {
 
-  public form  = new Login();
+  public loading: boolean = false;
+  public form = new Login();
 
   constructor(
-    private loginService: LoginService
+    private loginService: LoginService,
+    private router: Router,
   ) {
+    this.guardLogin()
     console.log('LoginComponent')
-    loginService.isLogged()
   }
 
   ngOnInit() {
+
   }
 
-  login(){
-    console.log(this.form)
-    this.loginService.login()
+  login() {
+    this.loading = true
+    this.loginService.login(this.form).subscribe(
+      response => {
+        console.log(response)
+        if (response.error) {
+          this.loading = false
+        }
+      });
+
+
+  }
+
+  guardLogin() {
+    if (this.loginService.isLogged()) {
+      this.router.navigate(['/inicio'])
+    }
   }
 
 }

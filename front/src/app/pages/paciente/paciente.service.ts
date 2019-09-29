@@ -14,9 +14,6 @@ export class PacienteService {
   static pacienteCreatedAlert;
   static pacienteUpdatedAlert;
   private pacientesUrl: string;
-  private httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
 
   constructor
     (
@@ -43,7 +40,7 @@ export class PacienteService {
     PacienteService.pacienteCreatedAlert = new EventEmitter<any>()
     return this.http.post<any>(
       this.pacientesUrl,
-      paciente, this.httpOptions)
+      paciente)
       .subscribe(
         (response) => {
           this.MessageService.message(response)
@@ -58,7 +55,7 @@ export class PacienteService {
     PacienteService.pacienteUpdatedAlert = new EventEmitter<any>()
     return this.http.put<any>(
       this.pacientesUrl,
-      paciente, this.httpOptions)
+      paciente)
       .subscribe(
         (response) => {
           this.MessageService.message(response)

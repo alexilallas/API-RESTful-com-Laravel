@@ -4,6 +4,7 @@ namespace App\Exceptions;
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Tymon\JWTAuth\Exceptions;
 
 class Handler extends ExceptionHandler
 {
@@ -44,8 +45,15 @@ class Handler extends ExceptionHandler
      * @param  \Exception  $exception
      * @return \Illuminate\Http\Response
      */
-    public function render($request, Exception $exception)
+    public function render($request, Exception $e)
     {
-        return parent::render($request, $exception);
+        if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenExpiredException) {
+            return response()->json(['message' => 'token_expired', 'code' => 401], 401);
+        } elseif ($e instanceof \Tymon\JWTAuth\Exceptions\TokenInvalidException) {
+            return response()->json(['message' => 'token_invalid', 'code' => 401], 401);
+        } elseif ($e instanceof \Tymon\JWTAuth\Exceptions\JWTException) {
+            return response()->json(['message' => $e->getMessage(), 'code' => 500], 401);
+        }
+        return parent::render($request, $e);
     }
 }

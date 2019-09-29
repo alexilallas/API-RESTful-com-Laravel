@@ -32,9 +32,9 @@ class HistoricoPessoalController extends Controller
 
     public function checkBusinessLogic($data)
     {
-        # code...
+        # checar se já existe histórico pra aquele paciente
     }
-    
+
     public function customUpdate($modelData)
     {
         $data['id'] = $modelData['id_historico_pessoal'];
@@ -48,7 +48,7 @@ class HistoricoPessoalController extends Controller
         unset($modelData['id_historico_pessoal']);
         unset($modelData['id_historico_familiar']);
         $data = $modelData;
-        
+
         return $this->update($this->table, $data);
     }
 }

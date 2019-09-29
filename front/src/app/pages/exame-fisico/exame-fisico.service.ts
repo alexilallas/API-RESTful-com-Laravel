@@ -14,9 +14,7 @@ export class ExameFisicoService {
   static exameFisicoCreatedAlert;
   static exameFisicoUpdatedAlert;
   private exameFisicoUrl: string;
-  private httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
+
 
   constructor
     (
@@ -43,7 +41,7 @@ export class ExameFisicoService {
     ExameFisicoService.exameFisicoCreatedAlert = new EventEmitter<any>()
     return this.http.post<any>(
       this.exameFisicoUrl,
-      data, this.httpOptions)
+      data)
       .subscribe(
         (response) => {
           this.MessageService.message(response)
@@ -58,7 +56,7 @@ export class ExameFisicoService {
     ExameFisicoService.exameFisicoUpdatedAlert = new EventEmitter<any>()
     return this.http.put<any>(
       this.exameFisicoUrl,
-      data, this.httpOptions)
+      data)
       .subscribe(
         (response) => {
           this.MessageService.message(response)

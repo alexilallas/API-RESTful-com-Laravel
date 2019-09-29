@@ -1,53 +1,56 @@
 <nav class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
-    <div class="container">
-        <div class="navbar-wrapper">
-            <a class="navbar-brand" routerlinkactive="active" href="#/login">POSTO MÉDICO UEMA</a>
-        </div>
+  <div class="container">
+    <div class="navbar-wrapper">
+      <a class="navbar-brand" routerlinkactive="active" href="#/login">POSTO MÉDICO UEMA</a>
     </div>
+  </div>
 </nav>
 <div class="wrapper wrapper-full-page ">
-    <div class="full-page section-image" data-image="./assets/img/bg/fabio-mangione.jpg" filter-color="black">
-        <div class="content">
-            <div class="container">
-                <div class="col-lg-4 col-md-6 ml-auto mr-auto">
-                    <form action="" class="form ng-untouched ng-pristine ng-valid" #loginForm="ngForm"
-                        (ngSubmit)="login()" novalidate="">
-                        <div class="card card-login">
-                            <div class="card-header ">
-                                <div class="card-header ">
-                                    <h3 class="header text-center">sisMED</h3>
-                                </div>
-                            </div>
-                            <div class="card-body ">
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">
-                                            <i class="nc-icon nc-single-02"></i>
-                                        </span>
-                                    </div>
-                                    <input class="form-control" placeholder="CPF" mask="000.000.000-00" type="text"
-                                        name="cpf" required [(ngModel)]="form.cpf" #cpf="ngModel" autofocus="true">
-                                </div>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">
-                                            <i class="nc-icon nc-key-25"></i>
-                                        </span>
-                                    </div>
-                                    <input class="form-control" placeholder="Senha" type="password" name="senha"
-                                        required [(ngModel)]="form.senha" #senha="ngModel">
-                                </div>
-                                <br>
-                            </div>
-                            <div class="card-footer ">
-                                <input type="submit" class="btn btn-warning btn-round btn-block mb-3" value="Entrar" [disabled]="loginForm.invalid" />
-                            </div>
-                        </div>
-                    </form>
+  <div class="full-page section-image" data-image="./assets/img/bg/fabio-mangione.jpg" filter-color="black">
+    <div class="content">
+      <div class="container">
+        <div class="col-lg-4 col-md-6 ml-auto mr-auto">
+          <form action="" class="form ng-untouched ng-pristine ng-valid" #loginForm="ngForm" (ngSubmit)="login()"
+            novalidate="">
+            <div class="card card-login">
+              <div class="card-header ">
+                <div class="card-header ">
+                  <h3 class="header text-center">sisMED</h3>
                 </div>
+              </div>
+              <div class="card-body ">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="nc-icon nc-single-02"></i>
+                    </span>
+                  </div>
+                  <input class="form-control" placeholder="CPF" mask="000.000.000-00" type="text" name="cpf" required
+                    [(ngModel)]="form.cpf" #cpf="ngModel" autofocus="true">
+                </div>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="nc-icon nc-key-25"></i>
+                    </span>
+                  </div>
+                  <input class="form-control" placeholder="Senha" type="password" name="senha" required
+                    [(ngModel)]="form.senha" #senha="ngModel">
+                </div>
+                <br>
+              </div>
+              <div class="card-footer ">
+                <button class="btn btn-warning btn-round btn-block mb-3" type="submit" [disabled]="loginForm.invalid">
+                  Entrar
+                  <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                  <span *ngIf="loading" class="sr-only">Loading...</span>
+                </button>
+              </div>
             </div>
+          </form>
         </div>
-        <div class="full-page-background"
-            style="background-image: url('https://www.uema.br/wp-content/uploads/2018/10/5-1.jpg') "></div>
+      </div>
     </div>
+    <div class="full-page-background" style="background-image: url('assets/img/uema-login.jpg') "></div>
+  </div>
 </div>

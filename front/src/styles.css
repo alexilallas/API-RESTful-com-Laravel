@@ -11,11 +11,11 @@
   .dataTables_wrapper .dataTables_paginate .paginate_button{
     font-size: 11px;
   }
-  .table > thead > tr > th, 
-  .table > tbody > tr > th, 
-  .table > tfoot > tr > th, 
-  .table > thead > tr > td, 
-  .table > tbody > tr > td, 
+  .table > thead > tr > th,
+  .table > tbody > tr > th,
+  .table > tfoot > tr > th,
+  .table > thead > tr > td,
+  .table > tbody > tr > td,
   .table > tfoot > tr > td{
     padding: unset!important;
   }
@@ -37,19 +37,19 @@
 table.dataTable thead th, table.dataTable thead td{
   padding: unset;
 }
-table.dataTable thead>tr>td.sorting, 
-table.dataTable thead>tr>td.sorting_asc, 
-table.dataTable thead>tr>td.sorting_desc, 
-table.dataTable thead>tr>th.sorting, 
-table.dataTable thead>tr>th.sorting_asc, 
+table.dataTable thead>tr>td.sorting,
+table.dataTable thead>tr>td.sorting_asc,
+table.dataTable thead>tr>td.sorting_desc,
+table.dataTable thead>tr>th.sorting,
+table.dataTable thead>tr>th.sorting_asc,
 table.dataTable thead>tr>th.sorting_desc{
 padding-right: unset;
 }
-.table > thead > tr > th, 
-.table > tbody > tr > th, 
-.table > tfoot > tr > th, 
-.table > thead > tr > td, 
-.table > tbody > tr > td, 
+.table > thead > tr > th,
+.table > tbody > tr > th,
+.table > tfoot > tr > th,
+.table > thead > tr > td,
+.table > tbody > tr > td,
 .table > tfoot > tr > td{
   padding: unset;
 }
@@ -271,6 +271,28 @@ textarea.form-control {
 
 
 /* sidebar */
-.sidebar .logo .simple-text, .off-canvas-sidebar .logo .simple-text{
+.sidebar .logo .simple-text, .off-canvas-sidebar .logo .simple-text {
   font-size: 0.9rem;
+}
+
+.sidebar .logo, .off-canvas-sidebar .logo {
+  padding: 6px 0 0;
+}
+
+@media only screen and (max-width: 600px) {
+  .sidebar .logo a.logo-normal, .off-canvas-sidebar .logo a.logo-normal {
+    padding: 11px 10px 8px;
+  }
+}
+
+@media screen and (max-width: 991px){
+  .navbar .container-fluid {
+    padding-top: 20px;
+  }
+}
+
+@media screen and (max-width: 768px){
+  .sidebar .logo a.logo-normal, .off-canvas-sidebar .logo a.logo-normal {
+    padding: 11px 10px 8px;
+  }
 }

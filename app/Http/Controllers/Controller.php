@@ -13,9 +13,6 @@ abstract class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    abstract public function customSave($modelData);
-    abstract public function customUpdate($modelData);
-    abstract public function checkBusinessLogic($data);
 
     protected function formatValidationErrors(\Illuminate\Contracts\Validation\Validator $validator)
     {
@@ -30,7 +27,7 @@ abstract class Controller extends BaseController
         ];
     }
 
-    
+
     /**
      * Captura dados json que são lançados da aplicação no front-end e decodifica
      *
@@ -47,32 +44,36 @@ abstract class Controller extends BaseController
 
 
     /**
-     * Retorna uma mensagem de sucesso 200 (OK) com ou sem dados adicionais
+     * Retorna uma mensagem de sucesso com ou sem dados adicionais. Se não for atribuído valor ao status,
+     * será por padrão 200 (OK)
      *
      * @param string $message A mensagem que será retornada
      * @param array $data Um array com informações
      *
      * @return json com uma mensagem mensagem e dados que serão consumidos pela aplicação no front-end
      */
-    public function jsonSuccess($message, $data = null)
+    public function jsonSuccess($message, $data = null, $status = 200)
     {
-        return response()->json(['message' => $message, 'status' => 200, 'data' => $data]);
+        return response()->json(['message' => $message, 'data' => $data, 'status' => $status,]);
     }
 
 
     /**
-     * Retorna uma mensagem com status de error 400 (bad request)
+     * Retorna uma mensagem de erro, se não for atribuído valor ao status,
+     * será por padrão 400 (bad request)
      *
      * @param string $message A mensagem que será retornada
+     * @param string $error o nome do erro para tratamento no front-end
+     * @param int    $status o status http da resposta
      *
      * @return json  com uma mensagem que será consumida na aplicação no front-end
      */
-    public function jsonError($message)
+    public function jsonError($message, $error = null, $status = 400)
     {
-        return response()->json(['message' => $message, 'status' => 400]);
+        return response()->json(['message' => $message, 'error' => $error, 'status' => $status]);
     }
 
-    
+
     /**
      * Lança uma excessão abortando qualquer operação
      *

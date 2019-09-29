@@ -1,15 +1,18 @@
-<div class="wrapper" *ngIf="islogged">
-    <div class="sidebar" data-color="white" data-active-color="danger">
-        <sidebar-cmp></sidebar-cmp>
+<div class="wrapper" *ngIf="userLoged()">
+  <div class="sidebar" data-color="white" data-active-color="danger">
+    <sidebar-cmp></sidebar-cmp>
+  </div>
+  <div class="main-panel">
+    <navbar-cmp></navbar-cmp>
+    <div class="content">
+      <router-outlet></router-outlet>
     </div>
-    <div class="main-panel">
-        <navbar-cmp></navbar-cmp>
-        <div class="content">
-            <router-outlet></router-outlet>
-        </div>
-        <footer-cmp></footer-cmp>
-    </div>
+    <footer-cmp></footer-cmp>
+  </div>
 </div>
-<fixedplugin-cmp></fixedplugin-cmp>
 
-<router-outlet *ngIf="!islogged"></router-outlet>
+<div [hidden]="userLoged()">
+<router-outlet></router-outlet>
+</div>
+
+<fixedplugin-cmp></fixedplugin-cmp>

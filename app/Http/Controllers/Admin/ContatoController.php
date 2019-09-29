@@ -9,7 +9,7 @@ class ContatoController extends Controller
 {
     private $table = 'contatos';
 
-    
+
     public function customSave($modelData)
     {
         if (isset($modelData['nome_contato']) && isset($modelData['numero_contato'])) {
@@ -23,17 +23,12 @@ class ContatoController extends Controller
         }
     }
 
-    public function checkBusinessLogic($data)
-    {
-        # code...
-    }
-
     public function customUpdate($modelData)
     {
         $data['nome']   = $modelData['nome_contato'];
         $data['numero'] = $modelData['numero_contato'];
         $data['id']     = $modelData['id_contato'];
-        
+
         return $this->update($this->table, $data);
     }
 }

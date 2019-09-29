@@ -14,9 +14,6 @@ export class EvolucaoService {
   static evolucaoCreatedAlert;
   static evolucaoUpdatedAlert;
   private evolucaoUrl: string;
-  private httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
 
   constructor
     (
@@ -43,7 +40,7 @@ export class EvolucaoService {
     EvolucaoService.evolucaoCreatedAlert = new EventEmitter<any>()
     return this.http.post<any>(
       this.evolucaoUrl,
-      data, this.httpOptions)
+      data)
       .subscribe(
         (response) => {
           this.MessageService.message(response)
@@ -58,7 +55,7 @@ export class EvolucaoService {
     EvolucaoService.evolucaoUpdatedAlert = new EventEmitter<any>()
     return this.http.put<any>(
       this.evolucaoUrl,
-      data, this.httpOptions)
+      data)
       .subscribe(
         (response) => {
           this.MessageService.message(response)

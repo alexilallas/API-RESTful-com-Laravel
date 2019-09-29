@@ -11,6 +11,7 @@ import { LoginService } from '../../auth/login/login.service';
 })
 
 export class NavbarComponent implements OnInit {
+  public user: any[];
   private listTitles: any[];
   location: Location;
   private nativeElement: Node;
@@ -33,7 +34,9 @@ export class NavbarComponent implements OnInit {
     this.router.events.subscribe((event) => {
       this.sidebarClose();
     });
+    this.getUser()
   }
+
   getTitle() {
     var titlee = this.location.prepareExternalUrl(this.location.path());
     if (titlee.charAt(0) === '#') {
@@ -46,6 +49,7 @@ export class NavbarComponent implements OnInit {
     }
     return 'Início';
   }
+
   sidebarToggle() {
     if (this.sidebarVisible === false) {
       this.sidebarOpen();
@@ -53,6 +57,7 @@ export class NavbarComponent implements OnInit {
       this.sidebarClose();
     }
   }
+
   sidebarOpen() {
     const toggleButton = this.toggleButton;
     const html = document.getElementsByTagName('html')[0];
@@ -67,22 +72,26 @@ export class NavbarComponent implements OnInit {
     }
     this.sidebarVisible = true;
   };
+
   sidebarClose() {
     const html = document.getElementsByTagName('html')[0];
     const mainPanel = <HTMLElement>document.getElementsByClassName('main-panel')[0];
     if (window.innerWidth < 991) {
       setTimeout(function () {
-        mainPanel.style.position = '';
+        if (mainPanel) {
+          mainPanel.style.position = '';
+        }
+
       }, 500);
     }
     this.toggleButton.classList.remove('toggled');
     this.sidebarVisible = false;
     html.classList.remove('nav-open');
   };
+
   collapse() {
     this.isCollapsed = !this.isCollapsed;
     const navbar = document.getElementsByTagName('nav')[0];
-    console.log(navbar);
     if (!this.isCollapsed) {
       navbar.classList.remove('navbar-transparent');
       navbar.classList.add('bg-white');
@@ -93,8 +102,13 @@ export class NavbarComponent implements OnInit {
 
   }
 
-  logout() {
+  logout(e) {
+    e.preventDefault()
     this.loginService.logout()
+  }
+
+  getUser() {
+    this.user = this.loginService.getUser().user
   }
 
 }

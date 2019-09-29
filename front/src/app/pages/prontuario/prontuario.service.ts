@@ -11,9 +11,7 @@ import { MessageService } from '../../services/messages/message.service';
 export class ProntuarioService {
 
   private prontuarioUrl: string;
-  private httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
+
 
   constructor
     (

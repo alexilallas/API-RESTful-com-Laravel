@@ -22,24 +22,21 @@ class HistoricoController extends Controller
         $this->paciente = new PacienteController();
     }
 
+    public function checkBusinessLogic($data)
+    {
+        $this->historicoPessoal->checkBusinessLogic($data);
+        $this->historicoFamiliar->checkBusinessLogic($data);
+    }
 
     /**
      * @param Array com todos os dados do histórico médico
-     * @return Array com os dados que foram adicionados
+     * @return void
     **/
     public function customSave($modelData)
     {
-        if ($this->historicoFamiliar->customSave($modelData)) {
-            return $this->historicoPessoal->customSave($modelData);
-        }
+        $this->historicoFamiliar->customSave($modelData);
+        $this->historicoPessoal->customSave($modelData);
 
-        //return $this->save($this->table, $data);
-    }
-
-
-    public function checkBusinessLogic($data)
-    {
-        # code...
     }
 
 

@@ -21,20 +21,6 @@ class ProntuarioController extends Controller
         $this->evolucao = new EvolucaoController();
     }
 
-    public function customSave($modelData)
-    {
-        #
-    }
-
-    public function customUpdate($modelData)
-    {
-        #
-    }
-
-    public function checkBusinessLogic($data)
-    {
-        #
-    }
 
     public function find()
     {

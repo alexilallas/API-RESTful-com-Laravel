@@ -14,9 +14,6 @@ export class HistoricoMedicoService {
   static historicoMedicoCreatedAlert;
   static historicoMedicoUpdatedAlert;
   private historicoMedicoUrl: string;
-  private httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
 
   constructor
     (
@@ -43,7 +40,7 @@ export class HistoricoMedicoService {
     HistoricoMedicoService.historicoMedicoCreatedAlert = new EventEmitter<any>()
     return this.http.post<any>(
       this.historicoMedicoUrl,
-      data, this.httpOptions)
+      data)
       .subscribe(
         (response) => {
           this.MessageService.message(response)
@@ -58,7 +55,7 @@ export class HistoricoMedicoService {
     HistoricoMedicoService.historicoMedicoUpdatedAlert = new EventEmitter<any>()
     return this.http.put<any>(
       this.historicoMedicoUrl,
-      data, this.httpOptions)
+      data)
       .subscribe(
         (response) => {
           this.MessageService.message(response)

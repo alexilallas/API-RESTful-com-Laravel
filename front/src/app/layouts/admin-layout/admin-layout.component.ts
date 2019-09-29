@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { LoginService } from '../../auth/login/login.service';
 
 @Component({
@@ -8,15 +9,19 @@ import { LoginService } from '../../auth/login/login.service';
 })
 export class AdminLayoutComponent implements OnInit {
 
-  public islogged: boolean;
-
-
-  constructor(private loginService: LoginService) {
+  constructor(
+    private loginService: LoginService,
+    private route: Router,
+  ) {
     console.log('AdminLayoutComponent')
   }
 
   ngOnInit() {
-    this.islogged = JSON.parse(localStorage.getItem('isLogged'))
+  }
+
+  userLoged() {
+
+    return this.loginService.isLogged()
   }
 
 }
