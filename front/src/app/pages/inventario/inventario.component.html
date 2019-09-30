@@ -1,25 +1,21 @@
-<ngx-smart-modal #prontuarioModal identifier="prontuarioModal" customClass="medium-modal" [dismissable]="false"
+<ngx-smart-modal #inventarioModal identifier="inventarioModal" customClass="medium-modal" [dismissable]="false"
   (onCloseFinished)="eraseForm()">
   <div class="card-body">
-    <form #evolucaoForm="ngForm">
-      <h5 class="card-title">Evolução do Paciente</h5>
-      <p><strong>PACIENTE: </strong> {{form.nome | uppercase}}</p>
-      <div class="row" [hidden]="isNewEvolucao">
-        <div class="col-md-4">
+    <form #inventarioForm="ngForm" (ngSubmit)="isNewItem? save() : update()">
+      <h5 class="card-title" *ngIf="!form.id">Novo Item</h5>
+      <h5 class="card-title" *ngIf="form.id">Editar Item</h5>
+      <div class="row">
+        <div class="col-md-6">
           <div class="form-group">
-            <label>Evoluções Cadastradas</label>
-            <ng-select [clearable]="false" [multiple]="false" [(ngModel)]="form.data_evolucao" name="data_evolucao"
-              #data_evolucao="ngModel" (change)="changeDate()">
-              <ng-option *ngFor="let data of _data_evolucoes" [value]="data">{{ data }}</ng-option>
-            </ng-select>
+            <label for="nome">Nome</label>
+            <input class="form-control" required [(ngModel)]="form.nome" name="nome" #nome="ngModel">
           </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-6">
           <div class="form-group">
-            <label for="data">Data do atendimento</label>
-            <input type="date" class="form-control" required [(ngModel)]="form.data" name="data" #data="ngModel">
+            <label for="quantidade">Quantidade</label>
+            <input type="text" mask="09" class="form-control" required [(ngModel)]="form.quantidade" name="quantidade"
+              #quantidade="ngModel">
           </div>
         </div>
       </div>
@@ -27,14 +23,14 @@
         <div class="col-md-12">
           <div class="form-group">
             <label for="descricao">Descrição</label>
-            <textarea class="form-control" required [(ngModel)]="form.descricao" name="descricao" #descricao="ngModel">{{descricao.value}}
-            </textarea>
+            <textarea class="form-control" [(ngModel)]="form.descricao" name="descricao" #descricao="ngModel">{{descricao.value}}
+              </textarea>
           </div>
         </div>
       </div>
       <br />
       <div class="btn btn-default" (click)="close()">Cancelar</div>
-      <button class="btn btn-info pull-right" [disabled]="evolucaoForm.form.invalid">Salvar</button>
+      <button class="btn btn-info pull-right" [disabled]="inventarioForm.form.invalid">Salvar</button>
     </form>
   </div>
 </ngx-smart-modal>
@@ -45,38 +41,35 @@
         <h4 class="card-title pull-left">
           Inventário
         </h4>
+        <button class="btn btn-info btn-round pull-right" type="submit"
+          (click)="ngxSmartModalService.getModal('inventarioModal').open()">
+          Novo
+        </button>
         <!-- <p class="category">Created using Montserrat Font Family</p> -->
       </div>
       <div class="card-body">
-        <div class="table">
-          <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" cellspacing="0"
-            class="table table-striped table-bordered dataTable">
-            <thead class=" text-primary">
-              <tr>
-                <th>Nome</th>
-                <th>Descrição</th>
-                <th>Quantidade</th>
-                <th>Ações</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let paciente of pacientes">
-                <td>{{ paciente.nome }}</td>
-                <td>{{ paciente.cpf_rg }}</td>
-                <td>{{ paciente.sexo }}</td>
-                <td class="text-right">
-                  <a title="Visualizar" class="btn btn-primary btn-link btn-icon btn-sm plus" href="#prontuario"
-                    (click)="openFormNew(paciente.id, paciente.nome)">
-                    <i class="fa fa-eye fa-3x"></i>
-                  </a>
-                  <a title="Salvar" class="btn btn-danger btn-link btn-icon btn-sm plus" href="#prontuario">
-                    <i class="fa fa-file-pdf-o fa-3x"></i>
-                  </a>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+        <div class="row">
+          <div class="col-md-3">
+            <input type="text" [(ngModel)]="form.buscar" class="form-control" placeholder="Buscar" />
+          </div>
         </div>
+        <br>
+        <div class="alert alert-info text-center" role="alert" *ngIf="itensInventario.length == 0">
+          Não há itens cadastrados no inventário!
+        </div>
+        <ul>
+          <div class="row">
+            <div class="col-md-4" *ngFor="let item of itensInventario | filter : form.buscar">
+              <a href="#/inventario" (click)="openFormEdit(item.id)">
+                <li>
+                  <fa-icon [icon]="faPills" class="fa-2x"></fa-icon>
+                  <p>{{ item.nome }}</p>
+                  <p>{{ item.quantidade }}</p>
+                </li>
+              </a>
+            </div>
+          </div>
+        </ul>
       </div>
     </div>
   </div>

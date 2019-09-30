@@ -8,6 +8,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NgxSmartModalModule } from 'ngx-smart-modal';
 import { NgxMaskModule } from 'ngx-mask'
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { AdminLayoutRoutes } from './admin-layout.routing';
 
@@ -22,6 +23,8 @@ import { EvolucaoComponent } from '../../pages/evolucao/evolucao.component';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
+import { FilterPipe } from '../../pipe/filter/filter.pipe';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -32,7 +35,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     ReactiveFormsModule,
     NgSelectModule,
     NgxSmartModalModule,
-    NgxMaskModule
+    NgxMaskModule,
+    FontAwesomeModule,
   ],
   declarations: [
     InicioComponent,
@@ -43,6 +47,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     PesquisarComponent,
     InventarioComponent,
     EvolucaoComponent,
+    FilterPipe,
   ]
 })
 

@@ -52,6 +52,15 @@ Route::namespace('Admin')->group(function () {
          */
         Route::get('prontuario', 'ProntuarioController@find');
         Route::get('prontuario/{id}', 'ProntuarioController@findById');
+
+        /**
+         * Rotas para Inventário
+         */
+        Route::get('inventario', 'InventarioController@find');
+        Route::get('inventario/{id}', 'InventarioController@findById');
+        Route::post('inventario', 'InventarioController@postItem');
+        Route::put('inventario', 'InventarioController@updateItem');
+
     });
 });
 
