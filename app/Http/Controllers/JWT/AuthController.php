@@ -23,7 +23,7 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $credentials = $this->jsonDecode();
-        $login['email'] = 'user@gmail.com';
+        $login['email'] = 'user@mail.com';
         //$login['password'] = '123456';
         $login['password'] = $credentials['senha'];
 
@@ -34,6 +34,13 @@ class AuthController extends Controller
         $user = $this->jwtAuth->user();
 
         return $this->jsonSuccess('Seja bem vindo, '.$user['name'].'!', ['token' => $token, 'user' => $user]);
+    }
+
+    public function logout()
+    {
+        $token = $this->jwtAuth->getToken();
+        $this->jwtAuth->invalidate($token);
+        return response()->json(['logout']);
     }
 
 }

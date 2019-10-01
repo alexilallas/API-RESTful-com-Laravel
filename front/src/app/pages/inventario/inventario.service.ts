@@ -11,8 +11,8 @@ import { MessageService } from '../../services/messages/message.service';
 })
 export class InventarioService {
 
-  static itemUpdatedAlert;
   static itemCreatedAlert;
+  static itemUpdatedAlert;
   private inventarioUrl: string;
 
   constructor

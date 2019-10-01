@@ -18,8 +18,16 @@ export class ErrorInterceptor implements HttpInterceptor {
         this.loginService.logout();
         this.messageService.message({ 'message': 'Você não tem permissão para ver este conteúdo!' })
       }
+      console.log(err)
+      const error = err.message || err.statusText;
+      if (err.name == 'HttpErrorResponse') {
+        this.messageService.message({ 'message': 'Falha ao conectar com o servidor.' })
+      }
+      else {
+        this.messageService.message({ 'message': error })
+      }
 
-      const error = err.error.message || err.statusText;
+
       return throwError(error);
     }))
   }

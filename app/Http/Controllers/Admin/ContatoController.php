@@ -19,7 +19,7 @@ class ContatoController extends Controller
 
             return $this->save($this->table, $data);
         } else {
-            abort(400, 'Nome e Número do contato é obrigatório!');
+            $this->cancel('Nome e Número do contato é obrigatório!');
         }
     }
 

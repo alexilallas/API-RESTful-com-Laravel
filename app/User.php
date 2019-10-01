@@ -31,4 +31,57 @@ class User extends Authenticatable implements JWTSubject
     {
         return [];
     }
+
+    /**
+     * Checks a Permission
+     *
+     * @param  String permission Slug of a permission (i.e: manage_user)
+     * @return Boolean true if has permission, otherwise false
+     */
+    public function userCan($permission = null)
+    {
+        return !is_null($permission) && $this->checkPermission($permission);
+    }
+
+    /**
+     * Check if the permission matches with any permission user has
+     *
+     * @param  String permission slug of a permission
+     * @return Boolean true if permission exists, otherwise false
+     */
+    protected function checkPermission($perm)
+    {
+        $permissions = $this->getAllPernissionsFormUser();
+
+        $permissionArray = is_array($perm) ? $perm : [$perm];
+
+        return count(array_intersect($permissions, $permissionArray));
+    }
+
+    /**
+     * Get all permission slugs from all permissions of user role
+     *
+     * @return Array of permission slugs
+     */
+    protected function getAllPernissionsFormUser()
+    {
+        $permissionsArray = [];
+        return array_pluck(getPermissoesUserLoggedIn(), 'nome');
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Relationship Methods
+    |--------------------------------------------------------------------------
+    */
+
+    /**
+     * Many-To-Many Relationship Method for accessing the User->Perfil
+     *
+     * @return QueryBuilder Object
+     */
+    public function perfis()
+    {
+        return $this->belongsToMany('App\Perfil');
+    }
 }

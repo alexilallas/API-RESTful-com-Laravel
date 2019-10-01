@@ -48,7 +48,7 @@ class PacienteController extends Controller
         $id = $req->route('id');
         $paciente = DB::table($this->table)
         ->join('contatos', 'contatos.paciente_id', '=', 'pacientes.id')
-        ->where('pacientes.id', $id)
+        ->where($this->table.'.id', $id)
         ->select('pacientes.*', 'contatos.nome as nome_contato', 'contatos.numero as numero_contato', 'contatos.id as id_contato')
         ->get();
 

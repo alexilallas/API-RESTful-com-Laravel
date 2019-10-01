@@ -296,3 +296,7 @@ textarea.form-control {
     padding: 11px 10px 8px;
   }
 }
+
+.sidebar .sidebar-wrapper, .off-canvas-sidebar .sidebar-wrapper {
+  padding-bottom: 0px;
+}

@@ -17,6 +17,7 @@ export const ROUTES: RouteInfo[] = [
     { path: '/prontuario',       title: 'Prontuário',          icon:'nc-paper',            class: '' },
   //{ path: '/pesquisar',        title: 'Pesquisar',           icon:'nc-zoom-split',       class: '' },
     { path: '/inventario',       title: 'Inventário',          icon:'nc-app',              class: '' },
+    { path: '/usuario',          title: 'Usuário',             icon:'nc-circle-10',        class: '' },
 ];
 
 @Component({

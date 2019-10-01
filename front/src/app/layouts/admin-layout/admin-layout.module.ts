@@ -20,6 +20,7 @@ import { ProntuarioComponent } from '../../pages/prontuario/prontuario.component
 import { PesquisarComponent } from '../../pages/pesquisar/pesquisar.component';
 import { InventarioComponent } from '../../pages/inventario/inventario.component';
 import { EvolucaoComponent } from '../../pages/evolucao/evolucao.component';
+import { UsuarioComponent } from '../../pages/usuario/usuario.component';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -47,6 +48,7 @@ import { FilterPipe } from '../../pipe/filter/filter.pipe';
     PesquisarComponent,
     InventarioComponent,
     EvolucaoComponent,
+    UsuarioComponent,
     FilterPipe,
   ]
 })

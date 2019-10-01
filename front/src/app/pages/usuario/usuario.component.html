@@ -1,0 +1,90 @@
+<ngx-smart-modal #usuarioModal identifier="usuarioModal" customClass="medium-modal" [dismissable]="false"
+  (onCloseFinished)="eraseForm()">
+  <div class="card-body">
+    <form #usuarioForm="ngForm" (ngSubmit)="isNewUsuario? save() : update()">
+      <h5 class="card-title" *ngIf="!form.id">Novo Usuário</h5>
+      <h5 class="card-title" *ngIf="form.id">Editar Usuário</h5>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="nome">Nome</label>
+            <input class="form-control" required [(ngModel)]="form.nome" name="nome" #nome="ngModel">
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="email">E-mail</label>
+            <input type="email" class="form-control" required [(ngModel)]="form.email" name="email" #email="ngModel">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="descricao">CPF</label>
+            <input type="text" mask="000.000.000-00" class="form-control" [(ngModel)]="form.cpf" name="cpf"
+              #cpf="ngModel">
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="perfil">Perfil</label>
+            <ng-select [multiple]="false" [(ngModel)]="form.perfil" required name="perfil" #perfil="ngModel">
+              <ng-option *ngFor="let perfil of _perfis" [value]="id">{{ perfil }}</ng-option>
+            </ng-select>
+          </div>
+        </div>
+      </div>
+      <br />
+      <div class="btn btn-default" (click)="close()">Cancelar</div>
+      <button class="btn btn-info pull-right" [disabled]="usuarioForm.form.invalid">Salvar</button>
+    </form>
+  </div>
+</ngx-smart-modal>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title pull-left">
+          Usuários
+        </h4>
+        <button class="btn btn-info btn-round pull-right" type="submit"
+          (click)="ngxSmartModalService.getModal('usuarioModal').open()">
+          Novo
+        </button>
+      </div>
+      <div class="card-body">
+        <div class="table">
+          <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" cellspacing="0"
+            class="table table-striped table-bordered dataTable">
+            <thead class=" text-primary">
+              <tr>
+                <th>Nome</th>
+                <th>E-mail</th>
+                <th>Perfil</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let user of usuarios">
+                <td>{{ user.name }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.sexo }}</td>
+                <td class="text-right">
+                  <button class="btn btn-warning btn-icon btn-sm " type="button" title="Editar"
+                    (click)="openFormEdit(user.id)">
+                    <i class="fa fa-edit fa-2x"></i>
+                  </button>
+                  <button class="btn btn-danger btn-icon btn-sm " type="button" title="Excluir">
+                    <i class="fa fa-times fa-2x"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
