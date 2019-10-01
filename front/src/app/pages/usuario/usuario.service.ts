@@ -26,21 +26,21 @@ export class UsuarioService {
 
   getUsuarios(): Observable<Usuario[]> {
     return this.http.get<Usuario[]>(this.usuarioUrl)
-      .pipe(map((response: any) => response.data.itens));
+      .pipe(map((response: any) => response.data));
 
   }
 
   getUsuarioById(id): Observable<Usuario[]> {
     return this.http.get<Usuario[]>(this.usuarioUrl + '/' + id)
-      .pipe(map((response: any) => response.data.item[0]));
+      .pipe(map((response: any) => response.data.usuario[0]));
 
   }
 
-  postUsuario(item: Usuario) {
+  postUsuario(usuario: Usuario) {
     UsuarioService.usuarioCreatedAlert = new EventEmitter<any>()
     return this.http.post<any>(
       this.usuarioUrl,
-      item)
+      usuario)
       .subscribe(
         (response) => {
           this.MessageService.message(response)
@@ -51,11 +51,11 @@ export class UsuarioService {
       )
   }
 
-  updateUsuario(item: Usuario) {
+  updateUsuario(usuario: Usuario) {
     UsuarioService.usuarioUpdatedAlert = new EventEmitter<any>()
     return this.http.put<any>(
       this.usuarioUrl,
-      item)
+      usuario)
       .subscribe(
         (response) => {
           this.MessageService.message(response)

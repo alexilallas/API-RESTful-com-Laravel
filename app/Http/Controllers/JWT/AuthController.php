@@ -23,11 +23,8 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $credentials = $this->jsonDecode();
-        $login['email'] = 'user@mail.com';
-        //$login['password'] = '123456';
-        $login['password'] = $credentials['senha'];
-
-        if (!$token = $this->jwtAuth->attempt($login)) {
+        
+        if (!$token = $this->jwtAuth->attempt($credentials)) {
             return $this->jsonError('Login Inválido', 'invalid_credentials', 401);
         }
 
@@ -40,7 +37,7 @@ class AuthController extends Controller
     {
         $token = $this->jwtAuth->getToken();
         $this->jwtAuth->invalidate($token);
-        return response()->json(['logout']);
+        return $this->jsonSuccess('Logout');
     }
 
 }

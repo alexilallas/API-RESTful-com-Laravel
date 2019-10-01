@@ -1,13 +1,13 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
 class Permissao extends BaseModel
 {
     protected $table = 'permissoes';
-    protected $fillable = ['nome','descricao','deletado'];
+    protected $fillable = ['nome','descricao'];
 
     /*
     |--------------------------------------------------------------------------
@@ -22,6 +22,6 @@ class Permissao extends BaseModel
      */
     public function perfis()
     {
-        return $this->belongsToMany('App\Perfil');
+        return $this->belongsToMany('App\Models\Perfil');
     }
 }

@@ -36,7 +36,9 @@ export class UsuarioComponent extends DatatablesComponent implements OnInit {
   getUsuarios(): any {
     this.usuarioService.getUsuarios()
       .subscribe(response => {
-        this.usuarios = response
+        this.usuarios = response.usuarios
+        this._perfis = response.perfis
+        this.rerenderTable()
       })
   }
 
@@ -56,32 +58,34 @@ export class UsuarioComponent extends DatatablesComponent implements OnInit {
     this.usuarioService.postUsuario(this.form)
   }
 
-  // openFormEdit(id) {
-  //   this.isNewItem = false
-  //   this.inventarioService.getItemById(id)
-  //     .subscribe(response => {
-  //       this.form = response
-  //     })
-  //   this.ngxSmartModalService.open(this.modal)
-  // }
+  openFormEdit(id) {
+    this.isNewUsuario = false
+    this.usuarioService.getUsuarioById(id)
+      .subscribe(response => {
+        console.log(response)
+        this.form = response
+      })
+    this.ngxSmartModalService.open(this.modal)
+  }
 
 
-  // update() {
-  //   this.updateItem()
-  //   InventarioService.itemUpdatedAlert.subscribe(
-  //     () => {
-  //       this.eraseForm()
-  //       this.getItens()
-  //       this.close()
-  //       InventarioService.itemUpdatedAlert.isStopped = true
-  //     }
-  //   )
+  update() {
+    console.log(this.form)
+    this.updateItem()
+    UsuarioService.usuarioUpdatedAlert.subscribe(
+      () => {
+        this.eraseForm()
+        this.getUsuarios()
+        this.close()
+        UsuarioService.usuarioUpdatedAlert.isStopped = true
+      }
+    )
 
-  // }
+  }
 
-  // updateItem() {
-  //   this.inventarioService.updateItem(this.form)
-  // }
+  updateItem() {
+    this.usuarioService.updateUsuario(this.form)
+  }
 
   close() {
     this.isNewUsuario = true

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\System;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -52,7 +52,7 @@ class InventarioController extends Controller
             \DB::beginTransaction();
             $this->doSave($data, 'criarItem');
             \DB::commit();
-            return $this->jsonSuccess('Paciente adicionado com sucesso!');
+            return $this->jsonSuccess('Item adicionado com sucesso!');
         } catch (\Throwable $th) {
             \DB::rollback();
             return $this->jsonError($th->getMessage());

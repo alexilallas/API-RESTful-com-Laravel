@@ -7,8 +7,8 @@
       <div class="row">
         <div class="col-md-6">
           <div class="form-group">
-            <label for="nome">Nome</label>
-            <input class="form-control" required [(ngModel)]="form.nome" name="nome" #nome="ngModel">
+            <label for="name">Nome</label>
+            <input class="form-control" required [(ngModel)]="form.name" name="name" #name="ngModel">
           </div>
         </div>
         <div class="col-md-6">
@@ -30,7 +30,7 @@
           <div class="form-group">
             <label for="perfil">Perfil</label>
             <ng-select [multiple]="false" [(ngModel)]="form.perfil" required name="perfil" #perfil="ngModel">
-              <ng-option *ngFor="let perfil of _perfis" [value]="id">{{ perfil }}</ng-option>
+              <ng-option *ngFor="let perfil of _perfis" [value]="perfil.id">{{ perfil.nome }}</ng-option>
             </ng-select>
           </div>
         </div>
@@ -70,7 +70,7 @@
               <tr *ngFor="let user of usuarios">
                 <td>{{ user.name }}</td>
                 <td>{{ user.email }}</td>
-                <td>{{ user.sexo }}</td>
+                <td>{{ user.perfil }}</td>
                 <td class="text-right">
                   <button class="btn btn-warning btn-icon btn-sm " type="button" title="Editar"
                     (click)="openFormEdit(user.id)">

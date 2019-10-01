@@ -54,6 +54,15 @@ export class LoginService {
   logout(): any {
     localStorage.clear()
     this.router.navigate(['/login'])
+    // return this.http.get<any>(this.urlLogin + 'logout')
+    //   .pipe(map(response => {
+    //     this.messageService.message(response)
+    //     if (response.status == 200) {
+    //       localStorage.clear()
+    //       this.router.navigate(['/login'])
+    //     }
+    //     return response;
+    //   }));
   }
 
 }

@@ -13,8 +13,13 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::namespace('Admin')->group(function () {
-    Route::middleware('jwt.auth')->group(function () {
+
+Route::middleware('jwt.auth')->group(function () {
+
+    /**
+     * Rotas para o gerenciamento de pacientes
+     */
+    Route::namespace('System')->group(function () {
         /**
          * Rotas para Paciente
          */
@@ -60,10 +65,27 @@ Route::namespace('Admin')->group(function () {
         Route::get('inventario/{id}', 'InventarioController@findById');
         Route::post('inventario', 'InventarioController@postItem');
         Route::put('inventario', 'InventarioController@updateItem');
+    });
 
+    /**
+     * Rotas para o gerenciamento de usuário
+     */
+    Route::namespace('Manager')->group(function () {
+
+        /**
+         * Rotas para Usuários
+         */
+        Route::get('usuario', 'ManagerController@find');
+        Route::get('usuario/{id}', 'ManagerController@findById');
+        Route::post('usuario', 'ManagerController@postItem');
+        Route::put('usuario', 'ManagerController@updateItem');
     });
 });
 
+/**
+ * Rotas para autenticação de usuário
+ */
 Route::namespace('JWT')->group(function () {
     Route::post('login', 'AuthController@login');
+    Route::get('logout', 'AuthController@logout');
 });

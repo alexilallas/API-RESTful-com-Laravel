@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
@@ -9,6 +9,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable implements JWTSubject
 {
     use Notifiable;
+
+    protected $fillable = [
+        'name','email','cpf','password'
+    ];
 
     // Rest omitted for brevity
 
@@ -82,6 +86,6 @@ class User extends Authenticatable implements JWTSubject
      */
     public function perfis()
     {
-        return $this->belongsToMany('App\Perfil');
+        return $this->belongsToMany('App\Models\Perfil');
     }
 }

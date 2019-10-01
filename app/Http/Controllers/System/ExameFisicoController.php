@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\System;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 
-class EvolucaoController extends Controller
+class ExameFisicoController extends Controller
 {
-    private $table = 'evolucao_pacientes';
+    private $table = 'exame_fisico_geral';
 
     private $paciente;
 
@@ -27,22 +27,22 @@ class EvolucaoController extends Controller
     {
         unset($modelData['nome']);
         unset($modelData['paciente_id']);
-        unset($modelData['data_evolucao']);
+        unset($modelData['data_exame']);
         return $this->update($this->table, $modelData);
     }
 
     public function checkBusinessLogic($data)
     {
-        $result = DB::table($this->table)->where(['data' => $data['data'],'paciente_id' => $data['paciente_id']])->count();
+        $result = DB::table($this->table)->where(['data' => $data['data'], 'paciente_id' => $data['paciente_id']])->count();
         if ($result > 0) {
-            $this->cancel('Já houve um atendimento registrado nesse dia para o paciente '.$data['nome'].'!');
+            $this->cancel('O paciente '.$data['nome'].' já realizou um exame físico nessa data!');
         }
     }
 
     public function find()
     {
         $pacientes = $this->paciente->find()->original['data']['pacientes'];
-        $pacientes = $this->hasEvolucao($pacientes);
+        $pacientes = $this->hasExameFisico($pacientes);
 
         return $this->jsonSuccess('Pacientes cadastrados', compact('pacientes'));
     }
@@ -59,48 +59,48 @@ class EvolucaoController extends Controller
         ->select($this->table.'.*')
         ->get();
 
-        return $this->jsonSuccess('Evolucões do Paciente com id: '.$id, compact('paciente'));
+        return $this->jsonSuccess('Exame físico do Paciente com id: '.$id, compact('paciente'));
     }
 
-    public function hasEvolucao($pacientes)
+    public function hasExameFisico($pacientes)
     {
         $req = new Request();
         foreach ($pacientes as $key => $paciente) {
             $req->request->add(['id' => $paciente->id]);
             if (count($this->findById($req)->original['data']['paciente']) > 0) {
-                $pacientes[$key]->hasEvolucao = true;
+                $pacientes[$key]->hasExame = true;
             } else {
-                $pacientes[$key]->hasEvolucao = false;
+                $pacientes[$key]->hasExame = false;
             }
         }
 
         return $pacientes;
     }
 
-    public function postEvolucao()
+    public function postExame()
     {
         $data = $this->jsonDecode();
 
         try {
             \DB::beginTransaction();
-            $this->doSave($data, 'criarEvolucao');
+            $this->doSave($data, 'criarExameFisico');
             \DB::commit();
-            return $this->jsonSuccess('Evolucao adicionada com sucesso!');
+            return $this->jsonSuccess('Exame Físico adicionado com sucesso!');
         } catch (\Throwable $th) {
             \DB::rollback();
             return $this->jsonError($th->getMessage());
         }
     }
 
-    public function updateEvolucao()
+    public function updateExame()
     {
         $data = $this->jsonDecode();
 
         try {
             \DB::beginTransaction();
-            $this->doUpdate($data, 'editarEvolucao');
+            $this->doUpdate($data, 'editarExameFisico');
             \DB::commit();
-            return $this->jsonSuccess('Evolucao atualizada com sucesso!', $data);
+            return $this->jsonSuccess('Exame físico atualizado com sucesso!', $data);
         } catch (\Throwable $th) {
             \DB::rollback();
             return $this->jsonError($th->getMessage());

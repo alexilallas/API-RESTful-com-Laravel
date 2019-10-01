@@ -1,13 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\System;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
-use App\HistoricoPessoal;
-use App\HistoricoFamiliar;
-use App\Paciente;
 
 class HistoricoController extends Controller
 {

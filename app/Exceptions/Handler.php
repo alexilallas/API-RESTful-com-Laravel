@@ -52,7 +52,7 @@ class Handler extends ExceptionHandler
         } elseif ($e instanceof \Tymon\JWTAuth\Exceptions\TokenInvalidException) {
             return response()->json(['message' => 'token_invalid', 'code' => 401], 401);
         } elseif ($e instanceof \Tymon\JWTAuth\Exceptions\JWTException) {
-            return response()->json(['message' => $e->getMessage(), 'code' => 500], 401);
+            return response()->json(['message' => $e->getMessage(), 'code' => 500], 500);
         }
         return parent::render($request, $e);
     }

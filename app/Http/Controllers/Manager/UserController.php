@@ -4,15 +4,16 @@ namespace App\Http\Controllers\Manager;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
     private $table = 'users';
-    private $contato;
+    private $perfil;
 
     public function __construct()
     {
-        $this->contato = new ContatoController();
+        $this->perfil = new PerfilController();
     }
 
 
@@ -39,57 +40,32 @@ class UserController extends Controller
 
     public function find()
     {
-        $usuarios = DB::table($this->table)->get();
+        $usuarios = DB::table($this->table)
+        ->join('perfil_user', 'perfil_user.user_id', '=', $this->table.'.id')
+        ->join('perfis', 'perfis.id', '=', 'perfil_user.perfil_id')
+        ->select($this->table.'.*', 'perfis.nome as perfil')
+        ->get();
 
-        return $this->jsonSuccess('Usuários cadastrados', compact('usuarios'));
+        $perfis = $this->perfil->find()->original['data']['perfis'];
+
+        return $this->jsonSuccess('Usuários cadastrados', compact(['usuarios','perfis']));
     }
 
     public function findById(Request $req)
     {
         $id = $req->route('id');
         $usuario = DB::table($this->table)
+        ->join('perfil_user', 'perfil_user.user_id', '=', $this->table.'.id')
+        ->join('perfis', 'perfis.id', '=', 'perfil_user.perfil_id')
+        ->select($this->table.'.*', 'perfis.nome as perfil')
         ->where($this->table.'.id', $id)
         ->get();
 
         return $this->jsonSuccess('Usuário', compact('usuario'));
     }
 
-    public function postUsuario()
-    {
-        $data = $this->jsonDecode();
-
-        try {
-            \DB::beginTransaction();
-            $this->doSave($data, 'criarUsuario');
-            \DB::commit();
-            return $this->jsonSuccess('Usuário adicionado com sucesso!');
-        } catch (\Throwable $th) {
-            \DB::rollback();
-            return $this->jsonError($th->getMessage());
-        }
-    }
-
-    public function updateUsuario()
-    {
-        $data = $this->jsonDecode();
-
-        try {
-            \DB::beginTransaction();
-            $this->doUpdate($data, 'editarUsuario');
-            \DB::commit();
-            return $this->jsonSuccess('Usuário atualizado com sucesso!', $data);
-        } catch (\Throwable $th) {
-            \DB::rollback();
-            return $this->jsonError($th->getMessage());
-        }
-    }
-
     public function customUpdate($modelData)
     {
-        unset($modelData['nome_contato']);
-        unset($modelData['numero_contato']);
-        unset($modelData['tipo_paciente']);
-        unset($modelData['id_contato']);
         $data = $modelData;
 
         return $this->update($this->table, $data);
