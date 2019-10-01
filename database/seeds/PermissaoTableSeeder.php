@@ -12,6 +12,11 @@ class PermissaoTableSeeder extends Seeder
     public function run()
     {
         DB::table('permissoes')->insert([
+            'nome'=>'visualizarDashboard',
+            'descricao'=> 'Pode visualizar a Dashboard'
+        ]);
+
+        DB::table('permissoes')->insert([
             'nome'=>'criarPaciente',
             'descricao'=> 'Pode adicionar Paciente'
         ]);

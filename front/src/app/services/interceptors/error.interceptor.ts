@@ -14,21 +14,28 @@ export class ErrorInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(request).pipe(catchError(err => {
-      if (err.status === 401) {
-        this.loginService.logout();
+      console.log(err)
+      const errorMessage = err.error.message
+      const statusText = err.statusText
+      const errorName = err.name
+
+      if (statusText === 'Unauthorized' && errorMessage == 'Token not provided') {
+        this.loginService.logout()
         this.messageService.message({ 'message': 'Você não tem permissão para ver este conteúdo!' })
       }
-      console.log(err)
-      const error = err.message || err.statusText;
-      if (err.name == 'HttpErrorResponse') {
-        this.messageService.message({ 'message': 'Falha ao conectar com o servidor.' })
+      if (statusText != 'Unauthorized' && errorName == 'HttpErrorResponse') {
+        this.messageService.message({ 'message': 'Falha ao conectar com o servidor' })
+      }
+      else if (errorMessage == 'Token has expired') {
+        this.loginService.logout()
+        this.messageService.message({ 'message': 'Sessão expirada, faça login novamente para continuar' })
       }
       else {
-        this.messageService.message({ 'message': error })
+        this.messageService.message({ 'message': errorMessage })
       }
 
 
-      return throwError(error);
+      return throwError(errorMessage)
     }))
   }
 }

@@ -38,7 +38,7 @@ class PerfilTableSeeder extends Seeder
         ]);
 
         //Perfil Master
-        foreach (range(1, 13) as $permissao) {
+        foreach (range(1, 14) as $permissao) {
             DB::table('perfil_permissao')->insert([
                 'perfil_id'=> 1,
                 'permissao_id'=> $permissao

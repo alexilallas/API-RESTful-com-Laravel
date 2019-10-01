@@ -7,6 +7,7 @@ use Tymon\JWTAuth\Exceptions\JWTException;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 
 class AuthController extends Controller
 {
@@ -29,8 +30,31 @@ class AuthController extends Controller
         }
 
         $user = $this->jwtAuth->user();
+        
+        $permissions = DB::table('users')
+        ->join('perfil_user', 'perfil_user.user_id', '=', 'users.id')
+        ->join('perfis', 'perfis.id', '=', 'perfil_user.user_id')
+        ->join('perfil_permissao', 'perfil_permissao.perfil_id', '=', 'perfis.id')
+        ->join('permissoes', 'permissoes.id', '=', 'perfil_permissao.permissao_id')
+        ->select('permissoes.id', 'permissoes.nome', 'permissoes.descricao', 'perfis.nome as perfil')
+        ->where('users.id', $user->id)
+        ->get();
+        
+        $user->perfil = $permissions[0]->nome;
 
-        return $this->jsonSuccess('Seja bem vindo, '.$user['name'].'!', ['token' => $token, 'user' => $user]);
+        $permissionWorked = [];
+        foreach ($permissions->toArray() as $permission) {
+            $permissionWorked[] = $permission->nome;
+        }
+
+        return $this->jsonSuccess(
+            "Seja bem vindo, $user->name",
+            [
+            'token' => $token,
+            'user' => $user,
+            'permissoes' => $permissionWorked
+            ]
+        );
     }
 
     public function logout()
@@ -39,5 +63,4 @@ class AuthController extends Controller
         $this->jwtAuth->invalidate($token);
         return $this->jsonSuccess('Logout');
     }
-
 }

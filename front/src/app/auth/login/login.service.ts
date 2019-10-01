@@ -33,9 +33,11 @@ export class LoginService {
     return this.http.post<any>(this.urlLogin + 'login', userData)
       .pipe(map(response => {
         this.messageService.message(response)
+        console.log(response)
         if (response.status == 200) {
           localStorage.setItem('token', response.data.token)
           localStorage.setItem('user', btoa(JSON.stringify(response.data.user)))
+          localStorage.setItem('permissoes', btoa(JSON.stringify(response.data.permissoes)))
           this.router.navigate(['/inicio'])
         }
         return response;

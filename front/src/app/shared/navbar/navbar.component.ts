@@ -105,11 +105,11 @@ export class NavbarComponent implements OnInit {
 
   logout(e) {
     e.preventDefault()
-    this.loginService.logout().subscribe(
-      (response) => {
-        console.log(response)
-      }
-    )
+    this.loginService.logout()//.subscribe(
+    //   (response) => {
+    //     console.log(response)
+    //   }
+    // )
   }
 
   getUser() {

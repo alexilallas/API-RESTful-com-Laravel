@@ -6,18 +6,18 @@ export interface RouteInfo {
     title: string;
     icon: string;
     class: string;
+    permission: string;
 }
 
 export const ROUTES: RouteInfo[] = [
-    { path: '/inicio',           title: 'Início',              icon:'nc-bank',             class: '' },
-    { path: '/paciente',         title: 'Paciente',            icon:'nc-single-02',        class: '' },
-    { path: '/historico-medico', title: 'Histórico Médico',    icon:'nc-single-copy-04',   class: '' },
-    { path: '/exame-fisico',     title: 'Exame Físico',        icon:'nc-favourite-28',     class: '' },
-    { path: '/evolucao',         title: 'Evolução',            icon:'nc-sound-wave',       class: '' },
-    { path: '/prontuario',       title: 'Prontuário',          icon:'nc-paper',            class: '' },
-  //{ path: '/pesquisar',        title: 'Pesquisar',           icon:'nc-zoom-split',       class: '' },
-    { path: '/inventario',       title: 'Inventário',          icon:'nc-app',              class: '' },
-    { path: '/usuario',          title: 'Usuário',             icon:'nc-circle-10',        class: '' },
+    { path: '/inicio',           title: 'Início',              icon:'nc-bank',             class: '',  permission: 'visualizarDashboard' },
+    { path: '/paciente',         title: 'Paciente',            icon:'nc-single-02',        class: '',  permission: 'criarPaciente' },
+    { path: '/historico-medico', title: 'Histórico Médico',    icon:'nc-single-copy-04',   class: '',  permission: 'criarHistorico'},
+    { path: '/exame-fisico',     title: 'Exame Físico',        icon:'nc-favourite-28',     class: '',  permission: 'criarExameFisico'},
+    { path: '/evolucao',         title: 'Evolução',            icon:'nc-sound-wave',       class: '',  permission: 'criarEvolucao'},
+    { path: '/prontuario',       title: 'Prontuário',          icon:'nc-paper',            class: '',  permission: 'visualizarProntuario'},
+    { path: '/inventario',       title: 'Inventário',          icon:'nc-app',              class: '',  permission: 'criarItem'},
+    { path: '/usuario',          title: 'Usuário',             icon:'nc-circle-10',        class: '',  permission: 'criarUsuario'},
 ];
 
 @Component({

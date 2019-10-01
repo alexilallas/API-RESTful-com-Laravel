@@ -36,8 +36,8 @@ export class UsuarioComponent extends DatatablesComponent implements OnInit {
   getUsuarios(): any {
     this.usuarioService.getUsuarios()
       .subscribe(response => {
-        this.usuarios = response.usuarios
-        this._perfis = response.perfis
+        this.usuarios = response['usuarios']
+        this._perfis = response['perfis']
         this.rerenderTable()
       })
   }

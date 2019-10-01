@@ -77,8 +77,8 @@ Route::middleware('jwt.auth')->group(function () {
          */
         Route::get('usuario', 'ManagerController@find');
         Route::get('usuario/{id}', 'ManagerController@findById');
-        Route::post('usuario', 'ManagerController@postItem');
-        Route::put('usuario', 'ManagerController@updateItem');
+        Route::post('usuario', 'ManagerController@postUsuario');
+        Route::put('usuario', 'ManagerController@updateUsuario');
     });
 });
 
