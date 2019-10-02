@@ -29,6 +29,12 @@ class ManagerController extends Controller
         $this->perfilUsuario->customSave($modelData);
     }
 
+    public function customUpdate($modelData)
+    {
+        $this->user->customUpdate($modelData);
+        $this->perfilUsuario->customUpdate($modelData);
+    }
+
 
     public function checkBusinessLogic($data)
     {
@@ -54,10 +60,13 @@ class ManagerController extends Controller
     public function postUsuario()
     {
         $data = $this->jsonDecode();
-
+        
         try {
             \DB::beginTransaction();
-            $this->doSave($data, 'criarUsuario');
+            $this->user->customSave($data);
+            $idUsuario = DB::getPdo()->lastInsertId();
+            $data['user_id'] = $idUsuario;
+            $this->perfilUsuario->customSave($data);
             \DB::commit();
             return $this->jsonSuccess('Usuário adicionado com sucesso!');
         } catch (\Throwable $th) {
@@ -69,7 +78,7 @@ class ManagerController extends Controller
     public function updateUsuario()
     {
         $data = $this->jsonDecode();
-
+        
         try {
             \DB::beginTransaction();
             $this->doUpdate($data, 'editarUsuario');
@@ -81,10 +90,4 @@ class ManagerController extends Controller
         }
     }
 
-    public function customUpdate($modelData)
-    {
-        $data = $modelData;
-
-        return $this->update($this->table, $data);
-    }
 }

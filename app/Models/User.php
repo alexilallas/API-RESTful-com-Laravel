@@ -5,6 +5,7 @@ namespace App\Models;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\DB;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -70,7 +71,24 @@ class User extends Authenticatable implements JWTSubject
     protected function getAllPernissionsFormUser()
     {
         $permissionsArray = [];
-        return array_pluck(getPermissoesUserLoggedIn(), 'nome');
+        return array_pluck($this->getPermissoesUserLoggedIn(), 'nome');
+    }
+
+    /**
+     * Get all permission slugs from all permissions loggedIn
+     *
+     * @return Array of permission slugs and role name
+     */
+    public function getPermissoesUserLoggedIn()
+    {
+        return DB::table('users')
+        ->join('perfil_user', 'users.id', '=', 'perfil_user.user_id')
+        ->join('perfis', 'perfil_user.perfil_id', '=', 'perfis.id')
+        ->join('perfil_permissao', 'perfil_user.perfil_id', '=', 'perfil_permissao.perfil_id')
+        ->join('permissoes', 'perfil_permissao.permissao_id', '=', 'permissoes.id')
+        ->select('perfis.nome', 'permissoes.nome')->where([['users.id', '=', auth()->user()->id],['perfil_permissao.ativo','=', 1]])
+        ->distinct()
+        ->get();
     }
 
     /*

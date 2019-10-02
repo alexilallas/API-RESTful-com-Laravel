@@ -62,7 +62,6 @@ export class UsuarioComponent extends DatatablesComponent implements OnInit {
     this.isNewUsuario = false
     this.usuarioService.getUsuarioById(id)
       .subscribe(response => {
-        console.log(response)
         this.form = response
       })
     this.ngxSmartModalService.open(this.modal)
@@ -71,7 +70,7 @@ export class UsuarioComponent extends DatatablesComponent implements OnInit {
 
   update() {
     console.log(this.form)
-    this.updateItem()
+    this.updateUsuario()
     UsuarioService.usuarioUpdatedAlert.subscribe(
       () => {
         this.eraseForm()
@@ -83,7 +82,7 @@ export class UsuarioComponent extends DatatablesComponent implements OnInit {
 
   }
 
-  updateItem() {
+  updateUsuario() {
     this.usuarioService.updateUsuario(this.form)
   }
 

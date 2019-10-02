@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Manager;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -19,7 +20,10 @@ class UserController extends Controller
 
     public function customSave($modelData)
     {
-        $data = $modelData;
+        $data['name']     = $modelData['name'];
+        $data['email']    = $modelData['email'];
+        $data['cpf']      = $modelData['cpf'];
+        $data['password'] = Hash::make($modelData['password']);
 
         return $this->save($this->table, $data);
     }
@@ -57,7 +61,7 @@ class UserController extends Controller
         $usuario = DB::table($this->table)
         ->join('perfil_user', 'perfil_user.user_id', '=', $this->table.'.id')
         ->join('perfis', 'perfis.id', '=', 'perfil_user.perfil_id')
-        ->select($this->table.'.*', 'perfis.nome as perfil')
+        ->select($this->table.'.*','perfis.id as perfil_id' ,'perfis.nome as perfil', 'perfil_user.id as perfil_user_id')
         ->where($this->table.'.id', $id)
         ->get();
 
@@ -66,7 +70,10 @@ class UserController extends Controller
 
     public function customUpdate($modelData)
     {
-        $data = $modelData;
+        $data['id']    = $modelData['id'];
+        $data['name']  = $modelData['name'];
+        $data['email'] = $modelData['email'];
+        $data['cpf']   = $modelData['cpf'];
 
         return $this->update($this->table, $data);
     }

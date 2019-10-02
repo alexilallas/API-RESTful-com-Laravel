@@ -28,10 +28,19 @@
         </div>
         <div class="col-md-6">
           <div class="form-group">
-            <label for="perfil">Perfil</label>
-            <ng-select [multiple]="false" [(ngModel)]="form.perfil" required name="perfil" #perfil="ngModel">
+            <label for="perfil_id">Perfil</label>
+            <ng-select [multiple]="false" [(ngModel)]="form.perfil_id" required name="perfil_id" #perfil_id="ngModel">
               <ng-option *ngFor="let perfil of _perfis" [value]="perfil.id">{{ perfil.nome }}</ng-option>
             </ng-select>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6" *ngIf="!form.id">
+          <div class="form-group">
+            <label for="email">Senha</label>
+            <input type="password" class="form-control" required [(ngModel)]="form.password" name="password"
+              #password="ngModel">
           </div>
         </div>
       </div>

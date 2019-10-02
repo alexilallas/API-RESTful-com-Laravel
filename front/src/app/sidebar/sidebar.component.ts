@@ -11,7 +11,7 @@ export interface RouteInfo {
 
 export const ROUTES: RouteInfo[] = [
     { path: '/inicio',           title: 'Início',              icon:'nc-bank',             class: '',  permission: 'visualizarDashboard' },
-    { path: '/paciente',         title: 'Paciente',            icon:'nc-single-02',        class: '',  permission: 'criarPacient' },
+    { path: '/paciente',         title: 'Paciente',            icon:'nc-single-02',        class: '',  permission: 'criarPaciente' },
     { path: '/historico-medico', title: 'Histórico Médico',    icon:'nc-single-copy-04',   class: '',  permission: 'criarHistoricoMedico'},
     { path: '/exame-fisico',     title: 'Exame Físico',        icon:'nc-favourite-28',     class: '',  permission: 'criarExameFisico'},
     { path: '/evolucao',         title: 'Evolução',            icon:'nc-sound-wave',       class: '',  permission: 'criarEvolucao'},

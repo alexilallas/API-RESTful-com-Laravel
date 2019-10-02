@@ -33,14 +33,14 @@ class AuthController extends Controller
         
         $permissions = DB::table('users')
         ->join('perfil_user', 'perfil_user.user_id', '=', 'users.id')
-        ->join('perfis', 'perfis.id', '=', 'perfil_user.user_id')
+        ->join('perfis', 'perfis.id', '=', 'perfil_user.perfil_id')
         ->join('perfil_permissao', 'perfil_permissao.perfil_id', '=', 'perfis.id')
         ->join('permissoes', 'permissoes.id', '=', 'perfil_permissao.permissao_id')
         ->select('permissoes.id', 'permissoes.nome', 'permissoes.descricao', 'perfis.nome as perfil')
         ->where('users.id', $user->id)
         ->get();
         
-        $user->perfil = $permissions[0]->nome;
+        $user->perfil = $permissions[0]->perfil;
 
         $permissionWorked = [];
         foreach ($permissions->toArray() as $permission) {

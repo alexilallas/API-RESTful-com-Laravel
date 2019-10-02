@@ -20,7 +20,7 @@ class CheckPermission
                 return $next($request);
             }
         }
-
-        return $request->ajax ? response()->json(['message' => 'Não Autorizado!','status' => 403]) : redirect()->back()->with('mensagem_falha', 'Você não tem permissão para acessar esse conteúdo!');
+        
+        return response()->json(['message' => 'Não Autorizado!','status' => 401]);
     }
 }
