@@ -11,8 +11,8 @@ export interface RouteInfo {
 
 export const ROUTES: RouteInfo[] = [
     { path: '/inicio',           title: 'Início',              icon:'nc-bank',             class: '',  permission: 'visualizarDashboard' },
-    { path: '/paciente',         title: 'Paciente',            icon:'nc-single-02',        class: '',  permission: 'criarPaciente' },
-    { path: '/historico-medico', title: 'Histórico Médico',    icon:'nc-single-copy-04',   class: '',  permission: 'criarHistorico'},
+    { path: '/paciente',         title: 'Paciente',            icon:'nc-single-02',        class: '',  permission: 'criarPacient' },
+    { path: '/historico-medico', title: 'Histórico Médico',    icon:'nc-single-copy-04',   class: '',  permission: 'criarHistoricoMedico'},
     { path: '/exame-fisico',     title: 'Exame Físico',        icon:'nc-favourite-28',     class: '',  permission: 'criarExameFisico'},
     { path: '/evolucao',         title: 'Evolução',            icon:'nc-sound-wave',       class: '',  permission: 'criarEvolucao'},
     { path: '/prontuario',       title: 'Prontuário',          icon:'nc-paper',            class: '',  permission: 'visualizarProntuario'},
@@ -28,7 +28,11 @@ export const ROUTES: RouteInfo[] = [
 
 export class SidebarComponent implements OnInit {
     public menuItems: any[];
+
+    constructor(){
+      this.menuItems = ROUTES.filter(menuItem => menuItem);
+    }
     ngOnInit() {
-        this.menuItems = ROUTES.filter(menuItem => menuItem);
+      console.log('SidebarComponent')
     }
 }

@@ -1,13 +1,35 @@
 import { Injectable } from '@angular/core';
+import { SidebarComponent } from '../sidebar/sidebar.component';
 
 @Injectable({
   providedIn: 'root'
 })
-export class HelperService {
+export class HelperService extends SidebarComponent {
 
-  constructor() { }
+  constructor() {
+    super();
+  }
 
   async delay(ms: number) {
     await new Promise(resolve => setTimeout(() => resolve(), ms));
+  }
+
+  hasPermission(url) {
+    let itemsMenu = this.menuItems
+    let permissoes = JSON.parse(atob(localStorage.getItem('permissoes')))
+    let itemToVerify: any
+
+    for (let item of itemsMenu) {
+      if(item.path == url){
+        itemToVerify = item
+      }
+    }
+
+    for (let permissao of permissoes) {
+      if (itemToVerify.permission.indexOf(permissao) === 0) {
+        return true
+      }
+    }
+    return false
   }
 }

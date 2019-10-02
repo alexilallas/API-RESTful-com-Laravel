@@ -60,7 +60,7 @@
         <ul>
           <div class="row">
             <div class="col-md-3 col-sm-6" *ngFor="let item of itensInventario | filter : form.buscar">
-              <a href="#/inventario" (click)="openFormEdit(item.id)">
+              <a [routerLink]="['/inventario']" (click)="openFormEdit(item.id)">
                 <li>
                   <fa-icon [icon]="faPills" class="fa-2x"></fa-icon>
                   <p>{{ item.nome }}</p>

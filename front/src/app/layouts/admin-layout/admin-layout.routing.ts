@@ -10,14 +10,16 @@ import { InventarioComponent } from '../../pages/inventario/inventario.component
 import { EvolucaoComponent } from '../../pages/evolucao/evolucao.component';
 import { UsuarioComponent } from '../../pages/usuario/usuario.component';
 
+import { AuthGuard } from '../../auth/guard/auth.guard';
+
 export const AdminLayoutRoutes: Routes = [
-    { path: 'inicio',           component: InicioComponent },
-    { path: 'paciente',         component: PacienteComponent },
-    { path: 'historico-medico', component: HistoricoMedicoComponent },
-    { path: 'exame-fisico',     component: ExameFisicoComponent },
-    { path: 'evolucao',         component: EvolucaoComponent },
-    { path: 'prontuario',       component: ProntuarioComponent },
-    { path: 'pesquisar',        component: PesquisarComponent },
-    { path: 'inventario',       component: InventarioComponent },
-    { path: 'usuario',          component: UsuarioComponent },
+    { path: 'inicio',           component: InicioComponent,          canActivate: [AuthGuard] },
+    { path: 'paciente',         component: PacienteComponent,        canActivate: [AuthGuard] },
+    { path: 'historico-medico', component: HistoricoMedicoComponent, canActivate: [AuthGuard] },
+    { path: 'exame-fisico',     component: ExameFisicoComponent,     canActivate: [AuthGuard] },
+    { path: 'evolucao',         component: EvolucaoComponent,        canActivate: [AuthGuard] },
+    { path: 'prontuario',       component: ProntuarioComponent,      canActivate: [AuthGuard] },
+    { path: 'pesquisar',        component: PesquisarComponent,       canActivate: [AuthGuard] },
+    { path: 'inventario',       component: InventarioComponent,      canActivate: [AuthGuard] },
+    { path: 'usuario',          component: UsuarioComponent,         canActivate: [AuthGuard] },
 ];

@@ -15,9 +15,9 @@
   </div>
   <ul class="nav">
     <li *ngFor="let menuItem of menuItems | filterMenu" routerLinkActive="active" class="{{menuItem.class}}">
-      <a [routerLink]="[menuItem.path]">
-        <i class="nc-icon {{menuItem.icon}}"></i>
-        <p>{{menuItem.title}}</p>
+      <a *ngIf="menuItem.path" [routerLink]="[menuItem.path]">
+        <i *ngIf="menuItem.path" class="nc-icon {{menuItem.icon}}"></i>
+        <p *ngIf="menuItem.path">{{menuItem.title}}</p>
       </a>
     </li>
   </ul>
