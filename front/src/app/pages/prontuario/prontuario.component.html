@@ -296,13 +296,13 @@
           <tbody>
             <tr *ngFor="let exame of exames">
               <td>{{exame.data | date: 'dd/MM/yyyy'}}</td>
-              <td>{{exame.pressao}}</td>
-              <td>{{exame.altura}}</td>
-              <td>{{exame.peso}}</td>
-              <td>{{exame.glicemia}}</td>
-              <td>{{exame.temperatura}}</td>
-              <td>{{exame.frequencia_cardiaca}}</td>
-              <td>{{exame.frequencia_respiratoria}}</td>
+              <td>{{exame.pressao}} mmHg</td>
+              <td>{{exame.altura}} cm</td>
+              <td>{{exame.peso}} Kg</td>
+              <td>{{exame.glicemia}} mg/dL</td>
+              <td>{{exame.temperatura}} °C</td>
+              <td>{{exame.frequencia_cardiaca}} bpm</td>
+              <td>{{exame.frequencia_respiratoria}} rpm</td>
             </tr>
           </tbody>
         </table>
