@@ -70,7 +70,7 @@ class ManagerController extends Controller
 
         try {
             \DB::beginTransaction();
-            $this->doSave($data, 'criarUsuario');
+            $this->doSave($data, 'Criou o usuário '.$data['name']);
             \DB::commit();
             return $this->jsonSuccess('Usuário adicionado com sucesso!');
         } catch (\Throwable $th) {
@@ -85,7 +85,7 @@ class ManagerController extends Controller
 
         try {
             \DB::beginTransaction();
-            $this->doUpdate($data, 'editarUsuario');
+            $this->doUpdate($data, 'Editou dados do usuário '.$data['name']);
             \DB::commit();
             return $this->jsonSuccess('Usuário atualizado com sucesso!', $data);
         } catch (\Throwable $th) {
@@ -102,7 +102,7 @@ class ManagerController extends Controller
             \DB::beginTransaction();
             $data['ativo'] = false;
             $data['password'] = null;
-            $this->doUpdate($data, 'resetarSenhaUsuario');
+            $this->doUpdate($data, 'Resetou a senha do usuário '.$data['name']);
             \DB::commit();
             return $this->jsonSuccess('Senha resetada com sucesso!', $data);
         } catch (\Throwable $th) {

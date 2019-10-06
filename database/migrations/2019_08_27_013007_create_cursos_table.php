@@ -20,7 +20,8 @@ class CreateCursosTable extends Migration
             $table->boolean('ativo')->default(true);
             $table->integer('versao')->default(1);
             $table->softDeletes();
-            $table->timestamps();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent();
         });
     }
 

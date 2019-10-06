@@ -8,6 +8,7 @@ import { ProntuarioComponent } from '../../pages/prontuario/prontuario.component
 import { InventarioComponent } from '../../pages/inventario/inventario.component';
 import { EvolucaoComponent } from '../../pages/evolucao/evolucao.component';
 import { UsuarioComponent } from '../../pages/usuario/usuario.component';
+import { AuditoriaComponent } from '../../pages/auditoria/auditoria/auditoria.component';
 
 import { AuthGuard } from '../../auth/guard/auth.guard';
 
@@ -20,4 +21,5 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'prontuario',       component: ProntuarioComponent,      canActivate: [AuthGuard] },
     { path: 'inventario',       component: InventarioComponent,      canActivate: [AuthGuard] },
     { path: 'usuario',          component: UsuarioComponent,         canActivate: [AuthGuard] },
+    { path: 'auditoria',        component: AuditoriaComponent,       canActivate: [AuthGuard] },
 ];

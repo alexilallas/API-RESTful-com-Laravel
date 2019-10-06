@@ -197,6 +197,18 @@ Route::middleware('jwt.auth')->group(function () {
                 'uses' => 'InventarioController@updateItem'
             ]
         );
+
+        /**
+         * Rotas para Auditoria
+         */
+
+         Route::get(
+            'auditoria',
+            [
+                'middleware' => 'acl:editarItem',
+                'uses' => 'AuditoriaController@find'
+            ]
+        );
     });
 
     /**

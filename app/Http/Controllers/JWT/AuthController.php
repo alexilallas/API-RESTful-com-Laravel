@@ -24,13 +24,13 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $credentials = $this->jsonDecode();
-        
+
         if (!$token = $this->jwtAuth->attempt($credentials)) {
             return $this->jsonError('Login Inválido', 'invalid_credentials', 401);
         }
 
         $user = $this->jwtAuth->user();
-        
+
         $permissions = DB::table('users')
         ->join('perfil_user', 'perfil_user.user_id', '=', 'users.id')
         ->join('perfis', 'perfis.id', '=', 'perfil_user.perfil_id')
@@ -39,7 +39,7 @@ class AuthController extends Controller
         ->select('permissoes.id', 'permissoes.nome', 'permissoes.descricao', 'perfis.nome as perfil')
         ->where('users.id', $user->id)
         ->get();
-        
+
         $user->perfil = $permissions[0]->perfil;
 
         $permissionWorked = [];
@@ -62,5 +62,10 @@ class AuthController extends Controller
         $token = $this->jwtAuth->getToken();
         $this->jwtAuth->invalidate($token);
         return $this->jsonSuccess('Logout');
+    }
+
+    public function getUser()
+    {
+        return $this->jwtAuth->user();
     }
 }

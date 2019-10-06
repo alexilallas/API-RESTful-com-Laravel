@@ -84,7 +84,7 @@ class ExameFisicoController extends Controller
 
         try {
             \DB::beginTransaction();
-            $this->doSave($data, 'criarExameFisico');
+            $this->doSave($data, 'Criou um Exame Físico do paciente '.$data['nome']);
             \DB::commit();
             return $this->jsonSuccess('Exame Físico adicionado com sucesso!');
         } catch (\Throwable $th) {
@@ -99,7 +99,7 @@ class ExameFisicoController extends Controller
 
         try {
             \DB::beginTransaction();
-            $this->doUpdate($data, 'editarExameFisico');
+            $this->doUpdate($data, 'Editou um Exame Físico do paciente '.$data['nome']);
             \DB::commit();
             return $this->jsonSuccess('Exame físico atualizado com sucesso!', $data);
         } catch (\Throwable $th) {

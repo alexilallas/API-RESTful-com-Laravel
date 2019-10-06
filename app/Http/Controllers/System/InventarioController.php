@@ -50,7 +50,7 @@ class InventarioController extends Controller
 
         try {
             \DB::beginTransaction();
-            $this->doSave($data, 'criarItem');
+            $this->doSave($data, 'Criou o item '.$data['nome']);
             \DB::commit();
             return $this->jsonSuccess('Item adicionado com sucesso!');
         } catch (\Throwable $th) {
@@ -65,7 +65,7 @@ class InventarioController extends Controller
 
         try {
             \DB::beginTransaction();
-            $this->doUpdate($data, 'editarItem');
+            $this->doUpdate($data, 'Editou o item '.$data['nome']);
             \DB::commit();
             return $this->jsonSuccess('Item atualizado com sucesso!', $data);
         } catch (\Throwable $th) {

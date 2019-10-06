@@ -63,7 +63,7 @@ class PacienteController extends Controller
 
         try {
             \DB::beginTransaction();
-            $this->doSave($data, 'criarPaciente');
+            $this->doSave($data, 'Cadastrou o Paciente '.$data['nome']);
             \DB::commit();
             return $this->jsonSuccess('Paciente adicionado com sucesso!');
         } catch (\Throwable $th) {
@@ -78,7 +78,7 @@ class PacienteController extends Controller
 
         try {
             \DB::beginTransaction();
-            $this->doUpdate($data, 'editarPaciente');
+            $this->doUpdate($data, 'Editou dados pessoais do paciente '. $data['nome']);
             \DB::commit();
             return $this->jsonSuccess('Paciente atualizado com sucesso!', $data);
         } catch (\Throwable $th) {

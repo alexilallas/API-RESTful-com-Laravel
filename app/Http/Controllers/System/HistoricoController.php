@@ -86,7 +86,7 @@ class HistoricoController extends Controller
         $data = $this->jsonDecode();
         try {
             \DB::beginTransaction();
-            $this->doSave($data, 'criarHistoricoMedico');
+            $this->doSave($data, 'Criou o Histórido médico do paciente '.$data['nome']);
             \DB::commit();
             return $this->jsonSuccess('Histórico médico adicionado com sucesso!');
         } catch (\Throwable $th) {
@@ -121,7 +121,7 @@ class HistoricoController extends Controller
         $data = $this->jsonDecode();
         try {
             \DB::beginTransaction();
-            $this->doUpdate($data, 'editarHistoricoMedico');
+            $this->doUpdate($data, 'Editou o Histórico Médico do paciente '.$data['nome']);
             \DB::commit();
             return $this->jsonSuccess('Histórico médico atualizado com sucesso!');
         } catch (\Throwable $th) {

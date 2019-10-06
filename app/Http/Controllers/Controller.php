@@ -7,6 +7,8 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\DB;
+use App\Models\Auditoria;
+use JWTAuth;
 
 abstract class Controller extends BaseController
 {
@@ -87,18 +89,18 @@ abstract class Controller extends BaseController
 
 
     /**
-     * Verifica se determinado usuário tem permissão para fazer atualização e chama a função de salvar
+     * Verifica regra de negócio da tabela, chama método para salvar dados e
+     * salva dados na tabela de auditoria
      *
      * @param array $data O dado que será salvo
-     * @param string $permission A permissão solicitada pelo usuário
+     * @param string $action A ação realizada pelo usuário
      *
-     * @return boolean Indica se a ação obteve êxito ou não
      */
-    public function doSave($data, $permission)
+    public function doSave($data, $action)
     {
-        $this->verifyPermission($permission);
         $this->checkBusinessLogic($data);
-        return $this->customSave($data);
+        $this->customSave($data);
+        $this->auditoria($data, $action);
     }
 
 
@@ -108,92 +110,81 @@ abstract class Controller extends BaseController
      * @param string $table O nome da tabela que será adicionada o registro
      * @param array  $data Os dados que serão adicionados na tabela
      *
-     * @return boolean Indica se a ação obteve êxito ou não
      */
     public function save($table, $data)
     {
-        $this->coreSave($table, 'Criação', $id = null);
-        return DB::table($table)->insert($data);
+        $data['created_at'] = null;
+        DB::table($table)->insert($data);
+    }
+
+
+    /**
+     * Chama método para atualizar e salva dados na tabela de auditoria
+     *
+     * @param array $data O dado que será atualizado
+     * @param string $action A ação realizada pelo usuário
+     *
+     */
+    public function doUpdate($data, $action)
+    {
+        $this->customUpdate($data);
+        $this->auditoria($data, $action);
+    }
+
+
+    /**
+     * Atualiza os registros de uma linha em uma tabela e incrementa a versão da linha
+     *
+     * @param string $table O nome da tabela que será atualizada
+     * @param array  $data Os dados que serão atualizados
+     *
+     */
+    public function update($table, $data)
+    {
+        $data['updated_at'] = null;
+        DB::table($table)->where('id', $data['id'])->update($data);
+        DB::table($table)->where('id', $data['id'])->increment('versao');
     }
 
 
     /**
      * Salva a ação solicitada pelo usuáro usuário na tabela de auditoria
      *
-     * @param string $table A tabela na qual será realizada a inserção do dado
-     * @param string $action A ação que o usuário está criando
-     * @param int    $idLine O ID da linha que será criada
-     *
-     * @return void
-     */
-    public function coreSave($table, $action, $idLine)
-    {
-        //incrementa a versão e salva na tabela de auditoria
-        //DB::table($table)->increment('versao', 1, ['id' => $idLine]);
-        //salva registro para auditoria
-        //$data['usuario']
-        //Auditoria::create($data)
-    }
-
-
-    /**
-     * Verifica se determinado usuário tem permissão para fazer atualização e chama a função de atualizar
-     *
-     * @param array $data O dado que será atualizado
-     * @param string $permission A permissão solicitada pelo usuário
-     *
-     * @return boolean Indica se a ação obteve êxito ou não
-     */
-    public function doUpdate($data, $permission)
-    {
-        $this->verifyPermission($permission);
-        return $this->customUpdate($data);
-    }
-
-
-    /**
-     * Atualiza os registros de uma linha em uma tabela
-     *
-     * @param string $table O nome da tabela que será atualizada
-     * @param array  $data Os dados que serão atualizados
-     *
-     * @return boolean Indica se a ação obteve êxito ou não
-     */
-    public function update($table, $data)
-    {
-        $this->coreUpdate($table, 'Atualização', $id = null);
-        return DB::table($table)->where('id', $data['id'])->update($data);
-    }
-
-
-    /**
-     * Salva a ação solicitada pelo usuáro usuário na tabela de auditoria e incrementa a versão da row que será atualizada
-     *
-     * @param string $table A tabela na qual será realizada a atualização do dado
+     * @param int    $data Os dados que serão atualizados
      * @param string $action A ação que o usuário está realizando
-     * @param int    $idLine O ID da linha que será atualizada
      *
      * @return void
      */
-    public function coreUpdate($table, $action, $idLine)
+    public function auditoria($data, $action)
     {
-        //incrementa a versão e salva na tabela de auditoria
-        //DB::table($table)->increment('versao', 1, ['id' => $idLine]);
-        //salva registro para auditoria
-        //$data['usuario']
-        //Auditoria::create($data)
+        $auditoriaData = $this->getAuditoriaData($data, $action);
+        DB::table('auditoria')->insert($auditoriaData);
     }
 
-
     /**
-     * Verifica se o usuário logado tem determinada permissão
+     * Captura todos os dados que serão salvos na tabela de Auditoria
      *
-     * @param string $permission O nome da permissão a ser verificada
+     * @param array $data Os dados que foram salvos no banco
+     * @param string $action A ação realizada pelo usuário
      *
-     * @return boolean Indica se o usuário tem a permissão ou não
+     * @return array $auditoriaData Todos os dados que serão salvos na tabela de auditoria
      */
-    public function verifyPermission($permission)
+    public function getAuditoriaData($data, $action)
     {
-        // verification
+        $user = JWTAuth::user();
+        $user->perfil = DB::table('users')
+        ->join('perfil_user', 'perfil_user.user_id', '=', 'users.id')
+        ->join('perfis', 'perfis.id', '=', 'perfil_user.perfil_id')
+        ->select('perfis.nome as perfil')
+        ->where('users.id', $user->id)
+        ->first();
+
+        $auditoriaData['usuario'] = $user->name;
+        $auditoriaData['perfil'] = $user->perfil->perfil;
+        $auditoriaData['acao'] = $action;
+        $auditoriaData['dados'] = json_encode($data);
+        $auditoriaData['data'] = null;
+
+        return $auditoriaData;
     }
 }

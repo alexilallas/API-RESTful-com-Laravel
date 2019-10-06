@@ -88,7 +88,7 @@ class EvolucaoController extends Controller
 
         try {
             \DB::beginTransaction();
-            $this->doSave($data, 'criarEvolucao');
+            $this->doSave($data, 'Adicionou uma Evolução ao paciente '.$data['nome']);
             \DB::commit();
             return $this->jsonSuccess('Evolucao adicionada com sucesso!');
         } catch (\Throwable $th) {
@@ -103,7 +103,7 @@ class EvolucaoController extends Controller
 
         try {
             \DB::beginTransaction();
-            $this->doUpdate($data, 'editarEvolucao');
+            $this->doUpdate($data, 'Editou uma Evolução do paciente '.$data['nome']);
             \DB::commit();
             return $this->jsonSuccess('Evolucao atualizada com sucesso!', $data);
         } catch (\Throwable $th) {
