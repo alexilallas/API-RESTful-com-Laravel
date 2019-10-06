@@ -18,19 +18,20 @@ class CreatePacientesTable extends Migration
             $table->string('nome');
             $table->string('telefone_celular');
             $table->bigInteger('cpf_rg')->unique();
-            $table->string('estado_civil');
+            $table->enum('estado_civil', ['Solteiro(a)', 'Casado(a)', 'Viúvo(a)']);
             $table->string('estado_naturalidade');
             $table->string('cidade_naturalidade');
             $table->date('data_nascimento');
             $table->string('observacao')->nullable();
-            $table->string('sexo');
+            $table->enum('sexo', ['Masculino', 'Feminino']);
+            $table->enum('tipo', ['Aluno', 'Funcionário', 'Dependente', 'Comunidade', 'Serviço Prestado']);
             $table->integer('cep');
             $table->string('estado');
             $table->string('cidade');
             $table->string('bairro');
             $table->string('logradouro');
             $table->string('numero');
-            
+
             $table->boolean('ativo')->default(true);
             $table->integer('versao')->default(1);
             $table->boolean('deletado')->default(false);

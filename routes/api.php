@@ -245,3 +245,10 @@ Route::namespace('JWT')->group(function () {
     Route::post('login', 'AuthController@login');
     Route::get('logout', 'AuthController@logout');
 });
+
+/**
+ * Rotas para Redefinição de senha
+ */
+Route::namespace('Auth')->group(function () {
+    Route::post('reset', 'ResetPasswordController@resetPassword');
+});

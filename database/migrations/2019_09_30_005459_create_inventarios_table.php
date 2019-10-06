@@ -16,6 +16,7 @@ class CreateInventariosTable extends Migration
         Schema::create('inventario', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nome');
+            $table->enum('tipo', ['Injetável', 'Oral']);
             $table->integer('quantidade');
             $table->string('descricao')->nullable();
 

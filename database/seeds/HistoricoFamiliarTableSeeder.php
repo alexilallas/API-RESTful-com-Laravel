@@ -17,11 +17,11 @@ class HistoricoFamiliarTableSeeder extends Seeder
         foreach (range(1, 8) as $key => $value) {
             DB::table('historico_familiar')->insert([
                 'paciente_id' => $value,
-                'diabetes' => $faker->randomElements($array = array(true,false), $count = 1)[0],
-                'hipertensao' => $faker->randomElements($array = array(true,false), $count = 1)[0],
-                'infarto' => $faker->randomElements($array = array(true,false), $count = 1)[0],
-                'morte_subita' => $faker->randomElements($array = array(true,false), $count = 1)[0],
-                'cancer' => $faker->randomElements($array = array(true,false), $count = 1)[0],
+                'diabetes' => $faker->randomElement($array = array(true,false), $count = 1),
+                'hipertensao' => $faker->randomElement($array = array(true,false), $count = 1),
+                'infarto' => $faker->randomElement($array = array(true,false), $count = 1),
+                'morte_subita' => $faker->randomElement($array = array(true,false), $count = 1),
+                'cancer' => $faker->randomElement($array = array(true,false), $count = 1),
             ]);
         }
     }

@@ -19,16 +19,20 @@ class EvolucaoController extends Controller
 
     public function customSave($modelData)
     {
-        unset($modelData['nome']);
-        return $this->save($this->table, $modelData);
+        $data['data'] = $modelData['data'];
+        $data['descricao'] = $modelData['descricao'];
+        $data['paciente_id'] = $modelData['paciente_id'];
+
+        return $this->save($this->table, $data);
     }
 
     public function customUpdate($modelData)
     {
-        unset($modelData['nome']);
-        unset($modelData['paciente_id']);
-        unset($modelData['data_evolucao']);
-        return $this->update($this->table, $modelData);
+        $data['data'] = $modelData['data'];
+        $data['descricao'] = $modelData['descricao'];
+        $data['id'] = $modelData['id'];
+
+        return $this->update($this->table, $data);
     }
 
     public function checkBusinessLogic($data)
@@ -57,6 +61,7 @@ class EvolucaoController extends Controller
         $paciente = DB::table($this->table)
         ->where('paciente_id', '=', $id)
         ->select($this->table.'.*')
+        ->orderByRaw('data DESC')
         ->get();
 
         return $this->jsonSuccess('Evolucões do Paciente com id: '.$id, compact('paciente'));

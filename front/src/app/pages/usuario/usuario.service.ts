@@ -24,7 +24,7 @@ export class UsuarioService {
     this.usuarioUrl = environment.baseAPI + 'usuario'
   }
 
-  getUsuarios(): Observable<Usuario[]> {
+  getUsuarios(): Observable<any> {
     return this.http.get<Usuario[]>(this.usuarioUrl)
       .pipe(map((response: any) => response.data));
 

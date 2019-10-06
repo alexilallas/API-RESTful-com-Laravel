@@ -18,6 +18,7 @@ class InventarioTableSeeder extends Seeder
         foreach (range(1, 15) as $key => $value) {
             DB::table('inventario')->insert([
                 'nome' => $faker->word,
+                'tipo' => $faker->randomElement($array = array('Injetável', 'Oral'), $count = 1),
                 'quantidade' => $faker->numberBetween($min = 3, $max = 25),
                 'descricao' => $faker->sentence($nbWords = 6, $variableNbWords = true),
             ]);

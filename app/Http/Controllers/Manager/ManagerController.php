@@ -9,29 +9,34 @@ use Illuminate\Support\Facades\DB;
 class ManagerController extends Controller
 {
     private $user;
+    private $medico;
     private $perfil;
-    private $permissao;
+    private $enfermeiro;
     private $perfilUsuario;
-    private $perfilPermissao;
 
     public function __construct()
     {
         $this->user = new UserController();
+        $this->medico = new MedicoController();
         $this->perfil = new PerfilController();
+        $this->enfermeiro = new EnfermeiroController();
         $this->perfilUsuario = new PerfilUsuarioController();
-        $this->perfilPermissao = new PermissaoPerfilController();
+
     }
 
 
     public function customSave($modelData)
     {
         $this->user->customSave($modelData);
+        $modelData['user_id'] = DB::getPdo()->lastInsertId();
+        $this->user->saveUserByPerfil($modelData);
         $this->perfilUsuario->customSave($modelData);
     }
 
     public function customUpdate($modelData)
     {
         $this->user->customUpdate($modelData);
+        $this->user->updateUserByPerfil($modelData);
         $this->perfilUsuario->customUpdate($modelData);
     }
 
@@ -39,6 +44,8 @@ class ManagerController extends Controller
     public function checkBusinessLogic($data)
     {
         $this->user->checkBusinessLogic($data);
+        $this->medico->checkBusinessLogic($data);
+        $this->enfermeiro->checkBusinessLogic($data);
     }
 
     public function find()
@@ -60,13 +67,10 @@ class ManagerController extends Controller
     public function postUsuario()
     {
         $data = $this->jsonDecode();
-        
+
         try {
             \DB::beginTransaction();
-            $this->user->customSave($data);
-            $idUsuario = DB::getPdo()->lastInsertId();
-            $data['user_id'] = $idUsuario;
-            $this->perfilUsuario->customSave($data);
+            $this->doSave($data, 'criarUsuario');
             \DB::commit();
             return $this->jsonSuccess('Usuário adicionado com sucesso!');
         } catch (\Throwable $th) {
@@ -78,7 +82,7 @@ class ManagerController extends Controller
     public function updateUsuario()
     {
         $data = $this->jsonDecode();
-        
+
         try {
             \DB::beginTransaction();
             $this->doUpdate($data, 'editarUsuario');

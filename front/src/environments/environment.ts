@@ -5,7 +5,7 @@
 
 export const environment = {
   production: false,
-  baseAPI: 'http://35.238.40.92/api/',
+  baseAPI: 'http://localhost:8000/api/',
   dtOptions: {
     pagingType: 'full_numbers',
     pageLength: 5,

@@ -17,7 +17,7 @@ export class PacienteComponent extends DatatablesComponent implements OnInit {
 
   public _sexo = ['Masculino', 'Feminino'];
   public _estado_civil = ['Solteiro(a)', 'Casado(a)', 'Viúvo(a)'];
-  public _tipo_paciente = ['Aluno', 'Funcionário', 'Outro'];
+  public _tipo_paciente = ['Aluno', 'Funcionário', 'Dependente', 'Comunidade','Serviço Prestado'];
 
   public form: any = new Paciente();
   public modal = 'pacienteModal';
@@ -69,7 +69,6 @@ export class PacienteComponent extends DatatablesComponent implements OnInit {
     this.pacienteService.getPacienteById(id)
       .subscribe(response => {
         this.form = response
-        this.form.tipo_paciente = 'Outro'
       })
     this.ngxSmartModalService.open(this.modal)
   }

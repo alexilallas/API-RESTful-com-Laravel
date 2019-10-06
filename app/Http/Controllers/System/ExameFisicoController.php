@@ -57,6 +57,7 @@ class ExameFisicoController extends Controller
         $paciente = DB::table($this->table)
         ->where('paciente_id', '=', $id)
         ->select($this->table.'.*')
+        ->orderByRaw('data DESC')
         ->get();
 
         return $this->jsonSuccess('Exame físico do Paciente com id: '.$id, compact('paciente'));

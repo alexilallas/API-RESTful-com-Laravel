@@ -3,7 +3,7 @@ import { Inventario } from './inventario';
 import { InventarioService } from './inventario.service';
 import { NgxSmartModalService } from 'ngx-smart-modal';
 import { DatatablesComponent } from '../../shared/datatables/datatables.component';
-
+import { environment } from '../../../environments/environment';
 import { faPills, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -14,6 +14,8 @@ import { faPills, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 })
 
 export class InventarioComponent extends DatatablesComponent implements OnInit {
+
+  public _tipo_medicamento = ['Injetável', 'Oral'];
 
   public form = new Inventario();
   public modal = 'inventarioModal';
@@ -31,6 +33,7 @@ export class InventarioComponent extends DatatablesComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.dtOptions = environment.dtOptions
     this.getItens()
   }
 
@@ -38,6 +41,7 @@ export class InventarioComponent extends DatatablesComponent implements OnInit {
     this.inventarioService.getItens()
       .subscribe(response => {
         this.itensInventario = response
+        this.rerenderTable()
       })
   }
 

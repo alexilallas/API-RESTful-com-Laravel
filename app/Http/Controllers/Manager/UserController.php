@@ -11,10 +11,14 @@ class UserController extends Controller
 {
     private $table = 'users';
     private $perfil;
+    private $medico;
+    private $enfermeiro;
 
     public function __construct()
     {
         $this->perfil = new PerfilController();
+        $this->medico = new MedicoController();
+        $this->enfermeiro = new EnfermeiroController();
     }
 
 
@@ -23,7 +27,7 @@ class UserController extends Controller
         $data['name']     = $modelData['name'];
         $data['email']    = $modelData['email'];
         $data['cpf']      = $modelData['cpf'];
-        $data['password'] = Hash::make($modelData['password']);
+        $data['ativo']    = false;
 
         return $this->save($this->table, $data);
     }
@@ -36,7 +40,7 @@ class UserController extends Controller
             $this->cancel('Já existem um usuário cadastrado com este email!');
         }
 
-        $cpf_user = DB::table($this->table)->where('cpf_rg', $data['cpf_rg'])->count();
+        $cpf_user = DB::table($this->table)->where('cpf', $data['cpf'])->count();
         if ($cpf_user > 0) {
             $this->cancel('Já existem um usuário cadastrado com este CPF!');
         }
@@ -61,7 +65,18 @@ class UserController extends Controller
         $usuario = DB::table($this->table)
         ->join('perfil_user', 'perfil_user.user_id', '=', $this->table.'.id')
         ->join('perfis', 'perfis.id', '=', 'perfil_user.perfil_id')
-        ->select($this->table.'.*','perfis.id as perfil_id' ,'perfis.nome as perfil', 'perfil_user.id as perfil_user_id')
+        ->leftJoin('medicos', 'medicos.user_id', '=', 'users.id')
+        ->leftJoin('enfermeiros', 'enfermeiros.user_id', '=', 'users.id')
+        ->select(
+            $this->table.'.*',
+            'perfis.id as perfil_id',
+            'perfis.nome as perfil',
+            'perfil_user.id as perfil_user_id',
+            'medicos.id as medico_id',
+            'medicos.crm',
+            'enfermeiros.id as enfermeiro_id',
+            'enfermeiros.coren'
+        )
         ->where($this->table.'.id', $id)
         ->get();
 
@@ -76,5 +91,37 @@ class UserController extends Controller
         $data['cpf']   = $modelData['cpf'];
 
         return $this->update($this->table, $data);
+    }
+
+    public function saveUserByPerfil($modelData)
+    {
+        //Enfermeiro
+        if ($modelData['perfil_id'] == 3 && isset($modelData['coren'])) {
+            $this->enfermeiro->customSave($modelData);
+        }
+        //Médico
+        if ($modelData['perfil_id'] == 4 && isset($modelData['crm'])) {
+            $this->medico->customSave($modelData);
+        }
+    }
+
+    public function updateUserByPerfil($modelData)
+    {
+        //Enfermeiro
+        if ($modelData['perfil_id'] == 3 && isset($modelData['coren'])) {
+            if (isset($modelData['enfermeiro_id'])) {
+                $this->enfermeiro->customUpdate($modelData);
+            } else {
+                $this->cancel('Este usuário não pode ser cadastrado como Enfermeiro!');
+            }
+        }
+        //Médico
+        if ($modelData['perfil_id'] == 4 && isset($modelData['crm'])) {
+            if (isset($modelData['medico_id'])) {
+                $this->medico->customUpdate($modelData);
+            } else {
+                $this->cancel('Este usuário não pode ser cadastrado como Médico!');
+            }
+        }
     }
 }

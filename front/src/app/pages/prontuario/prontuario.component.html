@@ -355,7 +355,7 @@
               <tr>
                 <th>Nome</th>
                 <th>CPF/RG</th>
-                <th>Sexo</th>
+                <th>Tipo</th>
                 <th>Ações</th>
               </tr>
             </thead>
@@ -363,7 +363,7 @@
               <tr *ngFor="let paciente of pacientes">
                 <td>{{ paciente.nome }}</td>
                 <td>{{ paciente.cpf_rg }}</td>
-                <td>{{ paciente.sexo }}</td>
+                <td>{{ paciente.tipo }}</td>
                 <td class="text-right">
                   <button class="btn btn-info btn-icon btn-sm" type="button" title="Visualizar"
                     (click)="openForm(paciente.id)">

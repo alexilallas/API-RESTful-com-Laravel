@@ -1,3 +1,39 @@
+<ngx-smart-modal #resetPasswordModal identifier="resetPasswordModal" customClass="medium-modal" [dismissable]="false"
+  (onCloseFinished)="eraseForm()">
+  <div class="card-body">
+    <form #resetPasswordForm="ngForm" (ngSubmit)="redefinirSenha()">
+      <h5 class="card-title">Redefinir Senha</h5>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="email">E-mail</label>
+            <input type="email" class="form-control" required [(ngModel)]="formResetPassword.email" name="email"
+              #email="ngModel">
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="descricao">CPF</label>
+            <input type="text" mask="000.000.000-00" required class="form-control" [(ngModel)]="formResetPassword.cpf"
+              name="cpf" #cpf="ngModel">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="password">Nova senha</label>
+            <input type="password" required class="form-control" [(ngModel)]="formResetPassword.password"
+              name="password" #password="ngModel">
+          </div>
+        </div>
+      </div>
+      <br />
+      <div class="btn btn-default" (click)="close()">Cancelar</div>
+      <button class="btn btn-info pull-right" [disabled]="resetPasswordForm.form.invalid">Salvar</button>
+    </form>
+  </div>
+</ngx-smart-modal>
 <nav class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
   <div class="container">
     <div class="navbar-wrapper">
@@ -41,11 +77,15 @@
                 <br>
               </div>
               <div class="card-footer ">
-                <button class="btn btn-warning btn-round btn-block mb-3" type="submit" [disabled]="loginForm.invalid || loading">
+                <button class="btn btn-warning btn-round btn-block mb-3" type="submit"
+                  [disabled]="loginForm.invalid || loading">
                   Entrar
-                  <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                  <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status"
+                    aria-hidden="true"></span>
                   <span *ngIf="loading" class="sr-only">Loading...</span>
                 </button>
+                <button type="button" (click)="ngxSmartModalService.getModal('resetPasswordModal').open()"
+                  class="btn btn-primary btn-round btn-block mb-3">Recuperar Senha</button>
               </div>
             </div>
           </form>

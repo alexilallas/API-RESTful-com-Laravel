@@ -300,3 +300,9 @@ textarea.form-control {
 .sidebar .sidebar-wrapper, .off-canvas-sidebar .sidebar-wrapper {
   padding-bottom: 0px;
 }
+
+/* Formularios */
+
+.uppercase {
+  text-transform: uppercase;
+}

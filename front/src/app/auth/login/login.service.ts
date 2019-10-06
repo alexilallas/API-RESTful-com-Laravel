@@ -67,4 +67,14 @@ export class LoginService {
     //   }));
   }
 
+  reset(userData: any) {
+    return this.http.post<any>(
+      this.urlLogin + 'reset', userData)
+      .subscribe(
+        (response) => {
+          console.log(response)
+        }
+      )
+  }
+
 }

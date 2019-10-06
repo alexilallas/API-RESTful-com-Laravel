@@ -18,16 +18,16 @@ class HistoricoPessoalTableSeeder extends Seeder
             DB::table('historico_pessoal')->insert([
                 'paciente_id' => $value,
                 'fumante' => false,
-                'hipertenso' => $faker->randomElements($array = array(true,false), $count = 1)[0],
-                'diabetico' => $faker->randomElements($array = array(true,false), $count = 1)[0],
-                'fator_rh' => $faker->randomElements($array = array('Positivo','Negativo'), $count = 1)[0],
-                'vacina_dt' => $faker->randomElements($array = array(true,false), $count = 1)[0],
-                'vacina_hb' => $faker->randomElements($array = array(true,false), $count = 1)[0],
-                'vacina_fa' => $faker->randomElements($array = array(true,false), $count = 1)[0],
-                'vacina_influenza' => $faker->randomElements($array = array(true,false), $count = 1)[0],
-                'vacina_antirrabica' => $faker->randomElements($array = array(true,false), $count = 1)[0],
-                'mora_sozinho' => $faker->randomElements($array = array(true,false), $count = 1)[0],
-                'problema_familiar' => $faker->randomElements($array = array(true,false), $count = 1)[0],
+                'hipertenso' => $faker->randomElement($array = array(true,false), $count = 1),
+                'diabetico' => $faker->randomElement($array = array(true,false), $count = 1),
+                'fator_rh' => $faker->randomElement($array = array('Positivo','Negativo'), $count = 1),
+                'vacina_dt' => $faker->randomElement($array = array(true,false), $count = 1),
+                'vacina_hb' => $faker->randomElement($array = array(true,false), $count = 1),
+                'vacina_fa' => $faker->randomElement($array = array(true,false), $count = 1),
+                'vacina_influenza' => $faker->randomElement($array = array(true,false), $count = 1),
+                'vacina_antirrabica' => $faker->randomElement($array = array(true,false), $count = 1),
+                'mora_sozinho' => $faker->randomElement($array = array(true,false), $count = 1),
+                'problema_familiar' => $faker->randomElement($array = array(true,false), $count = 1),
             ]);
         }
     }

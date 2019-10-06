@@ -36,4 +36,10 @@ class ResetPasswordController extends Controller
     {
         $this->middleware('guest');
     }
+
+    public function resetPassword()
+    {
+        $data = $this->jsonDecode();
+        dd($data);
+    }
 }

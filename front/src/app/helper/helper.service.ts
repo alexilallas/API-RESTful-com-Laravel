@@ -20,7 +20,7 @@ export class HelperService extends SidebarComponent {
     let itemToVerify: any
 
     for (let item of itemsMenu) {
-      if(item.path == url){
+      if (item.path == url) {
         itemToVerify = item
       }
     }
@@ -32,4 +32,21 @@ export class HelperService extends SidebarComponent {
     }
     return false
   }
+
+  filterArray(array) {
+  var index = -1,
+    arr_length = array ? array.length : 0,
+    resIndex = -1,
+    result = [];
+
+  while (++index < arr_length) {
+    var value = array[index];
+
+    if (value) {
+      result[++resIndex] = value;
+    }
+  }
+
+  return result;
+}
 }

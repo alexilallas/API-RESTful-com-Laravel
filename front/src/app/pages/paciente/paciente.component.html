@@ -13,7 +13,7 @@
             <div class="col-md-5">
               <div class="form-group">
                 <label for="nome">Nome</label>
-                <input type="text" class="form-control" required minlength="5" maxlength="80" [(ngModel)]="form.nome"
+                <input type="text" class="form-control uppercase" required minlength="5" maxlength="80" [(ngModel)]="form.nome"
                   name="nome" #nome="ngModel">
               </div>
             </div>
@@ -52,30 +52,30 @@
             </div>
             <div class="col-md-4">
               <div class="form-group">
-                <label for="tipo_paciente">Tipo de Paciente</label>
-                <ng-select [multiple]="false" [(ngModel)]="form.tipo_paciente" required name="tipo_paciente"
-                  #tipo_paciente="ngModel">
+                <label for="tipo">Tipo de Paciente</label>
+                <ng-select [multiple]="false" [(ngModel)]="form.tipo" required name="tipo"
+                  #tipo="ngModel">
                   <ng-option *ngFor="let tp of _tipo_paciente" [value]="tp">{{ tp }}</ng-option>
                 </ng-select>
               </div>
             </div>
           </div>
           <div class="row">
-            <div class="col-md-4" *ngIf="form.tipo_paciente == 'Aluno'  || form.tipo_paciente == 'Funcionário'">
+            <div class="col-md-4" *ngIf="form.tipo == 'Aluno'  || form.tipo == 'Funcionário'">
               <div class="form-group">
                 <label for="matricula">Matrícula</label>
-                <input type="text" class="form-control" [(ngModel)]="form.matricula" required name="matricula"
+                <input type="text" class="form-control" [(ngModel)]="form.matricula"  name="matricula"
                   #matricula="ngModel" />
               </div>
             </div>
-            <div class="col-md-8" *ngIf="form.tipo_paciente == 'Aluno'">
+            <div class="col-md-8" *ngIf="form.tipo == 'Aluno'">
               <div class="form-group">
                 <label for="curso">Curso</label>
                 <input type="text" class="form-control" [(ngModel)]="form.curso" required name="curso"
                   #curso="ngModel" />
               </div>
             </div>
-            <div class="col-md-8" *ngIf="form.tipo_paciente == 'Funcionário'">
+            <div class="col-md-8" *ngIf="form.tipo == 'Funcionário'">
               <div class="form-group">
                 <label for="setor">Setor</label>
                 <input type="text" class="form-control" [(ngModel)]="form.setor" required name="setor"
@@ -160,7 +160,7 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label for="nome_contato">Nome</label>
-                <input class="form-control" required name="nome_contato" [(ngModel)]="form.nome_contato"
+                <input class="form-control uppercase" required name="nome_contato" [(ngModel)]="form.nome_contato"
                   #nome_contato="ngModel" />
               </div>
             </div>
@@ -210,7 +210,7 @@
               <tr>
                 <th>Nome</th>
                 <th>CPF/RG</th>
-                <th>Sexo</th>
+                <th>Tipo</th>
                 <th>Ações</th>
               </tr>
             </thead>
@@ -218,7 +218,7 @@
               <tr *ngFor="let paciente of pacientes">
                 <td>{{ paciente.nome }}</td>
                 <td>{{ paciente.cpf_rg }}</td>
-                <td>{{ paciente.sexo }}</td>
+                <td>{{ paciente.tipo }}</td>
                 <td class="text-right">
                   <button class="btn btn-warning btn-icon btn-sm " type="button" title="Editar"
                     (click)="openFormEdit(paciente.id)">

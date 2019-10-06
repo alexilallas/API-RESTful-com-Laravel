@@ -11,10 +11,6 @@ class PerfilTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('perfis')->insert([
-            'nome'=>'MASTER',
-            'descricao'=> 'Acesso total ao sistema'
-        ]);
 
         DB::table('perfis')->insert([
             'nome'=>'Administrador',
@@ -36,7 +32,13 @@ class PerfilTableSeeder extends Seeder
             'descricao'=> 'Pode adicionar/editar evolução'
         ]);
 
-        //Perfil Master -> Todas as permissões
+        DB::table('perfis')->insert([
+            'nome'=>'Farmacêutico',
+            'descricao'=> 'Pode adicionar/editar evolução'
+        ]);
+
+
+        //Perfil Administrador -> todas as permissões
         foreach (range(1, 14) as $permissao) {
             DB::table('perfil_permissao')->insert([
                 'perfil_id'=> 1,
@@ -44,62 +46,68 @@ class PerfilTableSeeder extends Seeder
             ]);
         }
 
-        //Perfil Administrador -> todas as permissões
-        foreach (range(1, 14) as $permissao) {
+        //Perfil Atendente -> Criar/Editar Paciente/Histórico  e Visualizar Prontuário/Dashboard
+        foreach (range(1, 5) as $permissao) {
             DB::table('perfil_permissao')->insert([
                 'perfil_id'=> 2,
                 'permissao_id'=> $permissao
             ]);
         }
-
-        //Perfil Atendente -> Criar/Editar Paciente/Histórico  e Visualizar Prontuário/Dashboard
-        foreach (range(1, 5) as $permissao) {
-            DB::table('perfil_permissao')->insert([
-                'perfil_id'=> 3,
-                'permissao_id'=> $permissao
-            ]);
-        }
         DB::table('perfil_permissao')->insert([
-            'perfil_id'=> 3,
+            'perfil_id'=> 2,
             'permissao_id'=> 10
         ]);
 
         //Perfil Enfermeiro -> Criar/Editar ExameFísico/ItemInventário e Visualizar Prontuário/Dashboard
         DB::table('perfil_permissao')->insert([
-            'perfil_id'=> 4,
+            'perfil_id'=> 3,
             'permissao_id'=> 1
         ]);
         DB::table('perfil_permissao')->insert([
-            'perfil_id'=> 4,
+            'perfil_id'=> 3,
             'permissao_id'=> 6
         ]);
         DB::table('perfil_permissao')->insert([
-            'perfil_id'=> 4,
+            'perfil_id'=> 3,
             'permissao_id'=> 7
         ]);
         DB::table('perfil_permissao')->insert([
-            'perfil_id'=> 4,
+            'perfil_id'=> 3,
             'permissao_id'=> 10
         ]);
         DB::table('perfil_permissao')->insert([
-            'perfil_id'=> 4,
+            'perfil_id'=> 3,
             'permissao_id'=> 11
         ]);
         DB::table('perfil_permissao')->insert([
-            'perfil_id'=> 4,
+            'perfil_id'=> 3,
             'permissao_id'=> 12
         ]);
 
-        //Perfil Médico -> Criar/Editar Evolução e Visualizar Prontuário/Dashboard
+        //Perfil Médico -> Criar/Editar Evolução/ItemInventário e Visualizar Prontuário/Dashboard
         DB::table('perfil_permissao')->insert([
-            'perfil_id'=> 5,
+            'perfil_id'=> 4,
             'permissao_id'=> 1
         ]);
         foreach (range(8, 12) as $permissao) {
             DB::table('perfil_permissao')->insert([
-                'perfil_id'=> 5,
+                'perfil_id'=> 4,
                 'permissao_id'=> $permissao
             ]);
         }
+
+        //Perfil Farmacêutico -> Criar/Editar Itens do inventário e Visualizar Dashboard
+        DB::table('perfil_permissao')->insert([
+            'perfil_id'=> 5,
+            'permissao_id'=> 1
+        ]);
+        DB::table('perfil_permissao')->insert([
+            'perfil_id'=> 5,
+            'permissao_id'=> 11
+        ]);
+        DB::table('perfil_permissao')->insert([
+            'perfil_id'=> 5,
+            'permissao_id'=> 12
+        ]);
     }
 }

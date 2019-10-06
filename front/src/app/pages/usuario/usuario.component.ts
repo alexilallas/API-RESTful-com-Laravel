@@ -4,6 +4,7 @@ import { UsuarioService } from './usuario.service';
 import { environment } from '../../../environments/environment';
 import { NgxSmartModalService } from 'ngx-smart-modal';
 import { DatatablesComponent } from '../../shared/datatables/datatables.component';
+import { HelperService } from '../../helper/helper.service';
 
 @Component({
   selector: 'app-usuario',
@@ -22,8 +23,9 @@ export class UsuarioComponent extends DatatablesComponent implements OnInit {
   constructor
     (
       private usuarioService: UsuarioService,
-      public ngxSmartModalService: NgxSmartModalService
-    ) {
+      public ngxSmartModalService: NgxSmartModalService,
+      private helperService: HelperService,
+  ) {
     super();
     console.log('UsuarioComponent')
   }
@@ -36,13 +38,19 @@ export class UsuarioComponent extends DatatablesComponent implements OnInit {
   getUsuarios(): any {
     this.usuarioService.getUsuarios()
       .subscribe(response => {
-        this.usuarios = response['usuarios']
-        this._perfis = response['perfis']
+        this.usuarios = response.usuarios.map(function (usuario) {
+          if (usuario.name != 'Alexi') {
+            return usuario
+          }
+        })
+        this.usuarios = this.helperService.filterArray(this.usuarios)
+        this._perfis = response.perfis
         this.rerenderTable()
       })
   }
 
   save() {
+    console.log(this.form)
     this.saveUsuario()
     UsuarioService.usuarioCreatedAlert.subscribe(
       () => {
@@ -62,6 +70,7 @@ export class UsuarioComponent extends DatatablesComponent implements OnInit {
     this.isNewUsuario = false
     this.usuarioService.getUsuarioById(id)
       .subscribe(response => {
+        console.log(response)
         this.form = response
       })
     this.ngxSmartModalService.open(this.modal)
@@ -95,5 +104,15 @@ export class UsuarioComponent extends DatatablesComponent implements OnInit {
   eraseForm() {
     this.form = {}
   }
+
+  eraseField(perfil) {
+    if (perfil == 3) {
+      delete this.form.crm
+    }
+    if (perfil == 4) {
+      delete this.form.coren
+    }
+  }
+
 
 }

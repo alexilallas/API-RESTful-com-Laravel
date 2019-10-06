@@ -24,7 +24,9 @@ class PacienteController extends Controller
         unset($modelData['tipo_paciente']);
         $data = $modelData;
 
-        return $this->save($this->table, $data);
+        $this->save($this->table, $data);
+        $modelData['paciente_id'] = DB::getPdo()->lastInsertId();
+        $this->contato->customSave($modelData);
     }
 
 
@@ -62,9 +64,6 @@ class PacienteController extends Controller
         try {
             \DB::beginTransaction();
             $this->doSave($data, 'criarPaciente');
-            $idPaciente = DB::getPdo()->lastInsertId();
-            $data['paciente_id'] = $idPaciente;
-            $this->contato->customSave($data);
             \DB::commit();
             return $this->jsonSuccess('Paciente adicionado com sucesso!');
         } catch (\Throwable $th) {
@@ -80,7 +79,6 @@ class PacienteController extends Controller
         try {
             \DB::beginTransaction();
             $this->doUpdate($data, 'editarPaciente');
-            $this->contato->customUpdate($data);
             \DB::commit();
             return $this->jsonSuccess('Paciente atualizado com sucesso!', $data);
         } catch (\Throwable $th) {
@@ -91,12 +89,13 @@ class PacienteController extends Controller
 
     public function customUpdate($modelData)
     {
-        unset($modelData['nome_contato']);
-        unset($modelData['numero_contato']);
-        unset($modelData['tipo_paciente']);
-        unset($modelData['id_contato']);
         $data = $modelData;
+        unset($data['nome_contato']);
+        unset($data['numero_contato']);
+        unset($data['tipo_paciente']);
+        unset($data['id_contato']);
 
-        return $this->update($this->table, $data);
+        $this->update($this->table, $data);
+        $this->contato->customUpdate($modelData);
     }
 }
