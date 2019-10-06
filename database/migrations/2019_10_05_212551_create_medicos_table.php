@@ -21,7 +21,7 @@ class CreateMedicosTable extends Migration
 
             $table->boolean('ativo')->default(true);
             $table->integer('versao')->default(1);
-            $table->boolean('deletado')->default(false);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

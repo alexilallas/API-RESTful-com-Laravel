@@ -235,6 +235,13 @@ Route::middleware('jwt.auth')->group(function () {
                 'uses' => 'ManagerController@updateUsuario'
             ]
         );
+        Route::put(
+            'usuario/reset',
+            [
+                'middleware' => 'acl:editarUsuario',
+                'uses' => 'ManagerController@resetPasswordUsuario'
+            ]
+        );
     });
 });
 
@@ -250,5 +257,6 @@ Route::namespace('JWT')->group(function () {
  * Rotas para Redefinição de senha
  */
 Route::namespace('Auth')->group(function () {
+    Route::post('canReset', 'ResetPasswordController@canResetPassword');
     Route::post('reset', 'ResetPasswordController@resetPassword');
 });

@@ -1,5 +1,15 @@
-<ngx-smart-modal #usuarioModal identifier="usuarioModal" customClass="medium-modal" [dismissable]="false"
-  (onCloseFinished)="eraseForm()">
+<ngx-smart-modal #resetPasswordModal identifier="resetPasswordModal">
+  <div class="card-body">
+    <h5 class="card-title">Resetar senha?</h5>
+    <div class="card-body">
+      <p>Deseja realmente resetar a senha do {{ form.perfil }} {{ form.name }} ?</p>
+    </div>
+    <div class="btn btn-default" (click)="closeResetPassword()">Cancelar</div>
+    <button class="btn btn-info pull-right" (click)="resetPassword()">Resetar</button>
+  </div>
+</ngx-smart-modal>
+<ngx-smart-modal #usuarioModal identifier="usuarioModal" [backdrop]="true" customClass="medium-modal"
+  [dismissable]="false" (onCloseFinished)="eraseForm()">
   <div class="card-body">
     <form #usuarioForm="ngForm" (ngSubmit)="isNewUsuario? save() : update()">
       <h5 class="card-title" *ngIf="!form.id">Novo Usuário</h5>
@@ -29,19 +39,22 @@
         <div [ngClass]="(form.perfil_id == 3 || form.perfil_id == 4) ? 'col-md-4' : 'col-md-6'">
           <div class="form-group">
             <label for="perfil_id">Perfil</label>
-            <ng-select (change)="eraseField(form.perfil_id)" [multiple]="false" [(ngModel)]="form.perfil_id" required name="perfil_id" #perfil_id="ngModel">
+            <ng-select (change)="eraseField(form.perfil_id)" [multiple]="false" [(ngModel)]="form.perfil_id" required
+              name="perfil_id" #perfil_id="ngModel">
               <ng-option *ngFor="let perfil of _perfis" [value]="perfil.id">{{ perfil.nome }}</ng-option>
             </ng-select>
           </div>
         </div>
-        <div [ngClass]="(form.perfil_id == 3 || form.perfil_id == 4) ? 'col-md-4' : 'col-md-6'" *ngIf="form.perfil_id == 4">
+        <div [ngClass]="(form.perfil_id == 3 || form.perfil_id == 4) ? 'col-md-4' : 'col-md-6'"
+          *ngIf="form.perfil_id == 4">
           <div class="form-group">
             <label for="crm">CRM</label>
             <input type="text" class="form-control uppercase" required mask="9999999999/SS" [(ngModel)]="form.crm"
               name="crm" #crm="ngModel" [dropSpecialCharacters]="false">
           </div>
         </div>
-        <div [ngClass]="(form.perfil_id == 3 || form.perfil_id == 4) ? 'col-md-4' : 'col-md-6'" *ngIf="form.perfil_id == 3">
+        <div [ngClass]="(form.perfil_id == 3 || form.perfil_id == 4) ? 'col-md-4' : 'col-md-6'"
+          *ngIf="form.perfil_id == 3">
           <div class="form-group">
             <label for="coren">COREN</label>
             <input type="text" class="form-control uppercase" required mask="9999999999/SS" [(ngModel)]="form.coren"
@@ -94,6 +107,10 @@
                   </button>
                   <button class="btn btn-danger btn-icon btn-sm " type="button" title="Excluir">
                     <i class="fa fa-times fa-2x"></i>
+                  </button>
+                  <button class="btn btn-info btn-icon btn-sm " type="button" title="Resetar senha"
+                    (click)="openFormresetPassword(user.id)">
+                    <i class="fa fa-refresh fa-2x"></i>
                   </button>
                 </td>
               </tr>

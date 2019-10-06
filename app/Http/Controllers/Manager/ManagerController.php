@@ -94,4 +94,21 @@ class ManagerController extends Controller
         }
     }
 
+    public function resetPasswordUsuario()
+    {
+        $data = $this->jsonDecode();
+
+        try {
+            \DB::beginTransaction();
+            $data['ativo'] = false;
+            $data['password'] = null;
+            $this->doUpdate($data, 'resetarSenhaUsuario');
+            \DB::commit();
+            return $this->jsonSuccess('Senha resetada com sucesso!', $data);
+        } catch (\Throwable $th) {
+            \DB::rollback();
+            return $this->jsonError($th->getMessage());
+        }
+    }
+
 }

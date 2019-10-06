@@ -41,7 +41,7 @@ export class LoginService {
           this.router.navigate(['/inicio'])
         }
         return response;
-      }));
+      }))
   }
 
   getUser(): any {
@@ -67,14 +67,14 @@ export class LoginService {
     //   }));
   }
 
-  reset(userData: any) {
+  canReset(userData: any): Observable<any> {
+    return this.http.post<any>(
+      this.urlLogin + 'canReset', userData)
+  }
+
+  reset(userData: any): Observable<any> {
     return this.http.post<any>(
       this.urlLogin + 'reset', userData)
-      .subscribe(
-        (response) => {
-          console.log(response)
-        }
-      )
   }
 
 }

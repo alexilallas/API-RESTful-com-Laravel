@@ -20,10 +20,10 @@ class CreateAlunosTable extends Migration
             $table->foreign('paciente_id')->references('id')->on('pacientes');
             $table->unsignedInteger('curso_id');
             $table->foreign('curso_id')->references('id')->on('cursos');
-            
+
             $table->boolean('ativo')->default(true);
             $table->integer('versao')->default(1);
-            $table->boolean('deletado')->default(false);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -4,6 +4,7 @@ import { LoginService } from './login.service';
 import { Login } from './login';
 import { ResetPassword } from './reset-password';
 import { NgxSmartModalService } from 'ngx-smart-modal';
+import { MessageService } from '../../services/messages/message.service';
 
 @Component({
   selector: 'app-auth',
@@ -12,7 +13,10 @@ import { NgxSmartModalService } from 'ngx-smart-modal';
 })
 export class LoginComponent implements OnInit {
 
-  public loading: boolean = false;
+  public loginLoading: boolean = false;
+  public resetLoading: boolean = false;
+  public canResetPassword: boolean = false;
+
   public form = new Login();
   public formResetPassword = new ResetPassword();
   public modal = 'resetPasswordModal';
@@ -21,6 +25,7 @@ export class LoginComponent implements OnInit {
     private loginService: LoginService,
     private router: Router,
     public ngxSmartModalService: NgxSmartModalService,
+    private messageService: MessageService,
   ) {
     this.guardLogin()
     console.log('LoginComponent')
@@ -31,11 +36,11 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    this.loading = true
+    this.loginLoading = true
     this.loginService.login(this.form).subscribe(
       response => {
         if (response.error) {
-          this.loading = false
+          this.loginLoading = false
         }
       });
   }
@@ -46,8 +51,41 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  redefinirSenha() {
+  verify() {
+    this.resetLoading = true
+    this.loginService.canReset(this.formResetPassword)
+      .subscribe(
+        response => {
+          console.log(response)
+          if (response.status == 200) {
+            this.canResetPassword = true
+            this.formResetPassword['id'] = response.data.id
+          }
+          else {
+            this.messageService.message(response)
+          }
+          this.resetLoading = false
+        }
+      )
+  }
+
+  reset() {
+    console.log(this.formResetPassword)
+    this.resetLoading = true
     this.loginService.reset(this.formResetPassword)
+      .subscribe(
+        response => {
+          console.log(response)
+          if (response.status == 200) {
+            this.messageService.message(response)
+            this.close()
+          }
+          else {
+            this.messageService.message(response)
+          }
+          this.resetLoading = false
+        }
+      )
   }
 
   close() {
@@ -57,6 +95,8 @@ export class LoginComponent implements OnInit {
 
   eraseForm() {
     this.formResetPassword = {}
+    this.canResetPassword = false
+    this.resetLoading = false
   }
 
 }

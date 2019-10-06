@@ -17,6 +17,7 @@ export class UsuarioComponent extends DatatablesComponent implements OnInit {
 
   public form: any = new Usuario();
   public modal = 'usuarioModal';
+  public modalResetPassword = 'resetPasswordModal';
   public usuarios: any[];
   public isNewUsuario: boolean = true;
 
@@ -112,6 +113,31 @@ export class UsuarioComponent extends DatatablesComponent implements OnInit {
     if (perfil == 4) {
       delete this.form.coren
     }
+  }
+
+  openFormresetPassword(id) {
+    this.isNewUsuario = false
+    this.usuarioService.getUsuarioById(id)
+      .subscribe(response => {
+        console.log(response)
+        this.form = response
+      })
+    this.ngxSmartModalService.open(this.modalResetPassword)
+  }
+
+  resetPassword() {
+    this.usuarioService.resetPasswordUsuario(this.form)
+    UsuarioService.usuarioUpdatedAlert.subscribe(
+      () => {
+        this.getUsuarios()
+        this.closeResetPassword()
+        UsuarioService.usuarioUpdatedAlert.isStopped = true
+      }
+    )
+  }
+
+  closeResetPassword() {
+    this.ngxSmartModalService.close(this.modalResetPassword)
   }
 
 

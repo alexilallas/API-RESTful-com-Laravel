@@ -4,9 +4,12 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class ResetPasswordController extends Controller
 {
+    public $table = 'users';
     /*
     |--------------------------------------------------------------------------
     | Password Reset Controller
@@ -37,9 +40,38 @@ class ResetPasswordController extends Controller
         $this->middleware('guest');
     }
 
+    public function canResetPassword()
+    {
+        $data = $this->jsonDecode();
+        $user = DB::table($this->table)
+        ->where('cpf', $data['cpf'])
+        ->where('email', $data['email'])
+        ->where('password', null)
+        ->select('id')
+        ->first();
+
+        if ($user) {
+            return $this->jsonSuccess('Pode resetar a senha!', $user);
+        } else {
+            return $this->jsonError('Não existe requisição de redefinição de senha para este usuário!', 403);
+        }
+    }
+
     public function resetPassword()
     {
         $data = $this->jsonDecode();
-        dd($data);
+        $userData['password'] = Hash::make($data['password']);
+        $userData['ativo'] = true;
+
+        try {
+            \DB::beginTransaction();
+            DB::table($this->table)->where('id', $data['id'])
+            ->update($userData);
+            \DB::commit();
+            return $this->jsonSuccess('Senha redefinida com sucesso!');
+        } catch (\Throwable $th) {
+            \DB::rollback();
+            return $this->jsonError($th->getMessage());
+        }
     }
 }

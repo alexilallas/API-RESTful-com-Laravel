@@ -3,12 +3,15 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class BaseModel extends Model
 {
-    public function __construct() 
+    use SoftDeletes;
+
+    public function __construct()
     {
-        $this->fillable = array_merge($this->fillable, ['ativo','versao','deletado']);
+        $this->fillable = array_merge($this->fillable, ['ativo','versao']);
 
     }
 }

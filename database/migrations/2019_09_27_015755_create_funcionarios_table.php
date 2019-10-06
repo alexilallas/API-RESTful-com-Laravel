@@ -20,10 +20,10 @@ class CreateFuncionariosTable extends Migration
             $table->foreign('paciente_id')->references('id')->on('pacientes');
             $table->unsignedInteger('setor_id');
             $table->foreign('setor_id')->references('id')->on('setors');
-            
+
             $table->boolean('ativo')->default(true);
             $table->integer('versao')->default(1);
-            $table->boolean('deletado')->default(false);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

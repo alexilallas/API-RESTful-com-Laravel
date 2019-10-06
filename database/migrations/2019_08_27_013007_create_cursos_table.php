@@ -16,10 +16,10 @@ class CreateCursosTable extends Migration
         Schema::create('cursos', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nome');
-            
+
             $table->boolean('ativo')->default(true);
             $table->integer('versao')->default(1);
-            $table->boolean('deletado')->default(false);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

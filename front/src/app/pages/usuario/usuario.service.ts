@@ -18,7 +18,7 @@ export class UsuarioService {
   constructor
     (
       private http: HttpClient,
-      private MessageService: MessageService,
+      private messageService: MessageService,
   ) {
     console.log('UsuarioService')
     this.usuarioUrl = environment.baseAPI + 'usuario'
@@ -43,7 +43,7 @@ export class UsuarioService {
       usuario)
       .subscribe(
         (response) => {
-          this.MessageService.message(response)
+          this.messageService.message(response)
           if (response.status == 200) {
             UsuarioService.usuarioCreatedAlert.emit(response)
           }
@@ -58,7 +58,22 @@ export class UsuarioService {
       usuario)
       .subscribe(
         (response) => {
-          this.MessageService.message(response)
+          this.messageService.message(response)
+          if (response.status == 200) {
+            UsuarioService.usuarioUpdatedAlert.emit(response)
+          }
+        }
+      )
+  }
+
+  resetPasswordUsuario(usuario: Usuario) {
+    UsuarioService.usuarioUpdatedAlert = new EventEmitter<any>()
+    return this.http.put<any>(
+      this.usuarioUrl + '/reset',
+      usuario)
+      .subscribe(
+        (response) => {
+          this.messageService.message(response)
           if (response.status == 200) {
             UsuarioService.usuarioUpdatedAlert.emit(response)
           }

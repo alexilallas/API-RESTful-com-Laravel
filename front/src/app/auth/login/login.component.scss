@@ -60,3 +60,16 @@
     margin-right: auto;
     padding-bottom: 10px;
   }
+
+  .spinner-border-reset {
+    display: inline-block;
+    width: 1.3rem;
+    height: 1.3rem;
+    vertical-align: text-bottom;
+    border: 0.15em solid currentColor;
+    border-right-color: transparent;
+    border-radius: 50%;
+    -webkit-animation: spinner-border 0.75s linear infinite;
+    animation: spinner-border 0.75s linear infinite;
+    margin-bottom: .1em;
+}

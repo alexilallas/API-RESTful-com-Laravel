@@ -1,9 +1,13 @@
 <ngx-smart-modal #resetPasswordModal identifier="resetPasswordModal" customClass="medium-modal" [dismissable]="false"
   (onCloseFinished)="eraseForm()">
   <div class="card-body">
-    <form #resetPasswordForm="ngForm" (ngSubmit)="redefinirSenha()">
-      <h5 class="card-title">Redefinir Senha</h5>
-      <div class="row">
+    <form #resetPasswordForm="ngForm" (ngSubmit)="canResetPassword ? reset() : verify()">
+      <h5 class="card-title">Redefinir Senha
+        <div class="spinner-border-reset" role="status" *ngIf="resetLoading">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </h5>
+      <div class="row" *ngIf="!canResetPassword">
         <div class="col-md-6">
           <div class="form-group">
             <label for="email">E-mail</label>
@@ -19,7 +23,7 @@
           </div>
         </div>
       </div>
-      <div class="row">
+      <div class="row" *ngIf="canResetPassword">
         <div class="col-md-6">
           <div class="form-group">
             <label for="password">Nova senha</label>
@@ -30,7 +34,7 @@
       </div>
       <br />
       <div class="btn btn-default" (click)="close()">Cancelar</div>
-      <button class="btn btn-info pull-right" [disabled]="resetPasswordForm.form.invalid">Salvar</button>
+      <button class="btn btn-info pull-right" [disabled]="resetPasswordForm.form.invalid">Enviar</button>
     </form>
   </div>
 </ngx-smart-modal>
@@ -78,11 +82,10 @@
               </div>
               <div class="card-footer ">
                 <button class="btn btn-warning btn-round btn-block mb-3" type="submit"
-                  [disabled]="loginForm.invalid || loading">
+                  [disabled]="loginForm.invalid || loginLoading">
                   Entrar
-                  <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status"
+                  <span *ngIf="loginLoading" class="spinner-border spinner-border-sm" role="status"
                     aria-hidden="true"></span>
-                  <span *ngIf="loading" class="sr-only">Loading...</span>
                 </button>
                 <button type="button" (click)="ngxSmartModalService.getModal('resetPasswordModal').open()"
                   class="btn btn-primary btn-round btn-block mb-3">Recuperar Senha</button>

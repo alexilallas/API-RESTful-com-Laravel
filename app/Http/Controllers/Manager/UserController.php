@@ -85,10 +85,12 @@ class UserController extends Controller
 
     public function customUpdate($modelData)
     {
-        $data['id']    = $modelData['id'];
-        $data['name']  = $modelData['name'];
-        $data['email'] = $modelData['email'];
-        $data['cpf']   = $modelData['cpf'];
+        $data['id']       = $modelData['id'];
+        $data['name']     = $modelData['name'];
+        $data['email']    = $modelData['email'];
+        $data['cpf']      = $modelData['cpf'];
+        $data['password'] = $modelData['password'];
+        $data['ativo']    = $modelData['ativo'];
 
         return $this->update($this->table, $data);
     }
