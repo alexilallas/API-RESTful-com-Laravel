@@ -80,5 +80,10 @@ class PermissaoTableSeeder extends Seeder
             'nome'=>'editarUsuario',
             'descricao'=> 'Pode editar usuários do sistema'
         ]);
+
+        DB::table('permissoes')->insert([
+            'nome'=>'visualizarAuditoria',
+            'descricao'=> 'Pode visualizar dados da auditoria do sistema'
+        ]);
     }
 }

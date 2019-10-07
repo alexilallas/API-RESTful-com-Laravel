@@ -70,7 +70,6 @@ export class ProntuarioComponent extends DatatablesComponent implements OnInit {
           this.hasEvolucao = false
         }
 
-        this.form.tipo_paciente = 'Outro'
         this.form.nome_contato = response['paciente'][0].nome_contato
         this.form.numero_contato = response['paciente'][0].numero_contato
         console.log(response)

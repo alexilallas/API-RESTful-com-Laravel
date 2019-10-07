@@ -49,10 +49,7 @@ class ExameFisicoController extends Controller
 
     public function findById(Request $req)
     {
-        $id = $req->route('id');
-        if (!$id) {
-            $id = $req->request->get('id');
-        }
+        $id = $this->getIdByRequest($req);
 
         $paciente = DB::table($this->table)
         ->where('paciente_id', '=', $id)

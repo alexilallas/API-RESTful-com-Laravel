@@ -69,7 +69,7 @@ export class LoginService {
 
   canReset(userData: any): Observable<any> {
     return this.http.post<any>(
-      this.urlLogin + 'canReset', userData)
+      this.urlLogin + 'can-reset', userData)
   }
 
   reset(userData: any): Observable<any> {

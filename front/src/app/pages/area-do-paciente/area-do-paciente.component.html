@@ -338,46 +338,69 @@
     </form>
   </div>
 </ngx-smart-modal>
-<div class="row">
-  <div class="col-md-12">
-    <div class="card">
-      <div class="card-header">
-        <h4 class="card-title pull-left">
-          Pacientes
-        </h4>
-        <!-- <p class="category">Created using Montserrat Font Family</p> -->
-      </div>
-      <div class="card-body">
-        <div class="table">
-          <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" cellspacing="0"
-            class="table table-striped table-bordered dataTable">
-            <thead class=" text-primary">
-              <tr>
-                <th>Nome</th>
-                <th>CPF/RG</th>
-                <th>Tipo</th>
-                <th>Ações</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let paciente of pacientes">
-                <td>{{ paciente.nome }}</td>
-                <td>{{ paciente.cpf_rg }}</td>
-                <td>{{ paciente.tipo }}</td>
-                <td class="text-right">
-                  <button class="btn btn-info btn-icon btn-sm" type="button" title="Visualizar"
-                    (click)="openForm(paciente.id)">
-                    <i class="fa fa-eye fa-2x"></i>
-                  </button>
-                  <button class="btn btn-danger btn-icon btn-sm" type="button" title="Salvar">
-                    <i class="fa fa-file-pdf-o fa-2x"></i>
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+<nav class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
+    <div class="container">
+        <div class="navbar-wrapper">
+            <a class="navbar-brand" routerlinkactive="active" href="#/login">ÁREA DO PACIENTE</a>
         </div>
-      </div>
     </div>
-  </div>
+</nav>
+<div class="wrapper wrapper-full-page ">
+    <div class="full-page section-image" data-image="./assets/img/bg/fabio-mangione.jpg" filter-color="black">
+        <div class="content">
+            <div class="container">
+                <div class="col-lg-4 col-md-6 ml-auto mr-auto">
+                    <form action="" class="form ng-untouched ng-pristine ng-valid" #areaDoPacienteForm="ngForm"
+                        (ngSubmit)="getDataFromPacienteArea()" novalidate="">
+                        <div class="card card-login">
+                            <div class="card-header ">
+                                <div class="card-header ">
+                                    <!-- <h3 class="header text-center">SisMED</h3> -->
+                                    <!-- <img class="logo-sismed" src="./assets/img/logo-postomedico.png" /> -->
+                                    <h4 class="text-center text-primary">ÁREA DO PACIENTE</h4>
+                                    <h6 class="text-center text-primary">Prontuário Eletrônico</h6>
+                                </div>
+                            </div>
+                            <div class="card-body ">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="nc-icon nc-single-02"></i>
+                                        </span>
+                                    </div>
+                                    <input class="form-control" placeholder="CPF/RG" type="text"
+                                        mask="000.000.000-009-9" name="cpf_rg" required [(ngModel)]="form.cpf_rg"
+                                        #cpf_rg="ngModel" autofocus="true">
+                                </div>
+                                <!-- <p>Data de Nascimento</p> -->
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="nc-icon nc-calendar-60"></i>
+                                        </span>
+                                    </div>
+                                    <input class="form-control" type="text" mask="00/00/0000"
+                                        [dropSpecialCharacters]="false" placeholder="Data Nascimento"
+                                        name="data_nascimento" required [(ngModel)]="form.data_nascimento"
+                                        #data_nascimento="ngModel">
+                                </div>
+                                <br>
+                            </div>
+                            <div class="card-footer ">
+                                <button class="btn btn-warning btn-round btn-block mb-3" type="submit"
+                                    [disabled]="areaDoPacienteForm.invalid || loading">
+                                    Consultar
+                                    <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status"
+                                        aria-hidden="true"></span>
+                                </button>
+                                <button type="button" [routerLink]="['/login']"
+                                    class="btn btn-info btn-round btn-block mb-3">Voltar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="full-page-background" style="background-image: url('assets/img/uema-login.jpg') "></div>
+    </div>
 </div>

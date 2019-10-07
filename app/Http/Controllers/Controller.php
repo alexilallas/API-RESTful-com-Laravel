@@ -6,6 +6,7 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Auditoria;
 use JWTAuth;
@@ -186,5 +187,22 @@ abstract class Controller extends BaseController
         $auditoriaData['data'] = null;
 
         return $auditoriaData;
+    }
+
+    /**
+     * Captura id da dada requisição
+     * 
+     * @param Request $req A requisição enviada pelo usuário
+     * 
+     * @return int $id O id enviado na requisição
+     */
+    public function getIdByRequest(Request $req)
+    {
+        $id = $req->route('id');
+        if (!$id) {
+            $id = $req->request->get('id');
+        }
+
+        return $id;
     }
 }

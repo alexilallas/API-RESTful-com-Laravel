@@ -47,7 +47,8 @@ class PacienteController extends Controller
 
     public function findById(Request $req)
     {
-        $id = $req->route('id');
+        $id = $this->getIdByRequest($req);
+        
         $paciente = DB::table($this->table)
         ->join('contatos', 'contatos.paciente_id', '=', 'pacientes.id')
         ->where($this->table.'.id', $id)

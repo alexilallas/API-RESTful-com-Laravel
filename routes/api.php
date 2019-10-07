@@ -202,13 +202,13 @@ Route::middleware('jwt.auth')->group(function () {
          * Rotas para Auditoria
          */
 
-         Route::get(
-            'auditoria',
-            [
-                'middleware' => 'acl:editarItem',
+        Route::get(
+             'auditoria',
+             [
+                'middleware' => 'acl:visualizarAuditoria',
                 'uses' => 'AuditoriaController@find'
             ]
-        );
+         );
     });
 
     /**
@@ -269,6 +269,13 @@ Route::namespace('JWT')->group(function () {
  * Rotas para Redefinição de senha
  */
 Route::namespace('Auth')->group(function () {
-    Route::post('canReset', 'ResetPasswordController@canResetPassword');
+    Route::post('can-reset', 'ResetPasswordController@canResetPassword');
     Route::post('reset', 'ResetPasswordController@resetPassword');
+});
+
+/**
+ * Rotas para Área do Paciente
+ */
+Route::namespace('System')->group(function () {
+    Route::post('area-do-paciente', 'AreaDoPacienteController@getProntuario');
 });
