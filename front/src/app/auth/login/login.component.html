@@ -83,12 +83,16 @@
                 <br>
               </div>
               <div class="card-footer ">
-                <button class="btn btn-warning btn-round btn-block mb-3" type="submit"
-                  [disabled]="loginForm.invalid || loginLoading">
-                  Entrar
-                  <span *ngIf="loginLoading" class="spinner-border spinner-border-sm" role="status"
-                    aria-hidden="true"></span>
-                </button>
+                <div class="row">
+                  <div class="col-md-12">
+                    <button class="btn btn-warning btn-round btn-block mb-3" type="submit"
+                      [disabled]="loginForm.invalid || loginLoading">
+                      Entrar
+                      <span *ngIf="loginLoading" class="spinner-border spinner-border-sm" role="status"
+                        aria-hidden="true"></span>
+                    </button>
+                  </div>
+                </div>
                 <div class="row">
                   <div class="col-md-6">
                     <button type="button" [routerLink]="['/area-do-usuario']"
