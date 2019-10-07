@@ -1,4 +1,5 @@
-<ngx-smart-modal #resetPasswordModal identifier="resetPasswordModal">
+<ngx-smart-modal #resetPasswordModal identifier="resetPasswordModal" [dismissable]="false"
+  (onCloseFinished)="eraseForm()">
   <div class="card-body">
     <h5 class="card-title">Resetar senha?</h5>
     <div class="card-body">
@@ -105,12 +106,12 @@
                     (click)="openFormEdit(user.id)">
                     <i class="fa fa-edit fa-2x"></i>
                   </button>
-                  <button class="btn btn-danger btn-icon btn-sm " type="button" title="Excluir">
-                    <i class="fa fa-times fa-2x"></i>
-                  </button>
                   <button class="btn btn-info btn-icon btn-sm " type="button" title="Resetar senha"
                     (click)="openFormresetPassword(user.id)">
                     <i class="fa fa-refresh fa-2x"></i>
+                  </button>
+                  <button class="btn btn-danger btn-icon btn-sm " type="button" title="Excluir">
+                    <i class="fa fa-times fa-2x"></i>
                   </button>
                 </td>
               </tr>

@@ -1,4 +1,4 @@
-<ngx-smart-modal #resetPasswordModal identifier="resetPasswordModal" customClass="medium-modal" [dismissable]="false"
+<ngx-smart-modal #resetPasswordModal identifier="resetPasswordModal" customClass="small-modal" [dismissable]="false"
   (onCloseFinished)="eraseForm()">
   <div class="card-body">
     <form #resetPasswordForm="ngForm" (ngSubmit)="canResetPassword ? reset() : verify()">
@@ -8,14 +8,16 @@
         </div>
       </h5>
       <div class="row" *ngIf="!canResetPassword">
-        <div class="col-md-6">
+        <div class="col-md-12">
           <div class="form-group">
             <label for="email">E-mail</label>
             <input type="email" class="form-control" required [(ngModel)]="formResetPassword.email" name="email"
               #email="ngModel">
           </div>
         </div>
-        <div class="col-md-6">
+      </div>
+      <div class="row">
+        <div class="col-md-12">
           <div class="form-group">
             <label for="descricao">CPF</label>
             <input type="text" mask="000.000.000-00" required class="form-control" [(ngModel)]="formResetPassword.cpf"

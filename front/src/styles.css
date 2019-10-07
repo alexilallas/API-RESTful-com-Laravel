@@ -132,7 +132,7 @@ tbody{font-size: 12px}
 /* modal */
 
 .nsm-dialog{max-width: 860px;}
-
+.small-modal {max-width: 520px;}
 
 /* card */
 .card{box-shadow: none}

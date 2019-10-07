@@ -137,6 +137,7 @@ export class UsuarioComponent extends DatatablesComponent implements OnInit {
   }
 
   closeResetPassword() {
+    this.eraseForm()
     this.ngxSmartModalService.close(this.modalResetPassword)
   }
 
