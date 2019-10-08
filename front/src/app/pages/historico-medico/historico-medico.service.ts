@@ -1,7 +1,8 @@
 import { Injectable, EventEmitter } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { map, filter, switchMap } from 'rxjs/operators';
+
 import { Paciente } from '../paciente/paciente';
 import { environment } from '../../../environments/environment';
 import { MessageService } from '../../services/messages/message.service';
@@ -18,7 +19,7 @@ export class HistoricoMedicoService {
   constructor
     (
       private http: HttpClient,
-      private MessageService: MessageService,
+      private messageService: MessageService,
   ) {
     console.log('HistoricoMedicoService')
     this.historicoMedicoUrl = environment.baseAPI + 'historico'
@@ -32,7 +33,7 @@ export class HistoricoMedicoService {
 
   getPacienteById(id): Observable<Paciente[]> {
     return this.http.get<Paciente[]>(this.historicoMedicoUrl + '/' + id)
-      .pipe(map((response: any) => response.data.paciente[0]));
+      .pipe(map((response: any) => response.data.paciente));
 
   }
 
@@ -43,7 +44,7 @@ export class HistoricoMedicoService {
       data)
       .subscribe(
         (response) => {
-          this.MessageService.message(response)
+          this.messageService.message(response)
           if (response.status == 200) {
             HistoricoMedicoService.historicoMedicoCreatedAlert.emit(response)
           }
@@ -58,7 +59,7 @@ export class HistoricoMedicoService {
       data)
       .subscribe(
         (response) => {
-          this.MessageService.message(response)
+          this.messageService.message(response)
           if (response.status == 200) {
             HistoricoMedicoService.historicoMedicoUpdatedAlert.emit(response)
           }

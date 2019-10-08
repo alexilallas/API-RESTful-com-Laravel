@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { LoginService } from '../../auth/login/login.service';
 
 @Component({
@@ -11,7 +10,6 @@ export class AdminLayoutComponent implements OnInit {
 
   constructor(
     private loginService: LoginService,
-    private route: Router,
   ) {
     console.log('AdminLayoutComponent')
   }
@@ -20,7 +18,6 @@ export class AdminLayoutComponent implements OnInit {
   }
 
   userLoged() {
-
     return this.loginService.isLogged()
   }
 

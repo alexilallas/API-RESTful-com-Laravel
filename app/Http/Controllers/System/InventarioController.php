@@ -39,7 +39,7 @@ class InventarioController extends Controller
         $id = $req->route('id');
         $item = DB::table($this->table)
         ->where($this->table.'.id', $id)
-        ->get();
+        ->first();
 
         return $this->jsonSuccess('Item '.$id.'', compact('item'));
     }

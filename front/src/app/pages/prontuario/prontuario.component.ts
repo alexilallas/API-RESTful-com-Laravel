@@ -1,23 +1,26 @@
 import { Component, OnInit } from '@angular/core';
-import { Prontuario } from './prontuario';
-import { ProntuarioService } from './prontuario.service';
 import { environment } from '../../../environments/environment';
+
+import { Prontuario } from './prontuario';
 import { NgxSmartModalService } from 'ngx-smart-modal';
+import { ProntuarioService } from './prontuario.service';
 import { DatatablesComponent } from '../../shared/datatables/datatables.component';
 
 @Component({
   selector: 'prontuario-cmp',
   moduleId: module.id,
   templateUrl: 'prontuario.component.html',
-  styleUrls: ['./prontuario.component.css']
+  styleUrls: ['./prontuario.component.scss']
 })
 
 export class ProntuarioComponent extends DatatablesComponent implements OnInit {
 
   public historico: any;
   public hasHistorico: boolean = false;
+
   public exames: any;
   public hasExame: boolean = false;
+
   public evolucoes: any;
   public hasEvolucao: boolean = false;
 
@@ -36,6 +39,7 @@ export class ProntuarioComponent extends DatatablesComponent implements OnInit {
 
   ngOnInit() {
     this.dtOptions = environment.dtOptions
+    this.dtOptions.order = [0, 'asc']
     this.getPacientes()
   }
 
@@ -50,28 +54,28 @@ export class ProntuarioComponent extends DatatablesComponent implements OnInit {
   openForm(id) {
     this.prontuarioService.getPacienteById(id)
       .subscribe(response => {
-        this.form = response['paciente'][0]
-        if (response['historico'].length > 0) {
-          this.historico = response['historico'][0]
+        this.form = response.paciente
+        if (response.historico) {
+          this.historico = response.historico
           this.hasHistorico = true
         } else {
           this.hasHistorico = false
         }
-        if (response['exames'].length > 0) {
-          this.exames = response['exames']
+        if (response.exames.length > 0) {
+          this.exames = response.exames
           this.hasExame = true
         } else {
           this.hasExame = false
         }
-        if (response['evolucoes'].length > 0) {
-          this.evolucoes = response['evolucoes']
+        if (response.evolucoes.length > 0) {
+          this.evolucoes = response.evolucoes
           this.hasEvolucao = true
         } else {
           this.hasEvolucao = false
         }
 
-        this.form.nome_contato = response['paciente'][0].nome_contato
-        this.form.numero_contato = response['paciente'][0].numero_contato
+        this.form.nome_contato = response.paciente.nome_contato
+        this.form.numero_contato = response.paciente.numero_contato
         console.log(response)
       })
     this.ngxSmartModalService.open(this.modal)

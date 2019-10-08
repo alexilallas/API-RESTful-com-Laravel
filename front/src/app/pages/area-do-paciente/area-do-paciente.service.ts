@@ -1,7 +1,10 @@
 import { Injectable, EventEmitter } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+
 import { environment } from '../../../environments/environment';
+import { MessageService } from '../../services/messages/message.service';
 
 
 @Injectable({
@@ -9,19 +12,25 @@ import { environment } from '../../../environments/environment';
 })
 export class AreaDoPacienteService {
 
-  private areaDoPacienteUrl: string;
+  static prontuarioFindedAlert;
 
+  private areaDoPacienteUrl: string;
 
   constructor
     (
       private http: HttpClient,
+      private messageService: MessageService,
   ) {
     console.log('AreaDoPacienteService')
     this.areaDoPacienteUrl = environment.baseAPI + 'area-do-paciente'
   }
 
-  getProntuario(data) {
+  getProntuario(data: any) {
     return this.http.post<any>(this.areaDoPacienteUrl, data)
+    .pipe(map(response => {
+      this.messageService.message(response)
+      return response.data;
+    }))
   }
 
 }

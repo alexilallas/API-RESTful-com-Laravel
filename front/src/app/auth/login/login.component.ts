@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { LoginService } from './login.service';
+
 import { Login } from './login';
+import { LoginService } from './login.service';
 import { ResetPassword } from './reset-password';
 import { NgxSmartModalService } from 'ngx-smart-modal';
 import { MessageService } from '../../services/messages/message.service';
@@ -18,7 +19,7 @@ export class LoginComponent implements OnInit {
   public canResetPassword: boolean = false;
 
   public form = new Login();
-  public formResetPassword = new ResetPassword();
+  public formResetPassword: any = new ResetPassword();
   public modal = 'resetPasswordModal';
 
   constructor(
@@ -59,7 +60,7 @@ export class LoginComponent implements OnInit {
           console.log(response)
           if (response.status == 200) {
             this.canResetPassword = true
-            this.formResetPassword['id'] = response.data.id
+            this.formResetPassword.id = response.data.id
           }
           else {
             this.messageService.message(response)

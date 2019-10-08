@@ -68,7 +68,7 @@ class HistoricoController extends Controller
             'historico_familiar.*',
             'historico_familiar.id as id_historico_familiar'
         )
-        ->get();
+        ->first();
 
         return $this->jsonSuccess('Histórico do Paciente com id: '.$id, compact('paciente'));
     }
@@ -102,7 +102,7 @@ class HistoricoController extends Controller
         $req = new Request();
         foreach ($pacientes as $key => $paciente) {
             $req->request->add(['id' => $paciente->id]);
-            if (count($this->findById($req)->original['data']['paciente']) > 0) {
+            if ($this->findById($req)->original['data']['paciente']) {
                 $pacientes[$key]->hasHistorico = true;
             } else {
                 $pacientes[$key]->hasHistorico = false;

@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+
 import { Usuario } from './usuario';
 import { UsuarioService } from './usuario.service';
-import { environment } from '../../../environments/environment';
 import { NgxSmartModalService } from 'ngx-smart-modal';
-import { DatatablesComponent } from '../../shared/datatables/datatables.component';
 import { HelperService } from '../../helper/helper.service';
+import { environment } from '../../../environments/environment';
+import { DatatablesComponent } from '../../shared/datatables/datatables.component';
 
 @Component({
   selector: 'app-usuario',
@@ -33,6 +34,7 @@ export class UsuarioComponent extends DatatablesComponent implements OnInit {
 
   ngOnInit() {
     this.dtOptions = environment.dtOptions
+    this.dtOptions.order = [0, 'asc']
     this.getUsuarios()
   }
 

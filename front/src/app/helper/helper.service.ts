@@ -34,19 +34,19 @@ export class HelperService extends SidebarComponent {
   }
 
   filterArray(array) {
-  var index = -1,
-    arr_length = array ? array.length : 0,
-    resIndex = -1,
-    result = [];
+    var index = -1,
+      arr_length = array ? array.length : 0,
+      resIndex = -1,
+      result = [];
 
-  while (++index < arr_length) {
-    var value = array[index];
+    while (++index < arr_length) {
+      var value = array[index];
 
-    if (value) {
-      result[++resIndex] = value;
+      if (value) {
+        result[++resIndex] = value;
+      }
     }
-  }
 
-  return result;
-}
+    return result;
+  }
 }

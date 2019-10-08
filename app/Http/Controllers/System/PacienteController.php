@@ -48,12 +48,12 @@ class PacienteController extends Controller
     public function findById(Request $req)
     {
         $id = $this->getIdByRequest($req);
-        
+
         $paciente = DB::table($this->table)
         ->join('contatos', 'contatos.paciente_id', '=', 'pacientes.id')
         ->where($this->table.'.id', $id)
         ->select('pacientes.*', 'contatos.nome as nome_contato', 'contatos.numero as numero_contato', 'contatos.id as id_contato')
-        ->get();
+        ->first();
 
         return $this->jsonSuccess('Pacientes cadastrados', compact('paciente'));
     }

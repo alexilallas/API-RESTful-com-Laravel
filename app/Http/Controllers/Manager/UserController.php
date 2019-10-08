@@ -78,7 +78,7 @@ class UserController extends Controller
             'enfermeiros.coren'
         )
         ->where($this->table.'.id', $id)
-        ->get();
+        ->first();
 
         return $this->jsonSuccess('Usuário', compact('usuario'));
     }

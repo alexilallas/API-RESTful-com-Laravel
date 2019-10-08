@@ -32,7 +32,7 @@ export class UsuarioService {
 
   getUsuarioById(id): Observable<Usuario[]> {
     return this.http.get<Usuario[]>(this.usuarioUrl + '/' + id)
-      .pipe(map((response: any) => response.data.usuario[0]));
+      .pipe(map((response: any) => response.data.usuario));
 
   }
 

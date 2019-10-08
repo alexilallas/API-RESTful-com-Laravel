@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { formatDate } from '@angular/common';
+
 import { ExameFisico } from './exame-fisico';
+import { NgxSmartModalService } from 'ngx-smart-modal';
 import { ExameFisicoService } from './exame-fisico.service';
 import { environment } from '../../../environments/environment';
-import { NgxSmartModalService } from 'ngx-smart-modal';
 import { DatatablesComponent } from '../../shared/datatables/datatables.component';
-import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'exame-fisico-cmp',
@@ -32,6 +33,7 @@ export class ExameFisicoComponent extends DatatablesComponent implements OnInit 
 
   ngOnInit() {
     this.dtOptions = environment.dtOptions
+    this.dtOptions.order = [0, 'asc']
     this.getPacientes()
   }
 

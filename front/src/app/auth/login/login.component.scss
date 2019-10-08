@@ -83,3 +83,9 @@
   padding-right: 5px;
   padding-left: 5px;
 }
+
+/* Para tela de Area do Paciente*/
+.table.dataTable thead th, table.dataTable thead td {
+  padding: 5px;
+  font-size: smaller;
+}

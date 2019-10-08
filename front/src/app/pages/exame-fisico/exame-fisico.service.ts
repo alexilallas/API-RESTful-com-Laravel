@@ -1,7 +1,8 @@
 import { Injectable, EventEmitter } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { map} from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { map, filter, switchMap } from 'rxjs/operators';
+
 import { ExameFisico } from './exame-fisico';
 import { environment } from '../../../environments/environment';
 import { MessageService } from '../../services/messages/message.service';
@@ -19,7 +20,7 @@ export class ExameFisicoService {
   constructor
     (
       private http: HttpClient,
-      private MessageService: MessageService,
+      private messageService: MessageService,
   ) {
     console.log('ExameFisicoService')
     this.exameFisicoUrl = environment.baseAPI + 'exame'
@@ -44,7 +45,7 @@ export class ExameFisicoService {
       data)
       .subscribe(
         (response) => {
-          this.MessageService.message(response)
+          this.messageService.message(response)
           if (response.status == 200) {
             ExameFisicoService.exameFisicoCreatedAlert.emit(response)
           }
@@ -59,7 +60,7 @@ export class ExameFisicoService {
       data)
       .subscribe(
         (response) => {
-          this.MessageService.message(response)
+          this.messageService.message(response)
           if (response.status == 200) {
             ExameFisicoService.exameFisicoUpdatedAlert.emit(response)
           }

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+
 import { environment } from 'environments/environment';
-import { DatatablesComponent } from '../../../shared/datatables/datatables.component';
 import { AuditoriaService } from './auditoria.service';
+import { DatatablesComponent } from '../../shared/datatables/datatables.component';
 
 @Component({
   selector: 'app-auditoria',
@@ -27,10 +28,10 @@ export class AuditoriaComponent extends DatatablesComponent implements OnInit {
 
   getRegistros() {
     this.auditoriaService.getRegistros()
-    .subscribe(response => {
-      this.registros = response.data
-      this.rerenderTable()
-    })
+      .subscribe(response => {
+        this.registros = response
+        this.rerenderTable()
+      })
   }
 
 }

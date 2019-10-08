@@ -1,7 +1,8 @@
 import { Injectable, EventEmitter } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { map, filter, switchMap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
+
 import { Evolucao } from './evolucao';
 import { environment } from '../../../environments/environment';
 import { MessageService } from '../../services/messages/message.service';
@@ -18,7 +19,7 @@ export class EvolucaoService {
   constructor
     (
       private http: HttpClient,
-      private MessageService: MessageService,
+      private messageService: MessageService,
   ) {
     console.log('EvolucaoService')
     this.evolucaoUrl = environment.baseAPI + 'evolucao'
@@ -43,7 +44,7 @@ export class EvolucaoService {
       data)
       .subscribe(
         (response) => {
-          this.MessageService.message(response)
+          this.messageService.message(response)
           if (response.status == 200) {
             EvolucaoService.evolucaoCreatedAlert.emit(response)
           }
@@ -58,7 +59,7 @@ export class EvolucaoService {
       data)
       .subscribe(
         (response) => {
-          this.MessageService.message(response)
+          this.messageService.message(response)
           if (response.status == 200) {
             EvolucaoService.evolucaoUpdatedAlert.emit(response)
           }

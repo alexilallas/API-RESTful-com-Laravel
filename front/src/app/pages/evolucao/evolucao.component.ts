@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { formatDate } from '@angular/common';
+
 import { Evolucao } from './evolucao';
 import { EvolucaoService } from './evolucao.service';
-import { environment } from '../../../environments/environment';
 import { NgxSmartModalService } from 'ngx-smart-modal';
+import { environment } from '../../../environments/environment';
 import { DatatablesComponent } from '../../shared/datatables/datatables.component';
-import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-evolucao',
@@ -31,6 +32,7 @@ export class EvolucaoComponent extends DatatablesComponent implements OnInit {
 
   ngOnInit() {
     this.dtOptions = environment.dtOptions
+    this.dtOptions.order = [0, 'asc']
     this.getPacientes()
   }
 

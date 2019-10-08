@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+
 import { environment } from '../../../environments/environment';
 import { MessageService } from '../../services/messages/message.service';
-import { Observable } from 'rxjs';
-import { Login } from './login';
-import { map, filter, switchMap } from 'rxjs/operators';
 
 
 @Injectable({
@@ -40,7 +40,7 @@ export class LoginService {
           localStorage.setItem('permissoes', btoa(JSON.stringify(response.data.permissoes)))
           this.router.navigate(['/inicio'])
         }
-        return response;
+        return response
       }))
   }
 

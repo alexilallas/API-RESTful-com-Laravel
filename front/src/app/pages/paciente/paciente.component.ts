@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+
 import { Paciente } from './paciente';
 import { PacienteService } from './paciente.service';
-import { NgxViacepService, Endereco, ErroCep } from '@brunoc/ngx-viacep';
-import { environment } from '../../../environments/environment';
 import { NgxSmartModalService } from 'ngx-smart-modal';
+import { environment } from '../../../environments/environment';
+import { NgxViacepService, Endereco, ErroCep } from '@brunoc/ngx-viacep';
 import { DatatablesComponent } from '../../shared/datatables/datatables.component';
 
 
@@ -17,7 +18,7 @@ export class PacienteComponent extends DatatablesComponent implements OnInit {
 
   public _sexo = ['Masculino', 'Feminino'];
   public _estado_civil = ['Solteiro(a)', 'Casado(a)', 'Viúvo(a)'];
-  public _tipo_paciente = ['Aluno', 'Funcionário', 'Dependente', 'Comunidade','Serviço Prestado'];
+  public _tipo_paciente = ['Aluno', 'Funcionário', 'Dependente', 'Comunidade', 'Serviço Prestado'];
 
   public form: any = new Paciente();
   public modal = 'pacienteModal';
@@ -36,6 +37,7 @@ export class PacienteComponent extends DatatablesComponent implements OnInit {
 
   ngOnInit() {
     this.dtOptions = environment.dtOptions
+    this.dtOptions.order = [0, 'asc']
     this.getPacientes()
   }
 

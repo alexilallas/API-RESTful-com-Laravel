@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+
 import { HistoricoMedico } from './historico-medico';
-import { HistoricoMedicoService } from './historico-medico.service';
-import { PacienteService } from '../paciente/paciente.service';
-import { environment } from '../../../environments/environment';
 import { NgxSmartModalService } from 'ngx-smart-modal';
+import { environment } from '../../../environments/environment';
+import { HistoricoMedicoService } from './historico-medico.service';
 import { DatatablesComponent } from '../../shared/datatables/datatables.component';
 
 @Component({
@@ -23,7 +23,6 @@ export class HistoricoMedicoComponent extends DatatablesComponent implements OnI
 
   constructor
     (
-      private pacienteService: PacienteService,
       public ngxSmartModalService: NgxSmartModalService,
       private historicoMedicoService: HistoricoMedicoService,
   ) {
@@ -33,6 +32,7 @@ export class HistoricoMedicoComponent extends DatatablesComponent implements OnI
 
   ngOnInit() {
     this.dtOptions = environment.dtOptions
+    this.dtOptions.order = [0, 'asc']
     this.getPacientes()
   }
 

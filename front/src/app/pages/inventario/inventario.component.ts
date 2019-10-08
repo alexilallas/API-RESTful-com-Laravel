@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+
 import { Inventario } from './inventario';
-import { InventarioService } from './inventario.service';
 import { NgxSmartModalService } from 'ngx-smart-modal';
-import { DatatablesComponent } from '../../shared/datatables/datatables.component';
+import { InventarioService } from './inventario.service';
 import { environment } from '../../../environments/environment';
 import { faPills, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { DatatablesComponent } from '../../shared/datatables/datatables.component';
 
 @Component({
   selector: 'inventario-cmp',
@@ -34,6 +35,7 @@ export class InventarioComponent extends DatatablesComponent implements OnInit {
 
   ngOnInit() {
     this.dtOptions = environment.dtOptions
+    this.dtOptions.order = [0, 'asc']
     this.getItens()
   }
 
