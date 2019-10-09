@@ -25,6 +25,7 @@ class ExameFisicoTableSeeder extends Seeder
                 'temperatura' => $faker->randomFloat($nbMaxDecimals = NULL, $min = 30, $max = 38),
                 'frequencia_cardiaca' => $faker->numberBetween($min = 60, $max = 120),
                 'frequencia_respiratoria' => $faker->numberBetween($min = 90, $max = 150),
+                'enfermeiro' => $faker->randomElement($array = array ('Guilherme de Oliveira','Lorena Tavares')),
             ]);
         }
 
@@ -39,6 +40,7 @@ class ExameFisicoTableSeeder extends Seeder
                 'temperatura' => $faker->randomFloat($nbMaxDecimals = NULL, $min = 30, $max = 38),
                 'frequencia_cardiaca' => $faker->numberBetween($min = 60, $max = 120),
                 'frequencia_respiratoria' => $faker->numberBetween($min = 90, $max = 150),
+                'enfermeiro' => $faker->randomElement($array = array ('Guilherme de Oliveira','Lorena Tavares')),
             ]);
         }
 
@@ -53,6 +55,7 @@ class ExameFisicoTableSeeder extends Seeder
                 'temperatura' => $faker->randomFloat($nbMaxDecimals = NULL, $min = 30, $max = 38),
                 'frequencia_cardiaca' => $faker->numberBetween($min = 60, $max = 120),
                 'frequencia_respiratoria' => $faker->numberBetween($min = 90, $max = 150),
+                'enfermeiro' => $faker->randomElement($array = array ('Guilherme de Oliveira','Lorena Tavares')),
             ]);
         }
     }

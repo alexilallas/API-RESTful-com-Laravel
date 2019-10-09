@@ -8,7 +8,6 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Models\Auditoria;
 use JWTAuth;
 
 abstract class Controller extends BaseController
@@ -96,12 +95,15 @@ abstract class Controller extends BaseController
      * @param array $data O dado que será salvo
      * @param string $action A ação realizada pelo usuário
      *
+     * @return int $id O id da linha inserida
      */
     public function doSave($data, $action)
     {
         $this->checkBusinessLogic($data);
-        $this->customSave($data);
+        $id = $this->customSave($data);
         $this->auditoria($data, $action);
+
+        return $id;
     }
 
 
@@ -111,11 +113,13 @@ abstract class Controller extends BaseController
      * @param string $table O nome da tabela que será adicionada o registro
      * @param array  $data Os dados que serão adicionados na tabela
      *
+     * @return int O id da linha inserida
      */
     public function save($table, $data)
     {
         $data['created_at'] = null;
         DB::table($table)->insert($data);
+        return DB::getPdo()->lastInsertId();
     }
 
 
@@ -172,28 +176,24 @@ abstract class Controller extends BaseController
      */
     public function getAuditoriaData($data, $action)
     {
-        $user = JWTAuth::user();
-        $user->perfil = DB::table('users')
-        ->join('perfil_user', 'perfil_user.user_id', '=', 'users.id')
-        ->join('perfis', 'perfis.id', '=', 'perfil_user.perfil_id')
-        ->select('perfis.nome as perfil')
-        ->where('users.id', $user->id)
-        ->first();
+        $user = $this->getAutenticatedUser();
 
-        $auditoriaData['usuario'] = $user->name;
-        $auditoriaData['perfil'] = $user->perfil->perfil;
-        $auditoriaData['acao'] = $action;
-        $auditoriaData['dados'] = json_encode($data);
-        $auditoriaData['data'] = null;
+        $auditoriaData = array(
+            'usuario' => $user->name,
+            'perfil' => $user->perfil->perfil,
+            'acao' => $action,
+            'dados' => json_encode($data),
+            'data' => null
+        );
 
         return $auditoriaData;
     }
 
     /**
      * Captura id da dada requisição
-     * 
+     *
      * @param Request $req A requisição enviada pelo usuário
-     * 
+     *
      * @return int $id O id enviado na requisição
      */
     public function getIdByRequest(Request $req)
@@ -204,5 +204,24 @@ abstract class Controller extends BaseController
         }
 
         return $id;
+    }
+
+    /**
+     * Retorna o usuário que está logado no sistema
+     * @param void
+     *
+     * @return App\Models\User
+     */
+    public function getAutenticatedUser()
+    {
+        $user = JWTAuth::user();
+        $user->perfil = DB::table('users')
+        ->join('perfil_user', 'perfil_user.user_id', '=', 'users.id')
+        ->join('perfis', 'perfis.id', '=', 'perfil_user.perfil_id')
+        ->select('perfis.nome as perfil')
+        ->where('users.id', $user->id)
+        ->first();
+
+        return $user;
     }
 }

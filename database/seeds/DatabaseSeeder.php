@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call(HistoricoFamiliarTableSeeder::class);
         $this->call(HistoricoPessoalTableSeeder::class);
+        $this->call(HistoricoTableSeeder::class);
 
         $this->call(ExameFisicoTableSeeder::class);
         $this->call(EvolucaoTableSeeder::class);

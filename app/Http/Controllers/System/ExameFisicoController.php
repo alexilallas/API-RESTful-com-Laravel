@@ -20,6 +20,8 @@ class ExameFisicoController extends Controller
     public function customSave($modelData)
     {
         unset($modelData['nome']);
+        $modelData['enfermeiro'] = $this->getAutenticatedUser()->name;
+
         return $this->save($this->table, $modelData);
     }
 
@@ -28,6 +30,8 @@ class ExameFisicoController extends Controller
         unset($modelData['nome']);
         unset($modelData['paciente_id']);
         unset($modelData['data_exame']);
+        unset($modelData['enfermeiro']);
+
         return $this->update($this->table, $modelData);
     }
 

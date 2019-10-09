@@ -4,6 +4,7 @@
     <form #evolucaoForm="ngForm" (ngSubmit)="isNewEvolucao ? save() : update()">
       <h5 class="card-title">Evolução do Paciente</h5>
       <p><strong>PACIENTE: </strong> {{form.nome | uppercase}}</p>
+      <p><strong>MÉDICO: </strong> {{form.medico | uppercase}} às {{ form.created_at | date: 'hh:mm:ss' }}</p>
       <div class="row" [hidden]="isNewEvolucao">
         <div class="col-md-4">
           <div class="form-group">
@@ -33,10 +34,45 @@
           </div>
         </div>
       </div>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <button class="btn btn-info" type="button" (click)="ngxSmartModalService.getModal('prescricao').open()">
+              <fa-icon [icon]="faPills"></fa-icon> Prescrição Interna
+            </button>
+          </div>
+        </div>
+      </div>
       <br />
       <div class="btn btn-default" (click)="close()">Cancelar</div>
       <button class="btn btn-info pull-right" [disabled]="evolucaoForm.form.invalid">Salvar</button>
     </form>
+  </div>
+</ngx-smart-modal>
+<ngx-smart-modal #prescricao identifier="prescricao" customClass="medium-modal">
+  <div class="card-body">
+    <h5 class="card-title">Prescrição Interna</h5>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="medicamento">Medicamento</label>
+          <ng-select [multiple]="false" [(ngModel)]="form.medicamento" required name="medicamento"
+            #medicamento="ngModel">
+            <ng-option *ngFor="let medicamento of _medicamentos" [value]="medicamento.id">
+              {{ medicamento.nome }}
+            </ng-option>
+          </ng-select>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="medicamento">Quantidade</label>
+          <input type="text" class="form-control" mask="09">
+        </div>
+      </div>
+    </div>
+    <div class="btn btn-default" (click)="ngxSmartModalService.getModal('prescricao').close()">Cancelar</div>
+    <button class="btn btn-info pull-right">Salvar</button>
   </div>
 </ngx-smart-modal>
 <div class="row">

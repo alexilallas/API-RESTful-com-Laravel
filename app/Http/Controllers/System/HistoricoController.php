@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 class HistoricoController extends Controller
 {
+    private $table = 'historicos';
     private $historicoPessoal;
     private $historicoFamiliar;
     private $paciente;
@@ -31,9 +32,11 @@ class HistoricoController extends Controller
     **/
     public function customSave($modelData)
     {
-        $this->historicoFamiliar->customSave($modelData);
-        $this->historicoPessoal->customSave($modelData);
+        $historicoData['paciente_id'] = $modelData['paciente_id'];
+        $historicoData['historico_familiar_id'] = $this->historicoFamiliar->customSave($modelData);
+        $historicoData['historico_pessoal_id'] = $this->historicoPessoal->customSave($modelData);
 
+        return $this->save($this->table, $historicoData);
     }
 
 
@@ -58,9 +61,10 @@ class HistoricoController extends Controller
     {
         $id = $this->getIdByRequest($req);
 
-        $paciente = DB::table('pacientes')
-        ->join('historico_pessoal', 'pacientes.id', '=', 'historico_pessoal.paciente_id')
-        ->join('historico_familiar', 'pacientes.id', '=', 'historico_familiar.paciente_id')
+        $paciente = DB::table($this->table)
+        ->join('historico_pessoal', 'historicos.historico_pessoal_id', '=', 'historico_pessoal.id')
+        ->join('historico_familiar', 'historicos.historico_familiar_id', '=', 'historico_familiar.id')
+        ->join('pacientes', 'historicos.paciente_id', '=', 'pacientes.id')
         ->where('pacientes.id', '=', $id)
         ->select(
             'historico_pessoal.*',

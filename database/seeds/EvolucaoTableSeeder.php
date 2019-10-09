@@ -20,6 +20,7 @@ class EvolucaoTableSeeder extends Seeder
                 'paciente_id' => $value,
                 'data' => $faker->date($format = 'Y-m-d', $max = 'now'),
                 'descricao' => $faker->sentence($nbWords = 25, $variableNbWords = true),
+                'medico' => $faker->randomElement($array = array ('Dr. Adler Gomes','Dr. José Pedro Jr')),
             ]);
         }
 
@@ -28,6 +29,7 @@ class EvolucaoTableSeeder extends Seeder
                 'paciente_id' => $value,
                 'data' => $faker->date($format = 'Y-m-d', $max = 'now'),
                 'descricao' => $faker->sentence($nbWords = 20, $variableNbWords = true),
+                'medico' => $faker->randomElement($array = array ('Dr. Adler Gomes','Dr. José Pedro Jr')),
             ]);
         }
 
@@ -36,6 +38,7 @@ class EvolucaoTableSeeder extends Seeder
                 'paciente_id' => $value,
                 'data' => $faker->date($format = 'Y-m-d', $max = 'now'),
                 'descricao' => $faker->sentence($nbWords = 15, $variableNbWords = true),
+                'medico' => $faker->randomElement($array = array ('Dr. Adler Gomes','Dr. José Pedro Jr')),
             ]);
         }
     }

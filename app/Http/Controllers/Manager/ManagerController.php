@@ -27,8 +27,7 @@ class ManagerController extends Controller
 
     public function customSave($modelData)
     {
-        $this->user->customSave($modelData);
-        $modelData['user_id'] = DB::getPdo()->lastInsertId();
+        $modelData['user_id'] = $this->user->customSave($modelData);
         $this->user->saveUserByPerfil($modelData);
         $this->perfilUsuario->customSave($modelData);
     }

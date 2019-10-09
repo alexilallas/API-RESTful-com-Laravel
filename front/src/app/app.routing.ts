@@ -2,7 +2,6 @@ import { Routes } from '@angular/router';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 
 import { LoginComponent } from './auth/login/login.component';
-import { AreaDoPacienteComponent } from './pages/area-do-paciente/area-do-paciente.component';
 
 export const AppRoutes: Routes = [
   {
@@ -15,9 +14,6 @@ export const AppRoutes: Routes = [
     component: LoginComponent,
   },
   {
-    path: 'area-do-usuario',
-    component: AreaDoPacienteComponent,
-  }, {
     path: '',
     component: AdminLayoutComponent,
     children: [

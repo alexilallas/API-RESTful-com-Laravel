@@ -19,6 +19,7 @@ class CreateEvolucaoPacientesTable extends Migration
             $table->foreign('paciente_id')->references('id')->on('pacientes');
             $table->date('data');
             $table->mediumText('descricao');
+            $table->string('medico');
 
             $table->boolean('ativo')->default(true);
             $table->integer('versao')->default(1);

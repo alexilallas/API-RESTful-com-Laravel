@@ -22,6 +22,7 @@ class EvolucaoController extends Controller
         $data['data'] = $modelData['data'];
         $data['descricao'] = $modelData['descricao'];
         $data['paciente_id'] = $modelData['paciente_id'];
+        $data['medico'] = $this->getAutenticatedUser()->name;
 
         return $this->save($this->table, $data);
     }

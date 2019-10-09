@@ -16,7 +16,6 @@ class HistoricoPessoalTableSeeder extends Seeder
 
         foreach (range(1, 8) as $key => $value) {
             DB::table('historico_pessoal')->insert([
-                'paciente_id' => $value,
                 'fumante' => false,
                 'hipertenso' => $faker->randomElement($array = array(true,false), $count = 1),
                 'diabetico' => $faker->randomElement($array = array(true,false), $count = 1),

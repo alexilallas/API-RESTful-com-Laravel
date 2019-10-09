@@ -19,14 +19,14 @@ class PacienteController extends Controller
 
     public function customSave($modelData)
     {
+        $contatoData['nome_contato'] = $modelData['nome_contato'];
+        $contatoData['numero_contato'] = $modelData['numero_contato'];
         unset($modelData['nome_contato']);
         unset($modelData['numero_contato']);
-        unset($modelData['tipo_paciente']);
         $data = $modelData;
 
-        $this->save($this->table, $data);
-        $modelData['paciente_id'] = DB::getPdo()->lastInsertId();
-        $this->contato->customSave($modelData);
+        $contatoData['paciente_id'] = $this->save($this->table, $data);
+        $this->contato->customSave($contatoData);
     }
 
 

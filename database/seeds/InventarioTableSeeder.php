@@ -19,7 +19,7 @@ class InventarioTableSeeder extends Seeder
             DB::table('inventario')->insert([
                 'nome' => $faker->word,
                 'tipo' => $faker->randomElement($array = array('Injetável', 'Oral'), $count = 1),
-                'quantidade' => $faker->numberBetween($min = 3, $max = 25),
+                'dose' => $faker->numberBetween($min = 3, $max = 25),
                 'descricao' => $faker->sentence($nbWords = 6, $variableNbWords = true),
             ]);
         }

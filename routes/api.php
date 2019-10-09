@@ -273,9 +273,3 @@ Route::namespace('Auth')->group(function () {
     Route::post('reset', 'ResetPasswordController@resetPassword');
 });
 
-/**
- * Rotas para Área do Paciente
- */
-Route::namespace('System')->group(function () {
-    Route::post('area-do-paciente', 'AreaDoPacienteController@getProntuario');
-});

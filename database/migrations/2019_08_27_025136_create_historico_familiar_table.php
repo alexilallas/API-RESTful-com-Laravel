@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateInventariosTable extends Migration
+class CreateHistoricoFamiliarTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,14 @@ class CreateInventariosTable extends Migration
      */
     public function up()
     {
-        Schema::create('inventario', function (Blueprint $table) {
+        Schema::create('historico_familiar', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('nome');
-            $table->enum('tipo', ['Injetável', 'Oral']);
-            $table->integer('dose');
-            $table->string('descricao')->nullable();
+            $table->boolean('diabetes')->nullable();
+            $table->boolean('hipertensao')->nullable();
+            $table->boolean('infarto')->nullable();
+            $table->boolean('morte_subita')->nullable();
+            $table->boolean('cancer')->nullable();
+            $table->string('outro')->nullable();
 
             $table->boolean('ativo')->default(true);
             $table->integer('versao')->default(1);
@@ -35,6 +37,6 @@ class CreateInventariosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('inventario');
+        Schema::dropIfExists('historico_familiar');
     }
 }

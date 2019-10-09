@@ -19,7 +19,6 @@ class HistoricoFamiliarController extends Controller
     **/
     public function customSave($modelData)
     {
-        $data['paciente_id']   = $modelData['paciente_id'];
         $data['diabetes']      = isset($modelData['diabetes'])  ? true : false;
         $data['hipertensao']   = isset($modelData['hipertensao'])  ? true : false;
         $data['infarto']       = isset($modelData['infarto'])  ? true : false;

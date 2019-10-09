@@ -19,6 +19,7 @@ class HistoricoPessoalController extends Controller
     **/
     public function customSave($modelData)
     {
+        unset($modelData['paciente_id']);
         unset($modelData['diabetes']);
         unset($modelData['hipertensao']);
         unset($modelData['infarto']);
@@ -47,6 +48,7 @@ class HistoricoPessoalController extends Controller
         unset($modelData['nome']);
         unset($modelData['id_historico_pessoal']);
         unset($modelData['id_historico_familiar']);
+        unset($modelData['paciente_id']);
         $data = $modelData;
 
         return $this->update($this->table, $data);

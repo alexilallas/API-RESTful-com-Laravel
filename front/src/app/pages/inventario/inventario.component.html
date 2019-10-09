@@ -22,9 +22,9 @@
         </div>
         <div class="col-md-4">
           <div class="form-group">
-            <label for="quantidade">Quantidade</label>
-            <input type="text" mask="09" class="form-control" required [(ngModel)]="form.quantidade" name="quantidade"
-              #quantidade="ngModel">
+            <label for="dose">Dose</label>
+            <input type="text" mask="09" class="form-control" required [(ngModel)]="form.dose" name="dose"
+              #dose="ngModel">
           </div>
         </div>
       </div>
@@ -64,7 +64,7 @@
               <tr>
                 <th>Nome</th>
                 <th>Tipo</th>
-                <th>Quantidade</th>
+                <th>Dose</th>
                 <th>Descrição</th>
                 <th>Ações</th>
               </tr>
@@ -73,7 +73,7 @@
               <tr *ngFor="let item of itensInventario">
                 <td>{{ item.nome }}</td>
                 <td>{{ item.tipo }}</td>
-                <td>{{ item.quantidade }}</td>
+                <td>{{ item.dose }}</td>
                 <td>{{ item.descricao }}</td>
                 <td class="text-right">
                   <button class="btn btn-warning btn-icon btn-sm " type="button" title="Editar"

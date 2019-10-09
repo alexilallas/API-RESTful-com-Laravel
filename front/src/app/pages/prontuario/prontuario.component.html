@@ -284,6 +284,7 @@
           <thead>
             <tr>
               <th>Data</th>
+              <th>Enfermeiro</th>
               <th>Pressão Arterial</th>
               <th>Altura</th>
               <th>Peso</th>
@@ -296,6 +297,7 @@
           <tbody>
             <tr *ngFor="let exame of exames">
               <td>{{exame.data | date: 'dd/MM/yyyy'}}</td>
+              <td>{{exame.enfermeiro}}</td>
               <td>{{exame.pressao}} mmHg</td>
               <td>{{exame.altura}} cm</td>
               <td>{{exame.peso}} Kg</td>
@@ -315,12 +317,14 @@
         <thead>
           <tr>
             <th>Data</th>
+            <th>Médico</th>
             <th>Descrição</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let evolucao of evolucoes">
             <td>{{evolucao.data | date: 'dd/MM/yyyy'}}</td>
+            <td>{{evolucao.medico}}</td>
             <td>{{evolucao.descricao}}</td>
           </tr>
         </tbody>

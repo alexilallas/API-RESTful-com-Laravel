@@ -25,6 +25,7 @@ class CreateExameFisicoGeralsTable extends Migration
             $table->float('temperatura');
             $table->integer('frequencia_cardiaca');
             $table->integer('frequencia_respiratoria');
+            $table->string('enfermeiro');
 
             $table->boolean('ativo')->default(true);
             $table->integer('versao')->default(1);

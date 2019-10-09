@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateHistoricoFamiliarTable extends Migration
+class CreateHistoricosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,16 @@ class CreateHistoricoFamiliarTable extends Migration
      */
     public function up()
     {
-        Schema::create('historico_familiar', function (Blueprint $table) {
+        Schema::create('historicos', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('paciente_id');
             $table->foreign('paciente_id')->references('id')->on('pacientes');
-            $table->boolean('diabetes')->nullable();
-            $table->boolean('hipertensao')->nullable();
-            $table->boolean('infarto')->nullable();
-            $table->boolean('morte_subita')->nullable();
-            $table->boolean('cancer')->nullable();
-            $table->string('outro')->nullable();
+
+            $table->unsignedInteger('historico_familiar_id');
+            $table->foreign('historico_familiar_id')->references('id')->on('historico_familiar');
+
+            $table->unsignedInteger('historico_pessoal_id');
+            $table->foreign('historico_pessoal_id')->references('id')->on('historico_pessoal');
 
             $table->boolean('ativo')->default(true);
             $table->integer('versao')->default(1);
@@ -39,6 +39,6 @@ class CreateHistoricoFamiliarTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('historico_familiar');
+        Schema::dropIfExists('historicos');
     }
 }

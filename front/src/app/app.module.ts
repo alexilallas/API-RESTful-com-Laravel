@@ -30,7 +30,6 @@ import { LoginService } from './auth/login/login.service';
 
 import { JwtInterceptor } from './services/interceptors/jwt.interceptor';
 import { ErrorInterceptor } from './services/interceptors/error.interceptor';
-import { AreaDoPacienteComponent } from './pages/area-do-paciente/area-do-paciente.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +37,6 @@ import { AreaDoPacienteComponent } from './pages/area-do-paciente/area-do-pacien
     AdminLayoutComponent,
     DatatablesComponent,
     LoginComponent,
-    AreaDoPacienteComponent
   ],
   imports: [
     BrowserAnimationsModule,
