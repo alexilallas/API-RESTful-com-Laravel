@@ -14,7 +14,7 @@ class ExameFisicoController extends Controller
     private $table = 'exame_fisico_geral';
 
     /**
-     * @var PacienteController Instância que será utilizada para operações
+     * @var PacienteController
      */
     private $paciente;
 

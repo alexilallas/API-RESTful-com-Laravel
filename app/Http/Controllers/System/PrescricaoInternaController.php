@@ -14,7 +14,7 @@ class PrescricaoInternaController extends Controller
     private $table = 'prescricao_interna';
 
     /**
-     * @var InventarioController Instância que será utilizada para operações
+     * @var InventarioController
      */
     private $inventario;
 

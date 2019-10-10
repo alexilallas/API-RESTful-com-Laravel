@@ -21,6 +21,13 @@ class AuthController extends Controller
         $this->jwtAuth = $jwtAuth;
     }
 
+    /**
+     * Realiza a autenticação do usuário e retorna um token
+     * 
+     * @param Request $request A requisição do usuário que terá os dados usados para o login
+     * 
+     * @return Json Uma mensagem de sucesso com os dados do usuário logado e um token
+     */
     public function login(Request $request)
     {
         $credentials = $this->jsonDecode();
@@ -57,6 +64,13 @@ class AuthController extends Controller
         );
     }
 
+    /**
+     * Invalida um token
+     * 
+     * @param void
+     * 
+     * @return json Uma mensagem de sucesso
+     */
     public function logout()
     {
         $token = $this->jwtAuth->getToken();
@@ -64,6 +78,13 @@ class AuthController extends Controller
         return $this->jsonSuccess('Logout');
     }
 
+    /**
+     * Retorna o usuário autenticado na sessão
+     * 
+     * @param void
+     * 
+     * @return App\Models\User
+     */
     public function getUser()
     {
         return $this->jwtAuth->user();

@@ -4,7 +4,8 @@
     <form #evolucaoForm="ngForm" (ngSubmit)="isNewEvolucao ? save() : update()">
       <h5 class="card-title">Evolução do Paciente</h5>
       <p><strong>PACIENTE: </strong> {{form.nome | uppercase}}</p>
-      <p><strong>MÉDICO: </strong> {{form.medico | uppercase}} às {{ form.created_at | date: 'hh:mm:ss' }}</p>
+      <p *ngIf="form.id"><strong>MÉDICO: </strong> {{form.medico | uppercase}} às
+        {{ form.created_at | date: 'hh:mm:ss' }}</p>
       <div class="row" [hidden]="isNewEvolucao">
         <div class="col-md-4">
           <div class="form-group">
@@ -43,6 +44,17 @@
           </div>
         </div>
       </div>
+      <div class="row">
+        <div class="col-md-6">
+          <ul class="list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-center"
+              *ngFor="let med of medicamentosEvolucao">
+              {{ med.nome }}
+              <span class="badge badge-primary badge-pill">{{ med.quantidade }}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
       <br />
       <div class="btn btn-default" (click)="close()">Cancelar</div>
       <button class="btn btn-info pull-right" [disabled]="evolucaoForm.form.invalid">Salvar</button>
@@ -56,9 +68,9 @@
       <div class="col-md-6">
         <div class="form-group">
           <label for="medicamento">Medicamento</label>
-          <ng-select [multiple]="false" [(ngModel)]="form.medicamento" required name="medicamento"
+          <ng-select [multiple]="false" [(ngModel)]="form.medicamento" name="medicamento"
             #medicamento="ngModel">
-            <ng-option *ngFor="let medicamento of _medicamentos" [value]="medicamento.id">
+            <ng-option *ngFor="let medicamento of _medicamentos" [value]="[medicamento.id, medicamento.nome]">
               {{ medicamento.nome }}
             </ng-option>
           </ng-select>
@@ -66,13 +78,14 @@
       </div>
       <div class="col-md-6">
         <div class="form-group">
-          <label for="medicamento">Quantidade</label>
-          <input type="text" class="form-control" mask="09">
+          <label for="quantidade">Quantidade</label>
+          <input type="text" [(ngModel)]="form.quantidade" name="quantidade" #quantidade="ngModel" class="form-control"
+            mask="09">
         </div>
       </div>
     </div>
     <div class="btn btn-default" (click)="ngxSmartModalService.getModal('prescricao').close()">Cancelar</div>
-    <button class="btn btn-info pull-right">Salvar</button>
+    <button class="btn btn-info pull-right" (click)="adicionaMedicamento()">Adicionar</button>
   </div>
 </ngx-smart-modal>
 <div class="row">

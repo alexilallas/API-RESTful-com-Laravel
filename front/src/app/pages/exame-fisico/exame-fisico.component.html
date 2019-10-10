@@ -4,7 +4,7 @@
     <form #exameForm="ngForm" (ngSubmit)="isNewExame ? save() : update()">
       <h5 class="card-title">Exame Físico</h5>
       <p><strong>PACIENTE: </strong> {{form.nome | uppercase}}</p>
-      <p><strong>ENFERMEIRO: </strong> {{form.enfermeiro | uppercase}} às {{ form.created_at | date: 'hh:mm:ss' }}</p>
+      <p *ngIf="form.id"><strong>ENFERMEIRO: </strong> {{form.enfermeiro | uppercase}} às {{ form.created_at | date: 'hh:mm:ss' }}</p>
       <div class="row" [hidden]="isNewExame">
         <div class="col-md-4">
           <div class="form-group">

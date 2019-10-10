@@ -9,22 +9,22 @@ use Illuminate\Support\Facades\DB;
 class ProntuarioController extends Controller
 {
     /**
-     * @var PacienteController Instância que será utilizada para operações
+     * @var PacienteController
      */
     private $paciente;
 
     /**
-     * @var HistoricoPessoalController Instância que será utilizada para operações
+     * @var HistoricoPessoalController
      */
     private $historico;
 
     /**
-     * @var ExameFisicoController Instância que será utilizada para operações
+     * @var ExameFisicoController
      */
     private $exameFisico;
 
     /**
-     * @var EvolucaoController Instância que será utilizada para operações
+     * @var EvolucaoController
      */
     private $evolucao;
 

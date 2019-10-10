@@ -14,17 +14,17 @@ class HistoricoController extends Controller
     private $table = 'historicos';
 
     /**
-     * @var HistoricoPessoalController Instância que será utilizada para operações
+     * @var HistoricoPessoalController
      */
     private $historicoPessoal;
 
     /**
-     * @var HistoricoFamiliarController Instância que será utilizada para operações
+     * @var HistoricoFamiliarController
      */
     private $historicoFamiliar;
 
     /**
-     * @var PacienteController Instância que será utilizada para operações
+     * @var PacienteController
      */
     private $paciente;
 

@@ -19,6 +19,7 @@ export class EvolucaoComponent extends DatatablesComponent implements OnInit {
   public _data_evolucoes: any;
   public _medicamentos: any = [];
   public faPills: IconDefinition = faPills;
+  public medicamentosEvolucao: any = [];
 
   public form: any = new Evolucao();
   public modal = 'evolucaoModal';
@@ -30,7 +31,7 @@ export class EvolucaoComponent extends DatatablesComponent implements OnInit {
       public ngxSmartModalService: NgxSmartModalService,
       private evolucaoService: EvolucaoService,
       private inventarioService: InventarioService,
-    ) {
+  ) {
     super();
     console.log('EvolucaoComponent')
   }
@@ -40,9 +41,9 @@ export class EvolucaoComponent extends DatatablesComponent implements OnInit {
     this.dtOptions.order = [0, 'asc']
     this.getPacientes()
     this.inventarioService.getItens()
-    .subscribe(response => {
-      this._medicamentos = response
-    })
+      .subscribe(response => {
+        this._medicamentos = response
+      })
   }
 
   getPacientes() {
@@ -150,5 +151,15 @@ export class EvolucaoComponent extends DatatablesComponent implements OnInit {
       })
   }
 
+  adicionaMedicamento() {
+    
+    this.medicamentosEvolucao.push(
+      {
+        'nome': this.form.medicamento,
+        'quantidade': this.form.quantidade
+      })
+
+    console.log(this.medicamentosEvolucao)
+  }
 
 }

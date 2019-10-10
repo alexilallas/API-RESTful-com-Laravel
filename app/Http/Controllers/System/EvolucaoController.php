@@ -14,7 +14,7 @@ class EvolucaoController extends Controller
     private $table = 'evolucao_pacientes';
 
     /**
-     * @var PacienteController Instância que será utilizada para operações
+     * @var PacienteController
      */
     private $paciente;
 
