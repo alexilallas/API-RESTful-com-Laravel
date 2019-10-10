@@ -7,16 +7,18 @@ use App\Http\Controllers\Controller;
 
 class HistoricoFamiliarController extends Controller
 {
+    /**
+     * @var string Nome da tabela que está diretamente relacionada à este controller
+     */
     private $table = "historico_familiar";
 
-    public function __construct()
-    {
-    }
-
     /**
-     * @param Array com dados que serão salvos
-     * @return Boolean com resultado da operação
-    **/
+     * Customiza os dados e chama métodos para salvar
+     *
+     * @param array $modelData Os dados que serão salvos
+     *
+     * @return int o ID do elemento inserido
+     */
     public function customSave($modelData)
     {
         $data['diabetes']      = isset($modelData['diabetes'])  ? true : false;
@@ -29,11 +31,13 @@ class HistoricoFamiliarController extends Controller
         return $this->save($this->table, $data);
     }
 
-    public function checkBusinessLogic($data)
-    {
-        # checar se já existem histórico pra aquele paciente
-    }
-
+    /**
+     * Customiza os dados e chama método para atualizar
+     *
+     * @param array $modelData Os dados que serão atualizados
+     *
+     * @return void
+     */
     public function customUpdate($modelData)
     {
         $data['diabetes']      = $modelData['diabetes'];
@@ -44,6 +48,7 @@ class HistoricoFamiliarController extends Controller
         $data['outro']         = $modelData['outro'];
         $data['id']            = $modelData['id_historico_familiar'];
 
-        return $this->update($this->table, $data);
+        $this->update($this->table, $data);
     }
+
 }

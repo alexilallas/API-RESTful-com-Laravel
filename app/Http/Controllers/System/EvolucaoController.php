@@ -8,8 +8,14 @@ use Illuminate\Support\Facades\DB;
 
 class EvolucaoController extends Controller
 {
+    /**
+     * @var string Nome da tabela que está diretamente relacionada à este controller
+     */
     private $table = 'evolucao_pacientes';
 
+    /**
+     * @var PacienteController Instância que será utilizada para operações
+     */
     private $paciente;
 
     public function __construct()
@@ -17,6 +23,13 @@ class EvolucaoController extends Controller
         $this->paciente = new PacienteController();
     }
 
+    /**
+     * Customiza os dados e chama método para salvar
+     *
+     * @param array $modelData Os dados que serão salvos
+     *
+     * @return int o ID do elemento inserido
+     */
     public function customSave($modelData)
     {
         $data['data'] = $modelData['data'];
@@ -27,15 +40,29 @@ class EvolucaoController extends Controller
         return $this->save($this->table, $data);
     }
 
+    /**
+     * Customiza os dados e chama método para atualizar
+     *
+     * @param array $modelData Os dados que serão atualizados
+     *
+     * @return void
+     */
     public function customUpdate($modelData)
     {
         $data['data'] = $modelData['data'];
         $data['descricao'] = $modelData['descricao'];
         $data['id'] = $modelData['id'];
 
-        return $this->update($this->table, $data);
+        $this->update($this->table, $data);
     }
 
+    /**
+     * Checa a regra de negócio para a uma tabela
+     *
+     * @param array $data Os dados que serão utilizados para a verificação
+     *
+     * @return void
+     */
     public function checkBusinessLogic($data)
     {
         $result = DB::table($this->table)->where(['data' => $data['data'],'paciente_id' => $data['paciente_id']])->count();
@@ -44,6 +71,14 @@ class EvolucaoController extends Controller
         }
     }
 
+    /**
+     * Busca todos os pacientes e adiciona flag 'hasEvolucao'
+     * para indicar se o paciente possui evolução cadastrada
+     *
+     * @param void
+     *
+     * @return json O resultado da busca
+     */
     public function find()
     {
         $pacientes = $this->paciente->find()->original['data']['pacientes'];
@@ -52,6 +87,13 @@ class EvolucaoController extends Controller
         return $this->jsonSuccess('Pacientes cadastrados', compact('pacientes'));
     }
 
+    /**
+     * Busca os dados de uma evolução pelo ID do paciente
+     *
+     * @param Request $req A requisição do usuário que terá o ID
+     *
+     * @return json o resultado da busca
+     */
     public function findById(Request $req)
     {
         $id = $this->getIdByRequest($req);
@@ -65,21 +107,13 @@ class EvolucaoController extends Controller
         return $this->jsonSuccess('Evolucões do Paciente com id: '.$id, compact('paciente'));
     }
 
-    public function hasEvolucao($pacientes)
-    {
-        $req = new Request();
-        foreach ($pacientes as $key => $paciente) {
-            $req->request->add(['id' => $paciente->id]);
-            if (count($this->findById($req)->original['data']['paciente']) > 0) {
-                $pacientes[$key]->hasEvolucao = true;
-            } else {
-                $pacientes[$key]->hasEvolucao = false;
-            }
-        }
-
-        return $pacientes;
-    }
-
+    /**
+     * Adiciona uma evolução de um paciente
+     *
+     * @param void
+     *
+     * @return json Uma mensagem descrevendo o resultado da operação
+     */
     public function postEvolucao()
     {
         $data = $this->jsonDecode();
@@ -95,6 +129,13 @@ class EvolucaoController extends Controller
         }
     }
 
+    /**
+     * Atualiza uma evolução de um paciente
+     *
+     * @param void
+     *
+     * @return json Uma mensagem descrevendo o resultado da operação
+     */
     public function updateEvolucao()
     {
         $data = $this->jsonDecode();
@@ -108,5 +149,29 @@ class EvolucaoController extends Controller
             \DB::rollback();
             return $this->jsonError($th->getMessage());
         }
+    }
+
+    /**
+     * Verifica se os pacientes possuem evoluções cadastradas para melhor tratamento dos dados
+     * na tabela da tela 'Evolução'
+     *
+     * @param array $pacientes os dados pessoais dos pacientes
+     *
+     * @return array $pacientes O mesmo dado de entrada, e um campo adicional
+     * indicando se possui ou não evolução
+     */
+    public function hasEvolucao($pacientes)
+    {
+        $req = new Request();
+        foreach ($pacientes as $key => $paciente) {
+            $req->request->add(['id' => $paciente->id]);
+            if (count($this->findById($req)->original['data']['paciente']) > 0) {
+                $pacientes[$key]->hasEvolucao = true;
+            } else {
+                $pacientes[$key]->hasEvolucao = false;
+            }
+        }
+
+        return $pacientes;
     }
 }

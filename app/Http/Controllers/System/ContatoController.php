@@ -7,9 +7,18 @@ use App\Http\Controllers\Controller;
 
 class ContatoController extends Controller
 {
+    /**
+     * @var string Nome da tabela que está diretamente relacionada à este controller
+     */
     private $table = 'contatos';
 
-
+    /**
+     * Customiza os dados e chama método para salvar
+     *
+     * @param array $modelData Os dados que serão salvos
+     *
+     * @return int o ID do elemento inserido
+     */
     public function customSave($modelData)
     {
         if (isset($modelData['nome_contato']) && isset($modelData['numero_contato'])) {
@@ -23,12 +32,19 @@ class ContatoController extends Controller
         }
     }
 
+    /**
+     * Customiza os dados e chama método para atualizar
+     *
+     * @param array $modelData Os dados que serão atualizados
+     *
+     * @return void
+     */
     public function customUpdate($modelData)
     {
         $data['nome']   = $modelData['nome_contato'];
         $data['numero'] = $modelData['numero_contato'];
         $data['id']     = $modelData['id_contato'];
 
-        return $this->update($this->table, $data);
+        $this->update($this->table, $data);
     }
 }

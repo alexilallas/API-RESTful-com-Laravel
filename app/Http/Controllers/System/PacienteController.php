@@ -8,7 +8,14 @@ use Illuminate\Support\Facades\DB;
 
 class PacienteController extends Controller
 {
+    /**
+     * @var string Nome da tabela que está diretamente relacionada à este controller
+     */
     private $table = 'pacientes';
+
+    /**
+     * @var ContatoController Instância que será utilizada para operações
+     */
     private $contato;
 
     public function __construct()
@@ -16,7 +23,13 @@ class PacienteController extends Controller
         $this->contato = new ContatoController();
     }
 
-
+    /**
+     * Customiza os dados e chama métodos para salvar
+     *
+     * @param array $modelData Os dados que serão salvos
+     *
+     * @return int o ID do elemento inserido
+     */
     public function customSave($modelData)
     {
         $contatoData['nome_contato'] = $modelData['nome_contato'];
@@ -29,7 +42,32 @@ class PacienteController extends Controller
         $this->contato->customSave($contatoData);
     }
 
+    /**
+     * Customiza os dados e chama métodos para atualizar
+     *
+     * @param array $modelData Os dados que serão atualizados
+     *
+     * @return void
+     */
+    public function customUpdate($modelData)
+    {
+        $data = $modelData;
+        unset($data['nome_contato']);
+        unset($data['numero_contato']);
+        unset($data['tipo_paciente']);
+        unset($data['id_contato']);
 
+        $this->update($this->table, $data);
+        $this->contato->customUpdate($modelData);
+    }
+
+    /**
+     * Checa a regra de negócio para a uma tabela
+     *
+     * @param array $data Os dados que serão utilizados para a verificação
+     *
+     * @return void
+     */
     public function checkBusinessLogic($data)
     {
         $result = DB::table($this->table)->where('cpf_rg', $data['cpf_rg'])->count();
@@ -38,6 +76,14 @@ class PacienteController extends Controller
         }
     }
 
+    /**
+     * Busca todos os pacientes e adiciona flag 'hasHistorico'
+     * para indicar se o paciente possui histórico médico
+     *
+     * @param void
+     *
+     * @return json O resultado da busca
+     */
     public function find()
     {
         $pacientes = DB::table($this->table)->get();
@@ -45,6 +91,13 @@ class PacienteController extends Controller
         return $this->jsonSuccess('Pacientes cadastrados', compact('pacientes'));
     }
 
+    /**
+     * Busca os dados de um histórico pelo ID do paciente
+     *
+     * @param Request $req A requisição do usuário que terá o ID
+     *
+     * @return json o resultado da busca
+     */
     public function findById(Request $req)
     {
         $id = $this->getIdByRequest($req);
@@ -58,6 +111,13 @@ class PacienteController extends Controller
         return $this->jsonSuccess('Pacientes cadastrados', compact('paciente'));
     }
 
+    /**
+     * Adiciona o histórico médico de um paciente
+     *
+     * @param void
+     *
+     * @return json Uma mensagem descrevendo o resultado da operação
+     */
     public function postPaciente()
     {
         $data = $this->jsonDecode();
@@ -73,6 +133,13 @@ class PacienteController extends Controller
         }
     }
 
+    /**
+     * Atualiza o histórico médico de um paciente
+     *
+     * @param void
+     *
+     * @return json Uma mensagem descrevendo o resultado da operação
+     */
     public function updatePaciente()
     {
         $data = $this->jsonDecode();
@@ -86,17 +153,5 @@ class PacienteController extends Controller
             \DB::rollback();
             return $this->jsonError($th->getMessage());
         }
-    }
-
-    public function customUpdate($modelData)
-    {
-        $data = $modelData;
-        unset($data['nome_contato']);
-        unset($data['numero_contato']);
-        unset($data['tipo_paciente']);
-        unset($data['id_contato']);
-
-        $this->update($this->table, $data);
-        $this->contato->customUpdate($modelData);
     }
 }

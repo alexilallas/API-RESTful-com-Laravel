@@ -8,8 +8,14 @@ use Illuminate\Support\Facades\DB;
 
 class ExameFisicoController extends Controller
 {
+    /**
+     * @var string Nome da tabela que está diretamente relacionada à este controller
+     */
     private $table = 'exame_fisico_geral';
 
+    /**
+     * @var PacienteController Instância que será utilizada para operações
+     */
     private $paciente;
 
     public function __construct()
@@ -17,6 +23,13 @@ class ExameFisicoController extends Controller
         $this->paciente = new PacienteController();
     }
 
+    /**
+     * Customiza os dados e chama método para salvar
+     *
+     * @param array $modelData Os dados que serão salvos
+     *
+     * @return int o ID do elemento inserido
+     */
     public function customSave($modelData)
     {
         unset($modelData['nome']);
@@ -25,6 +38,13 @@ class ExameFisicoController extends Controller
         return $this->save($this->table, $modelData);
     }
 
+    /**
+     * Customiza os dados e chama método para atualizar
+     *
+     * @param array $modelData Os dados que serão atualizados
+     *
+     * @return void
+     */
     public function customUpdate($modelData)
     {
         unset($modelData['nome']);
@@ -32,9 +52,16 @@ class ExameFisicoController extends Controller
         unset($modelData['data_exame']);
         unset($modelData['enfermeiro']);
 
-        return $this->update($this->table, $modelData);
+        $this->update($this->table, $modelData);
     }
 
+    /**
+     * Checa a regra de negócio para a uma tabela
+     *
+     * @param array $data Os dados que serão utilizados para a verificação
+     *
+     * @return void
+     */
     public function checkBusinessLogic($data)
     {
         $result = DB::table($this->table)->where(['data' => $data['data'], 'paciente_id' => $data['paciente_id']])->count();
@@ -43,6 +70,14 @@ class ExameFisicoController extends Controller
         }
     }
 
+    /**
+     * Busca todos os os pacientes e adiciona flag 'hasExameFisico'
+     * para indicar se o paciente possui exame físico
+     *
+     * @param void
+     *
+     * @return json O resultado da busca
+     */
     public function find()
     {
         $pacientes = $this->paciente->find()->original['data']['pacientes'];
@@ -51,6 +86,13 @@ class ExameFisicoController extends Controller
         return $this->jsonSuccess('Pacientes cadastrados', compact('pacientes'));
     }
 
+    /**
+     * Busca os dados de um exame físico pelo ID do paciente
+     *
+     * @param Request $req A requisição do usuário que terá o ID
+     *
+     * @return json o resultado da busca
+     */
     public function findById(Request $req)
     {
         $id = $this->getIdByRequest($req);
@@ -64,21 +106,13 @@ class ExameFisicoController extends Controller
         return $this->jsonSuccess('Exame físico do Paciente com id: '.$id, compact('paciente'));
     }
 
-    public function hasExameFisico($pacientes)
-    {
-        $req = new Request();
-        foreach ($pacientes as $key => $paciente) {
-            $req->request->add(['id' => $paciente->id]);
-            if (count($this->findById($req)->original['data']['paciente']) > 0) {
-                $pacientes[$key]->hasExame = true;
-            } else {
-                $pacientes[$key]->hasExame = false;
-            }
-        }
-
-        return $pacientes;
-    }
-
+    /**
+     * Adiciona um exame físico de um paciente
+     *
+     * @param void
+     *
+     * @return json Uma mensagem descrevendo o resultado da operação
+     */
     public function postExame()
     {
         $data = $this->jsonDecode();
@@ -94,6 +128,13 @@ class ExameFisicoController extends Controller
         }
     }
 
+    /**
+     * Atualiza um exame físico de um paciente
+     *
+     * @param void
+     *
+     * @return json Uma mensagem descrevendo o resultado da operação
+     */
     public function updateExame()
     {
         $data = $this->jsonDecode();
@@ -107,5 +148,29 @@ class ExameFisicoController extends Controller
             \DB::rollback();
             return $this->jsonError($th->getMessage());
         }
+    }
+
+    /**
+     * Verifica se os pacientes possuem exame físico cadastrado para melhor tratamento dos dados
+     * na tabela da tela 'Exame Físico'
+     *
+     * @param array $pacientes os dados pessoais dos pacientes
+     *
+     * @return array $pacientes O mesmo dado de entrada, e um campo adicional
+     * indicando se possui ou não exame físico
+     */
+    public function hasExameFisico($pacientes)
+    {
+        $req = new Request();
+        foreach ($pacientes as $key => $paciente) {
+            $req->request->add(['id' => $paciente->id]);
+            if (count($this->findById($req)->original['data']['paciente']) > 0) {
+                $pacientes[$key]->hasExame = true;
+            } else {
+                $pacientes[$key]->hasExame = false;
+            }
+        }
+
+        return $pacientes;
     }
 }
