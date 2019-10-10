@@ -9,9 +9,24 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+    /**
+     * @var string Nome da tabela que está diretamente relacionada à este controller
+     */
     private $table = 'users';
+
+    /**
+     * @var PerfilController
+     */
     private $perfil;
+
+    /**
+     * @var MedicoController
+     */
     private $medico;
+
+    /**
+     * @var EnfermeiroController
+     */
     private $enfermeiro;
 
     public function __construct()
@@ -21,7 +36,13 @@ class UserController extends Controller
         $this->enfermeiro = new EnfermeiroController();
     }
 
-
+    /**
+     * Customiza os dados e chama métodos para salvar
+     *
+     * @param array $modelData Os dados que serão salvos
+     *
+     * @return int o ID do elemento inserido
+     */
     public function customSave($modelData)
     {
         $data['name']     = $modelData['name'];
@@ -32,7 +53,32 @@ class UserController extends Controller
         return $this->save($this->table, $data);
     }
 
+    /**
+     * Customiza os dados e chama métodos para atualizar
+     *
+     * @param array $modelData Os dados que serão atualizados
+     *
+     * @return void
+     */
+    public function customUpdate($modelData)
+    {
+        $data['id']       = $modelData['id'];
+        $data['name']     = $modelData['name'];
+        $data['email']    = $modelData['email'];
+        $data['cpf']      = $modelData['cpf'];
+        $data['password'] = $modelData['password'];
+        $data['ativo']    = $modelData['ativo'];
 
+        return $this->update($this->table, $data);
+    }
+
+    /**
+     * Checa a regra de negócio para a uma tabela
+     *
+     * @param array $data Os dados que serão utilizados para a verificação
+     *
+     * @return void
+     */
     public function checkBusinessLogic($data)
     {
         $email_user = DB::table($this->table)->where('email', $data['email'])->count();
@@ -46,6 +92,13 @@ class UserController extends Controller
         }
     }
 
+    /**
+     * Busca todos os usuários cadastrados
+     *
+     * @param void
+     *
+     * @return json O resultado da busca
+     */
     public function find()
     {
         $usuarios = DB::table($this->table)
@@ -59,6 +112,13 @@ class UserController extends Controller
         return $this->jsonSuccess('Usuários cadastrados', compact(['usuarios','perfis']));
     }
 
+    /**
+     * Busca os dados de um usuário pelo seu ID
+     *
+     * @param Request $req A requisição do usuário que terá o ID
+     *
+     * @return json o resultado da busca
+     */
     public function findById(Request $req)
     {
         $id = $req->route('id');
@@ -83,33 +143,35 @@ class UserController extends Controller
         return $this->jsonSuccess('Usuário', compact('usuario'));
     }
 
-    public function customUpdate($modelData)
-    {
-        $data['id']       = $modelData['id'];
-        $data['name']     = $modelData['name'];
-        $data['email']    = $modelData['email'];
-        $data['cpf']      = $modelData['cpf'];
-        $data['password'] = $modelData['password'];
-        $data['ativo']    = $modelData['ativo'];
-
-        return $this->update($this->table, $data);
-    }
-
+    /**
+     * Chama método para salvar dados do usuário de acordo com o seu perfil
+     *
+     * @param array $modelData Os dados do usuário
+     *
+     * @return void
+     */
     public function saveUserByPerfil($modelData)
     {
-        //Enfermeiro
+        // Salva dados do Enfermeiro
         if ($modelData['perfil_id'] == 3 && isset($modelData['coren'])) {
             $this->enfermeiro->customSave($modelData);
         }
-        //Médico
+        // Salva dados do Médico
         if ($modelData['perfil_id'] == 4 && isset($modelData['crm'])) {
             $this->medico->customSave($modelData);
         }
     }
 
+    /**
+     * Chama método para atualizar os dados do usuário de acordo com o seu perfil
+     *
+     * @param array $modelData Os dados do usuário
+     *
+     * @return void
+     */
     public function updateUserByPerfil($modelData)
     {
-        //Enfermeiro
+        // Atualiza dados do Enfermeiro
         if ($modelData['perfil_id'] == 3 && isset($modelData['coren'])) {
             if (isset($modelData['enfermeiro_id'])) {
                 $this->enfermeiro->customUpdate($modelData);
@@ -117,7 +179,7 @@ class UserController extends Controller
                 $this->cancel('Este usuário não pode ser cadastrado como Enfermeiro!');
             }
         }
-        //Médico
+        // Atualiza dados do Médico
         if ($modelData['perfil_id'] == 4 && isset($modelData['crm'])) {
             if (isset($modelData['medico_id'])) {
                 $this->medico->customUpdate($modelData);

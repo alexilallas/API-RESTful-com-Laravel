@@ -32,7 +32,7 @@ class PrescricaoInternaController extends Controller
      */
     public function customSave($modelData)
     {
-        //Salva a prescrição
+        // Salva a prescrição
         foreach ($modelData as $key => $prescricao) {
             $data['evolucao_paciente_id'] = $prescricao['evolucao_paciente_id'];
             $data['medicamento'] = $prescricao['medicamento'];
@@ -41,7 +41,7 @@ class PrescricaoInternaController extends Controller
             $this->save($this->table, $data);
         }
 
-        //Subtrai os medicamentos o inventário
+        // Subtrai os medicamentos o inventário
         foreach ($modelData as $key => $prescricao) {
 
             $this->inventario->decrement($prescricao['nome'], $prescricao['quantidade']);

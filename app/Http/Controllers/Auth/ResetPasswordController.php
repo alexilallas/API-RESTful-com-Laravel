@@ -40,6 +40,13 @@ class ResetPasswordController extends Controller
         $this->middleware('guest');
     }
 
+    /**
+     * Verifica se a senha de um usuário pode ser resetada
+     *
+     * @param void
+     *
+     * @return json A mensagem indicando se a senha pode ser resetada
+     */
     public function canResetPassword()
     {
         $data = $this->jsonDecode();
@@ -57,6 +64,13 @@ class ResetPasswordController extends Controller
         }
     }
 
+    /**
+     * Redefine a senha de um usuário
+     *
+     * @param void
+     *
+     * @return json a mensagem descrevendo o resultado da operação
+     */
     public function resetPassword()
     {
         $data = $this->jsonDecode();

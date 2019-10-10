@@ -40,7 +40,6 @@ class ManagerController extends Controller
         $this->perfil = new PerfilController();
         $this->enfermeiro = new EnfermeiroController();
         $this->perfilUsuario = new PerfilUsuarioController();
-
     }
 
     /**
@@ -86,7 +85,7 @@ class ManagerController extends Controller
     }
 
     /**
-     * Busca todos os usuários 
+     * Busca todos os usuários
      *
      * @param void
      *
@@ -101,7 +100,7 @@ class ManagerController extends Controller
     }
 
     /**
-     * Busca os dados de um usuároio pelo seu ID
+     * Busca os dados de um usuário pelo seu ID
      *
      * @param Request $req A requisição do usuário que terá o ID
      *
@@ -158,6 +157,14 @@ class ManagerController extends Controller
         }
     }
 
+    /**
+     * Define o status do usuário ativo = false e password = null
+     * para permitir que ele resete a senha
+     *
+     * @param void
+     *
+     * @return json com o resultado da operação
+     */
     public function resetPasswordUsuario()
     {
         $data = $this->jsonDecode();
@@ -174,5 +181,4 @@ class ManagerController extends Controller
             return $this->jsonError($th->getMessage());
         }
     }
-
 }

@@ -1,4 +1,11 @@
 <?php
+/**
+ * Esta função remove todos os acentos de uma string
+ *
+ * @param string $string A palavra a ser removida os acentos
+ *
+ * @return string $string A palavra sem os acentos
+ */
 if (! function_exists('removeAcentos')) {
     function removeAcentos($string)
     {
