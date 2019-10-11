@@ -14,10 +14,16 @@ class InventarioTableSeeder extends Seeder
         $faker = new Faker\Generator();
         $faker->addProvider(new Faker\Provider\Lorem($faker));
         $faker->addProvider(new Faker\Provider\Base($faker));
+        $medicamentos = [
+            'ZIAGEN','ORENCIA','SECTRAL','TYLENOL','GLIBENCLAMIDA',
+            'CLORIDRATO DE METFORMINA','DIPROPIONATO DE BECLOMETSONA','BUDESONIDA','CAPTOPRIL',
+            'GLIBENCLAMIDA','SINVASTATINA','ATENOLOL','ASPIRINA','MILRIDONA','PROVIGIL','VIVITROL',
+            'ALOCRIL','NITROGLICERINA','TERCONAZOL','VALPROATO','PARACETAMOL'
+        ];
 
-        foreach (range(1, 15) as $key => $value) {
+        foreach ($medicamentos as $key => $medicamento) {
             DB::table('inventario')->insert([
-                'nome' => $faker->word,
+                'nome' => strtoupper($medicamento),
                 'tipo' => $faker->randomElement($array = array('Injetável', 'Oral'), $count = 1),
                 'dose' => $faker->numberBetween($min = 3, $max = 25),
                 'descricao' => $faker->sentence($nbWords = 6, $variableNbWords = true),

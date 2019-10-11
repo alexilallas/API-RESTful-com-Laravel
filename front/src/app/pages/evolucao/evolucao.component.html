@@ -5,7 +5,7 @@
       <h5 class="card-title">Evolução do Paciente</h5>
       <p><strong>PACIENTE: </strong> {{form.nome | uppercase}}</p>
       <p *ngIf="form.id"><strong>MÉDICO: </strong> {{form.medico | uppercase}} às
-        {{ form.created_at | date: 'hh:mm:ss' }}</p>
+        {{ form.created_at | date: 'HH:mm:ss' }}</p>
       <div class="row" [hidden]="isNewEvolucao">
         <div class="col-md-4">
           <div class="form-group">
@@ -35,7 +35,7 @@
           </div>
         </div>
       </div>
-      <div class="row">
+      <div class="row" *ngIf="!hasPrescricao">
         <div class="col-md-4">
           <div class="form-group">
             <button class="btn btn-info" type="button" (click)="ngxSmartModalService.getModal('prescricao').open()">
@@ -49,7 +49,7 @@
           <ul class="list-group">
             <li class="list-group-item d-flex justify-content-between align-items-center"
               *ngFor="let med of medicamentosEvolucao">
-              {{ med.nome }}
+              {{ med.medicamento }}
               <span class="badge badge-primary badge-pill">{{ med.quantidade }}</span>
             </li>
           </ul>
@@ -68,9 +68,9 @@
       <div class="col-md-6">
         <div class="form-group">
           <label for="medicamento">Medicamento</label>
-          <ng-select [multiple]="false" [(ngModel)]="form.medicamento" name="medicamento"
+          <ng-select [multiple]="false" required [(ngModel)]="form.medicamento" name="medicamento"
             #medicamento="ngModel">
-            <ng-option *ngFor="let medicamento of _medicamentos" [value]="[medicamento.id, medicamento.nome]">
+            <ng-option *ngFor="let medicamento of _medicamentos" [value]="medicamento">
               {{ medicamento.nome }}
             </ng-option>
           </ng-select>
@@ -79,8 +79,8 @@
       <div class="col-md-6">
         <div class="form-group">
           <label for="quantidade">Quantidade</label>
-          <input type="text" [(ngModel)]="form.quantidade" name="quantidade" #quantidade="ngModel" class="form-control"
-            mask="09">
+          <input type="text" required [(ngModel)]="form.quantidade" name="quantidade" #quantidade="ngModel"
+            class="form-control" mask="09">
         </div>
       </div>
     </div>

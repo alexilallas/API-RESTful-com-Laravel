@@ -33,7 +33,7 @@ export class EvolucaoService {
 
   getPacienteById(id): Observable<Evolucao[]> {
     return this.http.get<Evolucao[]>(this.evolucaoUrl + '/' + id)
-      .pipe(map((response: any) => response.data.paciente));
+      .pipe(map((response: any) => response.data.evolucao));
 
   }
 

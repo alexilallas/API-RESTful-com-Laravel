@@ -18,9 +18,15 @@ class EvolucaoController extends Controller
      */
     private $paciente;
 
+    /**
+     * @var PrescricaoInternaController
+     */
+    private $prescricao;
+
     public function __construct()
     {
         $this->paciente = new PacienteController();
+        $this->prescricao = new PrescricaoInternaController();
     }
 
     /**
@@ -28,7 +34,7 @@ class EvolucaoController extends Controller
      *
      * @param array $modelData Os dados que serão salvos
      *
-     * @return int o ID do elemento inserido
+     * @return void
      */
     public function customSave($modelData)
     {
@@ -36,8 +42,10 @@ class EvolucaoController extends Controller
         $data['descricao'] = $modelData['descricao'];
         $data['paciente_id'] = $modelData['paciente_id'];
         $data['medico'] = $this->getAutenticatedUser()->name;
+        $modelData['evolucao_paciente_id'] = $this->save($this->table, $data);
 
-        return $this->save($this->table, $data);
+        $this->prescricao->customSave($modelData);
+
     }
 
     /**
@@ -98,13 +106,15 @@ class EvolucaoController extends Controller
     {
         $id = $this->getIdByRequest($req);
 
-        $paciente = DB::table($this->table)
+        $evolucao = DB::table($this->table)
         ->where('paciente_id', '=', $id)
         ->select($this->table.'.*')
         ->orderByRaw('data DESC')
         ->get();
 
-        return $this->jsonSuccess('Evolucões do Paciente com id: '.$id, compact('paciente'));
+        $prescricao =  $this->prescricao->findById($req);
+
+        return $this->jsonSuccess('Evolucões do Paciente com id: '.$id, compact('evolucao', 'prescricao'));
     }
 
     /**
@@ -165,7 +175,7 @@ class EvolucaoController extends Controller
         $req = new Request();
         foreach ($pacientes as $key => $paciente) {
             $req->request->add(['id' => $paciente->id]);
-            if (count($this->findById($req)->original['data']['paciente']) > 0) {
+            if (count($this->findById($req)->original['data']['evolucao']) > 0) {
                 $pacientes[$key]->hasEvolucao = true;
             } else {
                 $pacientes[$key]->hasEvolucao = false;

@@ -124,6 +124,7 @@ class PacienteController extends Controller
 
         try {
             \DB::beginTransaction();
+            $data['nome'] = strtoupper($data['nome']);
             $this->doSave($data, 'Cadastrou o Paciente '.$data['nome']);
             \DB::commit();
             return $this->jsonSuccess('Paciente adicionado com sucesso!');
@@ -146,6 +147,7 @@ class PacienteController extends Controller
 
         try {
             \DB::beginTransaction();
+            $data['nome'] = strtoupper($data['nome']);
             $this->doUpdate($data, 'Editou dados pessoais do paciente '. $data['nome']);
             \DB::commit();
             return $this->jsonSuccess('Paciente atualizado com sucesso!', $data);

@@ -20,6 +20,7 @@ export class EvolucaoComponent extends DatatablesComponent implements OnInit {
   public _medicamentos: any = [];
   public faPills: IconDefinition = faPills;
   public medicamentosEvolucao: any = [];
+  public hasPrescricao: boolean
 
   public form: any = new Evolucao();
   public modal = 'evolucaoModal';
@@ -67,6 +68,10 @@ export class EvolucaoComponent extends DatatablesComponent implements OnInit {
   }
 
   saveEvolucao() {
+    delete this.form.medicamento
+    delete this.form.quantidade
+
+    this.form.prescricao = this.medicamentosEvolucao
     this.evolucaoService.postEvolucao(this.form)
   }
 
@@ -152,14 +157,40 @@ export class EvolucaoComponent extends DatatablesComponent implements OnInit {
   }
 
   adicionaMedicamento() {
-    
+    let id = this.hasItem()
+    if (id) {
+      this.atualizaItem(id)
+    } else {
+      this.adicionaItem()
+    }
+    console.log(this.medicamentosEvolucao)
+  }
+
+  adicionaItem() {
     this.medicamentosEvolucao.push(
       {
-        'nome': this.form.medicamento,
-        'quantidade': this.form.quantidade
+        id: this.form.medicamento.id,
+        medicamento: this.form.medicamento.nome,
+        quantidade: this.form.quantidade
       })
+  }
 
-    console.log(this.medicamentosEvolucao)
+  atualizaItem(id) {
+    for (let index = 0; index < this.medicamentosEvolucao.length; index++) {
+      if (this.medicamentosEvolucao[index].id == id) {
+        if (this.medicamentosEvolucao[index].quantidade != this.form.quantidade) {
+          this.medicamentosEvolucao[index].quantidade = this.form.quantidade
+        }
+      }
+    }
+  }
+
+  hasItem(): boolean {
+    let item = this.medicamentosEvolucao.find(item => item.medicamento === this.form.medicamento.nome)
+    if (item) {
+      return item.id
+    }
+    return false
   }
 
 }

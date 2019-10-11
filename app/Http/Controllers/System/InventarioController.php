@@ -104,7 +104,7 @@ class InventarioController extends Controller
 
         try {
             \DB::beginTransaction();
-            $data['nome'] = \removeAcentos($data['nome']);
+            $data['nome'] = strtoupper(\removeAcentos($data['nome']));
             $this->doSave($data, 'Criou o item '.$data['nome']);
             \DB::commit();
             return $this->jsonSuccess('Item adicionado com sucesso!');
@@ -127,7 +127,7 @@ class InventarioController extends Controller
 
         try {
             \DB::beginTransaction();
-            $data['nome'] = \removeAcentos($data['nome']);
+            $data['nome'] = strtoupper(\removeAcentos($data['nome']));
             $this->doUpdate($data, 'Editou o item '.$data['nome']);
             \DB::commit();
             return $this->jsonSuccess('Item atualizado com sucesso!', $data);

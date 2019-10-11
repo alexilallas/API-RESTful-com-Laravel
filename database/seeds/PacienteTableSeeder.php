@@ -16,7 +16,7 @@ class PacienteTableSeeder extends Seeder
 
         foreach (range(1, 15) as $key => $value) {
             DB::table('pacientes')->insert([
-                'nome' => $faker->name,
+                'nome' => strtoupper($faker->name),
                 'telefone_celular' => $faker->numerify('#########'),
                 'cpf_rg' => $faker->unique()->numerify('###########'),
                 'estado_civil' => $faker->randomElement($array = array('Casado(a)','Solteiro(a)'), $count = 1),
