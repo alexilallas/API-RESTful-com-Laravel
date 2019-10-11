@@ -97,13 +97,13 @@ class ExameFisicoController extends Controller
     {
         $id = $this->getIdByRequest($req);
 
-        $paciente = DB::table($this->table)
+        $exameFisico = DB::table($this->table)
         ->where('paciente_id', '=', $id)
         ->select($this->table.'.*')
         ->orderByRaw('data DESC')
         ->get();
 
-        return $this->jsonSuccess('Exame físico do Paciente com id: '.$id, compact('paciente'));
+        return $this->jsonSuccess('Exame físico do Paciente com id: '.$id, compact('exameFisico'));
     }
 
     /**
@@ -164,7 +164,7 @@ class ExameFisicoController extends Controller
         $req = new Request();
         foreach ($pacientes as $key => $paciente) {
             $req->request->add(['id' => $paciente->id]);
-            if (count($this->findById($req)->original['data']['paciente']) > 0) {
+            if (count($this->findById($req)->original['data']['exameFisico']) > 0) {
                 $pacientes[$key]->hasExame = true;
             } else {
                 $pacientes[$key]->hasExame = false;

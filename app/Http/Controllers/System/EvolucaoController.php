@@ -45,7 +45,6 @@ class EvolucaoController extends Controller
         $modelData['evolucao_paciente_id'] = $this->save($this->table, $data);
 
         $this->prescricao->customSave($modelData);
-
     }
 
     /**
@@ -112,9 +111,9 @@ class EvolucaoController extends Controller
         ->orderByRaw('data DESC')
         ->get();
 
-        $prescricao =  $this->prescricao->findById($req);
+        $evolucao =  $this->hasPrescricao($evolucao);
 
-        return $this->jsonSuccess('Evolucões do Paciente com id: '.$id, compact('evolucao', 'prescricao'));
+        return $this->jsonSuccess('Evolucões do Paciente com id: '.$id, compact('evolucao'));
     }
 
     /**
@@ -168,7 +167,7 @@ class EvolucaoController extends Controller
      * @param array $pacientes os dados pessoais dos pacientes
      *
      * @return array $pacientes O mesmo dado de entrada, e um campo adicional
-     * indicando se possui ou não evolução
+     * indicando se possui evolução
      */
     public function hasEvolucao($pacientes)
     {
@@ -183,5 +182,29 @@ class EvolucaoController extends Controller
         }
 
         return $pacientes;
+    }
+
+    /**
+     * Verifica se os pacientes possuem prescricao interna cadastradas para melhor tratamento dos dados
+     * na tabela da tela 'Evolução'
+     *
+     * @param array $evolucoes os dados pessoais dos pacientes
+     *
+     * @return array $evolucoes O mesmo dado de entrada, e um campo adicional
+     * com a prescricao incluída, se não houver prescricao, o valor será null
+     */
+    public function hasPrescricao($evolucoes)
+    {
+        $req = new Request();
+        foreach ($evolucoes as $key => $evolucao) {
+            $req->request->add(['id' => $evolucao->id]);
+            $prescricao = $this->prescricao->findById($req);
+            if ($prescricao) {
+                $evolucoes[$key]->prescrcicao = $prescricao;
+            } else {
+                $evolucoes[$key]->prescrcicao = null;
+            }
+        }
+        return $evolucoes;
     }
 }

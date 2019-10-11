@@ -16,7 +16,7 @@ class HistoricoTableSeeder extends Seeder
 
         foreach (range(1, 8) as $key => $value) {
             DB::table('historicos')->insert([
-                'paciente_id' => $faker->numberBetween($min = 1, $max = 15),
+                'paciente_id' => $value,
                 'historico_familiar_id' => $faker->numberBetween($min = 1, $max = 8),
                 'historico_pessoal_id' => $faker->numberBetween($min = 1, $max = 8),
             ]);

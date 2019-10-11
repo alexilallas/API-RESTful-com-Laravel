@@ -35,7 +35,7 @@ class PrescricaoInternaController extends Controller
         // Salva a prescrição
         $data['evolucao_paciente_id'] = $modelData['evolucao_paciente_id'];
         foreach ($modelData['prescricao'] as $key => $prescricao) {
-            $data['medicamento'] = $prescricao['nome'];
+            $data['medicamento'] = $prescricao['medicamento'];
             $data['quantidade']  = $prescricao['quantidade'];
 
             $this->save($this->table, $data);
@@ -43,7 +43,7 @@ class PrescricaoInternaController extends Controller
 
         // Subtrai os medicamentos o inventário
         foreach ($modelData['prescricao'] as $key => $prescricao) {
-            $this->inventario->decrement($prescricao['nome'], $prescricao['quantidade']);
+            $this->inventario->decrement($prescricao['medicamento'], $prescricao['quantidade']);
         }
     }
 
@@ -64,7 +64,7 @@ class PrescricaoInternaController extends Controller
     }
 
     /**
-     * Busca os dados de uma prescricao pelo ID do paciente
+     * Busca os dados de uma prescricao pelo ID da evolucao
      *
      * @param Request $req A requisição do usuário que terá o ID
      *
@@ -75,8 +75,7 @@ class PrescricaoInternaController extends Controller
         $id = $this->getIdByRequest($req);
 
         return DB::table($this->table)
-        ->where('paciente_id', '=', $id)
-        ->join('evolucao_pacientes', $this->table.'.evolucao_paciente_id','=', 'evolucao_pacientes.id')
+        ->where('evolucao_paciente_id', '=', $id)
         ->select($this->table.'.*')
         ->orderByRaw('medicamento ASC')
         ->get();

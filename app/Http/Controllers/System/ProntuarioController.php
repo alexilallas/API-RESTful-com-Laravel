@@ -60,8 +60,8 @@ class ProntuarioController extends Controller
     public function findById(Request $req)
     {
         $paciente = $this->paciente->findById($req)->original['data']['paciente'];
-        $historico = $this->historico->findById($req)->original['data']['paciente'];
-        $exameFisico = $this->exameFisico->findById($req)->original['data']['paciente'];
+        $historico = $this->historico->findById($req)->original['data']['historico'];
+        $exameFisico = $this->exameFisico->findById($req)->original['data']['exameFisico'];
         $evolucao = $this->evolucao->findById($req)->original['data']['evolucao'];
 
         $prontuario = [

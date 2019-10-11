@@ -33,7 +33,7 @@ export class HistoricoMedicoService {
 
   getPacienteById(id): Observable<Paciente[]> {
     return this.http.get<Paciente[]>(this.historicoMedicoUrl + '/' + id)
-      .pipe(map((response: any) => response.data.paciente));
+      .pipe(map((response: any) => response.data.historico));
 
   }
 

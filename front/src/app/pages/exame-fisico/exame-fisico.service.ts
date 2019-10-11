@@ -34,7 +34,7 @@ export class ExameFisicoService {
 
   getPacienteById(id): Observable<ExameFisico[]> {
     return this.http.get<ExameFisico[]>(this.exameFisicoUrl + '/' + id)
-      .pipe(map((response: any) => response.data.paciente));
+      .pipe(map((response: any) => response.data.exameFisico));
 
   }
 
