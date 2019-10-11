@@ -107,6 +107,26 @@ class ExameFisicoController extends Controller
     }
 
     /**
+     * Busca os dados de um exame físico pelo ID do paciente e data de evolução
+     *
+     * @param int $id O ID do paciente
+     * @param date $data A data do atendimento
+     *
+     * @return json o resultado da busca
+     */
+    public function findByIdAndDate($id, $data)
+    {
+        $exameFisico = DB::table($this->table)
+        ->where('paciente_id', '=', $id)
+        ->where('data', '=', $data)
+        ->select($this->table.'.*')
+        ->orderByRaw('data DESC')
+        ->get();
+
+        return $this->jsonSuccess("Exame físico do Paciente com id: {$id} e data: {$data}", compact('exameFisico'));
+    }
+
+    /**
      * Adiciona um exame físico de um paciente
      *
      * @param void

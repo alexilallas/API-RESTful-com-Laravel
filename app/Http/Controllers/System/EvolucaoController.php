@@ -117,6 +117,28 @@ class EvolucaoController extends Controller
     }
 
     /**
+     * Busca os dados de uma evolução pelo ID do paciente e data de evolução
+     *
+     * @param int $id O ID do paciente
+     * @param date $data A data do atendimento
+     *
+     * @return json o resultado da busca
+     */
+    public function findByIdAndDate($id, $data)
+    {
+        $evolucao = DB::table($this->table)
+        ->where('paciente_id', '=', $id)
+        ->where('data', '=', $data)
+        ->select($this->table.'.*')
+        ->orderByRaw('data DESC')
+        ->get();
+
+        $evolucao =  $this->hasPrescricao($evolucao);
+
+        return $this->jsonSuccess("Evolucões do Paciente com id: {$id} e data: {$data}", compact('evolucao'));
+    }
+
+    /**
      * Adiciona uma evolução de um paciente
      *
      * @param void
@@ -200,9 +222,9 @@ class EvolucaoController extends Controller
             $req->request->add(['id' => $evolucao->id]);
             $prescricao = $this->prescricao->findById($req);
             if ($prescricao) {
-                $evolucoes[$key]->prescrcicao = $prescricao;
+                $evolucoes[$key]->prescricao = $prescricao;
             } else {
-                $evolucoes[$key]->prescrcicao = null;
+                $evolucoes[$key]->prescricao = null;
             }
         }
         return $evolucoes;

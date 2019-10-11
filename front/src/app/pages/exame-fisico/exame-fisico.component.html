@@ -11,7 +11,7 @@
             <label>Exames Realizados</label>
             <ng-select [clearable]="false" [multiple]="false" [(ngModel)]="form.data_exame" name="data_exame"
               #data_exame="ngModel" (change)="changeDate()">
-              <ng-option *ngFor="let data of _data_exames" [value]="data">{{ data }}</ng-option>
+              <ng-option *ngFor="let data of _data_exames" [value]="data">{{ data | date: 'dd/MM/yyyy'}}</ng-option>
             </ng-select>
           </div>
         </div>

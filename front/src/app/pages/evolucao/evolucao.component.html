@@ -12,7 +12,7 @@
             <label>Evoluções Cadastradas</label>
             <ng-select [clearable]="false" [multiple]="false" [(ngModel)]="form.data_evolucao" name="data_evolucao"
               #data_evolucao="ngModel" (change)="changeDate()">
-              <ng-option *ngFor="let data of _data_evolucoes" [value]="data">{{ data }}</ng-option>
+              <ng-option *ngFor="let data of _data_evolucoes" [value]="data">{{ data | date: 'dd/MM/yyyy' }}</ng-option>
             </ng-select>
           </div>
         </div>
@@ -35,7 +35,7 @@
           </div>
         </div>
       </div>
-      <div class="row" *ngIf="!hasPrescricao">
+      <div class="row" *ngIf="isNewEvolucao">
         <div class="col-md-4">
           <div class="form-group">
             <button class="btn btn-info" type="button" (click)="ngxSmartModalService.getModal('prescricao').open()">
@@ -44,13 +44,14 @@
           </div>
         </div>
       </div>
-      <div class="row">
+      <div class="row" *ngIf="medicamentosEvolucao.length > 0">
         <div class="col-md-6">
+          <label><h6>Prescrição Interna</h6></label>
           <ul class="list-group">
             <li class="list-group-item d-flex justify-content-between align-items-center"
               *ngFor="let med of medicamentosEvolucao">
               {{ med.medicamento }}
-              <span class="badge badge-primary badge-pill">{{ med.quantidade }}</span>
+              <span title="Quantidade" class="badge badge-primary">{{ med.quantidade }}</span>
             </li>
           </ul>
         </div>

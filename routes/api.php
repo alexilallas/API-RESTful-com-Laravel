@@ -101,6 +101,13 @@ Route::middleware('jwt.auth')->group(function () {
                 'uses' => 'ExameFisicoController@findById'
             ]
         );
+        Route::get(
+            'exame/{id}/{date}',
+            [
+                'middleware' => 'acl:criarExameFisico',
+                'uses' => 'ExameFisicoController@findByIdAndDate'
+            ]
+        );
         Route::post(
             'exame',
             [
@@ -131,6 +138,13 @@ Route::middleware('jwt.auth')->group(function () {
             [
                 'middleware' => 'acl:criarEvolucao',
                 'uses' => 'EvolucaoController@findById'
+            ]
+        );
+        Route::get(
+            'evolucao/{id}/{date}',
+            [
+                'middleware' => 'acl:criarEvolucao',
+                'uses' => 'EvolucaoController@findByIdAndDate'
             ]
         );
         Route::post(

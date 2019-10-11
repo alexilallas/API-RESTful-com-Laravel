@@ -31,9 +31,15 @@ export class EvolucaoService {
 
   }
 
-  getPacienteById(id): Observable<Evolucao[]> {
+  getPacienteById(id): Observable<any[]> {
     return this.http.get<Evolucao[]>(this.evolucaoUrl + '/' + id)
       .pipe(map((response: any) => response.data.evolucao));
+
+  }
+
+  getEvolucaoByIdAndDate(id, data): Observable<any> {
+    return this.http.get<Evolucao[]>(this.evolucaoUrl + '/' + id + '/' + data)
+      .pipe(map((response: any) => response.data.evolucao[0]));
 
   }
 
