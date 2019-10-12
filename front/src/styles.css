@@ -301,8 +301,43 @@ textarea.form-control {
   padding-bottom: 0px;
 }
 
+@media screen and (max-height: 768px ){
+  .sidebar .nav li > a, .off-canvas-sidebar .nav li > a {
+    padding: 7px 8px;
+  }
+}
+
+
 /* Formularios */
 
 .uppercase {
   text-transform: uppercase;
+}
+
+/* Scroolbar */
+
+::-webkit-scrollbar {
+  width: 5px;
+  -webkit-transition: 3s; /* For Safari 3.1 to 6.0 */
+  transition: 3s;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgba(136, 136, 136, 0.38);
+  border-radius: 6px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(136, 136, 136, 0.6);
+}
+
+::-webkit-scrollbar:hover {
+  width: 8px;
 }

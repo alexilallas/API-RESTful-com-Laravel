@@ -20,6 +20,18 @@ Route::middleware('jwt.auth')->group(function () {
      * Rotas para o gerenciamento de pacientes
      */
     Route::namespace('System')->group(function () {
+
+        /**
+         * Rotas para Dashboard
+         */
+        Route::get(
+            'inicio',
+            [
+                'middleware' => 'acl:visualizarDashboard',
+                'uses' => 'InicioController@getDashboardData'
+            ]
+        );
+
         /**
          * Rotas para Paciente
          */
@@ -217,12 +229,12 @@ Route::middleware('jwt.auth')->group(function () {
          */
 
         Route::get(
-             'auditoria',
-             [
+            'auditoria',
+            [
                 'middleware' => 'acl:visualizarAuditoria',
                 'uses' => 'AuditoriaController@find'
             ]
-         );
+        );
     });
 
     /**
@@ -286,4 +298,3 @@ Route::namespace('Auth')->group(function () {
     Route::post('can-reset', 'ResetPasswordController@canResetPassword');
     Route::post('reset', 'ResetPasswordController@resetPassword');
 });
-

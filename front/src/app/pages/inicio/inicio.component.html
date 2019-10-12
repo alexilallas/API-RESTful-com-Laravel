@@ -11,7 +11,7 @@
           <div class="col-7 col-md-8">
             <div class="numbers">
               <p class="card-category">Usuários</p>
-              <p class="card-title">3
+              <p class="card-title">{{ usuarios }}
                 <p>
             </div>
           </div>
@@ -20,7 +20,7 @@
       <div class="card-footer ">
         <hr>
         <div class="stats">
-          <i class="fa fa-refresh"></i> Atualizado agora
+          <i class="fa fa-user-md"></i> Cadastrados
         </div>
       </div>
     </div>
@@ -37,7 +37,7 @@
           <div class="col-7 col-md-8">
             <div class="numbers">
               <p class="card-category">Pacientes</p>
-              <p class="card-title">12
+              <p class="card-title">{{ pacientes }}
                 <p>
             </div>
           </div>
@@ -46,7 +46,7 @@
       <div class="card-footer ">
         <hr>
         <div class="stats">
-          <i class="fa fa-calendar-o"></i> Último dia
+          <i class="fa fa-users"></i> Cadastrados
         </div>
       </div>
     </div>
@@ -63,7 +63,7 @@
           <div class="col-7 col-md-8">
             <div class="numbers">
               <p class="card-category">Inventário</p>
-              <p class="card-title">23 itens
+              <p class="card-title">{{ inventario }}
                 <p>
             </div>
           </div>
@@ -72,7 +72,7 @@
       <div class="card-footer ">
         <hr>
         <div class="stats">
-          <i class="fa fa-refresh"></i> Atualizado agora
+          <i class="fa fa-medkit"></i> Itens Cadastrados
         </div>
       </div>
     </div>
@@ -89,7 +89,7 @@
           <div class="col-7 col-md-8">
             <div class="numbers">
               <p class="card-category">Atendimentos</p>
-              <p class="card-title">135
+              <p class="card-title">{{ atendimentos }}
                 <p>
             </div>
           </div>
@@ -98,23 +98,27 @@
       <div class="card-footer ">
         <hr>
         <div class="stats">
-          <i class="fa fa-refresh"></i> Atualizado agora
+          <i class="fa fa-calendar-o"></i> Este mês
         </div>
       </div>
     </div>
   </div>
 </div>
 <div class="row">
-  <div class="col-md-12">
+  <div class="col-md-8">
     <div class="card ">
       <div class="card-header ">
         <h5 class="card-title">Frequência de Atendimento</h5>
-        <p class="card-category">Último 30 dias</p>
+        <p class="card-category">Anual</p>
       </div>
       <div class="card-body ">
-        <canvas id=chartHours width="400" height="100"></canvas>
+        <canvas id=frequenciaAtendimento width="400" height="100"></canvas>
       </div>
       <div class="card-footer ">
+        <div class="legend">
+          <i class="fa fa-circle text-warning"></i> Enfermeiro
+          <i class="fa fa-circle text-info"></i> Médico
+        </div>
         <hr>
         <div class="stats">
           <i class="fa fa-history"></i> Atualizado agora
@@ -122,31 +126,29 @@
       </div>
     </div>
   </div>
-</div>
-<!-- <div class="row">
   <div class="col-md-4">
     <div class="card ">
       <div class="card-header ">
-        <h5 class="card-title">Email Statistics</h5>
-        <p class="card-category">Last Campaign Performance</p>
+        <h5 class="card-title">Total de Atendimentos</h5>
+        <!-- <p class="card-category">Total de atendimentos</p> -->
       </div>
       <div class="card-body ">
         <canvas id="chartEmail"></canvas>
       </div>
       <div class="card-footer ">
         <div class="legend">
-          <i class="fa fa-circle text-primary"></i> Opened
-          <i class="fa fa-circle text-warning"></i> Read
-          <i class="fa fa-circle text-danger"></i> Deleted
-          <i class="fa fa-circle text-gray"></i> Unopened
+          <i class="fa fa-circle text-warning"></i> Enfermeiro  18 <br>
+          <i class="fa fa-circle text-info"></i> Médico  13
         </div>
         <hr>
         <div class="stats">
-          <i class="fa fa-calendar"></i> Number of emails sent
+          <i class="fa fa-calendar"></i> Até hoje
         </div>
       </div>
     </div>
   </div>
+</div>
+<!-- <div class="row">
   <div class="col-md-8">
     <div class="card card-chart">
       <div class="card-header">
@@ -161,7 +163,7 @@
           <i class="fa fa-circle text-info"></i> Tesla Model S
           <i class="fa fa-circle text-warning"></i> BMW 5 Series
         </div>
-        <hr/>
+        <hr />
         <div class="card-stats">
           <i class="fa fa-check"></i> Data information certified
         </div>
