@@ -14,7 +14,7 @@ class PacienteTableSeeder extends Seeder
     {
         $faker = Faker::create('App\Models\Paciente');
 
-        foreach (range(1, 15) as $key => $value) {
+        foreach (range(1, 40) as $key => $value) {
             DB::table('pacientes')->insert([
                 'nome' => strtoupper($faker->name),
                 'telefone_celular' => $faker->numerify('#########'),

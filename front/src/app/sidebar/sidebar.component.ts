@@ -18,7 +18,7 @@ export const ROUTES: RouteInfo[] = [
     { path: '/prontuario',       title: 'Prontuário',          icon:'nc-paper',            class: '',  permission: 'visualizarProntuario'},
     { path: '/inventario',       title: 'Inventário',          icon:'nc-app',              class: '',  permission: 'criarItem'},
     { path: '/usuario',          title: 'Usuário',             icon:'nc-circle-10',        class: '',  permission: 'criarUsuario'},
-    { path: '/relatorio',        title: 'Relatório',           icon:'nc-book-bookmark',    class: '',  permission: 'visualizarAuditoria'},
+    { path: '/relatorio',        title: 'Relatório',           icon:'nc-book-bookmark',    class: '',  permission: 'visualizarRelatorio'},
     { path: '/auditoria',        title: 'Auditoria',           icon:'nc-zoom-split',       class: '',  permission: 'visualizarAuditoria'},
 ];
 

@@ -31,6 +31,13 @@ Route::middleware('jwt.auth')->group(function () {
                 'uses' => 'InicioController@getDashboardData'
             ]
         );
+        Route::get(
+            'inicio/{ano}',
+            [
+                'middleware' => 'acl:visualizarDashboard',
+                'uses' => 'InicioController@getChartDatabyYear'
+            ]
+        );
 
         /**
          * Rotas para Paciente
@@ -221,6 +228,17 @@ Route::middleware('jwt.auth')->group(function () {
             [
                 'middleware' => 'acl:editarItem',
                 'uses' => 'InventarioController@updateItem'
+            ]
+        );
+
+        /**
+         * Rotas para Relatórios
+         */
+        Route::get(
+            'relatorio',
+            [
+                'middleware' => 'acl:visualizarRelatorio',
+                'uses' => 'RelatorioController@getBase'
             ]
         );
 

@@ -14,10 +14,10 @@ class ExameFisicoTableSeeder extends Seeder
     {
         $faker = Faker::create('App\Models\ExameFisicoGeral');
 
-        foreach (range(1, 10) as $key => $value) {
+        foreach (range(1, 30) as $key => $value) {
             DB::table('exame_fisico_geral')->insert([
                 'paciente_id' => $value,
-                'data' => $faker->date($format = 'Y-m-d', $max = 'now'),
+                'data' => $faker->dateTimeBetween($startDate = '-2 years', $endDate = 'now', $timezone = null),
                 'pressao' => $faker->numerify('1#/#'),
                 'altura' => $faker->numberBetween($min = 140, $max = 200),
                 'peso' => $faker->numberBetween($min = 45, $max = 150),
@@ -29,10 +29,10 @@ class ExameFisicoTableSeeder extends Seeder
             ]);
         }
 
-        foreach (range(1, 8) as $key => $value) {
+        foreach (range(1, 25) as $key => $value) {
             DB::table('exame_fisico_geral')->insert([
                 'paciente_id' => $value,
-                'data' => $faker->date($format = 'Y-m-d', $max = 'now'),
+                'data' => $faker->dateTimeBetween($startDate = '-2 years', $endDate = 'now', $timezone = null),
                 'pressao' => $faker->numerify('1#/#'),
                 'altura' => $faker->numberBetween($min = 140, $max = 200),
                 'peso' => $faker->numberBetween($min = 45, $max = 150),
@@ -44,10 +44,10 @@ class ExameFisicoTableSeeder extends Seeder
             ]);
         }
 
-        foreach (range(1, 5) as $key => $value) {
+        foreach (range(1, 20) as $key => $value) {
             DB::table('exame_fisico_geral')->insert([
                 'paciente_id' => $value,
-                'data' => $faker->date($format = 'Y-m-d', $max = 'now'),
+                'data' => $faker->dateTimeBetween($startDate = '-2 years', $endDate = 'now', $timezone = null),
                 'pressao' => $faker->numerify('1#/#'),
                 'altura' => $faker->numberBetween($min = 140, $max = 200),
                 'peso' => $faker->numberBetween($min = 45, $max = 150),

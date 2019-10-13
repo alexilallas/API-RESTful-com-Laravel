@@ -7,21 +7,20 @@
       </div>
       <div class="card-body">
         <form #pacienteForm="ngForm" (ngSubmit)="isNewPaciente ? save() : update()">
-          <!-- {{ nome.value | json }} -->
           <h6 class="card-title text-secondary">Dados Pessoais</h6>
           <div class="row">
             <div class="col-md-5">
               <div class="form-group">
                 <label for="nome">Nome</label>
-                <input type="text" class="form-control uppercase" required minlength="5" maxlength="80" [(ngModel)]="form.nome"
-                  name="nome" #nome="ngModel">
+                <input type="text" class="form-control uppercase" required minlength="5" maxlength="80"
+                  [(ngModel)]="form.nome" name="nome" #nome="ngModel">
               </div>
             </div>
             <div class="col-md-3">
               <div class="form-group">
                 <label for="cpf_rg">CPF/RG</label>
-                <input type="text" class="form-control" mask="000.000.000-009-9" required [(ngModel)]="form.cpf_rg" name="cpf_rg"
-                  #cpf_rg="ngModel">
+                <input type="text" class="form-control" mask="000.000.000-009-9" required [(ngModel)]="form.cpf_rg"
+                  name="cpf_rg" #cpf_rg="ngModel">
               </div>
             </div>
             <div class="col-md-4">
@@ -53,8 +52,7 @@
             <div class="col-md-4">
               <div class="form-group">
                 <label for="tipo">Tipo de Paciente</label>
-                <ng-select [multiple]="false" [(ngModel)]="form.tipo" required name="tipo"
-                  #tipo="ngModel">
+                <ng-select [multiple]="false" [(ngModel)]="form.tipo" required name="tipo" #tipo="ngModel">
                   <ng-option *ngFor="let tp of _tipo_paciente" [value]="tp">{{ tp }}</ng-option>
                 </ng-select>
               </div>
@@ -64,7 +62,7 @@
             <div class="col-md-4" *ngIf="form.tipo == 'Aluno'  || form.tipo == 'Funcionário'">
               <div class="form-group">
                 <label for="matricula">Matrícula</label>
-                <input type="text" class="form-control" [(ngModel)]="form.matricula"  name="matricula"
+                <input type="text" class="form-control" [(ngModel)]="form.matricula" name="matricula"
                   #matricula="ngModel" />
               </div>
             </div>
@@ -206,7 +204,7 @@
         <div class="table">
           <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" cellspacing="0"
             class="table table-striped table-bordered dataTable">
-            <thead class=" text-primary">
+            <thead class="text-primary">
               <tr>
                 <th>Nome</th>
                 <th>CPF/RG</th>

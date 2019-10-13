@@ -5,227 +5,214 @@ import Chart from 'chart.js';
 
 
 @Component({
-    selector: 'inicio-cmp',
-    moduleId: module.id,
-    templateUrl: 'inicio.component.html'
+  selector: 'inicio-cmp',
+  moduleId: module.id,
+  templateUrl: 'inicio.component.html'
 })
 
-export class InicioComponent implements OnInit{
+export class InicioComponent implements OnInit {
 
   public usuarios: number;
   public pacientes: number;
   public inventario: number;
   public atendimentos: number;
 
-  public canvas : any;
+  public atendimentoEnfermagem: number;
+  public atendimentoConsultas: number;
+  public totalAtendimentos: number;
+
+  public frequenciaAtendimentoEnfermagem: any;
+  public frequenciaAtendimentoConsultas: any;
+
+  public currentDate: Date = new Date();
+  public _ano_referencia: any = [];
+
+  public form: any = new Array;
+
+  public canvas: any;
   public ctx;
   public chartColor;
   public chartEmail;
   public chartHours;
 
-    ngOnInit(){
+  ngOnInit() {
+    this.getDashboardData()
+    this.form.ano = this.currentDate.getFullYear()
+  }
 
-      this.frequenciaAtendimentoChart()
-      this.getDashboardData()
+  constructor(
+    public inicioService: InicioService
+  ) {
+    console.log('InicioComponent')
+  }
 
-      this.quantidadeAtendimentoChart()
-
-      // var speedCanvas = document.getElementById("speedChart");
-
-      // var dataFirst = {
-      //   data: [0, 19, 15, 20, 30, 40, 40, 50, 25, 30, 50, 70],
-      //   fill: false,
-      //   borderColor: '#fbc658',
-      //   backgroundColor: 'transparent',
-      //   pointBorderColor: '#fbc658',
-      //   pointRadius: 4,
-      //   pointHoverRadius: 4,
-      //   pointBorderWidth: 8,
-      // };
-
-      // var dataSecond = {
-      //   data: [0, 5, 10, 12, 20, 27, 30, 34, 42, 45, 55, 63],
-      //   fill: false,
-      //   borderColor: '#51CACF',
-      //   backgroundColor: 'transparent',
-      //   pointBorderColor: '#51CACF',
-      //   pointRadius: 4,
-      //   pointHoverRadius: 4,
-      //   pointBorderWidth: 8
-      // };
-
-      // var speedData = {
-      //   labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-      //   datasets: [dataFirst, dataSecond]
-      // };
-
-      // var chartOptions = {
-      //   legend: {
-      //     display: false,
-      //     position: 'top'
-      //   }
-      // };
-
-      // var lineChart = new Chart(speedCanvas, {
-      //   type: 'line',
-      //   hover: false,
-      //   data: speedData,
-      //   options: chartOptions
-      // });
-    }
-
-    constructor(
-      public inicioService: InicioService
-    ){
-      console.log('InicioComponent')
-    }
-
-    getDashboardData() {
-      this.inicioService.getDashboardData()
+  getDashboardData() {
+    this.inicioService.getDashboardData()
       .subscribe(response => {
+        this._ano_referencia = response.anos
         this.usuarios = response.usuarios
         this.pacientes = response.pacientes
         this.inventario = response.inventario
         this.atendimentos = response.atendimentos
+        this.atendimentoEnfermagem = response.atendimentoEnfermagem
+        this.atendimentoConsultas = response.atendimentoConsultas
+        this.totalAtendimentos = this.atendimentoEnfermagem + this.atendimentoConsultas
+        this.frequenciaAtendimentoEnfermagem = response.frequenciaAtendimentoEnfermagem
+        this.frequenciaAtendimentoConsultas = response.frequenciaAtendimentoConsultas
+        this.frequenciaAtendimentoChart()
+        this.quantidadeAtendimentoChart()
       })
-    }
+  }
 
-    frequenciaAtendimentoChart(){
-      this.chartColor = "#FFFFFF"
-      this.canvas = document.getElementById("frequenciaAtendimento")
-      this.ctx = this.canvas.getContext("2d")
+  frequenciaAtendimentoChart() {
+    this.chartColor = "#FFFFFF"
+    this.canvas = document.getElementById("frequenciaAtendimento")
+    this.ctx = this.canvas.getContext("2d")
 
-      this.chartHours = new Chart(this.ctx, {
-        type: 'line',
+    this.chartHours = new Chart(this.ctx, {
+      type: 'line',
 
-        data: {
-          labels: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out"],
-          datasets: [{
-              label: 'Atendimento Médico',
-              borderColor: "#00bcd4",
-              backgroundColor: "#00bcd4",
-              pointRadius: 0,
-              pointHoverRadius: 0,
-              borderWidth: 3,
-              data: [15, 12, 12, 13, 15, 20, 14, 18, 20, 17]
-            },
-            {
-              label: 'Exame Físico',
-              borderColor: "#fcc468",
-              backgroundColor: "#fcc468",
-              pointRadius: 0,
-              pointHoverRadius: 0,
-              borderWidth: 3,
-              data: [18, 15, 17, 15, 16, 21, 15, 19, 21, 25]
-            }
-          ]
+      data: {
+        labels: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
+        datasets: [{
+          label: 'Atendimento Médico',
+          borderColor: "#00bcd4",
+          backgroundColor: "#00bcd4",
+          pointRadius: 0,
+          pointHoverRadius: 0,
+          borderWidth: 3,
+          data: this.frequenciaAtendimentoConsultas
         },
-        options: {
-          legend: {
-            display: false
-          },
-
-          tooltips: {
-            enabled: false
-          },
-
-          scales: {
-            yAxes: [{
-
-              ticks: {
-                fontColor: "#9f9f9f",
-                beginAtZero: false,
-                maxTicksLimit: 5,
-              },
-              gridLines: {
-                drawBorder: false,
-                zeroLineColor: "#ccc",
-                color: 'rgba(255,255,255,0.05)'
-              }
-
-            }],
-
-            xAxes: [{
-              barPercentage: 1.6,
-              gridLines: {
-                drawBorder: false,
-                color: 'rgba(255,255,255,0.1)',
-                zeroLineColor: "transparent",
-                display: false,
-              },
-              ticks: {
-                padding: 20,
-                fontColor: "#9f9f9f"
-              }
-            }]
-          },
+        {
+          label: 'Exame Físico',
+          borderColor: "#fcc468",
+          backgroundColor: "#fcc468",
+          pointRadius: 0,
+          pointHoverRadius: 0,
+          borderWidth: 3,
+          data: this.frequenciaAtendimentoEnfermagem
         }
-      });
-    }
+        ]
+      },
+      options: {
+        legend: {
+          display: false
+        },
 
-    quantidadeAtendimentoChart(){
-      this.canvas = document.getElementById("chartEmail");
-      this.ctx = this.canvas.getContext("2d");
-      this.chartEmail = new Chart(this.ctx, {
-        type: 'pie',
-        data: {
-          labels: [18, 13],
-          datasets: [{
-            label: "Emails",
-            pointRadius: 0,
-            pointHoverRadius: 0,
-            backgroundColor: [
-              '#fcc468',
-              '#00bcd4'
-            ],
-            borderWidth: 0,
-            data: [18, 13]
+        tooltips: {
+          enabled: false
+        },
+
+        scales: {
+          yAxes: [{
+
+            ticks: {
+              fontColor: "#9f9f9f",
+              beginAtZero: false,
+              maxTicksLimit: 5,
+            },
+            gridLines: {
+              drawBorder: false,
+              zeroLineColor: "#ccc",
+              color: 'rgba(255,255,255,0.05)'
+            }
+
+          }],
+
+          xAxes: [{
+            barPercentage: 1.6,
+            gridLines: {
+              drawBorder: false,
+              color: 'rgba(255,255,255,0.1)',
+              zeroLineColor: "transparent",
+              display: false,
+            },
+            ticks: {
+              padding: 20,
+              fontColor: "#9f9f9f"
+            }
           }]
         },
+      }
+    });
+  }
 
-        options: {
+  quantidadeAtendimentoChart() {
+    this.canvas = document.getElementById("quantidadeAtendimento");
+    this.ctx = this.canvas.getContext("2d");
+    this.chartEmail = new Chart(this.ctx, {
+      type: 'pie',
+      data: {
+        labels: ['Enfermagem', 'Consultas'],
+        datasets: [{
+          label: "Atendimentos",
+          pointRadius: 0,
+          pointHoverRadius: 0,
+          backgroundColor: [
+            '#fcc468',
+            '#00bcd4'
+          ],
+          borderWidth: 0,
+          data: [this.atendimentoEnfermagem, this.atendimentoConsultas]
+        }]
+      },
 
-          legend: {
-            display: false
-          },
+      options: {
 
-          pieceLabel: {
-            render: 'percentage',
-            fontColor: ['white'],
-            precision: 2
-          },
+        legend: {
+          display: false
+        },
 
-          tooltips: {
-            enabled: false
-          },
+        pieceLabel: {
+          render: 'percentage',
+          fontColor: ['white'],
+          precision: 2
+        },
 
-          scales: {
-            yAxes: [{
+        tooltips: {
+          enabled: true
+        },
 
-              ticks: {
-                display: false
-              },
-              gridLines: {
-                drawBorder: false,
-                zeroLineColor: "transparent",
-                color: 'rgba(255,255,255,0.05)'
-              }
+        scales: {
+          yAxes: [{
 
-            }],
+            ticks: {
+              display: false
+            },
+            gridLines: {
+              drawBorder: false,
+              zeroLineColor: "transparent",
+              color: 'rgba(255,255,255,0.05)'
+            }
 
-            xAxes: [{
-              barPercentage: 1.6,
-              gridLines: {
-                drawBorder: false,
-                color: 'rgba(255,255,255,0.1)',
-                zeroLineColor: "transparent"
-              },
-              ticks: {
-                display: false,
-              }
-            }]
-          },
-        }
-      });
-    }
+          }],
+
+          xAxes: [{
+            barPercentage: 1.6,
+            gridLines: {
+              drawBorder: false,
+              color: 'rgba(255,255,255,0.1)',
+              zeroLineColor: "transparent"
+            },
+            ticks: {
+              display: false,
+            }
+          }]
+        },
+      }
+    });
+  }
+
+  getChartByAno() {
+    this.inicioService.getChartByAno(this.form.ano)
+      .subscribe(response => {
+        this.atendimentoEnfermagem = response.atendimentoEnfermagem
+        this.atendimentoConsultas = response.atendimentoConsultas
+        this.totalAtendimentos = this.atendimentoEnfermagem + this.atendimentoConsultas
+        this.frequenciaAtendimentoEnfermagem = response.frequenciaAtendimentoEnfermagem
+        this.frequenciaAtendimentoConsultas = response.frequenciaAtendimentoConsultas
+        this.frequenciaAtendimentoChart()
+        this.quantidadeAtendimentoChart()
+      })
+  }
 }

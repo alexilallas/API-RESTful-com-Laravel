@@ -39,7 +39,7 @@ class PerfilTableSeeder extends Seeder
 
 
         //Perfil Administrador -> todas as permissões
-        foreach (range(1, 15) as $permissao) {
+        foreach (range(1, 16) as $permissao) {
             DB::table('perfil_permissao')->insert([
                 'perfil_id'=> 1,
                 'permissao_id'=> $permissao

@@ -85,5 +85,10 @@ class PermissaoTableSeeder extends Seeder
             'nome'=>'visualizarAuditoria',
             'descricao'=> 'Pode visualizar dados da auditoria do sistema'
         ]);
+
+        DB::table('permissoes')->insert([
+            'nome'=>'visualizarRelatorio',
+            'descricao'=> 'Pode visualizar dados de relatórios do sistema'
+        ]);
     }
 }
