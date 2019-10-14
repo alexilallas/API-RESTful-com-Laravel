@@ -108,7 +108,7 @@ class PacienteController extends Controller
         ->select('pacientes.*', 'contatos.nome as nome_contato', 'contatos.numero as numero_contato', 'contatos.id as id_contato')
         ->first();
 
-        return $this->jsonSuccess('Pacientes cadastrados', compact('paciente'));
+        return $this->jsonSuccess("Paciente com id {$id}", compact('paciente'));
     }
 
     /**

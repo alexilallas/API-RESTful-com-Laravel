@@ -47,8 +47,7 @@
         <div class="col-md-4">
           <div class="form-group">
             <label for="tipo">Tipo de Paciente</label>
-            <ng-select [multiple]="false" [(ngModel)]="form.tipo" required name="tipo"
-              #tipo="ngModel">
+            <ng-select [multiple]="false" [(ngModel)]="form.tipo" required name="tipo" #tipo="ngModel">
               <ng-option *ngFor="let tp of _tipo_paciente" [value]="tp">{{ tp }}</ng-option>
             </ng-select>
           </div>
@@ -331,14 +330,14 @@
       </table>
       <br />
       <div class="btn btn-default" (click)="close()">Cancelar</div>
-      <button class="btn btn-success pull-right" title="Imprimir">
-          Imprimir
-          <i class="fa fa-print fa-1x"></i>
-        </button>
-      <button class="btn btn-info pull-right" title="Salvar PDF">
+      <button class="btn btn-success pull-right" title="Imprimir" (click)="print()">
+        Imprimir
+        <i class="fa fa-print fa-1x"></i>
+      </button>
+      <!-- <button class="btn btn-info pull-right" title="Salvar PDF">
         Salvar como PDF
         <i class="fa fa-file-pdf-o fa-1x"></i>
-      </button>
+      </button> -->
     </form>
   </div>
 </ngx-smart-modal>
@@ -373,9 +372,9 @@
                     (click)="openForm(paciente.id)">
                     <i class="fa fa-eye fa-2x"></i>
                   </button>
-                  <button class="btn btn-danger btn-icon btn-sm" type="button" title="Salvar">
+                  <!-- <button class="btn btn-danger btn-icon btn-sm" type="button" title="Salvar">
                     <i class="fa fa-file-pdf-o fa-2x"></i>
-                  </button>
+                  </button> -->
                 </td>
               </tr>
             </tbody>

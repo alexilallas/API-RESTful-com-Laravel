@@ -8,7 +8,7 @@ import { environment } from '../../../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class RelatoriosService {
+export class RelatorioService {
 
   private relatorioURL: string;
 
@@ -16,7 +16,7 @@ export class RelatoriosService {
     (
       private http: HttpClient,
   ) {
-    console.log('RelatoriosService')
+    console.log('RelatorioService')
     this.relatorioURL = environment.baseAPI + 'relatorio'
   }
 
@@ -24,6 +24,14 @@ export class RelatoriosService {
     return this.http.get<any>(this.relatorioURL)
       .pipe(map((response: any) =>
         response.data.anos
+      ));
+
+  }
+
+  getRelatorioData(criterios: any): Observable<any> {
+    return this.http.post<any>(this.relatorioURL, criterios)
+      .pipe(map((response: any) =>
+        response
       ));
 
   }

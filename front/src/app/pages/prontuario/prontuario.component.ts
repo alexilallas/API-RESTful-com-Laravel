@@ -76,7 +76,6 @@ export class ProntuarioComponent extends DatatablesComponent implements OnInit {
 
         this.form.nome_contato = response.paciente.nome_contato
         this.form.numero_contato = response.paciente.numero_contato
-        console.log(response)
       })
     this.ngxSmartModalService.open(this.modal)
   }
@@ -90,6 +89,10 @@ export class ProntuarioComponent extends DatatablesComponent implements OnInit {
 
   eraseForm() {
     this.form = {}
+  }
+
+  print() {
+    window.print()
   }
 
 }

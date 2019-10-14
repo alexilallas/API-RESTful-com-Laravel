@@ -14,7 +14,7 @@ class ContatoTableSeeder extends Seeder
     {
         $faker = Faker::create('App\Models\Contato');
 
-        foreach (range(1, 15) as $key => $value) {
+        foreach (range(1, 40) as $key => $value) {
             DB::table('contatos')->insert([
                 'nome' => $faker->name,
                 'numero' => $faker->numerify('#########'),

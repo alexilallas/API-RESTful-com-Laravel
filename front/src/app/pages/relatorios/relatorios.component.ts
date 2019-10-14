@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import { RelatoriosService } from './relatorios.service';
+import { RelatorioService } from './relatorios.service';
+import { Relatorio } from './relatorio';
 
 @Component({
   selector: 'app-relatorios',
@@ -12,12 +13,14 @@ export class RelatorioComponent implements OnInit {
   public _tipo_atendimento: any;
   public _ano_atendimento: any;
 
-  public form: any = new Array;
-  public relatorioAnual = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro']
-  public relatorioBimestral = ['1°', '2°', '3°', '4°', '5°', '6°']
+  public form: any = new Relatorio();
+  public relatorioAnual: any = [];
+  public totalAnual: number;
+  public relatorioBimestral: any = [];
+  public totalBimestral: number;
 
   constructor(
-    public relatoriosService: RelatoriosService,
+    public relatorioService: RelatorioService,
   ) {
   }
 
@@ -27,13 +30,13 @@ export class RelatorioComponent implements OnInit {
   }
 
   getBase() {
-    this.relatoriosService.getBase()
+    this.relatorioService.getBase()
       .subscribe(response => {
         this._ano_atendimento = response
       })
   }
 
-  getRelatorio() {
+  geraRelatorio() {
     if (this.form.tipo_atendimento) {
       if (this.form.tipo_atendimento.length == 0) {
         delete this.form.tipo_atendimento
@@ -44,7 +47,17 @@ export class RelatorioComponent implements OnInit {
         delete this.form.ano_atendimento
       }
     }
-    console.log(this.form)
+
+    if (this.form.tipo_atendimento && this.form.ano_atendimento) {
+      this.relatorioService.getRelatorioData(this.form)
+        .subscribe(response => {
+          this.relatorioAnual = Object.values(response.data.frequenciaAtendimentoEnfermagem)
+          this.relatorioBimestral = response.relatorioBimestral
+          this.totalAnual = this.relatorioAnual.reduce((currentTotal, item) =>{
+            return item.soma + currentTotal
+          },0)
+        })
+    }
   }
 
 

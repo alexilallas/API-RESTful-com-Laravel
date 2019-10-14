@@ -11,7 +11,7 @@
             <div class="form-group">
               <label>Tipo de Atendimento</label>
               <ng-select [multiple]="true" [(ngModel)]="form.tipo_atendimento" name="tipo_atendimento"
-                #tipo_atendimento="ngModel" (change)="getRelatorio()">
+                #tipo_atendimento="ngModel" (change)="geraRelatorio()">
                 <ng-option *ngFor="let atendimento of _tipo_atendimento" [value]="atendimento">
                   {{ atendimento }}</ng-option>
               </ng-select>
@@ -21,14 +21,14 @@
             <div class="form-group">
               <label>Ano</label>
               <ng-select [multiple]="true" [(ngModel)]="form.ano_atendimento" name="ano_atendimento"
-                #ano_atendimento="ngModel" (change)="getRelatorio()">
+                #ano_atendimento="ngModel" (change)="geraRelatorio()">
                 <ng-option *ngFor="let ano of _ano_atendimento" [value]="ano">{{ ano }}</ng-option>
               </ng-select>
             </div>
           </div>
         </div>
-        <p class="card-category">Relatório Anual</p>
-        <div class="table" *ngIf="relatorioAnual">
+        <p class="card-category" *ngIf="relatorioAnual.length > 0">Relatório Anual</p>
+        <div class="table" *ngIf="relatorioAnual.length > 0">
           <table cellspacing="0" class="table table-striped table-bordered dataTable">
             <thead class="text-primary">
               <tr>
@@ -36,30 +36,30 @@
                 <th>Funcionário</th>
                 <th>Aluno</th>
                 <th>Dependente</th>
-                <th>Prestador de Serviço</th>
+                <th>Serviço Prestado</th>
                 <th>Comunidade</th>
                 <th>Soma</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let dado of relatorioAnual">
-                <td>{{ dado }}</td>
-                <td>{{ dado }}</td>
-                <td>{{ dado }}</td>
-                <td>{{ dado }}</td>
-                <td>{{ dado }}</td>
-                <td>{{ dado }}</td>
-                <td>50</td>
+                <td>{{ dado.mes }}</td>
+                <td>{{ dado.funcionario }}</td>
+                <td>{{ dado.aluno }}</td>
+                <td>{{ dado.dependente }}</td>
+                <td>{{ dado.servico_prestado }}</td>
+                <td>{{ dado.comunidade }}</td>
+                <td>{{ dado.soma }}</td>
               </tr>
               <tr>
                 <td colspan="6"><strong>TOTAL</strong></td>
-                <td colspan="6">600</td>
+                <td colspan="6">{{ totalAnual }}</td>
               </tr>
             </tbody>
           </table>
         </div>
         <div class="card-header">
-          <p class="card-category">Relatório Bimestral</p>
+          <p class="card-category" *ngIf="relatorioBimestral">Relatório Bimestral</p>
         </div>
         <div class="table" *ngIf="relatorioBimestral">
           <table cellspacing="0" class="table table-striped table-bordered dataTable">
@@ -69,7 +69,7 @@
                 <th>Funcionário</th>
                 <th>Aluno</th>
                 <th>Dependente</th>
-                <th>Prestador de Serviço</th>
+                <th>Serviço Prestado</th>
                 <th>Comunidade</th>
                 <th>Soma</th>
               </tr>

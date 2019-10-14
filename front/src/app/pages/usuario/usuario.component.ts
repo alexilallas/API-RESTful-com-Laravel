@@ -106,6 +106,7 @@ export class UsuarioComponent extends DatatablesComponent implements OnInit {
 
   eraseForm() {
     this.form = {}
+    this.isNewUsuario = true
   }
 
   eraseField(perfil) {

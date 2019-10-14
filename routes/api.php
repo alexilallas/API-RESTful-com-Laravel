@@ -241,6 +241,13 @@ Route::middleware('jwt.auth')->group(function () {
                 'uses' => 'RelatorioController@getBase'
             ]
         );
+        Route::post(
+            'relatorio',
+            [
+                'middleware' => 'acl:visualizarRelatorio',
+                'uses' => 'RelatorioController@geraRelatorio'
+            ]
+        );
 
         /**
          * Rotas para Auditoria
