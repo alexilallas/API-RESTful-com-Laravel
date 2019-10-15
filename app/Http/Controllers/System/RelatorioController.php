@@ -8,6 +8,14 @@ use Illuminate\Support\Facades\DB;
 
 class RelatorioController extends Controller
 {
+    /**
+     * Esta função retorna todos os anos que possuem Exame Físico registrado
+     * para ser mostrado no select options da tela de Relatórios
+     * 
+     * @param void
+     * 
+     * @return json O resultado da consulta
+     */
     public function getBase()
     {
         $anos = DB::table('exame_fisico_geral')
@@ -19,6 +27,14 @@ class RelatorioController extends Controller
         return $this->jsonSuccess('Base', compact('anos'));
     }
 
+    /**
+     * Esta função retorna todos os dados do relatório para a tela de relatórios 
+     * com base nos critérios definidos pelo usuário na tela de Relatório.
+     * 
+     * @param void
+     * 
+     * @return json O resultado da operação
+     */
     public function geraRelatorio()
     {
         $tabelaExame = 'exame_fisico_geral';

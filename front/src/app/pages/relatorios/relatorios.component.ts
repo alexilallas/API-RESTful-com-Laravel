@@ -16,15 +16,20 @@ export class RelatorioComponent implements OnInit {
 
   public form: any = new Relatorio();
   public relatorioAnual: any = [];
-  public totalAnual: number;
   public relatorioBimestral: any = [];
-  public totalBimestral: number;
+  public totalAtendimentos: number;
+
+  public totalAtendimentoFuncionario: number;
+  public totalAtendimentoAluno: number;
+  public totalAtendimentoDependente: number;
+  public totalAtendimentoServicoPrestado: number;
+  public totalAtendimentoComunidade: number;
+  public chartLineData: any;
 
   public canvas: any;
   public ctx;
   public chartColor;
   public chartRelatorioAnual;
-  public chartRelatorioBimestral;
 
   constructor(
     public relatorioService: RelatorioService,
@@ -51,15 +56,35 @@ export class RelatorioComponent implements OnInit {
         .subscribe(response => {
           this.relatorioAnual = Object.values(response.data.relatorioAnual)
           this.relatorioBimestral = Object.values(response.data.relatorioBimestral)
-          this.totalAnual = this.relatorioAnual.reduce((currentTotal, item) => {
-            return item.soma + currentTotal
-          }, 0)
-          this.totalBimestral = this.relatorioBimestral.reduce((currentTotal, item) => {
-            return item.soma + currentTotal
-          }, 0)
-          this.relatorioAnualChart()
+          this.trataDadosRelatorio()
+          this.relatorioAnualChartPizza()
+          this.relatorioAnualChartLine()
         })
     }
+  }
+
+  trataDadosRelatorio() {
+    this.totalAtendimentos = this.relatorioAnual.reduce((currentTotal, item) => {
+      return item.soma + currentTotal
+    }, 0)
+    this.totalAtendimentoFuncionario = this.relatorioAnual.reduce((currentTotal, item) => {
+      return item.funcionario + currentTotal
+    }, 0)
+    this.totalAtendimentoAluno = this.relatorioAnual.reduce((currentTotal, item) => {
+      return item.aluno + currentTotal
+    }, 0)
+    this.totalAtendimentoDependente = this.relatorioAnual.reduce((currentTotal, item) => {
+      return item.dependente + currentTotal
+    }, 0)
+    this.totalAtendimentoServicoPrestado = this.relatorioAnual.reduce((currentTotal, item) => {
+      return item.servico_prestado + currentTotal
+    }, 0)
+    this.totalAtendimentoComunidade = this.relatorioAnual.reduce((currentTotal, item) => {
+      return item.comunidade + currentTotal
+    }, 0)
+    this.chartLineData = this.relatorioAnual.map(dado => {
+      return dado.soma
+    })
   }
 
   removeEmpty() {
@@ -75,8 +100,8 @@ export class RelatorioComponent implements OnInit {
     }
   }
 
-  relatorioAnualChart() {
-    this.canvas = document.getElementById("relatorioAnual");
+  relatorioAnualChartPizza() {
+    this.canvas = document.getElementById("relatorioAnualPizza");
     this.ctx = this.canvas.getContext("2d");
     this.chartRelatorioAnual = new Chart(this.ctx, {
       type: 'pie',
@@ -94,7 +119,11 @@ export class RelatorioComponent implements OnInit {
             '#6c757d'
           ],
           borderWidth: 0,
-          data: [20, 20, 20, 20, 20]
+          data: [
+            this.totalAtendimentoFuncionario, this.totalAtendimentoAluno,
+            this.totalAtendimentoDependente, this.totalAtendimentoServicoPrestado,
+            this.totalAtendimentoComunidade
+          ]
         }]
       },
 
@@ -144,4 +173,37 @@ export class RelatorioComponent implements OnInit {
     });
   }
 
+  relatorioAnualChartLine() {
+    var speedCanvas = document.getElementById("relatorioAnualLine");
+
+    var data = {
+      data: this.chartLineData,
+      fill: false,
+      borderColor: '#51CACF',
+      backgroundColor: 'transparent',
+      pointBorderColor: '#51CACF',
+      pointRadius: 4,
+      pointHoverRadius: 4,
+      pointBorderWidth: 8,
+    };
+
+    var speedData = {
+      labels: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
+      datasets: [data]
+    };
+
+    var chartOptions = {
+      legend: {
+        display: false,
+        position: 'top'
+      }
+    };
+
+    var lineChart = new Chart(speedCanvas, {
+      type: 'line',
+      hover: false,
+      data: speedData,
+      options: chartOptions
+    });
+  }
 }

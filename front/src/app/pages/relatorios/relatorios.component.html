@@ -53,53 +53,47 @@
                 <td>{{ dado.soma }}</td>
               </tr>
               <tr>
-                <td colspan="6"><strong>TOTAL</strong></td>
-                <td colspan="6">{{ totalAnual }}</td>
+                <td><strong>TOTAL</strong></td>
+                <td>{{ totalAtendimentoFuncionario }}</td>
+                <td>{{ totalAtendimentoAluno }}</td>
+                <td>{{ totalAtendimentoDependente }}</td>
+                <td>{{ totalAtendimentoServicoPrestado }}</td>
+                <td>{{ totalAtendimentoComunidade }}</td>
+                <td>{{ totalAtendimentos }}</td>
               </tr>
             </tbody>
           </table>
-          <div class="row">
-            <div class="col-md-6">
-              <div class="card" [hidden]="relatorioAnual.length == 0">
+          <div class="row" [hidden]="relatorioAnual.length == 0">
+            <div class="col-md-4">
+              <div class="card">
                 <div class="card-header ">
                   <h5 class="card-title">Total de Atendimentos {{ totalAtendimentos }}</h5>
                   <!-- <p class="card-category">Total de atendimentos</p> -->
                 </div>
                 <div class="card-body ">
-                  <canvas id="relatorioAnual"></canvas>
+                  <canvas id="relatorioAnualPizza"></canvas>
                 </div>
                 <div class="card-footer ">
                   <div class="legend">
-                      <i class="fa fa-circle text-warning"></i> Funcionário <br>
-                      <i class="fa fa-circle text-info"></i> Aluno <br>
-                      <i class="fa fa-circle text-danger"></i> Dependente <br>
-                      <i class="fa fa-circle text-success"></i> Serviço Prestado <br>
-                      <i class="fa fa-circle text-secondary"></i> Comunidade
+                    <i class="fa fa-circle text-warning"></i> Funcionário <br>
+                    <i class="fa fa-circle text-info"></i> Aluno <br>
+                    <i class="fa fa-circle text-danger"></i> Dependente <br>
+                    <i class="fa fa-circle text-success"></i> Serviço Prestado <br>
+                    <i class="fa fa-circle text-secondary"></i> Comunidade
                   </div>
                 </div>
               </div>
             </div>
-            <!-- <div class="col-md-6">
-              <div class="card" [hidden]="relatorioAnual.length == 0">
-                <div class="card-header ">
-                  <h5 class="card-title">Total de Atendimentos {{ totalAtendimentos }}</h5>
-                  <p class="card-category">Total de atendimentos</p>
+            <div class="col-md-8">
+              <div class="card card-chart">
+                <div class="card-header">
+                  <h5 class="card-title">Frequência de Atendimento</h5>
                 </div>
-                <div class="card-body ">
-                  <canvas id="relatorioAnual"></canvas>
-                </div>
-                <div class="card-footer ">
-                  <div class="legend">
-                    <div class="row">
-                      <span class="badge badge-warning">{{ atendimentoEnfermagem }}</span>&nbsp; Enfermagem
-                    </div>
-                    <div class="row">
-                      <span class="badge badge-info">{{ atendimentoConsultas }}</span>&nbsp; Consultas
-                    </div>
-                  </div>
+                <div class="card-body">
+                  <canvas id="relatorioAnualLine" width="400" height="150"></canvas>
                 </div>
               </div>
-            </div> -->
+            </div>
           </div>
         </div>
         <hr>
@@ -130,8 +124,13 @@
                 <td>{{ dado.soma }}</td>
               </tr>
               <tr>
-                <td colspan="6"><strong>TOTAL</strong></td>
-                <td colspan="6">{{ totalBimestral }}</td>
+                <td><strong>TOTAL</strong></td>
+                <td>{{ totalAtendimentoFuncionario }}</td>
+                <td>{{ totalAtendimentoAluno }}</td>
+                <td>{{ totalAtendimentoDependente }}</td>
+                <td>{{ totalAtendimentoServicoPrestado }}</td>
+                <td>{{ totalAtendimentoComunidade }}</td>
+                <td>{{ totalAtendimentos }}</td>
               </tr>
             </tbody>
           </table>
