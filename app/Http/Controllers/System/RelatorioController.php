@@ -24,7 +24,7 @@ class RelatorioController extends Controller
         $tabelaExame = 'exame_fisico_geral';
         $tabelaEvolucao = 'evolucao_pacientes';
         $criterios = $this->jsonDecode();
-        
+
         $meses = [
             1 => 'Janeiro',
             2 => 'Fevereiro',
@@ -67,10 +67,11 @@ class RelatorioController extends Controller
                 $relatorioAnual [] = $atendimentoConsultas;
             }
         }
-        
+
         $relatorioAnual = $this->trabalhaRelatorioAnual($relatorioAnual, $meses);
-        
-        return $this->jsonSuccess('Gráficos', compact(['relatorioAnual']));
+        $relatorioBimestral = $this->trabalhaRelatorioBimestral($relatorioAnual, $meses);
+
+        return $this->jsonSuccess('Gráficos', compact(['relatorioAnual','relatorioBimestral']));
     }
 
     /**
@@ -101,7 +102,7 @@ class RelatorioController extends Controller
 
         return $atendimentos;
     }
-    
+
     /**
      * Retorna a quantidade de linha em alguma tabela com base no mês e ano e critério
      *
@@ -155,5 +156,48 @@ class RelatorioController extends Controller
         }
 
         return $relatorioAnualTrabalhado;
+    }
+
+    /**
+     * Trata os dados que serão transformados no relatório bimestral
+     *
+     * @param array $relatorioAnual Os dados brutos do relatório
+     * @param array $meses Todos os meses do ano
+     *
+     * @return array O relatório com os dados organizados e prontos para
+     * serem enviados à tela de relatório
+     */
+    public function trabalhaRelatorioBimestral($relatorioAnual, $meses)
+    {
+        // Gera um array com valores zerados para o calculo a seguir
+        $bimestre = 1;
+        $relatorio = [];
+        foreach ($meses as $numMes => $mes) {
+            $relatorio[$numMes]= $relatorioAnual[$mes]; //Substitui a chave de $relatorioAnual do tipo string para int
+            if ($numMes%2 == 0) {
+                $relatorioBimestralTrabalhado[$bimestre]['bimestre']         = $bimestre;
+                $relatorioBimestralTrabalhado[$bimestre]['funcionario']      = 0;
+                $relatorioBimestralTrabalhado[$bimestre]['aluno']            = 0;
+                $relatorioBimestralTrabalhado[$bimestre]['dependente']       = 0;
+                $relatorioBimestralTrabalhado[$bimestre]['comunidade']       = 0;
+                $relatorioBimestralTrabalhado[$bimestre]['servico_prestado'] = 0;
+                $relatorioBimestralTrabalhado[$bimestre]['soma']             = 0;
+                $bimestre++;
+            }
+        }
+
+        $relatorioAnual = $relatorio;
+        $index = 1;
+        // Probably I'm doing this for dumb way, but works
+        foreach ($relatorioBimestralTrabalhado as $key => $relatorio) {
+            $relatorioBimestralTrabalhado[$key]['funcionario']      = $relatorioAnual[$index]['funcionario'] + $relatorioAnual[$index+1]['funcionario'];
+            $relatorioBimestralTrabalhado[$key]['aluno']            = $relatorioAnual[$index]['aluno'] + $relatorioAnual[$index+1]['aluno'];
+            $relatorioBimestralTrabalhado[$key]['dependente']       = $relatorioAnual[$index]['dependente'] + $relatorioAnual[$index+1]['dependente'];
+            $relatorioBimestralTrabalhado[$key]['comunidade']       = $relatorioAnual[$index]['comunidade'] + $relatorioAnual[$index+1]['comunidade'];
+            $relatorioBimestralTrabalhado[$key]['servico_prestado'] = $relatorioAnual[$index]['servico_prestado'] + $relatorioAnual[$index+1]['servico_prestado'];
+            $relatorioBimestralTrabalhado[$key]['soma']             = $relatorioAnual[$index]['soma'] + $relatorioAnual[$index+1]['soma'];
+            $index +=2;
+        }
+        return $relatorioBimestralTrabalhado;
     }
 }

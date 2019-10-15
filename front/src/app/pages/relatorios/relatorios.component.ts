@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { RelatorioService } from './relatorios.service';
 import { Relatorio } from './relatorio';
+import Chart from 'chart.js';
 
 @Component({
   selector: 'app-relatorios',
@@ -12,15 +13,18 @@ export class RelatorioComponent implements OnInit {
 
   public _tipo_atendimento: any;
   public _ano_atendimento: any;
-  public _tipo_relatorio: any;
 
   public form: any = new Relatorio();
   public relatorioAnual: any = [];
-  public showRelatorioAnual: boolean = false;
   public totalAnual: number;
   public relatorioBimestral: any = [];
-  public showRelatorioBimestral: boolean = false;
   public totalBimestral: number;
+
+  public canvas: any;
+  public ctx;
+  public chartColor;
+  public chartRelatorioAnual;
+  public chartRelatorioBimestral;
 
   constructor(
     public relatorioService: RelatorioService,
@@ -30,7 +34,6 @@ export class RelatorioComponent implements OnInit {
   ngOnInit() {
     this.getBase()
     this._tipo_atendimento = ['Consulta', 'Enfermagem']
-    this._tipo_relatorio = ['Bimestral', 'Trimestral', 'Semestral', 'Anual']
   }
 
   getBase() {
@@ -41,33 +44,21 @@ export class RelatorioComponent implements OnInit {
   }
 
   geraRelatorio() {
-
-    this.showRelatorios()
     this.removeEmpty()
 
     if (this.form.tipo_atendimento && this.form.ano_atendimento) {
       this.relatorioService.getRelatorioData(this.form)
         .subscribe(response => {
           this.relatorioAnual = Object.values(response.data.relatorioAnual)
-          this.relatorioBimestral = response.relatorioBimestral
+          this.relatorioBimestral = Object.values(response.data.relatorioBimestral)
           this.totalAnual = this.relatorioAnual.reduce((currentTotal, item) => {
             return item.soma + currentTotal
           }, 0)
+          this.totalBimestral = this.relatorioBimestral.reduce((currentTotal, item) => {
+            return item.soma + currentTotal
+          }, 0)
+          this.relatorioAnualChart()
         })
-    }
-  }
-
-  showRelatorios() {
-    if (this.form.tipo_relatorio.find(relatorio => { return relatorio == 'Anual' })) {
-      this.showRelatorioAnual = true
-    } else {
-      this.showRelatorioAnual = false
-    }
-
-    if (this.form.tipo_relatorio.find(relatorio => { return relatorio == 'Bimestral' })) {
-      this.showRelatorioBimestral = true
-    } else {
-      this.showRelatorioBimestral = false
     }
   }
 
@@ -84,5 +75,73 @@ export class RelatorioComponent implements OnInit {
     }
   }
 
+  relatorioAnualChart() {
+    this.canvas = document.getElementById("relatorioAnual");
+    this.ctx = this.canvas.getContext("2d");
+    this.chartRelatorioAnual = new Chart(this.ctx, {
+      type: 'pie',
+      data: {
+        labels: ['Funcionário', 'Aluno', 'Dependente', 'Serviço Prestado', 'Comunidade'],
+        datasets: [{
+          label: "Atendimentos",
+          pointRadius: 0,
+          pointHoverRadius: 0,
+          backgroundColor: [
+            '#fcc468',
+            '#00bcd4',
+            '#f17e5d',
+            '#6bd098',
+            '#6c757d'
+          ],
+          borderWidth: 0,
+          data: [20, 20, 20, 20, 20]
+        }]
+      },
+
+      options: {
+
+        legend: {
+          display: false
+        },
+
+        pieceLabel: {
+          render: 'percentage',
+          fontColor: ['white'],
+          precision: 2
+        },
+
+        tooltips: {
+          enabled: true
+        },
+
+        scales: {
+          yAxes: [{
+
+            ticks: {
+              display: false
+            },
+            gridLines: {
+              drawBorder: false,
+              zeroLineColor: "transparent",
+              color: 'rgba(255,255,255,0.05)'
+            }
+
+          }],
+
+          xAxes: [{
+            barPercentage: 1.6,
+            gridLines: {
+              drawBorder: false,
+              color: 'rgba(255,255,255,0.1)',
+              zeroLineColor: "transparent"
+            },
+            ticks: {
+              display: false,
+            }
+          }]
+        },
+      }
+    });
+  }
 
 }

@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { InicioService } from './inicio.service';
 import Chart from 'chart.js';
 
-
 @Component({
   selector: 'inicio-cmp',
   moduleId: module.id,
@@ -32,8 +31,8 @@ export class InicioComponent implements OnInit {
   public canvas: any;
   public ctx;
   public chartColor;
-  public chartEmail;
-  public chartHours;
+  public chartQuantidadeAtendimento;
+  public chartFrequenciaAtendimento;
 
   ngOnInit() {
     this.getDashboardData()
@@ -69,7 +68,7 @@ export class InicioComponent implements OnInit {
     this.canvas = document.getElementById("frequenciaAtendimento")
     this.ctx = this.canvas.getContext("2d")
 
-    this.chartHours = new Chart(this.ctx, {
+    this.chartFrequenciaAtendimento = new Chart(this.ctx, {
       type: 'line',
 
       data: {
@@ -140,7 +139,7 @@ export class InicioComponent implements OnInit {
   quantidadeAtendimentoChart() {
     this.canvas = document.getElementById("quantidadeAtendimento");
     this.ctx = this.canvas.getContext("2d");
-    this.chartEmail = new Chart(this.ctx, {
+    this.chartQuantidadeAtendimento = new Chart(this.ctx, {
       type: 'pie',
       data: {
         labels: ['Enfermagem', 'Consultas'],
