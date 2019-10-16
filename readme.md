@@ -26,9 +26,13 @@ Após o download das dependências, copie o arquivo `.env.exemple` para `.env`  
 Após isso, abra o arquivo `.env` e configure o banco que será utilizado corretamente, como mostrado abaixo.
 
 `DB_HOST=id_do_seu_servidor_mysql`
+
 `DB_PORT=porta_do_mysql`
+
 `DB_DATABASE=nome_do_banco`
+
 `DB_USERNAME=usuario_do_banco`
+
 `DB_PASSWORD=senha_do_usuario_do_banco`
 
 >**Nota**: Quando o sistema subir para produção, atribuir à variável`APP_DEBUG` o valor `false` para que o sistema não mostre explicitamente  os erros ao usuário.
@@ -46,7 +50,9 @@ Com as tabelas do banco criadas, podemos subir o servidor local, para isso usamo
 `php artisan serve`
 
 Por padrão, a aplicação estará no ar na URL 
+
 http://localhost:8000
+
 Se tudo ocorreu certo, será mostrada a página inicial do Laravel Framework.
 
 ### Estrutura do projeto
