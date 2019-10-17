@@ -31,6 +31,45 @@ class CreatePacientesTable extends Migration
             $table->string('bairro');
             $table->string('logradouro');
             $table->string('numero');
+            $table->integer('matricula')->nullable();
+            $table->enum('curso_setor', ['ADMINISTRAÇÃO',
+             'ARQUITETURA E URBANISMO',
+             'AGRONOMIA',
+             'CIÊNCIAS BIOLÓGICAS',
+             'CIÊNCIAS SOCIAIS',
+             'CIÊNCIAS - HABILITAÇÃO EM BIOLOGIA',
+             'CIÊNCIAS - HABILITAÇÃO EM FÍSICA',
+             'CIÊNCIAS - HABILITAÇÃO EM MATEMÁTICA',
+             'CIÊNCIAS - HABILITAÇÃO EM QUÍMICA',
+             'DIREITO',
+             'ENGENHARIA CIVIL',
+             'ENGENHARIA DE PESCA',
+             'ENGENHARIA DA COMPUTAÇÃO',
+             'ENGENHARIA DA PRODUÇÃO',
+             'ENGENHARIA MECÂNICA',
+             'FORMAÇÃO DE OFICIAIS - POLÍCIA MILITAR',
+             'FORMAÇÃO DE OFICIAIS - BOMBEIRO MILITAR',
+             'FILOSOFIA',
+             'FÍSICA',
+             'GEOGRAFIA',
+             'HISTÓRIA',
+             'LETRAS',
+             'MATEMÁTICA',
+             'MEDICINA VETERINÁRIA',
+             'MÚSICA',
+             'PEDAGOGIA',
+             'QUÍMICA',
+             'ZOOTECNIA',
+             'BIBLIOTECA',
+             'NTI',
+             'PROEXAE',
+             'PROPLAN', 
+             'PROG',
+             'PPG',
+             'PROTOCOLO',
+             'POSTO MÉDICO',
+             'PREFEITURA',
+             'REITORIA'])->nullable();
 
             $table->boolean('ativo')->default(true);
             $table->integer('versao')->default(1);
