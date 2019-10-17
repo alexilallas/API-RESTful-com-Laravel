@@ -8,6 +8,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 use JWTAuth;
 
 abstract class Controller extends BaseController
@@ -129,6 +130,7 @@ abstract class Controller extends BaseController
      * @param array $data O dado que será atualizado
      * @param string $action A ação realizada pelo usuário
      *
+     * @return void
      */
     public function doUpdate($data, $action)
     {
@@ -143,6 +145,7 @@ abstract class Controller extends BaseController
      * @param string $table O nome da tabela que será atualizada
      * @param array  $data Os dados que serão atualizados
      *
+     * @return void
      */
     public function update($table, $data)
     {
@@ -151,6 +154,38 @@ abstract class Controller extends BaseController
         DB::table($table)->where('id', $data['id'])->increment('versao');
     }
 
+    /**
+     * Chama método para excluir e salva dados na tabela de auditoria
+     *
+     * @param int $id O ID da linha que será excluída
+     * @param string $action A ação realizada pelo usuário
+     *
+     * @return void
+     */
+    public function doDelete($id, $action)
+    {
+        $this->customDelete($id);
+        $this->auditoria($id, $action);
+    }
+
+
+    /**
+     * Exclui o registro de uma linha em uma tabela com softdelete
+     * A linha continuará existindo no banco de dados mas não será
+     * mais visível para o usuário. O softdelete do Laravel consiste
+     * em setar um timestamp ao campo 'deleted_at' do registro para
+     * indicar  que o dado foi excluído.
+     *
+     * @param string $table O nome da tabela que será realizada a exclusão
+     * @param int  $id O id da linha a ser excluída
+     *
+     * @return void
+     */
+    public function delete($table, $id)
+    {
+        DB::table($table)->where('id', $id)
+        ->update(['deleted_at' => Carbon::now(new \DateTimeZone('America/Sao_Paulo'))]);
+    }
 
     /**
      * Salva a ação solicitada pelo usuáro usuário na tabela de auditoria

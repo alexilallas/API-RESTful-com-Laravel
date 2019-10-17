@@ -105,6 +105,7 @@ class UserController extends Controller
         ->join('perfil_user', 'perfil_user.user_id', '=', $this->table.'.id')
         ->join('perfis', 'perfis.id', '=', 'perfil_user.perfil_id')
         ->select($this->table.'.*', 'perfis.nome as perfil')
+        ->whereNull($this->table.'.deleted_at')
         ->get();
 
         $perfis = $this->perfil->find()->original['data']['perfis'];
@@ -187,5 +188,19 @@ class UserController extends Controller
                 $this->cancel('Este usuário não pode ser cadastrado como Médico!');
             }
         }
+    }
+
+    /**
+     * Customiza o método de excluir, possibilitanto por exemplo
+     * chamar outros métodos para que excluam dados de outras
+     * tabelas
+     *
+     * @param array $id O ID da linha a ser excluída
+     *
+     * @return void
+     */
+    public function customDelete($id)
+    {
+        $this->delete($this->table, $id);
     }
 }

@@ -17,7 +17,7 @@ class CreateAlunosTable extends Migration
             $table->increments('id');
             $table->string('nome');
             $table->unsignedInteger('paciente_id');
-            $table->foreign('paciente_id')->references('id')->on('pacientes');
+            $table->foreign('paciente_id')->references('id')->on('pacientes')->onDelete('cascade');
             $table->unsignedInteger('curso_id');
             $table->foreign('curso_id')->references('id')->on('cursos');
 

@@ -17,7 +17,7 @@ class CreateFuncionariosTable extends Migration
             $table->increments('id');
             $table->integer('matricula');
             $table->unsignedInteger('paciente_id');
-            $table->foreign('paciente_id')->references('id')->on('pacientes');
+            $table->foreign('paciente_id')->references('id')->on('pacientes')->onDelete('cascade');
             $table->unsignedInteger('setor_id');
             $table->foreign('setor_id')->references('id')->on('setors');
 

@@ -70,6 +70,13 @@ Route::middleware('jwt.auth')->group(function () {
                 'uses' => 'PacienteController@updatePaciente'
             ]
         );
+        Route::delete(
+            'paciente/{id}',
+            [
+                'middleware' => 'acl:editarPaciente',
+                'uses' => 'PacienteController@deletePaciente'
+            ]
+        );
 
         /**
          * Rotas para Histórico
@@ -230,6 +237,13 @@ Route::middleware('jwt.auth')->group(function () {
                 'uses' => 'InventarioController@updateItem'
             ]
         );
+        Route::delete(
+            'inventario/{id}',
+            [
+                'middleware' => 'acl:editarItem',
+                'uses' => 'InventarioController@deleteItem'
+            ]
+        );
 
         /**
          * Rotas para Relatórios
@@ -303,6 +317,13 @@ Route::middleware('jwt.auth')->group(function () {
             [
                 'middleware' => 'acl:editarUsuario',
                 'uses' => 'ManagerController@resetPasswordUsuario'
+            ]
+        );
+        Route::delete(
+            'usuario/{id}',
+            [
+                'middleware' => 'acl:editarUsuario',
+                'uses' => 'ManagerController@deleteUsuario'
             ]
         );
     });

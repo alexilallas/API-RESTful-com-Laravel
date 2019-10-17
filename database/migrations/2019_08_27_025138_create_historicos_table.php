@@ -16,7 +16,7 @@ class CreateHistoricosTable extends Migration
         Schema::create('historicos', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('paciente_id');
-            $table->foreign('paciente_id')->references('id')->on('pacientes');
+            $table->foreign('paciente_id')->references('id')->on('pacientes')->onDelete('cascade');
 
             $table->unsignedInteger('historico_familiar_id');
             $table->foreign('historico_familiar_id')->references('id')->on('historico_familiar');

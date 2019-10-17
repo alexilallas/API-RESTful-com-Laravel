@@ -23,14 +23,17 @@ class AuthController extends Controller
 
     /**
      * Realiza a autenticação do usuário e retorna um token
-     * 
+     *
      * @param Request $request A requisição do usuário que terá os dados usados para o login
-     * 
+     *
      * @return Json Uma mensagem de sucesso com os dados do usuário logado e um token
      */
     public function login(Request $request)
     {
         $credentials = $this->jsonDecode();
+        // campo deleted_at adicionado ao array de credenciais para que apenas usuário que
+        //não foram excluídos possam logar no sistema
+        $credentials['deleted_at'] = null;
 
         if (!$token = $this->jwtAuth->attempt($credentials)) {
             return $this->jsonError('Login Inválido', 'invalid_credentials', 401);
@@ -66,9 +69,9 @@ class AuthController extends Controller
 
     /**
      * Invalida um token
-     * 
+     *
      * @param void
-     * 
+     *
      * @return json Uma mensagem de sucesso
      */
     public function logout()
@@ -80,9 +83,9 @@ class AuthController extends Controller
 
     /**
      * Retorna o usuário autenticado na sessão
-     * 
+     *
      * @param void
-     * 
+     *
      * @return App\Models\User
      */
     public function getUser()

@@ -16,7 +16,7 @@ class CreateEvolucaoPacientesTable extends Migration
         Schema::create('evolucao_pacientes', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('paciente_id');
-            $table->foreign('paciente_id')->references('id')->on('pacientes');
+            $table->foreign('paciente_id')->references('id')->on('pacientes')->onDelete('cascade');
             $table->date('data');
             $table->mediumText('descricao');
             $table->string('medico');

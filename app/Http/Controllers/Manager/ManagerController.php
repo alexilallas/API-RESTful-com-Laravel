@@ -181,4 +181,39 @@ class ManagerController extends Controller
             return $this->jsonError($th->getMessage());
         }
     }
+
+    /**
+     * Customiza o método de excluir, possibilitanto por exemplo
+     * chamar outros métodos para que excluam dados de outras
+     * tabelas
+     *
+     * @param array $id O ID da linha a ser excluída
+     *
+     * @return void
+     */
+    public function customDelete($id)
+    {
+        $this->user->customDelete($id);
+    }
+
+    /**
+     * Remove uma linha da tabela e retorna um json
+     *
+     * @param int $id O ID da linha a ser removida
+     *
+     * @return json Uma mensagem descrevendo o resultado da operação
+     */
+    public function deleteUsuario($id)
+    {
+        try {
+            \DB::beginTransaction();
+            $this->doDelete($id, "Excluiu o usuário {$id}");
+            \DB::commit();
+            return $this->jsonSuccess('Usuário excluído com sucesso!');
+
+        } catch (\Throwable $th) {
+            \DB::rollback();
+            return $this->jsonError($th->getMessage());
+        }
+    }
 }

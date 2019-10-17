@@ -86,7 +86,7 @@ class PacienteController extends Controller
      */
     public function find()
     {
-        $pacientes = DB::table($this->table)->get();
+        $pacientes = DB::table($this->table)->whereNull('deleted_at')->get();
 
         return $this->jsonSuccess('Pacientes cadastrados', compact('pacientes'));
     }
@@ -151,6 +151,41 @@ class PacienteController extends Controller
             $this->doUpdate($data, 'Editou dados pessoais do paciente '. $data['nome']);
             \DB::commit();
             return $this->jsonSuccess('Paciente atualizado com sucesso!', $data);
+        } catch (\Throwable $th) {
+            \DB::rollback();
+            return $this->jsonError($th->getMessage());
+        }
+    }
+
+    /**
+     * Customiza o método de excluir, possibilitanto por exemplo
+     * chamar outros métodos para que excluam dados de outras
+     * tabelas
+     *
+     * @param array $id O ID da linha a ser excluída
+     *
+     * @return void
+     */
+    public function customDelete($id)
+    {
+        $this->delete($this->table, $id);
+    }
+
+    /**
+     * Remove uma linha da tabela e retorna um json
+     *
+     * @param int $id O ID da linha a ser removida
+     *
+     * @return json Uma mensagem descrevendo o resultado da operação
+     */
+    public function deletePaciente($id)
+    {
+        try {
+            \DB::beginTransaction();
+            $this->doDelete($id, "Excluiu o paciente {$id}");
+            \DB::commit();
+            return $this->jsonSuccess('Paciente excluído com sucesso!');
+
         } catch (\Throwable $th) {
             \DB::rollback();
             return $this->jsonError($th->getMessage());

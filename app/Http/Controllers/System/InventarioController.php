@@ -69,7 +69,7 @@ class InventarioController extends Controller
      */
     public function find()
     {
-        $itens = DB::table($this->table)->get();
+        $itens = DB::table($this->table)->whereNull('deleted_at')->get();
 
         return $this->jsonSuccess('Itens cadastrados', compact('itens'));
     }
@@ -163,5 +163,40 @@ class InventarioController extends Controller
     {
         return DB::table($this->table)->where('nome', $nome)
         ->increment('dose', $dose);
+    }
+
+    /**
+     * Customiza o método de excluir, possibilitanto por exemplo
+     * chamar outros métodos para que excluam dados de outras
+     * tabelas
+     *
+     * @param array $id O ID da linha a ser excluída
+     *
+     * @return void
+     */
+    public function customDelete($id)
+    {
+        $this->delete($this->table, $id);
+    }
+
+    /**
+     * Remove uma linha da tabela e retorna um json
+     *
+     * @param int $id O ID da linha a ser removida
+     *
+     * @return json Uma mensagem descrevendo o resultado da operação
+     */
+    public function deleteItem($id)
+    {
+        try {
+            \DB::beginTransaction();
+            $this->doDelete($id, "Excluiu o item {$id}");
+            \DB::commit();
+            return $this->jsonSuccess('Item excluído com sucesso!');
+
+        } catch (\Throwable $th) {
+            \DB::rollback();
+            return $this->jsonError($th->getMessage());
+        }
     }
 }

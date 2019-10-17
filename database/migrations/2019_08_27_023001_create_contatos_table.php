@@ -18,7 +18,7 @@ class CreateContatosTable extends Migration
             $table->string('nome');
             $table->bigInteger('numero');
             $table->unsignedInteger('paciente_id');
-            $table->foreign('paciente_id')->references('id')->on('pacientes');
+            $table->foreign('paciente_id')->references('id')->on('pacientes')->onDelete('cascade');
 
             $table->boolean('ativo')->default(true);
             $table->integer('versao')->default(1);
