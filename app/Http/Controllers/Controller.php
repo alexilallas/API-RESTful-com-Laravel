@@ -154,6 +154,7 @@ abstract class Controller extends BaseController
         DB::table($table)->where('id', $data['id'])->increment('versao');
     }
 
+
     /**
      * Chama método para excluir e salva dados na tabela de auditoria
      *
@@ -187,6 +188,7 @@ abstract class Controller extends BaseController
         ->update(['deleted_at' => Carbon::now(new \DateTimeZone('America/Sao_Paulo'))]);
     }
 
+
     /**
      * Salva a ação solicitada pelo usuáro usuário na tabela de auditoria
      *
@@ -200,6 +202,7 @@ abstract class Controller extends BaseController
         $auditoriaData = $this->getAuditoriaData($data, $action);
         DB::table('auditoria')->insert($auditoriaData);
     }
+
 
     /**
      * Captura todos os dados que serão salvos na tabela de Auditoria
@@ -224,6 +227,7 @@ abstract class Controller extends BaseController
         return $auditoriaData;
     }
 
+
     /**
      * Captura id da dada requisição
      *
@@ -240,6 +244,7 @@ abstract class Controller extends BaseController
 
         return $id;
     }
+
 
     /**
      * Retorna o usuário que está logado no sistema

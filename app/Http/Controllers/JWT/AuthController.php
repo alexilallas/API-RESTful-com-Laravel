@@ -31,8 +31,10 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $credentials = $this->jsonDecode();
-        // campo deleted_at adicionado ao array de credenciais para que apenas usuário que
-        //não foram excluídos possam logar no sistema
+        /**
+         * campo deleted_at adicionado ao array de credenciais para que apenas usuários que
+         * não foram excluídos possam logar no sistema
+         */
         $credentials['deleted_at'] = null;
 
         if (!$token = $this->jwtAuth->attempt($credentials)) {
