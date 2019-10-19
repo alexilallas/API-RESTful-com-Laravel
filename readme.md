@@ -85,6 +85,7 @@ Se tudo ocorreu certo, será mostrada a página inicial do API.
 |-- modelagem do banco
 |-- ...
 |-- resources
+|-- routes
 |--...
 |-- vendor
 |-- composer.json
@@ -112,6 +113,7 @@ O pontilhado representa outros diretórios que fazem parte parte do padrão da f
 	 - **seeds** - Contém o código responsável pela população das tabelas. A classe `DatabaseSeeder` é a classe principal, responsável por chamar as outras classes que irão inserir popular as tabelas. É importante lembrar que o seeder é apenas para o ambiente de teste, quando a aplicação subir para o ambiente de produção, não é necessário rodar os seeders.
  - **modelagem do banco** - Contém o arquivo `.mwb`com a modelagem do banco, que pode ser aberto com o `MySQL workbench`.
  - **resources** - Contém a única view utilizada pela API, a página inicial.
+ - **routes** - Contém os arquivos de rotas da API, o arquivo utilizado é o `api.php`.
  - **vendor** - Diretório que armazena as bibliotecas baixadas pelo composer. As bibliotecas definidas no `composer.json` são baixadas e colocadas nesta pasta.
  - **composer.json** - Arquivo de configurações de dependências e autoloader.
  
