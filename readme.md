@@ -24,7 +24,7 @@ Após o download das dependências, copie o arquivo `.env.exemple` para `.env`  
 >Este comando irá gerar a chave da aplicação.
 
 
-`php artisan jwt:generate` 
+`php artisan jwt:secret` 
 >Este comando irá gerar a chave do JWT.
 
 
